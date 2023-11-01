@@ -18,13 +18,30 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        "phone",
+        "balance",
+        "dob",
+        "gender",
+        "image"
     ];
     protected $table = "users";
     public function UserRooms(){
-        return $this->hasMany(UserRooms::class, "user_id");
+        return $this->hasMany(UserRoom::class);
+    }
+    public function Merchant(){
+        return $this->hasOne(Merchant::class);
+    }
+    public function Carts(){
+        return $this->hasMany(Cart::class);
+    }
+    public function TransactionHeaders(){
+        return $this->hasMany(TransactionHeader::class);
+    }
+    public function Ratings(){
+        return $this->hasMany(Rating::class);
     }
 
     /**

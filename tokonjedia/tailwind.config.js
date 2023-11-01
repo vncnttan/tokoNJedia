@@ -6,7 +6,16 @@ module.exports = {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+        extend: {
+            boxShadow: {
+                'box': '0 0 15px rgba(0, 0, 0, 0.25)',
+            },
+            colors: {
+                'dark-green': '#00AA5B',
+            },
+            borderColor: ['focus'],
+            outline: ['focus'],
+        },
     },
     plugins: [],
 }
