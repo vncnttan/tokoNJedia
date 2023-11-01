@@ -42,7 +42,7 @@
                             <input type="text" class="input-style">
                             <label for="" class="text-gray-400">Example: email@njpediacx.com</label>
                             <label for="">Password</label>
-                            <input type="passsword" class="input-style">
+                            <input type="password" class="input-style">
                             <label for="" class="text-gray-400">Example: email@njpediacx.com</label>
                             <button class="w-full p-2 my-6 bg-green-500 rounded-lg text-white text-xl font-bold">Register</button>
                         </form>
