@@ -21,5 +21,5 @@ Route::POST("/register", [AuthController::class, "register"]);
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home.home');
 });

@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="min-w-screen h-screen flex flex-col justify-between items-centerbg-white">
-        <div class="w-full h-20 flex justify-center items-center text-3xl text-green-500 font-['Mandala'] font-semibold">
+        <div class="w-full h-20 flex justify-center items-center text-3xl text-green-500 font-semibold">
             <h1>NJpediaCX</h1>
         </div>
         <div class="w-full h-full flex justify-center items-center gap-40">
@@ -25,7 +25,7 @@
                         <h1 class="text-2xl font-bold">Register Now</h1>
                         <div class="w-full flex justify-center items-center text-base gap-1">
                             <h1>Already have an account?</h1>
-                            <a class="text-green-500 cursor-pointer font-medium">Login</a>
+                            <a class="text-green-500 cursor-pointer font-medium" href="/login">Login</a>
                         </div>
                     </div>
                     <div class="w-full h-full flex flex-col justify-start items-center gap-4">

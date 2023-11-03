@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
 @layer components {
     .input-style {
         @apply p-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 text-sm;
