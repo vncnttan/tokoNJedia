@@ -39,6 +39,7 @@
                             <label for="passwordInput">Password</label>
                             <input type="password" id="passwordInput" class="input-style">
                             <p class="text-gray-400">Requirements:</p>
+{{--                            TODO: Create auto requirements checker for the password (Easy Medium Strong)--}}
                             <button class="w-full p-2 my-6 bg-green-500 rounded-lg text-white text-xl font-bold">Login
                             </button>
                         </form>
