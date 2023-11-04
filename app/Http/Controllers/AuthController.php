@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +17,25 @@ class AuthController extends Controller
         return view('pages.forms.register');
     }
     public function login(Request $request){
+        $messages = [
+            'email.required' => 'All Fields Must Be Filled',
+            'password.required' => 'All Fields Must Be Filled',
+        ];
+        $validate =  Validator::make($request->all(),[
+            'email' => ['required'],
+            'password' => ['required']
+        ], $messages);
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        $credential = $request->only('email', 'password');
+        $isLogin = Auth::attempt($credential);
+        if($isLogin){
+            return redirect('/');
+        }
+        return redirect()->back()->withErrors(['auth' => 'Invalid Credential']);
+
     }
     public function register(Request $request){
 
