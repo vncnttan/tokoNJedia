@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
+            $table->string('username')->default("");
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone')->unique();
+            $table->string('phone')->unique()->default("");
             $table->float("balance")->default(0);
-            $table->date("dob");
-            $table->string("gender");
+            $table->date("dob")->nullable(true);
+            $table->string("gender")->default("");
             $table->string("image")->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeMIAx7-Zgl6AdkUXBXZydQPW0EyvuyxAI5w&usqp=CAU");
             $table->timestamps();
         });
