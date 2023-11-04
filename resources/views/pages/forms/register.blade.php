@@ -44,7 +44,8 @@
                             <h1 class="text-sm text-gray-500">or</h1>
                             <hr class="w-full border-t-2 border-gray-300">
                         </div>
-                        <form action="" class="w-full h-full text-sm flex flex-col gap-1">
+                        <form action="/register" method="GET" class="w-full h-full text-sm flex flex-col gap-1">
+                            @csrf
                             <label for="emailInput">Email</label>
                             <input type="text" name="email" id="emailInput" class="input-style">
                             <p class="text-gray-400">Example: email@njpediacx.com</p>
