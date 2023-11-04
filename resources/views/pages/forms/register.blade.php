@@ -24,10 +24,10 @@
             <div
                 class="h-full flex flex-col justify-center place-items-center text-xl w-full md:w-96 md:min-h-96 md:p-8 p-4">
                 <div
-                    class="w-full flex sm:w-96 sm:min-h-96 flex-col justify-start shadow-gray-300 p-8 box-border rounded-md shadow-box gap-8 place-items-center">
+                    class="w-full flex sm:w-96 sm:min-h-96 flex-col justify-start shadow-gray-300 p-8 box-border rounded-md shadow-box gap-4 place-items-center">
                     <div class="w-full flex flex-col justify-center gap-2">
                         <h1 class="text-2xl font-bold">Register Now</h1>
-                        <div class="w-full flex justify-center items-center text-base gap-1">
+                        <div class="w-full flex justify-center items-center text-base gap-1 bg-red">
                             <h1>Don't have an account?</h1>
                             <a class="text-green-500 cursor-pointer font-medium" href="/login">Login</a>
                         </div>
