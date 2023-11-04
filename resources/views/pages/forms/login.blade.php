@@ -10,7 +10,7 @@
 <body>
 <div class="min-w-screen h-screen flex flex-col justify-between items-center bg-white">
     <div class="w-full h-20 flex justify-center items-center text-6xl text-green-500 font-semibold mt-20">
-        <h1 class="font-mandala">TokoNJedia</h1>
+        <h1 class="font-mandala">NJpediaCX</h1>
     </div>
     <div class="w-full h-full flex items-center place-content-evenly justify-evenly">
         <div class="hidden md:block">
