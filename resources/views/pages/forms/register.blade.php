@@ -8,7 +8,7 @@
     <title>NJpediaCX</title>
 </head>
 <body>
-    <div class="min-w-screen h-screen flex flex-col justify-between items-centerbg-white">
+    <div class="w-screen h-screen flex flex-col justify-between items-centerbg-white">
         <div class="w-full h-20 flex justify-center items-center text-3xl text-green-500 font-semibold">
             <h1>NJpediaCX</h1>
         </div>
