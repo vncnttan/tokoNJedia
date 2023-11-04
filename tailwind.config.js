@@ -7,6 +7,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                'mandala': ['Mandala', 'sans-serif']
+            },
             textColor: {
 
             },
