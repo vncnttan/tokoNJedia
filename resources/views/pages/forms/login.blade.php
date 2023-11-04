@@ -6,7 +6,9 @@
     <div class="w-screen h-screen flex flex-col justify-between items-center bg-white py-16" id="login-full-screen">
         <div class="w-full sm:block hidden">
             <div class="flex justify-center items-center text-6xl text-green-500 font-semibold">
-                <h1 class="font-mandala">NJpediaCX</h1>
+                <a href="/">
+                    <h1 class="font-mandala">NJpediaCX</h1>
+                </a>
             </div>
         </div>
         <div class="w-full h-full flex items-center place-content-evenly justify-evenly">

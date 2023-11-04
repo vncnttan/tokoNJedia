@@ -6,7 +6,9 @@
     <div class="h-screen w-screen flex flex-col py-16 justify-between items-center bg-white">
         <div class="w-full sm:block hidden">
             <div class="flex justify-center items-center text-6xl text-green-500 font-semibold">
-                <h1 class="font-mandala">NJpediaCX</h1>
+                <a href="/">
+                    <h1 class="font-mandala">NJpediaCX</h1>
+                </a>
             </div>
         </div>
         <div class="w-full h-full flex items-center place-content-evenly justify-evenly">
@@ -19,7 +21,8 @@
                     </div>
                 </div>
             </div>
-            <div class="h-full flex flex-col justify-center place-items-center text-xl w-full md:w-96 md:min-h-96 md:p-8 p-4">
+            <div
+                class="h-full flex flex-col justify-center place-items-center text-xl w-full md:w-96 md:min-h-96 md:p-8 p-4">
                 <div
                     class="w-full flex sm:w-96 sm:min-h-96 flex-col justify-start shadow-gray-300 p-8 box-border rounded-md shadow-box gap-8 place-items-center">
                     <div class="w-full flex flex-col justify-center gap-2">
@@ -48,7 +51,8 @@
                             <label for="passwordInput">Password</label>
                             <input type="password" id="passwordInput" class="input-style">
                             <p class="text-gray-400">Requirements:</p>
-                            <button class="w-full p-2 my-6 bg-green-500 rounded-lg text-white text-xl font-bold">Register
+                            <button class="w-full p-2 my-6 bg-green-500 rounded-lg text-white text-xl font-bold">
+                                Register
                             </button>
                         </form>
                     </div>
