@@ -46,7 +46,7 @@
                             <input type="text" name="email" id="emailInput" class="input-style">
                             <p class="text-gray-400">Example: email@njpediacx.com</p>
                             <label for="passwordInput">Password</label>
-                            <input type="password" id="passwordInput" class="input-style">
+                            <input type="password" name="password" id="passwordInput" class="input-style">
                             <p class="text-gray-400">Requirements:</p>
                             <button class="w-full p-2 my-6 bg-green-500 rounded-lg text-white text-xl font-bold">Register
                             </button>
