@@ -3,9 +3,9 @@
 @section('title', 'Register')
 
 @section('content')
-    <div class="w-screen h-screen flex flex-col justify-between items-center bg-white">
+    <div class="h-screen w-screen flex flex-col py-16 justify-between items-center bg-white">
         <div class="w-full sm:block hidden">
-            <div class="flex justify-center items-center text-6xl text-green-500 font-semibold sm:mt-20">
+            <div class="flex justify-center items-center text-6xl text-green-500 font-semibold">
                 <h1 class="font-mandala">NJpediaCX</h1>
             </div>
         </div>
@@ -14,12 +14,12 @@
                 <div class="w-full h-full flex flex-col justify-center items-end  text-xl">
                     <div class=" h-full flex flex-col justify-center items-center">
                         <img class="w-96 h-96 object-contain"
-                             src="https://images.tokopedia.net/img/content/register_new.png" alt="">
+                             src="https://images.tokopedia.net/img/content/register_new.png" alt="Register Image">
                         <h1 class="text-2xl font-bold">Agar tidak terputus minimal seratus</h1>
                     </div>
                 </div>
             </div>
-            <div class="h-full flex flex-col justify-center place-items-center text-xl w-full md:w-96 md:min-h-96 md:p-16 p-4">
+            <div class="h-full flex flex-col justify-center place-items-center text-xl w-full md:w-96 md:min-h-96 md:p-8 p-4">
                 <div
                     class="w-full flex sm:w-96 sm:min-h-96 flex-col justify-start shadow-gray-300 p-8 box-border rounded-md shadow-box gap-8 place-items-center">
                     <div class="w-full flex flex-col justify-center gap-2">
@@ -57,7 +57,7 @@
         </div>
         <div class="w-full sm:block hidden">
             <div class="w-full flex justify-center items-center">
-                <span class="text-green-500 font-semibold text-center pb-16 px-20">&copy; DuTiSa, Breaking and Overcoming Challenges Through Courage, Hardwork, and Persistence</span>
+                <span class="text-green-500 font-semibold text-center px-20">&copy; DuTiSa, Breaking and Overcoming Challenges Through Courage, Hardwork, and Persistence</span>
             </div>
         </div>
     </div>

@@ -9,8 +9,8 @@
     <title>@yield('title')</title>
 </head>
 <body>
-<div class="fixed w-screen h-screen bg-white">
-    <div class="min-h-screen w-screen flex flex-col justify-between items-center">
+<div class="bg-white">
+    <div class="flex flex-col justify-between items-center">
         {{--    @include('components.navbar')--}}
         @yield('content')
     </div>

@@ -3,9 +3,9 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="w-screen h-screen flex flex-col justify-between items-center bg-white" id="login-full-screen">
+    <div class="w-screen h-screen flex flex-col justify-between items-center bg-white py-16" id="login-full-screen">
         <div class="w-full sm:block hidden">
-            <div class="flex justify-center items-center text-6xl text-green-500 font-semibold sm:mt-20">
+            <div class="flex justify-center items-center text-6xl text-green-500 font-semibold">
                 <h1 class="font-mandala">NJpediaCX</h1>
             </div>
         </div>
@@ -14,7 +14,7 @@
                 <div
                     class="w-full flex sm:w-96 sm:min-h-96 flex-col justify-start bg-white shadow-gray-300 p-8 box-border rounded-md shadow-box gap-8 place-items-center">
                     <div class="w-full flex flex-col justify-center gap-2">
-                        <h1 class="text-2xl font-bold">Login Now</h1>
+                        <h1 class="text-2xl font-bold">Welcome back!</h1>
                         <div class="w-full flex justify-center items-center text-base gap-1">
                             <h1>Don't have an account?</h1>
                             <a class="text-green-500 cursor-pointer font-medium" href="/register">Register</a>
@@ -48,7 +48,7 @@
         </div>
         <div class="w-full sm:block hidden">
             <div class="w-full flex justify-center items-center">
-                <span class="text-green-500 font-semibold text-center pb-16 px-20">&copy; DuTiSa, Breaking and Overcoming Challenges Through Courage, Hardwork, and Persistence</span>
+                <span class="text-green-500 font-semibold text-center px-20">&copy; DuTiSa, Breaking and Overcoming Challenges Through Courage, Hardwork, and Persistence</span>
             </div>
         </div>
     </div>
