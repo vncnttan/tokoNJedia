@@ -18,6 +18,11 @@ Route::GET("/login", [AuthController::class, "loginPage"]);
 Route::GET("/register", [AuthController::class, "registerPage"]);
 Route::POST("/login", [AuthController::class, "login"]);
 Route::POST("/register", [AuthController::class, "register"]);
+Route::GET("/logout", [AuthController::class, "logout"]);
+
+Route::GET("/profile", function(){
+    return view('pages.profile.profile');
+});
 
 
 Route::get('/', function () {
