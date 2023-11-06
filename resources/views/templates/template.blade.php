@@ -7,9 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    @livewireStyles
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body>
@@ -18,8 +15,6 @@
         @yield('content')
         @include('components.footer')
     </div>
-    @livewire('livewire-ui-modal')
-    @livewireScripts
 </body>
 
 </html>
