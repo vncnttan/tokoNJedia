@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('username')->default("CX231");
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('phone')->unique()->nullable(true);
             $table->float("balance")->default(0);
             $table->date("dob")->nullable(true);
             $table->string("gender")->default("");
+            $table->string('google_id')->nullable();
             $table->string("image")->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeMIAx7-Zgl6AdkUXBXZydQPW0EyvuyxAI5w&usqp=CAU");
             $table->timestamps();
         });
