@@ -15,13 +15,15 @@
             <div class="hidden lg:block">
                 <div class="w-full h-full flex flex-col justify-center items-end  text-xl">
                     <div class=" h-full flex flex-col justify-center items-center">
-                        <img class="w-96 h-96 object-contain" src="https://images.tokopedia.net/img/content/register_new.png"
-                            alt="Register Image">
+                        <img class="w-96 h-96 object-contain"
+                             src="https://images.tokopedia.net/img/content/register_new.png"
+                             alt="Register Image">
                         <h1 class="text-2xl font-bold">Agar tidak terputus minimal seratus</h1>
                     </div>
                 </div>
             </div>
-            <div class="h-full flex flex-col justify-center items-center text-xl w-full md:w-96 md:min-h-96 md:p-8 p-4 box-border">
+            <div
+                class="h-full flex flex-col justify-center items-center text-xl w-full md:w-96 md:min-h-96 md:p-8 p-4 box-border">
                 <div
                     class="w-full flex sm:w-96 sm:min-h-96 flex-col justify-start shadow-gray-300 p-8 box-border rounded-md shadow-box gap-4 place-items-center">
                     <div class="w-full flex flex-col justify-center items-center gap-2">
@@ -32,12 +34,13 @@
                         </div>
                     </div>
                     <div class="w-full h-full flex flex-col justify-start items-center gap-4">
-                        <button
-                            class="relative w-full flex justify-center items-center border-solid border-gray-400 border-2 rounded-xl p-2 font-medium text-gray-500 text-base">
-                            <img class="absolute w-5 h-5 left-0 m-6 box-border" src="{{ asset('assets/google.png') }}"
-                                alt="">
+                        <a href="{{ url('auth/google') }}"
+                           class="relative w-full flex justify-center items-center border-solid border-gray-400 border-2 rounded-xl p-2 font-medium text-gray-500 text-base">
+                            <img class="absolute w-5 h-5 left-0 m-6 box-border"
+                                 src="{{ asset('assets/google.png') }}"
+                                 alt="">
                             Google
-                        </button>
+                        </a>
                         <div class="w-full flex justify-center items-center gap-2">
                             <hr class="w-full border-t-2 border-gray-300">
                             <h1 class="text-sm text-gray-500">or</h1>

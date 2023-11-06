@@ -25,7 +25,8 @@ class User extends Authenticatable
         "balance",
         "dob",
         "gender",
-        "image"
+        "image",
+        "google_id"
     ];
     protected $table = "users";
     public function UserRooms(){

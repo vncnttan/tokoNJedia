@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Csp\AddCspHeaders;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +29,10 @@ Route::GET("/profile", function(){
 
 Route::get('/', function () {
     return view('pages.home.home');
-});
+})->name('home');
+
+// Google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+

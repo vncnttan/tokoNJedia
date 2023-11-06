@@ -24,12 +24,12 @@
                         </div>
                     </div>
                     <div class="w-full h-full flex flex-col justify-start items-center gap-4">
-                        <button
-                            class="relative w-full flex justify-center items-center border-solid border-gray-400 border-2 rounded-xl p-2 font-medium text-gray-500 text-base">
+                        <a href="{{ url('auth/google') }}"
+                           class="relative w-full flex justify-center items-center border-solid border-gray-400 border-2 rounded-xl p-2 font-medium text-gray-500 text-base">
                             <img class="absolute w-5 h-5 left-0 m-6 box-border" src="{{ asset('assets/google.png') }}"
                                  alt="">
                             Google
-                        </button>
+                        </a>
                         <div class="w-full flex justify-center items-center gap-2">
                             <hr class="w-full border-t-2 border-gray-300">
                             <h1 class="text-sm text-gray-500">or</h1>
@@ -44,10 +44,10 @@
                             <input type="password" name="password" id="passwordInput" class="input-style">
                             <p class="text-gray-400">Requirements:</p>
                             @if ($errors->any())
-                            <p class="text-red-500 w-full flex justify-center">
-                                {{ $errors->first() }}
-                            </p>
-                        @endif
+                                <p class="text-red-500 w-full flex justify-center">
+                                    {{ $errors->first() }}
+                                </p>
+                            @endif
                             <button class="w-full p-2 my-4 bg-green-500 rounded-lg text-white text-xl font-bold">
                                 Login
                             </button>
