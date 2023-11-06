@@ -1,7 +1,7 @@
 <div class="flex-grow w-full rounded-lg shadow-card  bg-white">
     <div class="w-full h-full p-8 box-border flex justify-center items-center gap-8">
         <div
-            class="w-[330px] h-full p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
+            class="w-[280px] h-full p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
             <div class="w-full">
                 <img class="w-full h-full object-cover" src="{{ Auth::user()->image }}" alt="">
             </div>
@@ -21,7 +21,7 @@
                         <h1 class="pr-4">
                             {{ Auth::user()->username }}
                         </h1>
-                        <button class="text-green-500">Edit</button>
+                        <button class="text-green-500" onclick="Livewire.emit('openModal', 'livewire.edit-username-modal')">Edit</button>
                     @else
                         <button class="text-green-500">Input Username</button>
                     @endif
