@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('transaction_headers', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("user_id");
+            $table->uuid('id', 36)->primary();
+            $table->uuid("user_id");
             $table->date("date");
             $table->string("destination_address");
-            $table->unsignedBigInteger("payment_method_id");
+            $table->uuid("payment_method_id");
             $table->timestamps();
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("payment_method_id")->references("id")->on("payment_methods")->onUpdate("CASCADE")->onDelete("CASCADE");

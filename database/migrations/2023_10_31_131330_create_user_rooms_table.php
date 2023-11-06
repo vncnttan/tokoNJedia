@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('user_rooms', function (Blueprint $table) {
-            $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("room_id");
+            $table->uuid("user_id");
+            $table->uuid("room_id");
             $table->timestamps();
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("room_id")->references("id")->on("rooms")->onUpdate("CASCADE")->onDelete("CASCADE");

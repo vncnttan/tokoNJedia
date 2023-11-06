@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('transaction_details', function (Blueprint $table) {
-            $table->unsignedBigInteger("transaction_id");
-            $table->unsignedBigInteger("product_id");
+            $table->uuid("transaction_id");
+            $table->uuid("product_id");
             $table->integer("quantity");
             $table->timestamps();
             $table->foreign("transaction_id")->references("id")->on("transaction_headers")->onUpdate("CASCADE")->onDelete("CASCADE");

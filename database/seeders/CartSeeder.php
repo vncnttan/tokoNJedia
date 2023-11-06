@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CartSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class CartSeeder extends Seeder
      */
     public function run()
     {
-        //
+//        DB::table('cart')->insert([
+//
+//        ]);
     }
 }

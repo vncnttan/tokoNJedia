@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductCategory>
@@ -17,7 +18,8 @@ class ProductCategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'id' => Str::uuid(36),
+            'name' => $this->faker->text
         ];
     }
 }

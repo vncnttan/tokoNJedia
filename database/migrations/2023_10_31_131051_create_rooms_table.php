@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id', 36)->primary();
             $table->timestamps();
         });
     }
