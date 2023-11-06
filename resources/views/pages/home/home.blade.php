@@ -1,4 +1,4 @@
-    @extends('templates.template-with-navbar')
+    @extends('templates.template')
 
     @section('title', 'Home')
 
