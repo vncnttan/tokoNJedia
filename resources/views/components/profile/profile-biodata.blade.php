@@ -23,7 +23,7 @@
                         </h1>
                         <button class="text-green-500" onclick="Livewire.emit('openModal', 'edit-username-modal')">Edit</button>
                     @else
-                        <button class="text-green-500">Input Username</button>
+                        <button class="text-green-500" onclick="Livewire.emit('openModal', 'insert-username-modal')">Input Username</button>
                     @endif
                 </div>
                 <div class="w-full py-4 flex items-center">
@@ -34,7 +34,7 @@
                         </h1>
                         <button class="text-green-500">Edit Date Of Birth</button>
                     @else
-                        <button class="text-green-500">Input Date of Birth</button>
+                        <button class="text-green-500" onclick="Livewire.emit('openModal', 'insert-dob-modal')">Input Date of Birth</button>
                     @endif
                 </div>
                 <div class="w-full py-4 flex items-center">

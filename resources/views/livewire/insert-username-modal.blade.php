@@ -1,7 +1,6 @@
 <div class="flex flex-col p-8 gap-8 box-border">
-    <h1 class="w-full font-bold text-2xl">Edit Username</h1>
+    <h1 class="w-full font-bold text-2xl">Insert Username</h1>
     <form class="w-full flex flex-col gap-8" action="/profile" method="POST">
-        @method('PUT')
         @csrf
         <div class="w-full flex flex-col gap-1 ">
             <p class="text-sm text-gray-500">Username</p>
