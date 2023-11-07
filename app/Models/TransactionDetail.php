@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TransactionDetail extends Model
 {
@@ -14,10 +15,12 @@ class TransactionDetail extends Model
         "product_id",
         "quantity"
     ];
-    public function TransactionHeader(){
+    public function TransactionHeader(): BelongsTo
+    {
         return $this->belongsTo(TransactionHeader::class, "transaction_header");
     }
-    public function Product(){
+    public function Product(): BelongsTo
+    {
         return $this->belongsTo(Product::class, "product_id");
     }
 }

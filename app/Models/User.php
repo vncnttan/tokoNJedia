@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,6 +13,9 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -29,19 +34,24 @@ class User extends Authenticatable
         "google_id"
     ];
     protected $table = "users";
-    public function UserRooms(){
+    public function UserRooms(): HasMany
+    {
         return $this->hasMany(UserRoom::class);
     }
-    public function Merchant(){
+    public function Merchant(): HasOne
+    {
         return $this->hasOne(Merchant::class);
     }
-    public function Carts(){
+    public function Carts(): HasMany
+    {
         return $this->hasMany(Cart::class);
     }
-    public function TransactionHeaders(){
+    public function TransactionHeaders(): HasMany
+    {
         return $this->hasMany(TransactionHeader::class);
     }
-    public function Ratings(){
+    public function Ratings(): HasMany
+    {
         return $this->hasMany(Rating::class);
     }
 
