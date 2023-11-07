@@ -17,9 +17,9 @@
         @include('components.navbar')
         @yield('content')
         @include('components.footer')
-        @livewire('livewire-ui-modal')
-        @livewireScripts
     </div>
+    @livewire('livewire-ui-modal')
+    @livewireScripts
 </body>
 
 </html>

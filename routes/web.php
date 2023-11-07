@@ -27,7 +27,7 @@ Route::GET("/logout", [AuthController::class, "logout"]);
 Route::GET("/profile", function(){
     return view('pages.profile.profile');
 });
-Route::PUT("/profile", [UserController::class, 'update_username']);
+Route::MATCH(["POST", "PUT"],"/profile", [UserController::class, 'storeOrUpdateUsername']);
 
 
 Route::get('/', function () {

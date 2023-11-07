@@ -13,11 +13,9 @@
                     <a class="nav-button " href="/cart">
                         <x-bi-cart class="icon-size" />
                     </a>
-                    @auth
-                        <a class="nav-button" href="/chat">
-                            <x-bi-chat-dots class="icon-size" />
-                        </a>
-                    @endauth
+                    <a class="nav-button" href="/chat">
+                        <x-bi-chat-dots class="icon-size" />
+                    </a>
                 </div>
                 <div class="border-r-2 border-gray-400 h-full"></div>
 
