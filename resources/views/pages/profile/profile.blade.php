@@ -15,7 +15,7 @@
                 <div class="w-full flex flex-col items-center gap-4 p-4 box-border border-b-2 ">
                     <div class="w-full flex justify-between items-center">
                         <div class="flex items-center gap-1">
-                            <x-far-money-bill-alt class="icon-size" />
+                            {{-- <x-far-money-bill-alt class="icon-size" /> --}}
                             <h1>Balance</h1>
                         </div>
                         <h1 class="">Rp{{ Auth::user()->balance }}</h1>
@@ -24,7 +24,7 @@
                 <form class="w-full flex items-center gap-4 p-4 box-border hover:bg-gray-200 cursor-pointer" action="/logout"
                     method="GET">
                     <button class="w-full flex items-center gap-1" type="submit">
-                        <x-eos-logout class="icon-size" />
+                        {{-- <x-eos-logout class="icon-size" /> --}}
                         <h1>Logout</h1>
                     </button>
                 </form>
