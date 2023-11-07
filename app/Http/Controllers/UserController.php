@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function update_username(Request $request){
+
+    public function storeOrUpdateUsername(Request $request){
         $user = User::find(Auth::user()->id);
         if($user){
             $validate = Validator::make($request->all(), [
