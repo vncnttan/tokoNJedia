@@ -10,4 +10,8 @@ class InsertDobModal extends ModalComponent
     {
         return view('livewire.insert-dob-modal');
     }
+    public static function modalMaxWidth(): string
+    {
+        return 'lg';
+    }
 }

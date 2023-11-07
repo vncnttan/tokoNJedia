@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -64,6 +64,7 @@ class AuthController extends Controller
             return redirect()->back()->withErrors($validate)->withInput();
         }
         $user = new User();
+        $user->id = Str::uuid();
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
