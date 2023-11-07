@@ -11,6 +11,9 @@ class Merchant extends Model
 {
     use HasFactory;
     protected $table = "merchants";
+
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         "name",
         "image",

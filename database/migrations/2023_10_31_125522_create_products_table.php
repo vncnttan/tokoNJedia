@@ -24,7 +24,7 @@ return new class extends Migration
             $table->uuid("product_category_id");
             $table->timestamps();
             $table->foreign("merchant_id")->references("id")->on("merchants")->onUpdate("CASCADE")->onDelete("CASCADE");
-            $table->foreign("product_category_id")->references("id")->on("merchants")->onUpdate("CASCADE")->onDelete("CASCADE");
+            $table->foreign("product_category_id")->references("id")->on("product_categories")->onUpdate("CASCADE")->onDelete("CASCADE");
         });
     }
 

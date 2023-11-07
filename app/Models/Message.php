@@ -10,6 +10,9 @@ class Message extends Model
 {
     use HasFactory;
     protected $table = "messages";
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         "message",
         "room_id"

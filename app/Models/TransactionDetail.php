@@ -10,6 +10,9 @@ class TransactionDetail extends Model
 {
     use HasFactory;
     protected $table = "transaction_details";
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         "transaction_id",
         "product_id",

@@ -10,6 +10,9 @@ class Rating extends Model
 {
     use HasFactory;
     protected $table = "ratings";
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         "user_id",
         "product_id",

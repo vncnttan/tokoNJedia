@@ -10,6 +10,9 @@ class Cart extends Model
 {
     use HasFactory;
     protected $table = "carts";
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         "user_id",
         "product_id",

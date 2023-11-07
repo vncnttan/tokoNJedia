@@ -11,6 +11,9 @@ class TransactionHeader extends Model
 {
     use HasFactory;
     protected $table = "transaction_headers";
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         "user_id",
         "date",

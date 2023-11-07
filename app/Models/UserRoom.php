@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserRoom extends Model
 {
     use HasFactory;
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     public function User(): BelongsTo
     {
         return $this->belongsTo(User::class, "user_id");

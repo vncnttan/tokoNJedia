@@ -17,8 +17,11 @@ class ProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+
     public function definition()
     {
+//        dd(ProductCategory::all()->random()->id);
         return [
             'id' => Str::uuid(),
             'name' => $this->faker->name,
