@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
 {
@@ -18,19 +21,24 @@ class Product extends Model
         "product_category_id",
         "stock"
     ];
-    public function Merchant(){
+    public function Merchant(): BelongsTo
+    {
         return $this->belongsTo(Merchant::class, "merchant_id");
     }
-    public function ProductCategory(){
+    public function ProductCategory(): BelongsTo
+    {
         return $this->belongsTo(Merchant::class, "product_category_id");
     }
-    public function Ratings(){
+    public function Ratings(): HasMany
+    {
         return $this->hasMany(Rating::class);
     }
-    public function TransactionDetails(){
+    public function TransactionDetails(): HasMany
+    {
         return $this->hasMany(TransactionDetail::class);
     }
-    public function Cart(){
+    public function Cart(): HasOne
+    {
         return $this->hasOne(Cart::class);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TransactionHeader extends Model
 {
@@ -15,10 +17,12 @@ class TransactionHeader extends Model
         "destination_address",
         "payment_method_id"
     ];
-    public function TransactionDetails(){
+    public function TransactionDetails(): HasMany
+    {
         return $this->hasMany(TransactionDetail::class);
     }
-    public function User(){
+    public function User(): BelongsTo
+    {
         return $this->belongsTo(User::class, "user_id");
     }
 }

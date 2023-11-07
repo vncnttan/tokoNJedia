@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Message extends Model
 {
@@ -13,7 +14,8 @@ class Message extends Model
         "message",
         "room_id"
     ];
-    public function Room(){
+    public function Room(): BelongsTo
+    {
         return $this->belongsTo(Room::class, "room_id");
     }
 }

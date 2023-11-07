@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id', 36)->primary();
             $table->string("message");
-            $table->unsignedBigInteger("room_id");
+            $table->uuid("room_id");
             $table->timestamps();
             $table->foreign("room_id")->references("id")->on("rooms")->onUpdate("CASCADE")->onDelete("CASCADE");
         });
