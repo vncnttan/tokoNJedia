@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 
@@ -22,9 +23,11 @@ Route::POST("/login", [AuthController::class, "login"]);
 Route::POST("/register", [AuthController::class, "register"]);
 Route::GET("/logout", [AuthController::class, "logout"]);
 
+// Profile
 Route::GET("/profile", function(){
     return view('pages.profile.profile');
 });
+Route::PUT("/profile", [UserController::class, 'update_username']);
 
 
 Route::get('/', function () {
