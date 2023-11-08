@@ -25,10 +25,12 @@ Route::POST("/register", [AuthController::class, "register"]);
 Route::GET("/logout", [AuthController::class, "logout"]);
 
 // Profile
+
 Route::GET("/profile", function(){
     return view('pages.profile.profile');
 });
-Route::MATCH(["POST", "PUT"],"/profile", [UserController::class, 'storeOrUpdateUsername']);
+Route::MATCH(["POST", "PUT"],"/profile/username", [UserController::class, 'updateUsername']);
+Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob']);
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

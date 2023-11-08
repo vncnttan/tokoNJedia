@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @section('content')
-    <div class="max-w-7xl w-full flex-1 mx-auto flex justify-center gap-8 p-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl w-full flex-1  mx-auto flex justify-center gap-8 p-4 sm:px-6 lg:px-8">
         <div class="flex-grow w-96 rounded-lg shadow-card bg-white">
             <div class="relative w-full h-full flex flex-col items-center">
                 <div class="w-full flex items-center gap-4 p-4 box-border border-b-2">
