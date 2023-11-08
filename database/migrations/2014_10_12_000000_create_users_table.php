@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -14,7 +16,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id', 36)->primary();
+            $table->uuid('id', 36)->default(DB::raw('(UUID())'))->primary();
             $table->string('username')->default("No username");
             $table->string('email')->unique();
             $table->string('password')->nullable();
