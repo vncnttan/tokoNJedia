@@ -24,6 +24,8 @@ class Product extends Model
         "product_category_id",
         "stock"
     ];
+
+
     public function Merchant(): BelongsTo
     {
         return $this->belongsTo(Merchant::class, "merchant_id");

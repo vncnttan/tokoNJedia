@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
@@ -30,9 +31,7 @@ Route::GET("/profile", function(){
 Route::MATCH(["POST", "PUT"],"/profile", [UserController::class, 'storeOrUpdateUsername']);
 
 
-Route::get('/', function () {
-    return view('pages.home.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);

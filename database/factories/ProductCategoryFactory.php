@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\ProductCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductCategory>
+ * @extends Factory<ProductCategory>
  */
 class ProductCategoryFactory extends Factory
 {
@@ -15,10 +16,10 @@ class ProductCategoryFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            'id' => Str::uuid(36),
+            'id' => Str::uuid(),
             'name' => $this->faker->text
         ];
     }

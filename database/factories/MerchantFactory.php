@@ -22,7 +22,7 @@ class MerchantFactory extends Factory
         return [
             'id' => Str::uuid(),
             'name' => $this->faker->name,
-            'image' => $this->faker->image,
+            'image' => 'https://source.unsplash.com/random',
             'user_id' => User::all()->random()->id
         ];
     }

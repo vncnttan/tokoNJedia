@@ -27,7 +27,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->name,
             'price' => $this->faker->numberBetween(1000, 100000),
             'description' => $this->faker->realText,
-            'image' => $this->faker->image,
+            'image' => 'https://source.unsplash.com/random',
             'stock' => $this->faker->numberBetween(0, 20),
             'merchant_id' => Merchant::all()->random()->id,
             'product_category_id' => ProductCategory::all()->random()->id
