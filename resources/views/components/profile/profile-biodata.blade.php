@@ -55,9 +55,9 @@
                             <h1 class="pr-4">
                                 {{ Auth::user()->gender }}
                             </h1>
-                            <button class="text-green-500">Edit Gender</button>
+                            <button class="text-green-500" onclick="Livewire.emit('openModal', 'edit-gender-modal')">Edit Gender</button>
                         @else
-                            <button class="text-green-500">Input Gender</button>
+                            <button class="text-green-500" onclick="Livewire.emit('openModal', 'edit-gender-modal')">Input Gender</button>
                         @endif
                     </div>
                     <div class="w-full  flex items-center">
@@ -66,9 +66,9 @@
                             <h1 class="pr-4">
                                 {{ Auth::user()->phone }}
                             </h1>
-                            <button class="text-green-500">Edit Phone Number</button>
+                            <button class="text-green-500" onclick="Livewire.emit('openModal', 'edit-phone-modal')">Edit Phone Number</button>
                         @else
-                            <button class="text-green-500">Input Phone Number</button>
+                            <button class="text-green-500" onclick="Livewire.emit('openModal', 'edit-phone-modal')">Input Phone Number</button>
                         @endif
                     </div>
                 </div>
