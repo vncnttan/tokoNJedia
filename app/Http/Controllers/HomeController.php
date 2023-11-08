@@ -13,20 +13,16 @@ class HomeController extends Controller
     //
     public function index(): Factory|View|Application
     {
-        $recommendedProducts = Product::
-//        with(['merchant' => function ($query) {
-//            $query->select('id', 'city');
-//        }])->
-        withCount(['transactionDetails as sold' => function ($query) {
-            $query->select(DB::raw("SUM(quantity)"));
-        }])->
-        with(['ratings'])
+        $recommendedProducts = Product::with(['merchant.location', 'ratings'])
+            ->withCount(['transactionDetails as sold' => function ($query) {
+                $query->select(DB::raw("SUM(quantity)"));
+            }])
             ->get()
             ->map(function ($product) {
-                $product->average_rating = $product->ratings->avg('rating');
-                unset($product->ratings); // Remove the ratings collection if you don't need it after calculating the average
+                $product->merchant_city = $product->merchant->location->city ?? 'N/A';
+                $product->average_rating = $product->ratings->avg('rating') ?? 0;
                 return $product;
-            })->random(7);
+            })->random(8);
         return view('pages.home.home', ['recommendedProducts' => $recommendedProducts]);
     }
 }

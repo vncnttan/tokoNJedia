@@ -13,6 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     public $incrementing = false;
     protected $keyType = 'string';
 
@@ -33,22 +34,32 @@ class User extends Authenticatable
         "google_id"
     ];
     protected $table = "users";
+
     public function UserRooms(): HasMany
     {
         return $this->hasMany(UserRoom::class);
     }
+
+    public function Location(): HasMany
+    {
+        return $this->hasMany(Location::class, 'location_id');
+    }
+
     public function Merchant(): HasOne
     {
         return $this->hasOne(Merchant::class);
     }
+
     public function Carts(): HasMany
     {
         return $this->hasMany(Cart::class);
     }
+
     public function TransactionHeaders(): HasMany
     {
         return $this->hasMany(TransactionHeader::class);
     }
+
     public function Ratings(): HasMany
     {
         return $this->hasMany(Rating::class);
