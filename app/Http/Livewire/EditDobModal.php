@@ -11,9 +11,6 @@ class EditDobModal extends ModalComponent
 {
     public $dob;
 
-    protected $rules = [
-        'dob' => 'required',
-    ];
     public function mount(){
         $this->dob = Auth::user()->dob;
     }
