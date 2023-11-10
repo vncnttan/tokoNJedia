@@ -3,9 +3,17 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="xl:mx-80 my-10 md:mx-2 flex flex-row flex-wrap gap-4">
-        @foreach($recommendedProducts as $product)
-            <x-product-card :product="$product" />
-        @endforeach
+    <div class="xl:mx-80 my-10 md:mx-2 flex flex-col gap-20">
+        <div class="flex flex-col gap-5">
+            <x-promo-carousel />
+        </div>
+        <div class="flex flex-col gap-5">
+            <h1 class="text-4xl font-bold">Recommended for you</h1>
+            <div class="flex flex-row flex-wrap gap-4">
+                @foreach($recommendedProducts as $product)
+                    <x-product-card :product="$product"/>
+                @endforeach
+            </div>
+        </div>
     </div>
 @endsection
