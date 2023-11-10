@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    //
+
     public function index(): Factory|View|Application
     {
         $recommendedProducts = Product::with(['merchant.location', 'ratings'])

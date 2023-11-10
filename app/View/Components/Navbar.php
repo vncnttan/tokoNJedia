@@ -2,15 +2,14 @@
 
 namespace App\View\Components;
 
-use App\Models\Promo;
+use Bezhanov\Faker\ProviderCollectionHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class PromoCarousel extends Component
+class Navbar extends Component
 {
-    public $promos;
     /**
      * Create a new component instance.
      *
@@ -18,7 +17,7 @@ class PromoCarousel extends Component
      */
     public function __construct()
     {
-        $this->promos = Promo::all();
+        //
     }
 
     /**
@@ -26,8 +25,16 @@ class PromoCarousel extends Component
      *
      * @return Application|Factory|View
      */
-    public function render(): View|Factory|Application
+    public function render()
     {
-        return view('components.product.promo-carousel');
+        $faker = \Faker\Factory::create();
+        ProviderCollectionHelper::addAllProvidersTo($faker);
+
+        $productNames = [];
+        for ($i = 0; $i < 5; $i++) {
+            $productNames = [...$productNames,  $faker->productName()];
+        }
+
+        return view('components.navbar', ['product_names' => $productNames]);
     }
 }

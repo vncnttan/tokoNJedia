@@ -27,6 +27,6 @@ class ProductCard extends Component
      */
     public function render(): View|Factory|Application
     {
-        return view('components.product-card');
+        return view('components.product.product-card');
     }
 }

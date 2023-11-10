@@ -22,9 +22,13 @@ class ProductFactory extends Factory
     public function definition()
     {
 //        dd(ProductCategory::all()->random()->id);
+
+        $faker = \Faker\Factory::create();
+        $faker->addProvider(new \Bezhanov\Faker\Provider\Commerce($faker));
+
         return [
             'id' => Str::uuid(),
-            'name' => $this->faker->name,
+            'name' => $faker->productName,
             'price' => $this->faker->numberBetween(1000, 100000),
             'description' => $this->faker->realText,
             'image' => 'https://source.unsplash.com/random',
