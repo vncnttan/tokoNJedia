@@ -41,7 +41,7 @@
         <div class="w-full box-border flex flex-col py-2 px-12">
             <div class="flex justify-between items-center gap-8 h-12">
                 <div class="h-full flex justify-center items-center">
-                    <a class="text-green-500 font-semibold font-mandala text-2xl" href="/">NJpediaCX</a>
+                    <a class="text-green-500 font-semibold font-mandala text-3xl" href="/">TokoNJedia</a>
                 </div>
                 <div class="w-full h-full flex justify-between items-center gap-4">
                     <a class="nav-button">Category</a>
