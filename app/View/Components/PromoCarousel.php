@@ -2,22 +2,23 @@
 
 namespace App\View\Components;
 
+use App\Models\Promo;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ProductCard extends Component
+class PromoCarousel extends Component
 {
-    public $product;
+    public $promos;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($product)
+    public function __construct()
     {
-        $this->product = $product;
+        $this->promos = Promo::all();
     }
 
     /**
@@ -27,6 +28,6 @@ class ProductCard extends Component
      */
     public function render(): View|Factory|Application
     {
-        return view('components.product-card');
+        return view('components.promo-carousel');
     }
 }

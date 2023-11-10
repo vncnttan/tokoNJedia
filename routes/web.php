@@ -25,15 +25,15 @@ Route::POST("/register", [AuthController::class, "register"]);
 Route::GET("/logout", [AuthController::class, "logout"]);
 
 // Profile
-
 Route::GET("/profile", function(){
     return view('pages.profile.profile');
 });
 Route::MATCH(["POST", "PUT"],"/profile/username", [UserController::class, 'updateUsername']);
 Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob']);
 
-
+// Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
 
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
