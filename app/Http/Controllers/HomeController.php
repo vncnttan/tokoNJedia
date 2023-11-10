@@ -22,7 +22,13 @@ class HomeController extends Controller
                 $product->merchant_city = $product->merchant->location->city ?? 'N/A';
                 $product->average_rating = $product->ratings->avg('rating') ?? 0;
                 return $product;
-            })->random(8);
+            })->random(6);
         return view('pages.home.home', ['recommendedProducts' => $recommendedProducts]);
+    }
+
+    public function detail(string $productId): Factory|View|Application
+    {
+        $product = Product::where('id', $productId)->first();
+        return view('pages.home.product-detail', ['product' => $product]);
     }
 }

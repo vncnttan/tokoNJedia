@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.7",
+        "mbezhanov/faker-provider-collection": "^2.0",
         "spatie/laravel-csp": "^2.8",
         "wire-elements/modal": "^1.0",
         "yoeunes/toastr": "^2.3"

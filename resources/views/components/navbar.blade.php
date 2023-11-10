@@ -1,4 +1,4 @@
-<div class="relative h-20 w-full z-20">
+<div class="relative h-20 w-full z-50">
     <div class="fixed top-0 left-0 right-0 bg-white border-b-2 border-solid border-gray-100">
         <div class="w-full h-20 flex justify-between items-center gap-8 p-6 box-border">
             <div class="h-full flex justify-center items-center">
