@@ -6,41 +6,41 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Kreait\Firebase\Factory;
+use Yoeunes\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
 
-    public function updateUsername(Request $request){
-        $user = User::find(Auth::user()->id);
-        if($user){
-            $validate = Validator::make($request->all(), [
-                'username' => 'required|min:3|max:20|unique:users,username'.$user->id,
+    public function upload(Request $request){
+        $this->validate($request, [
+            'file' => 'required|file',
+        ]);
+
+        $file = $request->file('file');
+        $fileName = time() . '.' . $file->getClientOriginalExtension();
+        $firebaseStoragePath = '/images';
+
+        $firebaseFactory = (new Factory)->withServiceAccount(base_path('storage/app/firebase_credentials.json'));
+        $storage = $firebaseFactory->createStorage();
+        $defaultBucket = $storage->getBucket();
+
+        try {
+            $stream = fopen($file->getRealPath(), 'r');
+            $defaultBucket->upload($stream, [
+                'name' => $firebaseStoragePath . '/' . $fileName
             ]);
-            if($validate->fails()){
-                return redirect()->back()->withErrors($validate)->withInput()->with('error', 'Username must be filled');
+
+            fclose($stream);
+            toastr()->success('Update Profile Image Success', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back();
+        } catch (\Exception $e) {
+            if (isset($stream) && is_resource($stream)) {
+                fclose($stream);
             }
-            $user->username = $request->username;
-            $user->save();
+            dd($e);
+            toastr()->error('Update Profile Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back();
         }
-        return redirect('/profile');
-    }
-    public function updateDob(Request $request){
-        $user = User::find(Auth::user()->id);
-        if($user){
-            $validate = Validator::make($request->all(), [
-                'dob' => [
-                    'required',
-                    'date_format:m/d/Y',
-                    'after_or_equal:01/01/1970',
-                    'before_or_equal:12/31/2009'
-                ],
-            ]);
-            if($validate->fails()){
-                return redirect()->back()->toastr()->error('DOB must be filled');
-            }
-            $user->dob = $request->dob;
-            $user->save();
-        }
-        return redirect('/profile');
     }
 }

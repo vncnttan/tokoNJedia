@@ -34,7 +34,7 @@ class EditUsernameModal extends ModalComponent
         }
         $validator = Validator::make(
             ['username' => $this->username],
-            ['username' => 'required|min:3'],
+            ['username' => 'required|min:3|max:10'],
             ['required' => 'The :attribute field is required'],
         );
         if ($validator->fails()) {

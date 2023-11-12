@@ -30,6 +30,7 @@ Route::GET("/profile", function(){
 });
 Route::MATCH(["POST", "PUT"],"/profile/username", [UserController::class, 'updateUsername']);
 Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob']);
+Route::POST("/profile/image", [UserController::class, 'upload']);
 
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
