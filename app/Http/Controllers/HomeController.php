@@ -28,7 +28,6 @@ class HomeController extends Controller
 
     public function detail(string $productId): Factory|View|Application
     {
-        $product = Product::where('id', $productId)->first();
-        return view('pages.home.product-detail', ['product' => $product]);
+        return view('pages.home.product-detail', ['product_id' => $productId]);
     }
 }

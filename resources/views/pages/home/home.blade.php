@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="xl:mx-80 my-10 md:mx-2 flex flex-col gap-20">
+    <div class="xl:mx-80 mt-2 mb-10 md:mx-2 flex flex-col gap-20">
         <div class="flex flex-col gap-5">
             <x-promo-carousel />
         </div>
