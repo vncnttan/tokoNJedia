@@ -10,11 +10,11 @@
         </div>
 
 
-        <div class="absolute z-50 flex space-x-2 bottom-[-45px] md:bottom-[-90px] left-0">
+        <div class="absolute z-50 flex space-x-2 bottom-[-45px] md:bottom-[-80px] left-0">
             @foreach($productImages as $image)
                 <button type="button"
                         id="carousel-button-{{$loop->index}}"
-                        class="w-10 h-10 md:w-20 md:h-20 rounded-lg carousel-button border"
+                        class="w-10 h-10 md:w-16 md:h-16 rounded-lg carousel-button border"
                         aria-current="true"
                         aria-label="{{ $image->id }}"
                         data-carousel-slide-to="{{$loop->index}}">
