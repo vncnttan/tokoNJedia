@@ -1,4 +1,4 @@
-<div class="hoverable-carousel">
+<div class="hoverable-carousel mb-10">
     <div id="default-carousel" class="relative" data-carousel="static" data-carousel-animation="fade">
         <div class="relative md:h-96 md:w-96 h-64 w-64 overflow-hidden rounded-lg ">
             @foreach($productImages as $image)
@@ -10,15 +10,14 @@
         </div>
 
 
-        <div class="absolute z-50 flex space-x-2 bottom-[-90px] left-0">
+        <div class="absolute z-50 flex space-x-2 bottom-[-45px] md:bottom-[-90px] left-0">
             @foreach($productImages as $image)
                 <button type="button"
                         id="carousel-button-{{$loop->index}}"
-                        class="w-20 h-20 rounded-lg carousel-button border"
+                        class="w-10 h-10 md:w-20 md:h-20 rounded-lg carousel-button border"
                         aria-current="true"
                         aria-label="{{ $image->id }}"
-                        data-carousel-slide-to="{{$loop->index}}"
-                >
+                        data-carousel-slide-to="{{$loop->index}}">
                     <img src="{{$image->image}}"
                          alt="Image Thumbnail"
                          class="w-full h-full object-cover rounded-md"
