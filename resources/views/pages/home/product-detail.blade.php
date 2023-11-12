@@ -3,5 +3,7 @@
 @section('title', 'Detail Page')
 
 @section('content')
-    aksdhfjk
+    <div>
+
+    </div>
 @endsection
