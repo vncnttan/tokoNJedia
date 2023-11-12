@@ -2,12 +2,13 @@
     <div id="default-carousel" class="relative" data-carousel="static" data-carousel-animation="fade">
         <div class="relative md:h-96 md:w-96 h-64 w-64 overflow-hidden rounded-lg ">
             @foreach($productImages as $image)
-                <div class="hidden duration-0 ease-in-out" data-carousel-item>
+                <div class="image-view hidden duration-0 ease-in-out" {{ count($productImages) > 2 ? "data-carousel-item": ""}}>
                     <img src="{{$image->image}}"
                          alt="Image Thumbnail">
                 </div>
             @endforeach
         </div>
+
 
         <div class="absolute z-50 flex space-x-2 bottom-[-90px] left-0">
             @foreach($productImages as $image)
@@ -84,6 +85,14 @@
             carouselItem.parentNode.prepend(carouselItem);
         });
     });
+
+    if (buttons.length === 1) {
+        buttons[0].setAttribute('aria-current', 'true');
+        buttons[0].classList.add('border-2', 'border-green-500');
+        document.getElementsByClassName("image-view")[0].classList.remove("hidden");
+        document.getElementsByClassName("image-view")[0].classList.remove("translate-x-full");
+        document.getElementsByClassName("image-view")[0].classList.add("translate-x-0");
+    }
 </script>
 
 
