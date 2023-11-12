@@ -20,6 +20,13 @@ class ProductImageView extends Component
     public function __construct($productId)
     {
         $this->productImages = ProductImage::where('product_id', $productId)->get();
+
+        if(count($this->productImages ) == 0){
+            $this->productImages = [new ProductImage([
+                'image' => 'https://via.placeholder.com/600',
+                'product_id' => $productId
+            ])];
+        }
     }
 
     /**
