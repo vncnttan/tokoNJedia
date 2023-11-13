@@ -10,8 +10,8 @@
         <div class="w-full h-full p-8 box-border flex justify-center items-center gap-8">
             <div
                 class="w-[300px] h-full p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
-                <div class="w-full">
-                    <img class="w-full h-full object-cover" src="{{ Auth::user()->image }}" alt="">
+                <div class="w-full h-80">
+                    <img class="w-full h-full object-contain" src="{{ Auth::user()->image ?: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm15_Q2sAap5FoKCLvFMVyAlyi7Ct91SlMLw&usqp=CAU' }}" alt="">
                 </div>
                 <form action="/profile/image" method="POST" enctype="multipart/form-data" class="w-full" id="fileUploadForm" >
                     @csrf

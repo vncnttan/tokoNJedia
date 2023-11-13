@@ -9,9 +9,8 @@ use Kreait\Firebase\Factory;
 
 class FirebaseService
 {
-    public static function uploadImage(UploadedFile $file){
+    public static function uploadFile(String $path, UploadedFile $file){
         $fileName = time() . '.' . $file->getClientOriginalExtension();
-        $firebaseStoragePath = 'images';
 
         $firebaseFactory = (new Factory)->withServiceAccount(base_path('storage/app/firebase_credentials.json'));
         $storage = $firebaseFactory->createStorage();
@@ -20,7 +19,7 @@ class FirebaseService
         try {
             $stream = fopen($file->getRealPath(), 'r');
             $defaultBucket->upload($stream, [
-                'name' => $firebaseStoragePath . '/' . $fileName
+                'name' => $path . '/' . $fileName
             ]);
 
             if (isset($stream) && is_resource($stream)) {
@@ -33,6 +32,18 @@ class FirebaseService
                 fclose($stream);
             }
             return null;
+        }
+    }
+
+    public static function deleteFile(String $path, String $filename){
+        $firebaseFactory = (new Factory)->withServiceAccount(base_path('storage/app/firebase_credentials.json'));
+        $storage = $firebaseFactory->createStorage();
+        $defaultBucket = $storage->getBucket();
+        try {
+            $defaultBucket->object($path . '/' . $filename)->delete();
+        } catch (\Exception $e) {
+            // Handle exception if the file does not exist or any other errors
+            // Log the error or handle it as per your requirement
         }
     }
 
