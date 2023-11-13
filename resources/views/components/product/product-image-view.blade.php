@@ -2,9 +2,10 @@
     <div id="default-carousel" class="relative" data-carousel="static" data-carousel-animation="fade">
         <div class="relative md:h-96 md:w-96 h-64 w-64 overflow-hidden rounded-lg ">
             @foreach($productImages as $image)
-                <div class="image-view duration-0 ease-in-out" {{ count($productImages) > 2 ? "data-carousel-item": ""}}>
+                <div class="image-view duration-0 ease-in-out" {{ count($productImages) >= 2 ? "data-carousel-item": ""}}>
                     <img src="{{$image->image}}"
-                         alt="Image Thumbnail">
+                         alt="Image Thumbnail"
+                    class="h-full w-full object-cover">
                 </div>
             @endforeach
         </div>
@@ -81,6 +82,7 @@
             lastHoveredButton = button;
 
             const carouselItem = carousel.querySelector('[data-carousel-item]:nth-child(' + (index + 1) + ')');
+            console.log(carouselItem)
             carouselItem.parentNode.prepend(carouselItem);
         });
     });
