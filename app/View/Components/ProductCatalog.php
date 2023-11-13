@@ -19,7 +19,7 @@ class ProductCatalog extends Component
     public $product;
     public function __construct($productId)
     {
-        $this->product = Product::with(['productVariants', 'ratings'])
+        $this->product = Product::with(['productVariants', 'ratings', 'merchant'])
             ->where('id', $productId)
             ->withCount(['transactionDetails as sold' => function ($query) {
                 $query->select(DB::raw("SUM(quantity)"));

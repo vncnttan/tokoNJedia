@@ -1,5 +1,5 @@
-<div class="flex lg:flex-row flex-col gap-8">
-    <div class="lg:pr-96">
+<div class="flex flex-col">
+    <div class="flex lg:flex-row flex-col gap-8">
         <div class="md:w-[30vw] w-[80vw] flex flex-col">
             <div class="pb-5">
                 <h1 class="text-2xl font-bold">{{ $product->name }}</h1>
@@ -59,54 +59,73 @@
                     {{ $product->description }}
                 </div>
             </div>
-            {{ $product->productVariants }}
-
-        </div>
-    </div>
-    <div class="lg:fixed 2xl:right-[15vw] xl:right-[10vw] right-[5vw] w-80 top-40 flex flex-col gap-5">
-        <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-4">
-            <h1 class="font-bold text-lg">Atur Jumlah dan Catatan</h1>
-            <div class="flex flex-row gap-4 place-items-center">
-                <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md">
-                    <button class="disabled:text-gray-500 text-green-600" disabled>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                             stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15"/>
-                        </svg>
-                    </button>
-                    1
-                    <button class="disabled:text-gray-500 text-green-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                             stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-                        </svg>
-                    </button>
-                </div>
-                <div>
-                    Stock total: <span class="text-orange-500 font-bold"> Sisa {{ $product->stock }} </span>
-                </div>
-            </div>
-
-            <div class="text-gray-500 text-lg place-items-end flex flex-row justify-between">
-                Subtotal
-                <div class="flex flex-col place-items-end">
-                    <div class="text-promo font-medium text-sm line-through text-gray-400">
-                        Rp. 100.000
-                    </div>
-                    <div class="text-xl font-bold text-black">
-                        Rp. <span id="checkoutPriceDisplay"></span>
+            <div class="py-4 border-gray-50 border-b-2">
+                <div class="flex flex-row gap-4">
+                    <img src="{{ $product->merchant->image }}" alt="Merchant" class="w-16 h-16 rounded-full">
+                    <div class="w-3/4">
+                        <div class="text-lg font-bold">
+                            {{ $product->merchant->name }}
+                        </div>
+                        <div
+                            class="text-green-500 py-0.5 px-4 mt-2 w-fit border-2 font-semibold rounded-md border-green-400">
+                            Follow
+                        </div>
+                        {{--                        {{ $product->merchant }}--}}
                     </div>
                 </div>
             </div>
-            <div class="py-3 flex flex-col gap-2">
-                <button class="w-full py-2 rounded-md bg-green-500 text-white font-bold">
-                    + Add to Cart
-                </button>
-                <button class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold">
-                    Buy Now
-                </button>
+        </div>
+        {{--        I want them to be fixed unti certain point (until their parent) without leaving container --}}
+        <div class="h-50vh relative">
+            <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
+                <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-4">
+                    <h1 class="font-bold text-lg">Atur Jumlah dan Catatan</h1>
+                    <div class="flex flex-row gap-4 place-items-center">
+                        <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md">
+                            <button class="disabled:text-gray-500 text-green-600" disabled>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15"/>
+                                </svg>
+                            </button>
+                            1
+                            <button class="disabled:text-gray-500 text-green-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div>
+                            Stock total: <span class="text-orange-500 font-bold"> Sisa {{ $product->stock }} </span>
+                        </div>
+                    </div>
+
+                    <div class="text-gray-500 text-lg place-items-end flex flex-row justify-between">
+                        Subtotal
+                        <div class="flex flex-col place-items-end">
+                            <div class="text-promo font-medium text-sm line-through text-gray-400">
+                                Rp. 100.000
+                            </div>
+                            <div class="text-xl font-bold text-black">
+                                Rp. <span id="checkoutPriceDisplay"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="py-3 flex flex-col gap-2">
+                        <button class="w-full py-2 rounded-md bg-green-500 text-white font-bold">
+                            + Add to Cart
+                        </button>
+                        <button class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 
