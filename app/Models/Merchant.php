@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Merchant extends Model
 {
@@ -28,8 +30,8 @@ class Merchant extends Model
     {
         return $this->hasMany(Product::class);
     }
-    public function Location(): HasOne
+    public function Location(): MorphMany
     {
-        return $this->hasOne(Location::class, 'id', 'location_id');
+        return $this->MorphMany(Location::class, 'Locationable');
     }
 }

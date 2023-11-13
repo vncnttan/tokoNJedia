@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -40,9 +41,13 @@ class User extends Authenticatable
         return $this->hasMany(UserRoom::class);
     }
 
-    public function Location(): HasMany
+    // public function Location(): HasMany
+    // {
+    //     return $this->hasMany(Location::class, 'location_id');
+    // }
+    public function Location():MorphMany
     {
-        return $this->hasMany(Location::class, 'location_id');
+        return $this->morphMany(Location::class, "Locationable");
     }
 
     public function Merchant(): HasOne

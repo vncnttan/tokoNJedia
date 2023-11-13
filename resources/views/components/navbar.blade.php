@@ -1,4 +1,4 @@
-<div class="relative h-32 w-full z-[80] my-5">
+<div class="relative h-32 w-full z-30 my-5">
     <div class="fixed top-0 left-0 right-0 bg-white border-b-2 border-solid border-gray-100">
         <div class="bg-gray-100 py-1.5 text-sm md:px-12 px-6 text-gray-600">
             <div class="flex flex-row justify-between place-items-center">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full box-border flex flex-col py-2 lg:px-12 px-6">
+        <div class="w-full box-border flex flex-col py-2 lg:px-12 px-6 ">
             <div class="flex justify-between items-center lg:gap-8 gap-2 h-12">
                 <div class="h-full flex justify-center items-center">
                     <a class="text-green-500 font-semibold font-mandala text-3xl" href="/">TokoNJedia</a>
@@ -67,14 +67,14 @@
                     </div>
                     <div class="border-r-[1px] border-gray-400 h-8 opacity-30"></div>
                     @auth
-                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/merchant">
+                        <a class="w-40 flex justify-center items-center gap-2 nav-button" href="/merchant">
                             <div class="w-10 h-10 rounded-full">
                                 <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image ?? "https://png.pngtree.com/png-clipart/20191120/original/pngtree-store-icon-in-line-style-png-image_5053711.jpg" }}"
                                     alt="">
                             </div>
                             <h1 class="text-md text-black">{{ $merchant->name ?? "Merchant" }}</h1>
                         </a>
-                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/profile">
+                        <a class="w-40 flex justify-center items-center gap-2 nav-button" href="/profile">
                             <div class="w-10 h-10 rounded-full">
                                 <img class="w-full h-full rounded-full object-cover" src="{{ Auth::user()->image }}"
                                     alt="">
@@ -97,7 +97,7 @@
                     @endguest
                 </div>
             </div>
-            <div class="xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4 ">
+            <div class="xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4 p-2">
                 @foreach($product_names as $product_name)
                     <div class="hover:text-green-600 overflow-hidden space-x-0.5 h-5">
                         <a href="/search-page/{{ $product_name }}">
