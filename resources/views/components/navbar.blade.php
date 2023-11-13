@@ -76,7 +76,7 @@
                     </div>
                     <div class="border-r-[1px] border-gray-400 h-8 opacity-30"></div>
                     @auth
-                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/profile">
+                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/merchant">
                             <div class="w-10 h-10 rounded-full">
                                 <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image ?? "https://png.pngtree.com/png-clipart/20191120/original/pngtree-store-icon-in-line-style-png-image_5053711.jpg" }}"
                                     alt="">

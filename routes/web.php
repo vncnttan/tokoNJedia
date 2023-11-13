@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
@@ -40,4 +41,7 @@ Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('det
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+// Merchant
+Route::GET('/merchant', [MerchantController::class, 'index']);
+Route::GET('/merchant/create', [MerchantController::class, 'create']);
 

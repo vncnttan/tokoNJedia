@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="min-h-screen flex flex-col justify-between items-center">
+    <div class="min-h-screen w-screen flex flex-col justify-between items-center">
         <x-navbar />
         @yield('content')
         @include('components.footer')
