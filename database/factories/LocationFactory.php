@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Location;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,9 @@ class LocationFactory extends Factory
             'country' => $this->faker->country,
             'address' => $this->faker->address,
             'notes' => $this->faker->citySuffix,
-            'postal_code' => $this->faker->postcode
+            'postal_code' => $this->faker->postcode,
+            'locationable_type' => 'user',
+            'locationable_id' => User::all()->random()->id,
         ];
     }
 }

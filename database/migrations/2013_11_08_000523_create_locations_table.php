@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("notes")->default("")->nullable(true);
             $table->string("postal_code")->default("22044");
             $table->uuid("locationable_id");
+            $table->string("locationable_type");
             $table->timestamp("created_at");
             $table->timestamp("updated_at")->nullable();
         });

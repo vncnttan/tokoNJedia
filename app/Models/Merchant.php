@@ -32,6 +32,6 @@ class Merchant extends Model
     }
     public function Location(): MorphMany
     {
-        return $this->MorphMany(Location::class, 'Locationable');
+        return $this->MorphMany(Location::class, 'locationable');
     }
 }

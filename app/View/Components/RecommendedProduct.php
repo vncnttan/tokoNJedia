@@ -3,6 +3,9 @@
 namespace App\View\Components;
 
 use App\Models\Product;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
@@ -21,7 +24,7 @@ class RecommendedProduct extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return Application|Factory|View
      */
     public function render()
     {
@@ -31,7 +34,7 @@ class RecommendedProduct extends Component
             }])
             ->get()
             ->map(function ($product) {
-                $product->merchant_city = $product->merchant->location->city ?? 'N/A';
+                $product->merchant_city = $product->merchant->location[0]->city ?? 'N/A';
                 $product->average_rating = $product->ratings->avg('rating') ?? 0;
                 return $product;
             })->random(6);

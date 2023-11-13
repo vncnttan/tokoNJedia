@@ -13,7 +13,8 @@
                 Rp{{$product->price}}
             </div>
             <div class="text-xs text-gray-500">
-                {{ $product->merchant->location->city }}
+{{--                {{ $product->merchant_city }}--}}
+                {{ $product->merchant->location[0]->city }}
             </div>
             <div class="flex flex-ro place-items-center gap-1 text-xs text-gray-500">
                 {{-- SVG and Ratings Here --}}
