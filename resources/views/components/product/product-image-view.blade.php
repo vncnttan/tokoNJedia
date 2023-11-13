@@ -1,4 +1,4 @@
-<div class="hoverable-carousel mb-10">
+<div class="hoverable-carousel mb-10 z-10">
     <div id="default-carousel" class="relative" data-carousel="static" data-carousel-animation="fade">
         <div class="relative md:h-96 md:w-96 h-64 w-64 overflow-hidden rounded-lg ">
             @foreach($productImages as $image)
@@ -11,7 +11,7 @@
         </div>
 
 
-        <div class="absolute z-50 flex space-x-2 bottom-[-45px] md:bottom-[-80px] left-0">
+        <div class="absolute flex space-x-2 bottom-[-45px] md:bottom-[-80px] left-0">
             @foreach($productImages as $image)
                 <button type="button"
                         id="carousel-button-{{$loop->index}}"

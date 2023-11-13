@@ -1,4 +1,4 @@
-<div class="relative h-32 w-full z-[80] my-5">
+<div class="relative h-32 w-full z-[15] my-5">
     <div class="fixed top-0 left-0 right-0 bg-white border-b-2 border-solid border-gray-100">
         <div class="bg-gray-100 py-1.5 text-sm md:px-12 px-6 text-gray-600">
             <div class="flex flex-row justify-between place-items-center">
@@ -79,7 +79,7 @@
                                 <img class="w-full h-full rounded-full object-cover" src="{{ Auth::user()->image }}"
                                     alt="">
                             </div>
-                            <h1 class="text-md text-black">{{ Auth::user()->username }}</h1>
+                            <h1 class="text-md text-black whitespace-nowrap overflow-hidden w-20">{{ Auth::user()->username }}</h1>
                         </a>
                     @endauth
 

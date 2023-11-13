@@ -1,4 +1,4 @@
-<div id="default-carousel" class="relative w-full" data-carousel="slide">
+<div id="default-carousel" class="relative w-full z-10" data-carousel="slide">
     <div class="relative h-56 overflow-hidden rounded-lg md:h-[35vh]">
         @foreach($promos as $promo)
             <div class="hidden duration-700 ease-in-out" data-carousel-item>

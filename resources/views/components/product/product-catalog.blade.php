@@ -40,7 +40,7 @@
                         <button
                             id="variant_{{ $variant->id }}"
                             class="variant-button py-2 px-4 rounded-2xl border-[1px] text-gray-500 hover:text-green-600 hover:border-green-600"
-                            onclick="updateVariantDisplay('{{ $variant->name }}', '{{ $variant->price }}', this)">
+                            onclick="updateVariantDisplay(' {{ $variant->id }}', '{{ $variant->name }}', '{{ $variant->price }}', this)">
                             {{ $variant->name }}
                         </button>
                     @endforeach
@@ -70,7 +70,6 @@
                             class="text-green-500 py-0.5 px-4 mt-2 w-fit border-2 font-semibold rounded-md border-green-400">
                             Follow
                         </div>
-                        {{--                        {{ $product->merchant }}--}}
                     </div>
                 </div>
             </div>
@@ -82,15 +81,16 @@
                     <h1 class="font-bold text-lg">Atur Jumlah dan Catatan</h1>
                     <div class="flex flex-row gap-4 place-items-center">
                         <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md">
-                            <button class="disabled:text-gray-500 text-green-600" disabled>
+                            <button id="subtract_btn" class="disabled:text-gray-500 text-green-600"
+                                    onclick="subtractQuantity()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke-width="1.5"
                                      stroke="currentColor" class="w-4 h-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15"/>
                                 </svg>
                             </button>
-                            1
-                            <button class="disabled:text-gray-500 text-green-600">
+                            <span id="quantityDisplay"></span>
+                            <button id="add_btn" class="disabled:text-gray-500 text-green-600" onclick="addQuantity()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke-width="1.5"
                                      stroke="currentColor" class="w-4 h-4">
@@ -115,7 +115,8 @@
                         </div>
                     </div>
                     <div class="py-3 flex flex-col gap-2">
-                        <button class="w-full py-2 rounded-md bg-green-500 text-white font-bold">
+                        <button class="w-full py-2 rounded-md bg-green-500 text-white font-bold"
+                                onclick="Livewire.emit('openModal', 'add-to-cart-success-modal')">
                             + Add to Cart
                         </button>
                         <button class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold">
@@ -131,11 +132,41 @@
 
 
 <script>
+    function subtractQuantity() {
+        if (quantity > 1) {
+            quantity--;
+            document.getElementById("quantityDisplay").textContent = quantity.toString();
+            if (quantity === 1) {
+                document.getElementById("subtract_btn").disabled = true;
+            } else if (quantity === stock - 1) {
+                document.getElementById("add_btn").disabled = false;
+            }
+        }
+    }
+
+    function addQuantity() {
+        if (quantity < stock) {
+            quantity++;
+            document.getElementById("quantityDisplay").textContent = quantity.toString();
+
+            if (quantity === stock) {
+                document.getElementById("add_btn").disabled = true;
+            } else if (quantity === 2) {
+                document.getElementById("subtract_btn").disabled = false;
+            }
+        }
+    }
+
+    let quantity = 1;
+    let stock = {{ $product->stock }};
+    let variant_id;
+
     function formatPriceJS(price) {
         return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
     }
 
-    function updateVariantDisplay(variantName, variantPrice, clickedBtn) {
+    function updateVariantDisplay(variantID, variantName, variantPrice, clickedBtn) {
+        variant_id = variantID;
         document.getElementById("variantTextDisplay").textContent = variantName;
         document.getElementById("priceTextDisplay").textContent = formatPriceJS(variantPrice);
         document.getElementById("checkoutPriceDisplay").textContent = formatPriceJS(variantPrice);
@@ -157,6 +188,7 @@
     }
 
     window.onload = function () {
+        document.getElementById("quantityDisplay").textContent = quantity;
         let defaultButton = document.querySelector('.variant-button');
         if (defaultButton) {
             defaultButton.click();
