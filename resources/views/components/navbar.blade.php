@@ -1,4 +1,4 @@
-<div class="relative h-32 w-full z-[80]">
+<div class="relative h-32 w-full z-[80] my-5">
     <div class="fixed top-0 left-0 right-0 bg-white border-b-2 border-solid border-gray-100">
         <div class="bg-gray-100 py-1.5 text-sm md:px-12 px-6 text-gray-600">
             <div class="flex flex-row justify-between place-items-center">
@@ -91,7 +91,7 @@
                     @endguest
                 </div>
             </div>
-            <div class="xl:px-60 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4 ">
+            <div class="xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4 ">
                 @foreach($product_names as $product_name)
                     <div class="hover:text-green-600 overflow-hidden space-x-0.5 h-5">
                         <a href="/search-page/{{$product_name}}">
