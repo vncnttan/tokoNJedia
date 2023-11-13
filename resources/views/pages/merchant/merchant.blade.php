@@ -3,8 +3,11 @@
 @section('title', 'Merchant')
 
 @section('content')
-    <div class="w-full h-full bg-red-200 flex justify-center items-center">
-        <h1>Merchant</h1>
+<div class=" w-full h-full flex-1 flex justify-center items-start bg-gray-100" x-data="{ selectedTab: 'home', showDropdown: false }">
+        @include('components.merchant.merchant-sidebar')
+        <div class="w-full">
+            @yield('merchant-content')
+        </div>
     </div>
 
 @endsection

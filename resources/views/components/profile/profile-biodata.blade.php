@@ -13,12 +13,15 @@
             <div
                 class="w-[300px] h-full p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
                 <div class="w-full">
-                    <img class="w-full h-full object-cover" src="{{ Auth::user()->image }}" alt="">
+                    <img class="w-full h-full object-cover" src="{{ Auth::user()->image ?: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm15_Q2sAap5FoKCLvFMVyAlyi7Ct91SlMLw&usqp=CAU' }}" alt="">
                 </div>
-                <label
-                    class="border-solid border-2 border-gray-300 text-sm font-semibold w-full p-2 rounded-md cursor-pointer flex justify-center">
-                    <input class="hidden" type="file" accept="image/jpeg, .jpeg, .jpg, image/png, .png">Choose Image
-                </label>
+                <form action="/profile/image" method="POST" class="w-full" id="fileUploadForm" enctype="multipart/form-data">
+                    @csrf
+                    <label
+                        class="border-solid border-2 border-gray-300 text-sm font-semibold w-full p-2 rounded-md cursor-pointer flex justify-center">
+                        <input name="file" class="hidden" type="file" accept="image/jpeg, .jpeg, .jpg, image/png, .png" onchange="uploadFile()" >Choose Image
+                    </label>
+                </form>
                 <p class="text-black font-base text-sm">File Size: Maximum 10.000.000 bytes (10 Megabytes). File
                     extension
                     allowed: .JPG, .JPEG, .PNG</p>
