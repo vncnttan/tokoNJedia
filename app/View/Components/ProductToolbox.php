@@ -8,10 +8,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ProductCard extends Component
+class ProductToolbox extends Component
 {
     public $product;
-
     /**
      * Create a new component instance.
      *
@@ -19,12 +18,7 @@ class ProductCard extends Component
      */
     public function __construct($productId)
     {
-        $this->product = Product::with(['productImages', 'productVariants'])
-            ->where('id', $productId)
-            ->first();
-
-        $this->product->image = $this->product->productImages->first()->image ?? 'https://via.placeholder.com/150';
-        $this->product->price = $this->product->productVariants->first()->price ?? 0;
+        $this->product = Product::find($productId);
     }
 
     /**
@@ -32,8 +26,8 @@ class ProductCard extends Component
      *
      * @return Application|Factory|View
      */
-    public function render(): View|Factory|Application
+    public function render()
     {
-        return view('components.product.product-card');
+        return view('components.product.product-toolbox', ['product' => $this->product]);
     }
 }

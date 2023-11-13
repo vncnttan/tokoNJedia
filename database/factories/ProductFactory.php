@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductImage;
+use App\Models\ProductVariant;
 use Bezhanov\Faker\Provider\Commerce;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -36,5 +38,25 @@ class ProductFactory extends Factory
             'merchant_id' => Merchant::all()->random()->id,
             'product_category_id' => ProductCategory::all()->random()->id
         ];
+    }
+
+    /**
+     * Configure the factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Product $product) {
+            // Ensure at least one image is associated with the product
+            ProductImage::factory()->create([
+                'product_id' => $product->id,
+            ]);
+
+            // Ensure at least one variant is associated with the product
+            ProductVariant::factory()->create([
+                'product_id' => $product->id,
+            ]);
+        });
     }
 }

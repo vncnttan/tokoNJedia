@@ -36,6 +36,6 @@ class ProductImageView extends Component
      */
     public function render()
     {
-        return view('components.product-image-view', ['productImages' => $this->productImages]);
+        return view('components.product.product-image-view', ['productImages' => $this->productImages]);
     }
 }

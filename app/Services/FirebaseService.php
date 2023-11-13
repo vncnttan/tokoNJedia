@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\File;
-use Kreait\Firebase\Contract\Storage;
 use Kreait\Firebase\Factory;
 
 class FirebaseService

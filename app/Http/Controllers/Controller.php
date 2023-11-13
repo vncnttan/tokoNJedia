@@ -10,12 +10,4 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    public static function extractFilename($url) {
-        $parsedUrl = parse_url($url);
-        $path = $parsedUrl['path'] ?? '';
-        $decodedPath = urldecode($path);
-        $filename = basename($decodedPath);
-
-        return $filename;
-    }
 }

@@ -2,7 +2,7 @@
     <div id="default-carousel" class="relative" data-carousel="static" data-carousel-animation="fade">
         <div class="relative md:h-96 md:w-96 h-64 w-64 overflow-hidden rounded-lg ">
             @foreach($productImages as $image)
-                <div class="image-view hidden duration-0 ease-in-out" {{ count($productImages) > 2 ? "data-carousel-item": ""}}>
+                <div class="image-view duration-0 ease-in-out" {{ count($productImages) > 2 ? "data-carousel-item": ""}}>
                     <img src="{{$image->image}}"
                          alt="Image Thumbnail">
                 </div>
