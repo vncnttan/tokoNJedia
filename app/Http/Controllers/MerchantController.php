@@ -15,7 +15,7 @@ class MerchantController extends Controller
         if(Auth::user()->Merchant == null){
             return redirect('/merchant/create');
         }
-        return view('pages.merchant.merchant');
+        return view('components.merchant.merchant-home');
     }
     public function create(){
         return view('pages.merchant.merchant-create');
@@ -44,7 +44,7 @@ class MerchantController extends Controller
             'city' => ['required', 'min:3', 'max:20'],
             'country' => ['required', 'min:3', 'max:30'],
             'address' => ['required', 'min:5', 'max:50'],
-            'postal_code' => ['required', 'digts:5', 'numeric'],
+            'postal_code' => ['required', 'digits:5', 'numeric'],
         ], $messages);
         if($validate->fails()){
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
@@ -54,6 +54,7 @@ class MerchantController extends Controller
         $merchant->id = Str::uuid();
         $merchant->name = $request->name;
         $merchant->user_id = Auth::user()->id;
+        $merchant->phone = $request->phone;
         $merchant->save();
 
         $location = new Location();
@@ -64,9 +65,20 @@ class MerchantController extends Controller
         $location->postal_code = $request->postal_code;
         $location->notes = $request->notes;
         $location->locationable_id = $merchant->id;
+        $location->locationable_type = "merchant";
         $location->save();
 
         toastr()->success("Success To Open A Merchant", '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return redirect('/merchant');
+    }
+
+    public function chat(){
+        return view('components.merchant.merchant-chat');
+    }
+    public function addProduct(){
+        return view('components.merchant.merchant-add-product');
+    }
+    public function manageProduct(){
+        return view('components.merchant.merchant-manage-product');
     }
 }
