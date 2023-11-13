@@ -8,7 +8,7 @@
 
         <h1 class="text-2xl font-semibold text-black">{{ Auth::user()->username }}</h1>
     </div>
-    <div class="flex-grow w-full rounded-lg shadow-card  bg-white">
+    <div class="flex-grow w-full rounded-lg border-[1px] border-gray-200 bg-white">
         <div class="w-full h-full p-8 box-border flex justify-center items-center gap-8">
             <div
                 class="w-[300px] h-full p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
@@ -86,10 +86,18 @@
                             </button>
                         @endif
                     </div>
+                    <div class="w-full  flex items-center">
+                        <div class="w-1/3">Email</div>
+                        <h1 class="pr-4">
+                            {{ Auth::user()->email }}
+                        </h1>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 </div>
 <script>
     function uploadFile() {
