@@ -6,6 +6,7 @@ use Bezhanov\Faker\ProviderCollectionHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class Navbar extends Component
@@ -34,7 +35,11 @@ class Navbar extends Component
         for ($i = 0; $i < 5; $i++) {
             $productNames = [...$productNames,  $faker->productName()];
         }
+        $merchant = null;
+        if(Auth::check()){
+            $merchant = Auth::user()->Merchant;
+        }
 
-        return view('components.navbar', ['product_names' => $productNames]);
+        return view('components.navbar', ['product_names' => $productNames, 'merchant' => $merchant]);
     }
 }

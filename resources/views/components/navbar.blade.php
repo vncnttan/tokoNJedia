@@ -66,14 +66,20 @@
                         </a>
                     </div>
                     <div class="border-r-[1px] border-gray-400 h-8 opacity-30"></div>
-
                     @auth
-                        <a class="flex justify-center items-center gap-2 nav-button" href="/profile">
+                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/profile">
+                            <div class="w-10 h-10 rounded-full">
+                                <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image ?? "https://png.pngtree.com/png-clipart/20191120/original/pngtree-store-icon-in-line-style-png-image_5053711.jpg" }}"
+                                    alt="">
+                            </div>
+                            <h1 class="text-md text-black">{{ $merchant->name ?? "Merchant" }}</h1>
+                        </a>
+                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/profile">
                             <div class="w-10 h-10 rounded-full">
                                 <img class="w-full h-full rounded-full object-cover" src="{{ Auth::user()->image }}"
-                                     alt="">
+                                    alt="">
                             </div>
-                            <h1 class="text-base text-black">{{ Auth::user()->username }}</h1>
+                            <h1 class="text-md text-black">{{ Auth::user()->username }}</h1>
                         </a>
                     @endauth
 
@@ -94,7 +100,7 @@
             <div class="xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4 ">
                 @foreach($product_names as $product_name)
                     <div class="hover:text-green-600 overflow-hidden space-x-0.5 h-5">
-                        <a href="/search-page/{{$product_name}}">
+                        <a href="/search-page/{{ $product_name }}">
                             {{ $product_name }}
                         </a>
                     </div>
