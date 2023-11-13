@@ -56,6 +56,7 @@ class EditPhoneModal extends ModalComponent
     {
         return view('livewire.edit-phone-modal');
     }
+
     public static function modalMaxWidth(): string
     {
         return 'lg';

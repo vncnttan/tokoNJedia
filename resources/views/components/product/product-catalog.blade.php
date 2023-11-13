@@ -40,7 +40,7 @@
                         <button
                             id="variant_{{ $variant->id }}"
                             class="variant-button py-2 px-4 rounded-2xl border-[1px] text-gray-500 hover:text-green-600 hover:border-green-600"
-                            onclick="updateVariantDisplay(' {{ $variant->id }}', '{{ $variant->name }}', '{{ $variant->price }}', this)">
+                            onclick="updateVariantDisplay('{{ $variant->id }}', '{{ $variant->name }}', '{{ $variant->price }}', this)">
                             {{ $variant->name }}
                         </button>
                     @endforeach
@@ -116,7 +116,7 @@
                     </div>
                     <div class="py-3 flex flex-col gap-2">
                         <button class="w-full py-2 rounded-md bg-green-500 text-white font-bold"
-                                onclick="Livewire.emit('openModal', 'add-to-cart-success-modal')">
+                                onclick="addToCart()">
                             + Add to Cart
                         </button>
                         <button class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold">
@@ -131,7 +131,17 @@
 </div>
 
 
+
 <script>
+    function addToCart() {
+        let data = {
+            product_id: product_id,
+            variant_id: variant_id,
+            quantity: quantity
+        }
+        Livewire.emit('openModal', 'add-to-cart-success-modal', data)
+    }
+
     function subtractQuantity() {
         if (quantity > 1) {
             quantity--;
@@ -160,6 +170,7 @@
     let quantity = 1;
     let stock = {{ $product->stock }};
     let variant_id;
+    let product_id = '{{ $product->id }}';
 
     function formatPriceJS(price) {
         return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
@@ -167,6 +178,7 @@
 
     function updateVariantDisplay(variantID, variantName, variantPrice, clickedBtn) {
         variant_id = variantID;
+        console.log(variant_id)
         document.getElementById("variantTextDisplay").textContent = variantName;
         document.getElementById("priceTextDisplay").textContent = formatPriceJS(variantPrice);
         document.getElementById("checkoutPriceDisplay").textContent = formatPriceJS(variantPrice);

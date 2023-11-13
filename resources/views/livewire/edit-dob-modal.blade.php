@@ -1,4 +1,4 @@
-<div class="flex flex-col p-8 gap-8 box-border">
+<div class="flex flex-col p-8 gap-8 box-border ">
     @if (Auth::user()->dob == null)
         <h1 class="w-full font-bold text-2xl">Insert Date of Birth</h1>
     @else
