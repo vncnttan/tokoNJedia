@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Location extends Model
 {
@@ -13,13 +14,17 @@ class Location extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function Merchant(): BelongsTo
+    // public function Merchant(): BelongsTo
+    // {
+    //     return $this->belongsTo(Merchant::class);
+    // }
+    public function Locationable(): MorphTo
     {
-        return $this->belongsTo(Merchant::class);
+        return $this->morphTo();
     }
 
-    public function User(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function User(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

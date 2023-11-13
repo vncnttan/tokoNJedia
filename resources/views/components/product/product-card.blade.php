@@ -9,7 +9,8 @@
                 {{ $product->name }}
             </div>
             <div class="text-md font-bold">
-                Rp{{ formatPrice($product->price) }}
+                {{-- Rp{{ formatPrice($product->price) }} --}}
+                Rp{{$product->price}}
             </div>
             <div class="text-xs text-gray-500">
                 {{ $product->merchant->location->city }}

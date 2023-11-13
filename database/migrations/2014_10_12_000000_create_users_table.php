@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string("gender")->default("");
             $table->string("image")->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeMIAx7-Zgl6AdkUXBXZydQPW0EyvuyxAI5w&usqp=CAU");
             $table->string('google_id')->nullable();
-            $table->uuid('location_id')->nullable();
-            $table->foreign('location_id')->references('id')->on('locations')->onUpdate('RESTRICT')->onDelete('RESTRICT');
             $table->timestamps();
         });
     }
