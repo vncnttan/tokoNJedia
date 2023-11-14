@@ -1,6 +1,6 @@
-<div class="relative h-32 w-full z-[15]">
-    <div class="fixed top-0 left-0 right-0 bg-white border-b-2 border-solid border-gray-100">
-        <div class="bg-gray-100 py-1.5 text-sm md:px-12 px-6 text-gray-600 box-border">
+<div class="relative h-28 w-full z-[15]">
+    <div class="fixed top-0 left-0 right-0 h-28 bg-white border-b-2 border-solid border-gray-100 ">
+        <div class="w-full bg-gray-100 py-1 text-sm md:px-12 px-6 text-gray-600 box-border">
             <div class="flex flex-row justify-between place-items-center">
                 <div class="flex flex-row place-items-center gap-2 whitespace-nowrap">
                     <svg style="fill: #999999" xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 384 512"><path d="M16 64C16 28.7 44.7 0 80 0H304c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64V64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64H80V384H304V64z"/></svg>
@@ -19,7 +19,6 @@
                         </button>
                     </a>
                     <a class="hover:text-green-600">
-{{--                        TODO: Register Merchant--}}
                         <button class="whitespace-nowrap overflow-ellipsis">
                             Mulai Berjualan
                         </button>
@@ -38,8 +37,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-full box-border flex flex-col py-2 lg:px-12 px-6">
-            <div class="flex justify-between items-center lg:gap-8 gap-2 h-12">
+        <div class="w-full h-fit box-border flex flex-col justify-center lg:px-12 px-6 py-2">
+            <div class="w-full h-full flex justify-between items-center lg:gap-8 gap-2">
                 <div class="h-full flex justify-center items-center">
                     <a class="text-green-500 font-semibold font-mandala text-3xl" href="/">TokoNJedia</a>
                 </div>
@@ -67,19 +66,19 @@
                     </div>
                     <div class="border-r-[1px] border-gray-400 h-8 opacity-30"></div>
                     @auth
-                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/merchant">
-                            <div class="w-10 h-10 rounded-full">
-                                <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image ?? "https://png.pngtree.com/png-clipart/20191120/original/pngtree-store-icon-in-line-style-png-image_5053711.jpg" }}"
+                        <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/merchant">
+                            <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
+                                <img class="w-full h-full rounded-full object-cover object-center" src="{{ $merchant->image ?? "https://png.pngtree.com/png-clipart/20191120/original/pngtree-store-icon-in-line-style-png-image_5053711.jpg" }}"
                                     alt="">
                             </div>
-                            <h1 class="text-md text-black">{{ $merchant->name ?? "Merchant" }}</h1>
+                            <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ $merchant->name ?? "Merchant" }}</h1>
                         </a>
-                        <a class="w-40 flex justify-center items-center gap-2 nav-button my-2" href="/profile">
-                            <div class="w-10 h-10 rounded-full">
-                                <img class="w-full h-full rounded-full object-cover" src="{{ Auth::user()->image }}"
+                        <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/profile">
+                            <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
+                                <img class="w-full h-full rounded-full object-cover object-center" src="{{ Auth::user()->image }}"
                                     alt="">
                             </div>
-                            <h1 class="text-md text-black whitespace-nowrap overflow-hidden w-20">{{ Auth::user()->username }}</h1>
+                            <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ Auth::user()->username }}</h1>
                         </a>
                     @endauth
 
@@ -97,7 +96,7 @@
                     @endguest
                 </div>
             </div>
-            <div class="xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4 py-1 box-border">
+            <div class="w-full py-1 h-full xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4">
                 @foreach($product_names as $product_name)
                     <div class="hover:text-green-600 overflow-hidden space-x-0.5 h-5">
                         <a href="/search-page/{{ $product_name }}">

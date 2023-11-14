@@ -15,7 +15,7 @@ class MerchantController extends Controller
         if(Auth::user()->Merchant == null){
             return redirect('/merchant/create');
         }
-        return view('components.merchant.merchant-home');
+        return view('pages.merchant.merchant-home');
     }
     public function create(){
         return view('pages.merchant.merchant-create');
@@ -73,12 +73,12 @@ class MerchantController extends Controller
     }
 
     public function chat(){
-        return view('components.merchant.merchant-chat');
+        return view('pages.merchant.merchant-chat');
     }
     public function addProduct(){
-        return view('components.merchant.merchant-add-product');
+        return view('pages.merchant.merchant-add-product');
     }
     public function manageProduct(){
-        return view('components.merchant.merchant-manage-product');
+        return view('pages.merchant.merchant-manage-product');
     }
 }

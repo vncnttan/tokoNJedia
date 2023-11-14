@@ -1,7 +1,9 @@
-<div class="relative w-60 min-h-screen bg-white border-r-2 border-gray-100" >
+<div class="relative w-60 min-h-screen bg-white border-r-2 border-gray-100">
     <div
-        class="sticky top-32 left-0 bottom-0 right-0 w-full  flex flex-col justify-start items-center text-lg font-semibold text-black">
-        <a href="/merchant" class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border" @click="selectedTab = 'home'" :class="{'text-green-500': selectedTab === 'home', 'text-black': selectedTab !== 'home'}">
+        class="sticky top-32 left-0 bottom-0  w-full  flex flex-col justify-start items-center text-lg font-semibold text-black ">
+        <a href="/merchant" class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border cursor-pointer"
+            @click="selectedTab = 'home'"
+            :class="{ 'text-green-500': selectedTab === 'home', 'text-black': selectedTab !== 'home' }">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -9,7 +11,10 @@
             </svg>
             <h1>Home</h1>
         </a>
-        <a href="/merchant/chat" class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border" @click="selectedTab = 'chat'" :class="{'text-green-500': selectedTab === 'chat', 'text-black': selectedTab !== 'chat'}">
+        <a href="/merchant/chat"
+            class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border cursor-pointer"
+            @click="selectedTab = 'chat'"
+            :class="{ 'text-green-500': selectedTab === 'chat', 'text-black': selectedTab !== 'chat' }">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -17,25 +22,39 @@
             </svg>
             <h1>Chat</h1>
         </a>
-        <a class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border" @click="selectedTab = 'product'; showDropdown = !showDropdown" :class="{'text-green-500': selectedTab === 'product', 'text-black': selectedTab !== 'product'}">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M7.875 14.25l1.214 1.942a2.25 2.25 0 001.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 011.872 1.002l.164.246a2.25 2.25 0 001.872 1.002h2.092a2.25 2.25 0 001.872-1.002l.164-.246A2.25 2.25 0 0116.954 9h4.636M2.41 9a2.25 2.25 0 00-.16.832V12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 01.382-.632l3.285-3.832a2.25 2.25 0 011.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0021.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 002.25 2.25z" />
-              </svg>
-              <h1>Product</h1>
-              <div class="ml-auto">
-                  <svg x-show="!showDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <a class="z-10 w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border cursor-pointer"
+            @click="selectedTab = 'product'; showDropdown = !showDropdown"
+            :class="{ 'text-green-500': selectedTab === 'product', 'text-black': selectedTab !== 'product' }">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M7.875 14.25l1.214 1.942a2.25 2.25 0 001.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 011.872 1.002l.164.246a2.25 2.25 0 001.872 1.002h2.092a2.25 2.25 0 001.872-1.002l.164-.246A2.25 2.25 0 0116.954 9h4.636M2.41 9a2.25 2.25 0 00-.16.832V12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 01.382-.632l3.285-3.832a2.25 2.25 0 011.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0021.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <h1>Product</h1>
+            <div class="ml-auto">
+                <svg x-show="!showDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
-                <svg x-show="showDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <svg x-show="showDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                 </svg>
-              </div>
+            </div>
 
         </a>
         <div class="w-full flex gap-4 justify-start">
-            <div x-show="showDropdown" class="w-full bg-white shadow-md rounded-md text-sm font-normal text-start">
-                <a href="/merchant/add-product" class="block w-full pl-6  py-2 hover:bg-slate-100 text-black">Add Product</a>
-                <a href="/merchant/manage-product" class="block w-full pl-6  py-2 hover:bg-slate-100 text-black">Product List</a>
+            <div x-show="showDropdown" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="transform translate-y-[-100%] opacity-0"
+                x-transition:enter-end="transform translate-y-0 opacity-100"
+                x-transition:leave="transition ease-out duration-300"
+                x-transition:leave-start="transform translate-y-0 opacity-100"
+                x-transition:leave-end="transform translate-y-[-50%] opacity-0"
+                class="z-0 w-full bg-white  rounded-md text-sm font-normal text-start">
+                <a href="/merchant/add-product" class="block w-full pl-6  py-2 hover:bg-slate-100 text-black cursor-pointer">Add
+                    Product</a>
+                <a href="/merchant/manage-product" class="block w-full pl-6  py-2 hover:bg-slate-100 text-black cursor-pointer">Product
+                    List</a>
             </div>
         </div>
     </div>

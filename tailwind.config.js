@@ -17,6 +17,7 @@ module.exports = {
             boxShadow: {
                 'box': '0 0 15px rgba(0, 0, 0, 0.25)',
                 'card': '0 0 8px rgba(0, 0, 0, 0.1)',
+                'container': '0 0 4px rgba(0, 0, 0, 0.1)'
             },
             colors: {
                 'dark-green': '#00AA5B',
@@ -26,6 +27,6 @@ module.exports = {
         },
     },
     plugins: [
-        require('flowbite/plugin')
+        // require('flowbite/plugin')
     ],
 }
