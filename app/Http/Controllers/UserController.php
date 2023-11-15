@@ -46,9 +46,16 @@ class UserController extends Controller
     }
 
     public function updateImage(Request $request){
-        $this->validate($request, [
-            'file' => 'required|file',
-        ]);
+        $messages = [
+            'max' => 'Image size must not be more than 10mb'
+        ];
+        $validator = Validator::make($request->all(),[
+            'file' => 'required|file|max:10240',
+        ], $messages);
+        if($validator->fails()){
+            toastr()->error($validator->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect('/profile');
+        }
         $file = $request->file('file');
         $res = FirebaseService::uploadFile("images", $file);
         if($res===null){

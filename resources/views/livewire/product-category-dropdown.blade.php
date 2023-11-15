@@ -1,11 +1,9 @@
 <div class="w-full" x-data="{ categoryDropdown: false, selectedCategory: '', selectedCategoryName: 'Product Category' }" @click.away="categoryDropdown = false">
 
     <button x-show="!categoryDropdown"
-        class="w-full p-2 ring-1 ring-gray-300 rounded-lg flex justify-between items-center gap-4"
+        class="w-full p-2 ring-1 ring-gray-300 rounded-md flex justify-between items-center gap-4"
         @click="categoryDropdown = !categoryDropdown">
-        <h1 class="text-sm font-medium text-gray-500">
-            <p x-text="selectedCategoryName"></p>
-        </h1>
+        <p class="text-sm text-gray-400" x-text="selectedCategoryName"></p>
         <div class="ml-auto">
             <svg x-show="!categoryDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
