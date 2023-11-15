@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 /**
@@ -19,9 +20,12 @@ class ProductImageFactory extends Factory
      */
     public function definition(): array
     {
+
+        $response = Http::get('https://source.unsplash.com/random');
+
         return [
             'id' => Str::uuid(),
-            'image' => 'https://source.unsplash.com/random',
+            'image' => $response->effectiveUri(),
             'product_id' => Product::all()->random()->id
         ];
     }

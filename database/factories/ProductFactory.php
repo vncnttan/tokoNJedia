@@ -9,6 +9,7 @@ use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use Bezhanov\Faker\Provider\Commerce;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 /**
@@ -30,13 +31,15 @@ class ProductFactory extends Factory
         $faker = \Faker\Factory::create();
         $faker->addProvider(new Commerce($faker));
 
+        $response = Http::get('https://source.unsplash.com/random');
+
         return [
             'id' => Str::uuid(),
             'name' => $faker->productName,
             'description' => $this->faker->realText,
             'price' => $this->faker->numberBetween(100000, 500000),
             'stock' => $this->faker->numberBetween(0, 20),
-            'image' => "https://source.unsplash.com/random",
+            'image' => $response->effectiveUri(),
             'merchant_id' => Merchant::all()->random()->id,
             'product_category_id' => ProductCategory::all()->random()->id
         ];

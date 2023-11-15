@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Promo;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 /**
@@ -18,9 +19,10 @@ class PromoFactory extends Factory
      */
     public function definition(): array
     {
+        $response = Http::get('https://source.unsplash.com/random');
         return [
             'promo_name' => Str::uuid(),
-            'promo_image' => 'https://source.unsplash.com/random',
+            'promo_image' => $response->effectiveUri(),
             'promo_description' => $this->faker->text,
         ];
     }

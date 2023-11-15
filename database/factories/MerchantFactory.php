@@ -9,6 +9,7 @@ use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 /**
@@ -23,10 +24,11 @@ class MerchantFactory extends Factory
      */
     public function definition()
     {
+        $response = Http::get('https://source.unsplash.com/random');
         return [
             'id' => Str::uuid(),
             'name' => $this->faker->name,
-            'image' => 'https://source.unsplash.com/random',
+            'image' => $response->effectiveUri(),
             'user_id' => User::all()->random()->id,
             'phone' => $this->faker->phoneNumber,
         ];
