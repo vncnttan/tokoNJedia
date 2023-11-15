@@ -51,4 +51,14 @@ class CartController extends Controller
 
         return response()->json(['message' => 'Item added to cart']);
     }
+
+    public function deleteCart(Request $request): JsonResponse
+    {
+        $product_id = $request->product_id;
+        $user_id = auth()->user()->id;
+
+        Cart::where('user_id', $user_id)->where('product_id', $product_id)->delete();
+        toastr()->success('Item deleted from cart', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+        return response()->json(['message' => 'Item deleted from cart']);
+    }
 }

@@ -6,10 +6,12 @@
     <div class="md:min-h-screen justify-center flex-grow flex flex-col w-full py-10 px-8 place-items-center">
         <div class="flex md:flex-row flex-col gap-8 w-full justify-center">
             <div class="md:w-3/5 lg:w-1/2 flex flex-col gap-4">
-                <div class="font-bold text-2xl">
-                    Cart
-                </div>
-                <div class="bg-gray-100 bg-opacity-90 h-1.5 w-full rounded-md"></div>
+                @if(count($carts) >= 1)
+                    <div class="font-bold text-2xl">
+                        Cart
+                    </div>
+                    <div class="bg-gray-100 bg-opacity-90 h-1.5 w-full rounded-md"></div>
+                @endif
                 @foreach($carts as $cart)
                     <div class="px-10 flex flex-col gap-5">
                         <div class="flex flex-col">
@@ -35,11 +37,14 @@
                             </div>
                         </div>
                         <div class="flex flex-row justify-end gap-16 text-gray-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                 stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
-                            </svg>
+                            <button onclick="deleteItem('{{ $cart->product->id}}')">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
+                                </svg>
+                            </button>
 
                             <div class="flex flex-row gap-5 border-b-[1px] border-gray-500 border-opacity-10">
                                 <button
@@ -70,17 +75,39 @@
                     </div>
                     <div class="bg-gray-100 bg-opacity-90 h-1.5 w-full rounded-md"></div>
                 @endforeach
+
+                @if(count($carts) < 1)
+                    <div class="w-full justify-center flex flex-col place-items-center gap-2">
+                        <img alt='Empty Cart' src="{{ url(asset('/assets/checkout/cart.jpg')) }}" class="h-32">
+                        <div class="flex flex-col gap-1 place-items-center">
+                            <h1 class="text-2xl font-bold ">
+                                Your Cart is Empty
+                            </h1>
+                            <h5 class="text-base text-gray-700">
+                                Make your dream come true now!
+                            </h5>
+                        </div>
+
+                        <a href="/">
+                            <button class="bg-green-600 py-2 px-16 rounded-md text-white font-bold">
+                                Shop Now
+                            </button>
+                        </a>
+                    </div>
+                @endif
             </div>
-            <div class="relative">
-                <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
-                    <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-2">
-                        <h1 class="font-bold text-base">Shopping Summary</h1>
-                        <div class="text-gray-500 text-base place-items-end flex flex-row justify-between">
-                            Total Price (item)
+            @if(count($carts) >= 1)
+                <div class="relative">
+                    <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
+                        <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-2">
+                            <h1 class="font-bold text-base">Shopping Summary</h1>
+                            <div class="text-gray-500 text-base place-items-end flex flex-row justify-between">
+                                Total Price (item)
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
         <div class="md:block hidden my-16 w-fit ">
             <x-recommended-product/>
@@ -89,6 +116,27 @@
 
 
     <script>
+        function deleteItem(productId) {
+            const data = {
+                product_id: productId,
+                _token: "{{ csrf_token() }}"
+            }
+            fetch('/cart', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(() => {
+                    location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
+
         function changeQuantity(cartId, action, element, stock) {
             const quantityElement = document.getElementById('quantity-' + cartId);
             let currentQuantity = parseInt(quantityElement.innerText);
