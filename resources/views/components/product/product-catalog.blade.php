@@ -136,7 +136,7 @@
 
 <script>
     function addToCart() {
-        if(quantity < stock) {
+        if(quantity > stock) {
             return;
         }
 

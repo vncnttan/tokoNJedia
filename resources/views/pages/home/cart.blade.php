@@ -101,9 +101,21 @@
                     <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
                         <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-2">
                             <h1 class="font-bold text-base">Shopping Summary</h1>
-                            <div class="text-gray-500 text-base place-items-end flex flex-row justify-between">
-                                Total Price (item)
+                            <div class="text-gray-500 text-base place-items-end flex flex-row justify-between py-2 border-b-[1px] border-gray-200">
+                                <div>
+                                    Total Price (item)
+                                </div>
+                                <span id="totalPriceDisplay"></span>
                             </div>
+                            <div class="text-lg font-bold place-items-end flex flex-row justify-between py-2">
+                                <div>
+                                    Grand Total
+                                </div>
+                                <span id="grandTotalPriceDisplay"></span>
+                            </div>
+                            <button class="bg-green-600 py-2 text-white font-bold rounded-md">
+                                Buy
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -116,6 +128,21 @@
 
 
     <script>
+        function formatPriceJS(price) {
+            return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
+        }
+
+        function updateSummary() {
+            let totalPrice = 0;
+
+            carts.forEach(cart => {
+                totalPrice += cart.product.price * cart.quantity;
+            });
+
+            document.getElementById('totalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());
+            document.getElementById('grandTotalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());
+        }
+
         function deleteItem(productId) {
             const data = {
                 product_id: productId,
@@ -129,8 +156,10 @@
                 body: JSON.stringify(data),
             })
                 .then(response => response.json())
-                .then(() => {
+                .then((data) => {
+                    carts = data;
                     location.reload()
+                    updateSummary()
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -162,7 +191,6 @@
             }
 
             quantityElement.innerText = currentQuantity.toString();
-
             updateQuantityOnServer(cartId, currentQuantity);
         }
 
@@ -181,12 +209,18 @@
                 body: JSON.stringify(data),
             })
                 .then(response => response.json())
-                .then(() => {
-                    console.log("Success updating quantity")
+                .then((data) => {
+                    carts = data;
+                    updateSummary()
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 })
+        }
+
+        let carts = {!! json_encode($carts->toArray()) !!};
+        window.onload = function () {
+            updateSummary()
         }
     </script>
 @endsection

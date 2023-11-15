@@ -29,14 +29,14 @@ class CartController extends Controller
         if ($cart) {
             Cart::where('user_id', $user_id)->where('product_id', $product_id)
                 ->update(['quantity' => $quantity]);
-            return response()->json(['message' => 'Item added to cart']);
+            return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
         } else {
             Cart::create([
                 'user_id' => $user_id,
                 'product_id' => $product_id,
                 'quantity' => $quantity
             ]);
-            return response()->json(['message' => 'Item added to cart']);
+            return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
         }
     }
 
@@ -49,7 +49,7 @@ class CartController extends Controller
         Cart::where('user_id', $user_id)->where('product_id', $product_id)
             ->update(['quantity' => $quantity]);
 
-        return response()->json(['message' => 'Item added to cart']);
+        return response()-> json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
     }
 
     public function deleteCart(Request $request): JsonResponse
@@ -59,6 +59,6 @@ class CartController extends Controller
 
         Cart::where('user_id', $user_id)->where('product_id', $product_id)->delete();
         toastr()->success('Item deleted from cart', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-        return response()->json(['message' => 'Item deleted from cart']);
+        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
     }
 }
