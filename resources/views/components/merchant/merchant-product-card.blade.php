@@ -2,19 +2,19 @@
     <div class="w-full  flex  justify-between items-center" x-data="{ settingDropdown: false }">
         <div class="w-1/3 flex justify-start items-center gap-4 ">
             <img class="w-24 h-24 object-cover"
-                src="https://static.nike.com/a/images/t_default/f07e16bc-e996-4ae3-bc85-9946d8c1f06a/wearallday-shoe-PDB9Wd.png"
+                src="{{$product->image}}"
                 alt="">
-            <h1 class="text-sm font-bold text-black">Nike Wearallday Men's Shoe</h1>
+            <h1 class="text-sm font-bold text-black">{{$product->name}}</h1>
         </div>
         <div class="w-2/3 flex justify-between items-center ">
             <div class="w-1/4 flex">
-                <h1>Rp1.550.000</h1>
+                <h1>{{$product->price}}</h1>
             </div>
             <div class="w-1/4">
-                <h1>40</h1>
+                <h1>{{$product->stock}}</h1>
             </div>
             <div class="w-1/4 h-full flex flex-wrap justify-start items-center gap-2">
-                <h1>Shoes</h1>
+                <h1>{{$product->ProductCategory->name}}</h1>
                 {{-- @include('components.category.category-item')
                 @include('components.category.category-item')
                 @include('components.category.category-item')
@@ -52,9 +52,11 @@
                                 <h1>Edit</h1>
                             </button>
                         </form>
-                        <form action="" class="w-full flex justify-center items-center rounded-md">
+                        <form action="/product/{{$product->id}}" method="POST" class="w-full flex justify-center items-center rounded-md">
+                            @method('DELETE')
+                            @csrf
                             <button
-                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
+                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"

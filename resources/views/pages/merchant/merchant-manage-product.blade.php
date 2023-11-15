@@ -41,11 +41,11 @@
             </div>
 
             <div class="w-full h-full flex flex-col justify-center items-center">
-                @include('components.merchant.merchant-product-card')
-                @include('components.merchant.merchant-product-card')
-                @include('components.merchant.merchant-product-card')
+                @foreach ($products as $product)
+                {{-- {{dd($product)}} --}}
+                    @include('components.merchant.merchant-product-card', ['product' => $product])
+                @endforeach
             </div>
-
         </div>
     </div>
 @endsection

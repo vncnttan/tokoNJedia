@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use App\Models\Merchant;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -11,16 +12,19 @@ use Illuminate\Support\Str;
 
 class MerchantController extends Controller
 {
-    public function index(){
-        if(Auth::user()->Merchant == null){
+    public function index()
+    {
+        if (Auth::user()->Merchant == null) {
             return redirect('/merchant/create');
         }
         return view('pages.merchant.merchant-home');
     }
-    public function create(){
+    public function create()
+    {
         return view('pages.merchant.merchant-create');
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $messages = [
             'required' => "All Fields Must Be Filled",
             'phone.unique' => "Phone Number Has Already Been Taken",
@@ -46,7 +50,7 @@ class MerchantController extends Controller
             'address' => ['required', 'min:5', 'max:50'],
             'postal_code' => ['required', 'digits:5', 'numeric'],
         ], $messages);
-        if($validate->fails()){
+        if ($validate->fails()) {
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect()->back()->withErrors($validate)->withInput();
         }
@@ -72,13 +76,20 @@ class MerchantController extends Controller
         return redirect('/merchant');
     }
 
-    public function chat(){
+    public function chat()
+    {
         return view('pages.merchant.merchant-chat');
     }
-    public function addProduct(){
+    public function addProduct()
+    {
         return view('pages.merchant.merchant-add-product');
     }
-    public function manageProduct(){
-        return view('pages.merchant.merchant-manage-product');
+    public function manageProduct()
+    {
+        // $merchant = Auth::user()->Merchant;
+        // $products = $merchant->Products;
+        $products = Product::with('ProductCategory')->get();
+        // dd($products);
+        return view('pages.merchant.merchant-manage-product', ['products' => $products]);
     }
 }

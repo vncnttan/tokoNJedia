@@ -32,7 +32,7 @@ class Product extends Model
     }
     public function ProductCategory(): BelongsTo
     {
-        return $this->belongsTo(Merchant::class, "product_category_id");
+        return $this->belongsTo(ProductCategory::class, "product_category_id");
     }
     public function Ratings(): HasMany
     {

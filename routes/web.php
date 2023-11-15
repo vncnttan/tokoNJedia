@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
@@ -36,6 +37,7 @@ Route::POST("/profile/image", [UserController::class, 'updateImage']);
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::DELETE('/product/{id}', [ProductController::class, 'destroy']);
 
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
