@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -19,4 +20,6 @@ class HomeController extends Controller
     {
         return view('pages.home.product-detail', ['product_id' => $productId]);
     }
+
+
 }

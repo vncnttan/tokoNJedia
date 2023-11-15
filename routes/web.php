@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchantController;
@@ -39,6 +40,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
 Route::DELETE('/product/{id}', [ProductController::class, 'destroy']);
 
+// Carts
+Route::GET('/cart', [CartController::class, 'index']);
+Route::POST('/cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
@@ -49,3 +54,4 @@ Route::GET('/merchant/chat', [MerchantController::class, 'chat']);
 Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct']);
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct']);
 Route::POST('/merchant', [MerchantController::class, 'store']);
+

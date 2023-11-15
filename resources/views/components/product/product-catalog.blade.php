@@ -74,7 +74,6 @@
                 </div>
             </div>
         </div>
-        {{--        I want them to be fixed unti certain point (until their parent) without leaving container --}}
         <div class="h-50vh relative">
             <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
                 <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-4">
@@ -131,15 +130,29 @@
 </div>
 
 
-
 <script>
     function addToCart() {
         let data = {
             product_id: product_id,
             variant_id: variant_id,
-            quantity: quantity
+            quantity: quantity,
+            _token: "{{ csrf_token() }}"
         }
-        Livewire.emit('openModal', 'add-to-cart-success-modal', data)
+
+        fetch('/cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(() => {
+                Livewire.emit('openModal', 'add-to-cart-success-modal', data)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
     }
 
     function subtractQuantity() {
