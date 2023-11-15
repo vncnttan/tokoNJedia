@@ -16,6 +16,10 @@ class ProductCategory extends Model
     protected $fillable = [
         "name"
     ];
+    public static function search($query)
+    {
+        return ProductCategory::where('name', 'like', '%' . $query . '%');
+    }
 
     public function Products(): HasMany
     {

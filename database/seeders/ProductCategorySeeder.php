@@ -18,12 +18,14 @@ class ProductCategorySeeder extends Seeder
      */
     public function run()
     {
-        ProductCategory::factory()->create([
-            'name' => 'Fashion'
-        ]);
-
-        ProductCategory::factory()->create([
-            'name' => 'Electronic'
-        ]);
+        $categories = [
+            'Shoes', 'Shirts', 'Pants', 'T-Shirt', 'Jeans', 'Hoodie', 'Jacket', 'Hat', 'Dress', 'Scarf',
+            'Phone', 'Laptop', 'Smart Watch', 'TV', 'Monitor',
+            'Books', 'Home Appliances', 'Toys', 'Kitchen', 'Living Room', 'Bed Room', 'Family Room'];
+        foreach ($categories as $categoryName) {
+            ProductCategory::factory()->create([
+                'name' => $categoryName
+            ]);
+        }
     }
 }

@@ -82,7 +82,7 @@ class MerchantController extends Controller
     }
     public function addProduct()
     {
-        return view('pages.merchant.merchant-add-product');
+        return view('pages.merchant.merchant-create-product');
     }
     public function manageProduct()
     {
