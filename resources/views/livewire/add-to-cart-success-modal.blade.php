@@ -13,9 +13,11 @@
             <div class="text-gray-700 font-semibold pl-5">
                 {{ $product->name }}
             </div>
-            <button class="bg-green-500 p-3 rounded-md text-white font-bold">
-                View Cart
-            </button>
+            <a href="/cart">
+                <button class="bg-green-500 p-3 rounded-md text-white font-bold">
+                    View Cart
+                </button>
+            </a>
         </div>
     </div>
     <x-recommended-product/>

@@ -24,13 +24,20 @@ class CartController extends Controller
         $quantity = $request->quantity;
         $user_id = auth()->user()->id;
 
-        Cart::create([
-            'user_id' => $user_id,
-            'product_id' => $product_id,
-            'quantity' => $quantity
-        ]);
+        $cart = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
 
-        return response()->json(['message' => 'Item added to cart']);
+        if ($cart) {
+            Cart::where('user_id', $user_id)->where('product_id', $product_id)
+                ->update(['quantity' => $quantity]);
+            return response()->json(['message' => 'Item added to cart']);
+        } else {
+            Cart::create([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+                'quantity' => $quantity
+            ]);
+            return response()->json(['message' => 'Item added to cart']);
+        }
     }
 
     public function updateCart(Request $request): JsonResponse
@@ -39,10 +46,8 @@ class CartController extends Controller
         $quantity = $request->quantity;
         $user_id = auth()->user()->id;
 
-        $cart = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
-        $cart->quantity = $quantity;
-        Log::info('User added item to cart', ['user_id' => auth()->user()->id, 'product_id' => $product_id, 'quantity' => $quantity, 'cart' => $cart]);
-        $cart->save();
+        Cart::where('user_id', $user_id)->where('product_id', $product_id)
+            ->update(['quantity' => $quantity]);
 
         return response()->json(['message' => 'Item added to cart']);
     }

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="min-h-screen flex flex-col gap-8">
-        <div class="flex md:flex-row flex-col gap-8 relative">
+        <div class="flex md:flex-row flex-col mt-10 gap-8 relative">
             <x-product-image-view :product_id="$product_id"/>
             <x-product-catalog :product_id="$product_id"/>
         </div>
