@@ -14,7 +14,7 @@ class CartController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $carts = Cart::where('user_id', auth()->user()->id)->with(['product'])->get();
+        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get();
         return view('pages.home.cart', ['carts' => $carts]);
     }
 

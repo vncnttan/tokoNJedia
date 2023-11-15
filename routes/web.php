@@ -43,6 +43,7 @@ Route::DELETE('/product/{id}', [ProductController::class, 'destroy']);
 // Carts
 Route::GET('/cart', [CartController::class, 'index']);
 Route::POST('/cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::PATCH('/cart', [CartController::class, 'updateCart'])->name('update-cart');
 
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
