@@ -20,7 +20,6 @@ class CartController extends Controller
 
     public function addToCart(Request $request): JsonResponse
     {
-        Log::info('Request data:', $request->all());
         $product_id = $request->product_id;
         $quantity = $request->quantity;
         $user_id = auth()->user()->id;
@@ -30,6 +29,20 @@ class CartController extends Controller
             'product_id' => $product_id,
             'quantity' => $quantity
         ]);
+
+        return response()->json(['message' => 'Item added to cart']);
+    }
+
+    public function updateCart(Request $request): JsonResponse
+    {
+        $product_id = $request->product_id;
+        $quantity = $request->quantity;
+        $user_id = auth()->user()->id;
+
+        $cart = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
+        $cart->quantity = $quantity;
+        Log::info('User added item to cart', ['user_id' => auth()->user()->id, 'product_id' => $product_id, 'quantity' => $quantity, 'cart' => $cart]);
+        $cart->save();
 
         return response()->json(['message' => 'Item added to cart']);
     }

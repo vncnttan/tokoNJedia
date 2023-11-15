@@ -12,6 +12,7 @@ class Cart extends Model
     protected $table = "carts";
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $primaryKey = null;
 
     protected $fillable = [
         "user_id",
