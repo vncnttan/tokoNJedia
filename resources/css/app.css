@@ -14,4 +14,6 @@
         @apply w-8 h-8
     }
 }
-
+input[type="radio"] {
+  accent-color: green;
+}

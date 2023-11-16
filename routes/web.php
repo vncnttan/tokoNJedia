@@ -52,6 +52,7 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 
 // Merchant
 Route::GET('/merchant', [MerchantController::class, 'index']);
+Route::GET('/merchant/create', [MerchantController::class, 'create']);
 Route::GET('/merchant/chat', [MerchantController::class, 'chat']);
 Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct']);
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct']);
