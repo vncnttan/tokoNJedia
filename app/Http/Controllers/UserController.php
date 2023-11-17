@@ -74,7 +74,7 @@ class UserController extends Controller
 
 
     public function location() {
-        return view('pages.profile.location');
+        return view('pages.profile.profile-page-location');
     }
 
 }

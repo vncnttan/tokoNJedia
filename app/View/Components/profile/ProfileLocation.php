@@ -2,9 +2,11 @@
 
 namespace App\View\Components\profile;
 
+use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class profile-sidebar extends Component
+class ProfileLocation extends Component
 {
     /**
      * Create a new component instance.
@@ -19,10 +21,11 @@ class profile-sidebar extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
     public function render()
     {
-        return view('components.profile.profile-sidebar');
+        $user = User::with('Location')->find(auth()->user()->id);
+        return view('components.profile.profile-location', ['user' => $user]);
     }
 }

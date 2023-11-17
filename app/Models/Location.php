@@ -14,17 +14,8 @@ class Location extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    // public function Merchant(): BelongsTo
-    // {
-    //     return $this->belongsTo(Merchant::class);
-    // }
     public function Locationable(): MorphTo
     {
         return $this->morphTo();
     }
-
-    // public function User(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
 }

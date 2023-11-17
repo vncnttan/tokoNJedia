@@ -2,9 +2,10 @@
 
 namespace App\View\Components\profile;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class profile-location extends Component
+class ProfileSidebar extends Component
 {
     /**
      * Create a new component instance.
@@ -19,10 +20,10 @@ class profile-location extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View
      */
     public function render()
     {
-        return view('components.profile.profile-location');
+        return view('components.profile.profile-sidebar');
     }
 }

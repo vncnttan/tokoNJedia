@@ -41,13 +41,9 @@ class User extends Authenticatable
         return $this->hasMany(UserRoom::class);
     }
 
-    // public function Location(): HasMany
-    // {
-    //     return $this->hasMany(Location::class, 'location_id');
-    // }
     public function Location():MorphMany
     {
-        return $this->morphMany(Location::class, "Locationable");
+        return $this->morphMany(Location::class, "locationable");
     }
 
     public function Merchant(): HasOne

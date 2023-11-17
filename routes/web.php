@@ -29,7 +29,7 @@ Route::GET("/logout", [AuthController::class, "logout"]);
 
 // Profile
 Route::GET("/profile", function(){
-    return view('pages.profile.profile');
+    return view('pages.profile.profile-page-biodata');
 });
 Route::MATCH(["POST", "PUT"],"/profile/username", [UserController::class, 'updateUsername']);
 Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob']);
