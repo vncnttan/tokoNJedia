@@ -81,4 +81,10 @@ class ProductController extends Controller
         }
         return redirect()->back();
     }
+
+    public function search($keyword)
+    {
+        $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
+        return view('pages.home.search-page', compact('products', 'keyword'));
+    }
 }

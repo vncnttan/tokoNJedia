@@ -94,7 +94,7 @@
                 </button>
             </a>
         </div>
-        <div class="flex flex-col justify-center items-center text-green-500 font-semibold text-center md:px-20 px-5">
+        <div class="lg:flex flex-col justify-center items-center text-green-500 font-semibold text-center hidden xl:px-20 px-5">
             <img src="{{ asset('assets/footer/footer_img.png') }}" class="h-48 w-auto object-cover" alt="Footer image">
             <span>Breaking and Overcoming Challenges <br />
                  Through Courage, Hardwork, and Persistence</span>

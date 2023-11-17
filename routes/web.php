@@ -39,6 +39,7 @@ Route::GET('/profile/location', [UserController::class, 'location']);
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::GET('/search-page/{keyword}', [ProductController::class, 'search']);
 Route::POST('/product', [ProductController::class, 'store']);
 Route::DELETE('/product/{id}', [ProductController::class, 'destroy']);
 

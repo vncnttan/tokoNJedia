@@ -116,13 +116,13 @@
                     <div class="py-3 flex flex-col gap-2">
                         <button
                             class="w-full py-2 rounded-md bg-green-500 text-white font-bold disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-80"
-                            {{ $product->stock <= 0 || !$isLoggedIn ? 'disabled' : ''}}
+                            {{ $product->stock <= 0 ? 'disabled' : ''}}
                             onclick="addToCart()">
                             + Add to Cart
                         </button>
                         <button
                             class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold  disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-80"
-                            {{ $product->stock <= 0 || !$isLoggedIn  ? 'disabled' : ''}}>
+                            {{ $product->stock <= 0 ? 'disabled' : ''}}>
                             Buy Now
                         </button>
                     </div>
@@ -137,7 +137,7 @@
 <script>
 
     function addToCart() {
-        if (quantity > stock || !loggedIn) {
+        if (quantity > stock) {
             return;
         }
 

@@ -44,7 +44,11 @@
                 </div>
                 <div class="w-full h-full hidden md:flex justify-between items-center gap-4">
                     <a class="nav-button">Category</a>
-                    <input class="input-style w-full" type="text" placeholder="Search...">
+                    <form id="searchForm" class="h-full w-full" onsubmit="e.preventDefault()">
+                        <label class="h-full w-full">
+                            <input class="input-style w-full" type="text" id="search" placeholder="Search...">
+                        </label>
+                    </form>
                 </div>
                 <div class="h-full hidden md:flex justify-center items-center lg:gap-4 gap-2">
                     <div class="h-full flex justify-center items-center  gap-2">
@@ -107,4 +111,11 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userInput = document.getElementById('search').value;
+            window.location.href = '/search-page/' + userInput;
+        });
+    </script>
 </div>
