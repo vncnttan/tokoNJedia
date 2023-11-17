@@ -9,7 +9,7 @@
             <x-product-catalog :product_id="$product_id"/>
         </div>
         <div class="w-[75vw] pb-16">
-            <x-recommended-product />
+            <x-recommended-product :request-count="12"/>
         </div>
     </div>
 @endsection

@@ -20,5 +20,5 @@
             </a>
         </div>
     </div>
-    <x-recommended-product/>
+    <x-recommended-product />
 </div>

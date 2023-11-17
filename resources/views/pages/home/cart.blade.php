@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="flex flex-row text-lg gap-3">
-                            <img src="{{$cart->product->image}}" alt="Product Image"
+                            <img src="{{$cart->product->productImages[0]->image}}" alt="Product Image"
                                  class="w-20 h-20 object-cover rounded-md">
                             <div class="flex flex-col text-base gap-1">
                                 <div>
@@ -126,7 +126,7 @@
             @endif
         </div>
         <div class="md:block hidden my-16 w-fit ">
-            <x-recommended-product/>
+            <x-recommended-product :request-count="6"/>
         </div>
     </div>
 
@@ -221,7 +221,7 @@
                     console.error('Error:', error);
                 })
         }
-        
+
         let carts = {!! json_encode($carts->toArray()) !!};
         window.onload = function () {
             updateSummary()

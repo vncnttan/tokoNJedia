@@ -105,7 +105,7 @@
                     </b>
                 </div>
                 @include('components.product.search-not-found-card')
-                <x-recommended-product/>
+                <x-recommended-product :request-count="12"/>
 
             @endif
         </div>
@@ -132,7 +132,7 @@
                     </b>
                 </div>
                 @include('components.product.search-not-found-card')
-                <x-recommended-product/>
+                <x-recommended-product :request-count="12"/>
             @endif
         </div>
 

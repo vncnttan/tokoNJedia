@@ -11,14 +11,16 @@ use Illuminate\View\Component;
 
 class RecommendedProduct extends Component
 {
+
+    private int $requestCount;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($requestCount = 6)
     {
-        //
+        $this->requestCount = $requestCount;
     }
 
     /**
@@ -37,7 +39,7 @@ class RecommendedProduct extends Component
                 $product->merchant_city = $product->merchant->location[0]->city ?? 'N/A';
                 $product->average_rating = $product->ratings->avg('rating') ?? 0;
                 return $product;
-            })->random(6);
+            })->random($this->requestCount);
         return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts]);
     }
 }
