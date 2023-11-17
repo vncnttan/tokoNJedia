@@ -72,4 +72,10 @@ class UserController extends Controller
         toastr()->success('Update Profile Image Success', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return redirect('/profile');
     }
+
+
+    public function location() {
+        return view('pages.profile.location');
+    }
+
 }

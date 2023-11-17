@@ -116,13 +116,13 @@
                     <div class="py-3 flex flex-col gap-2">
                         <button
                             class="w-full py-2 rounded-md bg-green-500 text-white font-bold disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-80"
-                            {{ $product->stock <= 0 ? 'disabled' : ''}}
+                            {{ $product->stock <= 0 || !$isLoggedIn ? 'disabled' : ''}}
                             onclick="addToCart()">
                             + Add to Cart
                         </button>
                         <button
                             class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold  disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-80"
-                            {{ $product->stock <= 0 ? 'disabled' : ''}}>
+                            {{ $product->stock <= 0 || !$isLoggedIn  ? 'disabled' : ''}}>
                             Buy Now
                         </button>
                     </div>
@@ -135,8 +135,9 @@
 
 
 <script>
+
     function addToCart() {
-        if(quantity > stock) {
+        if (quantity > stock || !loggedIn) {
             return;
         }
 
@@ -192,6 +193,7 @@
     let stock = {{ $product->stock }};
     let variant_id;
     let product_id = '{{ $product->id }}';
+    let loggedIn = {!! json_encode($isLoggedIn ? true : false) !!};
 
     function formatPriceJS(price) {
         return price.replace(/\d(?=(\d{3})+$)/g, '$&.');

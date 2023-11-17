@@ -101,7 +101,8 @@
                     <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
                         <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-2">
                             <h1 class="font-bold text-base">Shopping Summary</h1>
-                            <div class="text-gray-500 text-base place-items-end flex flex-row justify-between py-2 border-b-[1px] border-gray-200">
+                            <div
+                                class="text-gray-500 text-base place-items-end flex flex-row justify-between py-2 border-b-[1px] border-gray-200">
                                 <div>
                                     Total Price (item)
                                 </div>
@@ -113,9 +114,12 @@
                                 </div>
                                 <span id="grandTotalPriceDisplay"></span>
                             </div>
-                            <button class="bg-green-600 py-2 text-white font-bold rounded-md">
-                                Buy
-                            </button>
+                            <a href="/cart/shipment"
+                               class="bg-green-600 py-2 text-white font-bold rounded-md justify-center text-center">
+                                <button>
+                                    Buy
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -217,7 +221,7 @@
                     console.error('Error:', error);
                 })
         }
-
+        
         let carts = {!! json_encode($carts->toArray()) !!};
         window.onload = function () {
             updateSummary()

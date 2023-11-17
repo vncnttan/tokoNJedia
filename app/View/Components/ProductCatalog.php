@@ -17,6 +17,7 @@ class ProductCatalog extends Component
      * @return void
      */
     public $product;
+
     public function __construct($productId)
     {
         $this->product = Product::with(['productVariants', 'ratings', 'merchant'])
@@ -36,6 +37,6 @@ class ProductCatalog extends Component
      */
     public function render(): View|Factory|Application
     {
-        return view('components.product.product-catalog', ["product" => $this->product]);
+        return view('components.product.product-catalog', ["product" => $this->product, 'isLoggedIn' => auth()->check()]);
     }
 }

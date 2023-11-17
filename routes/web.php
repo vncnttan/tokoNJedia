@@ -34,6 +34,7 @@ Route::GET("/profile", function(){
 Route::MATCH(["POST", "PUT"],"/profile/username", [UserController::class, 'updateUsername']);
 Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob']);
 Route::POST("/profile/image", [UserController::class, 'updateImage']);
+Route::GET('/profile/location', [UserController::class, 'location']);
 
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -52,6 +53,7 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 
 // Merchant
 Route::GET('/merchant', [MerchantController::class, 'index']);
+Route::GET('/merchant/create', [MerchantController::class, 'create']);
 Route::GET('/merchant/chat', [MerchantController::class, 'chat']);
 Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct']);
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct']);
