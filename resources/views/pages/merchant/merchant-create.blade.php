@@ -3,25 +3,29 @@
 @section('title', 'Merchant')
 
 @section('content')
-    <div class="max-w-7xl w-screen h-screen flex-1 flex justify-evenly place-items-center gap-16 p-4 sm:px-6 lg:px-8">
-        <div class="flex-grow w-1/2 h-[70vh] flex justify-center place-items-center">
-            <div class="h-full flex flex-col justify-center items-start gap-8 text-md ">
-                <div class="w-full flex justify-start items-center gap-8">
+    <div
+        class="max-w-7xl w-screen h-screen flex-1 flex flex-col lg:flex-row justify-start md:justify-evenly place-items-center gap-4 lg:gap-16 p-4 sm:px-6 lg:px-8">
+        <div class="flex-grow w-full lg:w-1/2 lg:h-[70vh] hidden md:flex justify-center place-items-center">
+            <div class="h-full w-full flex flex-row lg:flex-col justify-center items-start gap-8 text-md p-4">
+                <div class="w-full flex justify-start items-center gap-2 lg:gap-8">
                     <img src="{{ url(asset("assets/merchants/free-benefit.png")) }}" alt="">
                     <p>Open a merchant Account <b>free</b> without any charges.</p>
                 </div>
-                <div class="w-full flex justify-start items-center gap-8">
+                <div class="w-full flex justify-start items-center gap-2 lg:gap-8">
                     <img src="{{ url(asset("assets/merchants/reach-benefit.png")) }}" alt="">
                     <p>More than <b>90 millions</b> active users every month.</p>
                 </div>
-                <div class="w-full flex justify-start items-center gap-8">
+                <div class="w-full flex justify-start items-center gap-2 lg:gap-8">
                     <img src="{{ url(asset("assets/merchants/user-benefit.png")) }}"
                          alt="">
                     <p><b>Reach 97%</b> potential user across Indonesia</p>
                 </div>
             </div>
         </div>
-        <div class="flex-grow w-full rounded-lg bg-white ring-gray-200 ring-1 p-8 box-border">
+        <h1 class="font-bold text-xl block sm:hidden mt-8 mb-4">
+            Merchant Register
+        </h1>
+        <div class="flex-grow w-full rounded-lg bg-white ring-gray-200 ring-1 p-4 sm:p-8 box-border">
             <div class="w-full h-full flex flex-col justify-center gap-8">
                 <p class="text-black text-xl font-semibold">Hello, {{ Auth::user()->username }} lets fill in your
                     merchant detail</p>
@@ -30,7 +34,7 @@
                     class="w-full flex flex-col justify-center items-start gap-12" method="POST"
                     action="/merchant">
                     @csrf
-                    <div class="w-full flex gap-6">
+                    <div class="w-full flex gap-4 sm:gap-6">
                         <h1 id="progress-indicator1"
                             class="w-10 h-10 text-green-600 font-bold rounded-full p-2 text-center ring-1 ring-green-500">
                             1
@@ -58,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full flex gap-6">
+                    <div class="w-full flex gap-2 sm:gap-6">
                         <h1 id="progress-indicator2"
                             class="w-10 h-10 text-green-600 font-bold rounded-full p-2 text-center ring-1 ring-green-500">
                             2
@@ -93,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full flex gap-6">
+                    <div class="w-full flex gap-2 sm:gap-6">
                         <h1 id="progress-indicator3"
                             class="w-10 h-10 text-green-600 font-bold rounded-full p-2 text-center ring-1 ring-green-500">
                             3
@@ -105,27 +109,32 @@
 
                                     <div class="flex flex-col">
                                         <label for="cityInput" class="font-semibold text-gray-500">City</label>
-                                        <input id="cityInput" class="pl-2 input-style" type="text" name="city" placeholder="ex. Jakarta"
+                                        <input id="cityInput" class="pl-2 input-style" type="text" name="city"
+                                               placeholder="ex. Jakarta"
                                                value="{{old('city')}}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="countryInput" class="font-semibold text-gray-500">Country</label>
-                                        <input id="countryInput" class="pl-2 input-style" type="text" name="country" placeholder="ex. Indonesia"
+                                        <input id="countryInput" class="pl-2 input-style" type="text" name="country"
+                                               placeholder="ex. Indonesia"
                                                value="{{old('country')}}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="addressInput" class="font-semibold text-gray-500">Address</label>
-                                        <input id="addressInput" class="pl-2 input-style" type="text" name="address" placeholder="ex. Mister Potato Street No. 1"
+                                        <input id="addressInput" class="pl-2 input-style" type="text" name="address"
+                                               placeholder="ex. Mister Potato Street No. 1"
                                                value="{{old('address')}}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="postalInput" class="font-semibold text-gray-500">Postal Code</label>
-                                        <input id="postalInput" class="pl-2 input-style" type="number" name="postal_code" placeholder="ex. 14045"
+                                        <input id="postalInput" class="pl-2 input-style" type="number"
+                                               name="postal_code" placeholder="ex. 14045"
                                                value="{{old('postal_code')}}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="notesInput" class="font-semibold text-gray-500">Notes</label>
-                                        <input id="notesInput" class="pl-2 input-style" type="text" name="notes" placeholder="ex. Near the big tree"
+                                        <input id="notesInput" class="pl-2 input-style" type="text" name="notes"
+                                               placeholder="ex. Near the big tree"
                                                value="{{old('notes')}}">
                                     </div>
                                 </div>
