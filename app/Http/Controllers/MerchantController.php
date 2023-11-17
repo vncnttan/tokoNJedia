@@ -86,10 +86,8 @@ class MerchantController extends Controller
     }
     public function manageProduct()
     {
-        // $merchant = Auth::user()->Merchant;
-        // $products = $merchant->Products;
-        $products = Product::with('ProductCategory')->get();
-        // dd($products);
+        $merchant = Auth::user()->Merchant;
+        $products = $merchant->Products()->with(['ProductCategory', 'ProductVariants', 'ProductImages'])->get();
         return view('pages.merchant.merchant-manage-product', ['products' => $products]);
     }
 }

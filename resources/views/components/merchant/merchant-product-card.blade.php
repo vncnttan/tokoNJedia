@@ -2,24 +2,19 @@
     <div class="w-full  flex  justify-between items-center" x-data="{ settingDropdown: false }">
         <div class="w-1/3 flex justify-start items-center gap-4 ">
             <img class="w-24 h-24 object-cover"
-                src="{{$product->image}}"
+                src="{{$product->ProductImages->first()->image ?? asset('assets/login-bg.png')}}"
                 alt="">
             <h1 class="text-sm font-bold text-black">{{$product->name}}</h1>
         </div>
         <div class="w-2/3 flex justify-between items-center ">
             <div class="w-1/4 flex">
-                <h1>{{$product->price}}</h1>
+                <h1>{{$product->ProductVariants->first()->price ?? 0}}</h1>
             </div>
             <div class="w-1/4">
                 <h1>{{$product->stock}}</h1>
             </div>
             <div class="w-1/4 h-full flex flex-wrap justify-start items-center gap-2">
                 <h1>{{$product->ProductCategory->name}}</h1>
-                {{-- @include('components.category.category-item')
-                @include('components.category.category-item')
-                @include('components.category.category-item')
-                @include('components.category.category-item')
-                @include('components.category.category-item') --}}
             </div>
             <div class="relative w-1/4 h-full flex flex-col justify-center items-start">
                 <button class=" p-2 ring-1 ring-gray-300 rounded-lg flex justify-between items-center gap-4"
