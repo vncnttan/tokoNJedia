@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="max-w-7xl w-screen h-screen flex-1 flex justify-evenly place-items-center gap-16 p-4 sm:px-6 lg:px-8">
-        <div class="flex-grow w-1/2 h-screen flex justify-center place-items-center">
+        <div class="flex-grow w-1/2 h-[70vh] flex justify-center place-items-center">
             <div class="h-full flex flex-col justify-center items-start gap-8 text-md ">
                 <div class="w-full flex justify-start items-center gap-8">
                     <img src="{{ url(asset("assets/merchants/free-benefit.png")) }}" alt="">
