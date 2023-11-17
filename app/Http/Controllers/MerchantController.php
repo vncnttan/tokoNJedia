@@ -52,7 +52,7 @@ class MerchantController extends Controller
         ], $messages);
         if ($validate->fails()) {
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-            return redirect()->back()->withErrors($validate)->withInput();
+            return redirect()->back()->withErrors($validate)->withInput($request->input);
         }
         $merchant = new Merchant();
         $merchant->id = Str::uuid();

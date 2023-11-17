@@ -29,7 +29,7 @@
                     <div class="w-full flex flex-col justify-center items-center gap-2">
                         <h1 class="text-2xl font-bold">Register Now</h1>
                         <div class="w-full flex justify-center items-center text-base gap-1 bg-red">
-                            <h1>Don't have an account?</h1>
+                            <h1>Already have an account?</h1>
                             <a class="text-green-500 cursor-pointer font-medium" href="/login">Login</a>
                         </div>
                     </div>

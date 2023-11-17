@@ -25,7 +25,7 @@
             <div class="w-full h-full flex flex-col justify-center gap-8">
                 <p class="text-black text-xl font-semibold">Halo, {{ Auth::user()->username }} lets fill your merchant
                     detail</p>
-                <form class="w-full flex flex-col justify-center items-start gap-4" method="POST" action="/merchant">
+                <form wire:submit.prevent='' class="w-full flex flex-col justify-center items-start gap-4" method="POST" action="/merchant">
                     @csrf
                     <div class="w-full flex gap-6">
                         <h1 class="w-10 h-10 rounded-full p-2 text-center font-semibold text-black ring-1 ring-green-500">1
@@ -33,7 +33,7 @@
                         <div class="w-full flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Phone Number</h1>
                             <label for="">Phone Number</label>
-                            <input class="input-style" type="number" name="phone">
+                            <input class="input-style" type="number" name="phone" value="{{old('phone')}}">
                         </div>
                     </div>
                     <div class="w-full flex gap-6">
@@ -42,7 +42,7 @@
                         <div class="w-full flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Merchant Name</h1>
                             <label for="">Name</label>
-                            <input class="input-style" type="text" name="name">
+                            <input class="input-style" type="text" name="name" value="{{old('name')}}">
                         </div>
                     </div>
                     <div class="w-full flex gap-6">
@@ -51,15 +51,15 @@
                         <div class="w-full flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Location</h1>
                             <label for="">City</label>
-                            <input class="input-style" type="text" name="city">
+                            <input class="input-style" type="text" name="city" value="{{old('city')}}">
                             <label for="">Country</label>
-                            <input class="input-style" type="text" name="country">
+                            <input class="input-style" type="text" name="country" value="{{old('country')}}">
                             <label for="">Address</label>
-                            <input class="input-style" type="text" name="address">
+                            <input class="input-style" type="text" name="address" value="{{old('address')}}">
                             <label for="">Postal Code</label>
-                            <input class="input-style" type="number" name="postal_code">
+                            <input class="input-style" type="number" name="postal_code" value="{{old('postal_code')}}">
                             <label for="">Notes</label>
-                            <input class="input-style" type="text" name="notes">
+                            <input class="input-style" type="text" name="notes" value="{{old('notes')}}">
                             <button class="my-4 w-full rounded-lg bg-green-500 text-white text-xl font-semibold p-2 box-border self-center" type="submit">Save</button>
                         </div>
                     </div>

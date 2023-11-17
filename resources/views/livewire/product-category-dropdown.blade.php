@@ -1,8 +1,8 @@
-<div class="w-full" x-data="{ categoryDropdown: false, selectedCategory: '', selectedCategoryName: 'Product Category' }" @click.away="categoryDropdown = false">
+<div class="w-full" x-data="{ categoryDropdown: false, selectedCategory: '', selectedCategoryName: 'Product Category', searchQuery: '' }" @click.away="categoryDropdown = false">
 
-    <button x-show="!categoryDropdown"
+    <button type="button" x-show="!categoryDropdown"
         class="w-full p-2 ring-1 ring-gray-300 rounded-md flex justify-between items-center gap-4"
-        @click="categoryDropdown = !categoryDropdown">
+        @click.stop="categoryDropdown = !categoryDropdown">
         <p class="text-sm text-gray-400" x-text="selectedCategoryName"></p>
         <div class="ml-auto">
             <svg x-show="!categoryDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -16,16 +16,16 @@
         </div>
     </button>
     <input x-show="categoryDropdown" wire:model.live="search" type="text" placeholder="Search Category..."
-        class="w-full input-style" x-model="searchQuery"
-        @click.away="categoryDropdown = false">
+        class="w-full input-style" x-model="searchQuery" @click.away="categoryDropdown = false">
+    <input type="hidden" name="product_category" x-bind:value="selectedCategory">
     <div class="relative w-full flex gap-4 justify-start mt-1 ">
         <div x-show="categoryDropdown"
             class="absolute z-10 w-full max-h-40 overflow-y-auto left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
             @foreach ($categories as $c)
-                <button class="w-full p-2 bg-white hover:bg-gray-300 rounded-md text-black text-md flex justify-start"
-                    @click="selectedCategory = '{{ $c->id }}'; categoryDropdown = false; selectedCategoryName = '{{ $c->name }}'">
+                <div class="w-full p-2 bg-white hover:bg-gray-300 rounded-md text-black text-md flex justify-start"
+                    @click.stop="selectedCategory = '{{ $c->id }}'; categoryDropdown = false; selectedCategoryName = '{{ $c->name }}'">
                     <h1>{{ $c->name }}</h1>
-                </button>
+                </div>
             @endforeach
         </div>
     </div>
