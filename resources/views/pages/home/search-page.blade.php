@@ -5,7 +5,10 @@
 @section('content')
     <div class="xl:px-80 lg:px-52 md:px-32 mt-6 mb-10 px-12 flex flex-col gap-5 w-full">
         <div class="w-full h-10 flex flex-row border-b-[1px] border-gray-400 border-opacity-30">
-            <div class="flex flex-row gap-2 border-green-600 text-green-600 w-32 justify-center font-bold border-b-2">
+            <button
+                id="product-button"
+                class="flex flex-row gap-2 border-gray-400 text-gray-400  w-32 justify-center font-bold border-b-2"
+                onclick="changeSelected('Product')">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path
                         d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375z"/>
@@ -14,8 +17,11 @@
                           clip-rule="evenodd"/>
                 </svg>
                 Product
-            </div>
-            <div class="flex flex-row gap-2 border-gray-400 text-gray-400 w-32 justify-center font-bold">
+            </button>
+            <button
+                id="store-button"
+                class="flex flex-row gap-2 border-gray-400 text-gray-400 w-32 justify-center font-bold"
+                onclick="changeSelected('Store')">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path
                         d="M5.223 2.25c-.497 0-.974.198-1.325.55l-1.3 1.298A3.75 3.75 0 007.5 9.75c.627.47 1.406.75 2.25.75.844 0 1.624-.28 2.25-.75.626.47 1.406.75 2.25.75.844 0 1.623-.28 2.25-.75a3.75 3.75 0 004.902-5.652l-1.3-1.299a1.875 1.875 0 00-1.325-.549H5.223z"/>
@@ -24,25 +30,79 @@
                           clip-rule="evenodd"/>
                 </svg>
                 Shop
-            </div>
+            </button>
         </div>
 
-        @if(count($products) > 0)
-            <div class="flex flex-col gap-3">
-                <div class="text-sm text-gray-700">
-                    Showing {{count($products)}} results for
-                    <b>
-                        "{{ $keyword }}"
-                    </b>
+        <div id="product-result">
+            @if(count($products) > 0)
+                <div class="flex flex-col gap-3">
+                    <div class="text-sm text-gray-700">
+                        Showing {{count($products)}} results for
+                        <b>
+                            "{{ $keyword }}"
+                        </b>
+                    </div>
+                    <div class="flex flex-row flex-wrap gap-3">
+                        @foreach($products as $product)
+                            <x-product-card :productId="$product->id"/>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="flex flex-row flex-wrap gap-3">
-                    @foreach($products as $product)
-                        <x-product-card :productId="$product->id"/>
-                    @endforeach
+            @endif
+        </div>
+        <div id="store-result" hidden>
+            @if(count($stores) > 0)
+
+                <div class="flex flex-col gap-3">
+                    <div class="text-sm text-gray-700">
+                        Showing {{count($stores)}} results for
+                        <b>
+                            "{{ $keyword }}"
+                        </b>
+                    </div>
+                    <div class="flex flex-row flex-wrap gap-3">
+                        @foreach($stores as $store)
+                            {{ $store }}
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        @endif
-{{--         {{ $products }}--}}
+            @endif
+        </div>
     </div>
+
+    <script>
+        let selected = "Product"
+
+        function updateUI() {
+            document.getElementById("product-result").hidden = selected !== "Product"
+            document.getElementById("store-result").hidden = selected !== "Store"
+
+            if (selected === "Product") {
+                document.getElementById("product-button").classList.add("border-green-600")
+                document.getElementById("product-button").classList.add("text-green-600")
+                document.getElementById("product-button").classList.add("border-b-2")
+                document.getElementById("store-button").classList.remove("border-green-600")
+                document.getElementById("store-button").classList.remove("text-green-600")
+                document.getElementById("store-button").classList.remove("border-b-2")
+            } else {
+                document.getElementById("product-button").classList.remove("border-green-600")
+                document.getElementById("product-button").classList.remove("text-green-600")
+                document.getElementById("product-button").classList.remove("border-b-2")
+                document.getElementById("store-button").classList.add("border-green-600")
+                document.getElementById("store-button").classList.add("text-green-600")
+                document.getElementById("store-button").classList.add("border-b-2")
+            }
+        }
+
+        function changeSelected(clicked) {
+            selected = clicked
+
+            updateUI()
+        }
+
+        window.onload = function () {
+            updateUI()
+        }
+    </script>
 
 @endsection

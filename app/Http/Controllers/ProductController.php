@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
@@ -85,6 +86,7 @@ class ProductController extends Controller
     public function search($keyword)
     {
         $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
-        return view('pages.home.search-page', compact('products', 'keyword'));
+        $stores = Merchant::where('name', 'like', '%' . $keyword . '%')->get();
+        return view('pages.home.search-page', compact('products', 'keyword', 'stores'));
     }
 }
