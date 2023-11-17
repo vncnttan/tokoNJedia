@@ -19,7 +19,7 @@ class MerchantCard extends Component
      */
     public function __construct($merchantId)
     {
-        $this->merchant = Merchant::with(['location'])->where('id', $merchantId)->get()->first();
+        $this->merchant = Merchant::with(['location', 'products', 'products.ProductImages'])->where('id', $merchantId)->get()->first();
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('title', 'Cart')
 
 @section('content')
-    <div class="h-min-screen xl:px-80 lg:px-48 md:px-24 mt-6 mb-10 px-12 flex flex-col gap-5 w-full">
+    <div class="h-min-screen xl:px-80 lg:px-48 md:px-24 mt-6 mb-10 px-6 flex flex-col gap-5 w-full">
         <div class="w-full h-10 flex flex-row border-b-[1px] border-gray-400 border-opacity-30">
             <button
                 id="product-button"
@@ -33,7 +33,7 @@
             </button>
         </div>
 
-        <div id="product-result">
+        <div id="product-result" >
             @if(count($products) > 0)
                 <div class="flex flex-col gap-3">
                     <div class="text-sm text-gray-700">
@@ -50,7 +50,7 @@
                 </div>
             @endif
         </div>
-        <div id="store-result" hidden>
+        <div id="store-result" >
             @if(count($stores) > 0)
 
                 <div class="flex flex-col gap-3">
