@@ -31,8 +31,6 @@ class ProductFactory extends Factory
         $faker = \Faker\Factory::create();
         $faker->addProvider(new Commerce($faker));
 
-        $response = Http::get('https://source.unsplash.com/random');
-
         return [
             'id' => Str::uuid(),
             'name' => $faker->productName,
@@ -40,7 +38,6 @@ class ProductFactory extends Factory
             'price' => $this->faker->numberBetween(100000, 500000),
             'stock' => $this->faker->numberBetween(0, 20),
             'condition' => $this->faker->randomElement(['New', 'Used']),
-            'image' => $response->effectiveUri(),
             'merchant_id' => Merchant::all()->random()->id,
             'product_category_id' => ProductCategory::all()->random()->id
         ];

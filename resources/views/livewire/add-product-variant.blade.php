@@ -37,11 +37,11 @@
                   </svg>
             </button> --}}
             @if ($slot > 2)
-            <button class="bg-red-500 py-2 px-8 rounded-md text-white font-medium text-md"
+            <button type="button" class="bg-red-500 py-2 px-8 rounded-md text-white font-medium text-md"
                 wire:click="removeVariant({{ $index }})">Delete</button>
             @endif
         @endforeach
-        <button class="py-2 px-16 rounded-md bg-white ring-1 ring-green-500 text-green-500 font-semibold"
+        <button type="button" class="py-2 px-16 rounded-md bg-white ring-1 ring-green-500 text-green-500 font-semibold"
             wire:click="addVariant">+ Add Variant</button>
     </div>
 </div>
