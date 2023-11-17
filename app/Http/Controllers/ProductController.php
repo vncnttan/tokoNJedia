@@ -86,7 +86,7 @@ class ProductController extends Controller
     public function search($keyword)
     {
         $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
-        $stores = Merchant::where('name', 'like', '%' . $keyword . '%')->get();
+        $stores = Merchant::with(['products'])->where('name', 'like', '%' . $keyword . '%')->get();
         return view('pages.home.search-page', compact('products', 'keyword', 'stores'));
     }
 }

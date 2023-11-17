@@ -42,6 +42,34 @@
                             "{{ $keyword }}"
                         </b>
                     </div>
+                    @if(count($stores) > 0)
+                        <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row p-4 mb-10">
+                            <div class="h-80 md:h-80 flex-grow flex flex-col p-2 justify-center">
+{{--                                <img />--}}
+                            </div>
+                            <div class="sm:flex hidden flex-row flex-wrap gap-3">
+                                <div class="2xl:flex flex-row flex-wrap gap-3 hidden">
+                                    @foreach($stores[0]->products->slice(0, 2) as $product)
+                                        <x-product-card :productId="$product->id"/>
+                                    @endforeach
+                                </div>
+                                <a href="/merchant/products/{{ $stores[0]->id }}">
+                                    <div
+                                        class="w-36 h-80 md:w-48 md:h-80 rounded-md border-[1px] leading-4 border-gray-500 gap-2 px-6  border-opacity-50 flex flex-col justify-center place-items-center text-center font-bold text-green-600">
+                                        <div
+                                            class="rounded-full shadow-card p-2 border-black border-opacity-30 border-[1px]">
+                                            <svg class=" w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
+                                            </svg>
+                                        </div>
+                                        See other products
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                     <div class="flex flex-row flex-wrap gap-3">
                         @foreach($products as $product)
                             <x-product-card :productId="$product->id"/>
@@ -49,39 +77,19 @@
                     </div>
                 </div>
             @else
-
                 <div class="text-sm text-gray-700">
                     Searching for
                     <b>
                         "{{ $keyword }}"
                     </b>
                 </div>
-                <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row py-6 px-20 my-6 mb-10">
-                    <img alt="Not found" src="{{ url(asset('assets/checkout/not-found.png')) }}"
-                         class="h-32"/>
-                    <div class="flex flex-col justify-evenly">
-                        <h1 class="font-semibold opacity-80 text-2xl">
-                            Oops, we think it hides somewhere
-                        </h1>
-                        <h4>
-                            Try another keyword or check product recommendation below.
-                        </h4>
-                        <a class="w-full" href="/">
-                            <button
-                                class="w-fit h-fit py-3 px-6 rounded-lg text-sm font-semibold text-white bg-green-600">
-                                Go back home
-                            </button>
-                        </a>
-                    </div>
-                </div>
-
+                @include('components.product.search-not-found-card')
                 <x-recommended-product/>
 
             @endif
         </div>
         <div id="store-result">
             @if(count($stores) > 0)
-
                 <div class="flex flex-col gap-3">
                     <div class="text-sm text-gray-700">
                         Showing {{count($stores)}} results for
@@ -102,25 +110,7 @@
                         "{{ $keyword }}"
                     </b>
                 </div>
-                <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row py-6 px-20 my-6 mb-10">
-                    <img alt="Not found" src="{{ url(asset('assets/checkout/not-found.png')) }}"
-                         class="h-32"/>
-                    <div class="flex flex-col justify-evenly">
-                        <h1 class="font-semibold opacity-80 text-2xl">
-                            Oops, we think it hides somewhere
-                        </h1>
-                        <h4>
-                            Try another keyword or check product recommendation below.
-                        </h4>
-                        <a class="w-full" href="/">
-                            <button
-                                class="w-fit h-fit py-3 px-6 rounded-lg text-sm font-semibold text-white bg-green-600">
-                                Go back home
-                            </button>
-                        </a>
-                    </div>
-                </div>
-
+                @include('components.product.search-not-found-card')
                 <x-recommended-product/>
             @endif
         </div>
