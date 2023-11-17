@@ -13,5 +13,5 @@ TokoNJedia
 Laravel Core Training BP :]
 
 Special thanks:
-- CX23-1 Riccdox
+- CX23-1 Riccdoug
 
