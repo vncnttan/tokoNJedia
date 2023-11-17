@@ -25,8 +25,10 @@
             <div class="w-full h-full flex flex-col justify-center gap-8">
                 <p class="text-black text-xl font-semibold">Hello, {{ Auth::user()->username }} lets fill in your
                     merchant detail</p>
-                <form class="w-full flex flex-col justify-center items-start gap-12" method="POST"
-                      action="/merchant">
+                <form
+                    id="registrationForm"
+                    class="w-full flex flex-col justify-center items-start gap-12" method="POST"
+                    action="/merchant">
                     @csrf
                     <div class="w-full flex gap-6">
                         <h1 id="progress-indicator1"
@@ -35,10 +37,24 @@
                         </h1>
                         <div class="flex-grow flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Phone Number</h1>
-                            <div class="flex flex-col gap-1" id="form-content1">
-                                <label for="phoneNumberInput">Phone Number</label>
-                                <input id="phoneNumberInput" class="input-style" type="number" name="phone"
-                                       value="{{old('phone')}}">
+                            <div class="flex flex-col gap-2" id="form-content1">
+                                <div class="flex flex-col">
+                                    <label for="phoneNumberInput" class="font-semibold text-gray-500">Phone
+                                        Number</label>
+                                    <input id="phoneNumberInput" class="input-style pl-4" type="number" name="phone"
+                                           value="{{old('phone')}}"
+                                           placeholder="08XXXXXXX"
+                                           onchange="updateBtnNext1(this)"
+                                    >
+                                    <p class="text-gray-500">Make sure your phone number is active to speed up the
+                                        registration process</p>
+                                </div>
+                                <button id="button-progress-1"
+                                        class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
+                                        onclick="updateProgress(event, 1)"
+                                        disabled>
+                                    Next
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -49,10 +65,31 @@
                         </h1>
                         <div class="flex-grow flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Merchant Name</h1>
-                            <div id="form-content2" class="flex flex-col gap-1">
-                                <label for="nameInput">Name</label>
-                                <input id="nameInput" class="input-style" type="text" name="name"
-                                       value="{{old('name')}}">
+                            <div id="form-content2" class="flex flex-col gap-2">
+                                <div class="flex flex-col">
+                                    <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
+                                    <input id="nameInput" class="input-style pl-2" type="text" name="name"
+                                           value="{{old('name')}}"
+                                           onchange="updateBtnNext2(this)"
+                                           placeholder="ABC Store"
+                                    >
+                                    <p class="text-gray-500">Merchant name will be displayed on your products</p>
+                                </div>
+
+                                <div class="flex flex-row gap-2">
+                                    <button
+                                        class="w-fit py-2 px-12 bg-gray-200 text-black rounded-md"
+                                        onclick="updateProgress(event, -1)">
+                                        Back
+                                    </button>
+                                    <button id="button-progress-2"
+                                            class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
+                                            onclick="updateProgress(event, 1)"
+                                            disabled>
+                                        Next
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -61,29 +98,48 @@
                             class="w-10 h-10 text-green-600 font-bold rounded-full p-2 text-center ring-1 ring-green-500">
                             3
                         </h1>
-                        <div class="flex-grow flex flex-col gap-2 justify-center">
+                        <div class="flex-grow flex flex-col gap-4 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Location</h1>
-                            <div class="flex flex-col gap-1" id="form-content3">
+                            <div class="flex flex-col gap-8" id="form-content3">
+                                <div class="flex flex-col gap-2">
 
-                                <label for="cityInput">City</label>
-                                <input id="cityInput" class="input-style" type="text" name="city"
-                                       value="{{old('city')}}">
-                                <label for="countryInput">Country</label>
-                                <input id="countryInput" class="input-style" type="text" name="country"
-                                       value="{{old('country')}}">
-                                <label for="addressInput">Address</label>
-                                <input id="addressInput" class="input-style" type="text" name="address"
-                                       value="{{old('address')}}">
-                                <label for="postalInput">Postal Code</label>
-                                <input id="postalInput" class="input-style" type="number" name="postal_code"
-                                       value="{{old('postal_code')}}">
-                                <label for="notesInput">Notes</label>
-                                <input id="notesInput" class="input-style" type="text" name="notes"
-                                       value="{{old('notes')}}">
-                                <button
-                                    class="my-4 w-full rounded-lg bg-green-500 text-white text-xl font-semibold p-2 box-border self-center"
-                                    type="submit">Save
-                                </button>
+                                    <div class="flex flex-col">
+                                        <label for="cityInput" class="font-semibold text-gray-500">City</label>
+                                        <input id="cityInput" class="pl-2 input-style" type="text" name="city" placeholder="ex. Jakarta"
+                                               value="{{old('city')}}">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="countryInput" class="font-semibold text-gray-500">Country</label>
+                                        <input id="countryInput" class="pl-2 input-style" type="text" name="country" placeholder="ex. Indonesia"
+                                               value="{{old('country')}}">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="addressInput" class="font-semibold text-gray-500">Address</label>
+                                        <input id="addressInput" class="pl-2 input-style" type="text" name="address" placeholder="ex. Mister Potato Street No. 1"
+                                               value="{{old('address')}}">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="postalInput" class="font-semibold text-gray-500">Postal Code</label>
+                                        <input id="postalInput" class="pl-2 input-style" type="number" name="postal_code" placeholder="ex. 14045"
+                                               value="{{old('postal_code')}}">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <label for="notesInput" class="font-semibold text-gray-500">Notes</label>
+                                        <input id="notesInput" class="pl-2 input-style" type="text" name="notes" placeholder="ex. Near the big tree"
+                                               value="{{old('notes')}}">
+                                    </div>
+                                </div>
+                                <div class="flex flex-row w-full gap-2">
+                                    <button
+                                        class="w-fit h-fit py-2 px-12 bg-gray-200 text-black rounded-md"
+                                        onclick="updateProgress(event, -1)">
+                                        Back
+                                    </button>
+                                    <button
+                                        class="flex-grow rounded-lg bg-green-500 text-white font-semibold p-2 box-border self-center"
+                                        type="submit">Save
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -93,7 +149,21 @@
     </div>
 
     <script>
-        let progress = 2;
+        let progress = 0;
+
+        function updateBtnNext2(e) {
+            if (e.value.length > 5) {
+                updateClasses("button-progress-2", ["bg-green-600", "text-white"], ["bg-gray-100"]);
+                document.getElementById("button-progress-2").removeAttribute("disabled")
+            }
+        }
+
+        function updateBtnNext1(e) {
+            if (e.value.startsWith(0) && e.value.length > 7) {
+                updateClasses("button-progress-1", ["bg-green-600", "text-white"], ["bg-gray-100"]);
+                document.getElementById("button-progress-1").removeAttribute("disabled")
+            }
+        }
 
         function updateClasses(id, classesToAdd, classesToRemove) {
             const element = document.getElementById(id);
@@ -139,14 +209,21 @@
             }
         }
 
-        function updateProgress() {
-            progress += 1;
+        function updateProgress(e, steps) {
+            e.preventDefault()
+            progress += steps;
 
             updateUI();
         }
 
         window.onload = function () {
             updateUI();
+            const form = document.getElementById('registrationForm');
+            form.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
         }
     </script>
 @endsection
