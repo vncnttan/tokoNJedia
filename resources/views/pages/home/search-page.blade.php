@@ -44,16 +44,37 @@
                     </div>
                     @if(count($stores) > 0)
                         <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row p-4 mb-10">
-                            <div class="h-80 md:h-80 flex-grow flex flex-col p-2 justify-center">
-{{--                                <img />--}}
-                            </div>
+                            <a href="/merchant/{{ $stores[0]->id }}" class="h-fit flex-grow">
+                                <div
+                                    class="h-80 md:h-80 w-full flex flex-col p-2 justify-center place-items-center gap-5">
+                                    <img src="{{$stores[0]->image}}" alt="{{ $stores[0]->name }}"
+                                         class="rounded-full w-20 h-20 border-[1px] border-gray-300"/>
+
+                                    <div class="flex flex-col gap-0.5 w-full place-items-center">
+                                        <div class="text-xs text-gray-400 font-bold">
+                                            Promoted by
+                                        </div>
+                                        <div>
+                                            <div class="text-sm">
+                                                {{ $stores[0]->name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="font-bold text-lg px-12 text-center leading-5">
+                                        Cheapest price only on {{ $stores[0]->name }}!
+                                    </div>
+                                    <button class="py-1 px-4 text-sm font-bold text-green-600 border-green-600 border-[1px] rounded-md">
+                                        Check now
+                                    </button>
+                                </div>
+                            </a>
                             <div class="sm:flex hidden flex-row flex-wrap gap-3">
                                 <div class="2xl:flex flex-row flex-wrap gap-3 hidden">
                                     @foreach($stores[0]->products->slice(0, 2) as $product)
                                         <x-product-card :productId="$product->id"/>
                                     @endforeach
                                 </div>
-                                <a href="/merchant/products/{{ $stores[0]->id }}">
+                                <a href="/merchant/{{ $stores[0]->id }}/products">
                                     <div
                                         class="w-36 h-80 md:w-48 md:h-80 rounded-md border-[1px] leading-4 border-gray-500 gap-2 px-6  border-opacity-50 flex flex-col justify-center place-items-center text-center font-bold text-green-600">
                                         <div
