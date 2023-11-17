@@ -59,7 +59,6 @@ class UserController extends Controller
         $file = $request->file('file');
         $res = FirebaseService::uploadFile("images", $file);
         if($res===null){
-            dd("test");
             toastr()->error('Update Profile Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect('/profile');
         }

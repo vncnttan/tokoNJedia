@@ -38,6 +38,7 @@ Route::POST("/profile/image", [UserController::class, 'updateImage']);
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::POST('/product', [ProductController::class, 'store']);
 Route::DELETE('/product/{id}', [ProductController::class, 'destroy']);
 
 // Carts

@@ -2,7 +2,7 @@
     @foreach ($images as $index => $image)
         <label
             class="w-36 h-36 border-2 border-dashed rounded-lg text-sm font-semibold cursor-pointer flex flex-col justify-center items-center text-gray-500 hover:text-green-500 hover:border-green-500">
-            <input wire:model="images.{{ $index }}" type="file" accept="image/*" class="hidden">
+            <input wire:model="images.{{ $index }}" name="images[{{ $index }}]" value="images.{{$index}}" type="file" accept="image/*" class="hidden">
             @if ($image)
                 <img src="{{ $image->temporaryUrl() }}" class="w-full h-full object-contain">
             @else

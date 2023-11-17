@@ -1,7 +1,8 @@
 @extends('templates.template')
 
 @section('content')
-    <div class="max-w-7xl w-full h-full flex flex-col justify-center items-center gap-8 p-8 box-border">
+    <form action="/product" method="POST" class="max-w-7xl w-full h-full flex flex-col justify-center items-center gap-8 p-8 box-border">
+        @csrf
         <div class="w-full">
             <h1 class="text-2xl font-bold text-black">Add Product</h1>
         </div>
@@ -14,7 +15,7 @@
                     <p class="w-full">Product name min. 3 character</p>
                 </div>
                 <div class="w-full">
-                    <input type="text" class="input-style w-full"
+                    <input type="text" name="name" class="input-style w-full"
                         placeholder="Example: Nike Man Shoes (Product Type/Category/Brand/Other)">
                 </div>
             </div>
@@ -44,11 +45,11 @@
                 </div>
                 <div class="w-full flex gap-10">
                     <label class="radio-label flex items-center gap-2 text-lg" for="">
-                        <input class="icon-size checked:text-green-500  text-green-500" name="condition" value="New" type="radio">
+                        <input class="w-6 h-6 checked:text-green-500  text-green-500" name="condition" value="New" type="radio">
                         New
                     </label>
                     <label class="radio-label flex items-center gap-2 text-lg" for="">
-                        <input class="icon-size bg-green-500 checked:bg-green-500 text-green-500" name="condition" value="Used" type="radio">
+                        <input class="w-6 h-6 bg-green-500 checked:bg-green-500 text-green-500" name="condition" value="Used" type="radio">
                         Used
                     </label>
                 </div>
@@ -63,18 +64,10 @@
                 </div>
             </div>
         </div>
-        <div
-            class="w-full bg-white flex-grow shadow-container rounded-lg flex flex-col justify-start items-center p-10 gap-8">
-            <div class="w-full flex justify-between items-center">
-                <div class="w-96 flex-wrap">
-                    <h1 class="w-full text-2xl font-bold text-black">Product Variant</h1>
-                    <p>Add variant so that customer can choose the right product. Enter max. 5 types of variants</p>
-                </div>
-                <button class="py-2 px-16 rounded-md bg-white ring-1 ring-gray-300 text-gray-500 font-semibold">+ Add Variant</button>
-            </div>
-            <hr class="w-full bg-gray-300">
-            @livewire('add-product-variant')
+        @livewire('add-product-variant')
+        <div class="w-full flex justify-end items-center font-semibold text-md gap-8">
+            <button class="w-40 bg-white text-gray-500 py-2 rounded-md ring-1 ring-gray-300">Cancel</button>
+            <button class="w-40 bg-green-500  text-white py-2 rounded-md">Save</button>
         </div>
-
-    </div>
+    </form>
 @endsection
