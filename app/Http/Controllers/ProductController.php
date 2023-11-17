@@ -9,6 +9,7 @@ use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -20,16 +21,20 @@ class ProductController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
             'product_category' => 'required',
-            'images' => 'required',
+            'images' => 'required|array|min:1',
             'condition' => 'required',
             'description' => 'required|min:5',
-            'variant_name' => 'required|min:3|max:50',
-            'variant_price' => 'required'
+            'variant_name' => 'required|array|min:1',
+            'variant_name.*' => 'min:3|max:50',
+            'variant_price' => 'required|array|min:1',
+            'variant_price.*' => 'numeric'
         ]);
         if ($validate->fails()) {
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back()->withInput();
         }
         $product = new Product();
+        $product->id = Str::uuid(36);
         $product->name = $request->name;
         $product->description = $request->description;
         $product->stock = 50;
@@ -40,14 +45,15 @@ class ProductController extends Controller
 
         foreach ($request->images as $i) {
             if ($i != null) {
-                $file = $i('file');
+                $file = $i;
                 $res = FirebaseService::uploadFile("images", $file);
                 if ($res === null) {
                     toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
                     return redirect()->back();
                 }
                 $product_image = new ProductImage();
-                $product_image->name = env("FIREBASE_URL") . "v0/b/" . env("FIREBASE_STORAGE_BUCKET") . "o/images%2F" . $res . "?alt=media";
+                $product_image->id = Str::uuid(36);
+                $product_image->image = env("FIREBASE_URL") . "v0/b/" . env("FIREBASE_STORAGE_BUCKET") . "o/images%2F" . $res . "?alt=media";
                 $product_image->product_id = $product->id;
                 $product_image->save();
             }
@@ -55,6 +61,7 @@ class ProductController extends Controller
         foreach ($request->variant_name as $index => $name) {
             $price = $request->variant_price[$index];
             $product_variant = new ProductVariant();
+            $product_variant->id = Str::uuid(36);
             $product_variant->name = $name;
             $product_variant->price = $price;
             $product_variant->product_id = $product->id;

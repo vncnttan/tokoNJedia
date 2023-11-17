@@ -39,7 +39,8 @@ class ProductFactory extends Factory
             'description' => $this->faker->realText,
             'price' => $this->faker->numberBetween(100000, 500000),
             'stock' => $this->faker->numberBetween(0, 20),
-            'image' => $response->effectiveUri(),
+            // 'image' => $response->effectiveUri(),
+            'condition' => $this->faker->randomElement(["Used", "New"]),
             'merchant_id' => Merchant::all()->random()->id,
             'product_category_id' => ProductCategory::all()->random()->id
         ];
