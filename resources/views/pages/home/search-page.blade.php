@@ -3,7 +3,7 @@
 @section('title', 'Cart')
 
 @section('content')
-    <div class="xl:px-80 lg:px-52 md:px-32 mt-6 mb-10 px-12 flex flex-col gap-5 w-full">
+    <div class="h-min-screen xl:px-80 lg:px-48 md:px-24 mt-6 mb-10 px-12 flex flex-col gap-5 w-full">
         <div class="w-full h-10 flex flex-row border-b-[1px] border-gray-400 border-opacity-30">
             <button
                 id="product-button"
@@ -62,35 +62,33 @@
                     </div>
                     <div class="flex flex-row flex-wrap gap-3">
                         @foreach($stores as $store)
-                            {{ $store }}
+                            <x-merchant-card :merchantId="$store->id"/>
                         @endforeach
                     </div>
                 </div>
             @endif
         </div>
+
     </div>
 
     <script>
         let selected = "Product"
+
+        function updateClasses(id, classes, operation) {
+            const element = document.getElementById(id);
+            classes.forEach(className => element.classList[operation](className));
+        }
 
         function updateUI() {
             document.getElementById("product-result").hidden = selected !== "Product"
             document.getElementById("store-result").hidden = selected !== "Store"
 
             if (selected === "Product") {
-                document.getElementById("product-button").classList.add("border-green-600")
-                document.getElementById("product-button").classList.add("text-green-600")
-                document.getElementById("product-button").classList.add("border-b-2")
-                document.getElementById("store-button").classList.remove("border-green-600")
-                document.getElementById("store-button").classList.remove("text-green-600")
-                document.getElementById("store-button").classList.remove("border-b-2")
+                updateClasses("product-button", ["border-green-600", "text-green-600", "border-b-2"], "add");
+                updateClasses("store-button", ["border-green-600", "text-green-600", "border-b-2"], "remove");
             } else {
-                document.getElementById("product-button").classList.remove("border-green-600")
-                document.getElementById("product-button").classList.remove("text-green-600")
-                document.getElementById("product-button").classList.remove("border-b-2")
-                document.getElementById("store-button").classList.add("border-green-600")
-                document.getElementById("store-button").classList.add("text-green-600")
-                document.getElementById("store-button").classList.add("border-b-2")
+                updateClasses("product-button", ["border-green-600", "text-green-600", "border-b-2"], "remove");
+                updateClasses("store-button", ["border-green-600", "text-green-600", "border-b-2"], "add");
             }
         }
 

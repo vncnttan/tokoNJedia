@@ -15,9 +15,11 @@
 </head>
 
 <body>
-    <div class="min-h-screen min-w-screen flex flex-col justify-between items-center">
-        <x-navbar />
-        @yield('content')
+    <div class="min-h-screen min-w-screen flex flex-col items-center justify-between">
+        <div class="h-full w-full flex flex-col items-center">
+            <x-navbar />
+            @yield('content')
+        </div>
         @include('components.footer')
     </div>
     @livewire('livewire-ui-modal')
