@@ -18,18 +18,26 @@ class UploadProductImage extends Component
     }
     public function updatedImages($value, $key)
     {
-        $this->rearrangeImages();
+        // $this->rearrangeImages();
     }
 
-    public function rearrangeImages()
-    {
-        $this->images = array_values(array_filter($this->images, function ($image) {
-            return !is_null($image);
-        }));
+    // public function rearrangeImages()
+    // {
 
-        while(count($this->images) < $this->slot) {
-            $this->images[] = null;
-        }
+    //     $tempImages = $this->images;
+    //     $this->images[] = [];
+    //     $tempImages  = array_values(array_filter($tempImages, function ($image) {
+    //         return !is_null($image);
+    //     }));
+
+    //     while(count($tempImages) < $this->slot) {
+    //         $tempImages[] = null;
+    //     }
+    //     $this->images = $tempImages;
+    // }
+    public function remove($index){
+        $this->images[$index] = null;
+        // $this->rearrangeImages();
     }
     public function render()
     {

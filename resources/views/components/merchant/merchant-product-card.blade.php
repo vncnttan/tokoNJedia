@@ -18,7 +18,7 @@
             <div class="relative w-1/4 h-full flex flex-col justify-center items-start">
                 <button class=" p-2 ring-1 ring-gray-300 rounded-lg flex justify-between items-center gap-4"
                     @click="settingDropdown = !settingDropdown" @click.away="settingDropdown = false">
-                    <h1 class="text-sm font-medium text-gray-500">Setting</h1>
+                    <h1 class="text-sm font-medium text-gray-500">Manage</h1>
                     <div class="ml-auto">
                         <svg x-show="!settingDropdown" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
