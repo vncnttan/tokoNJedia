@@ -43,7 +43,7 @@
                                     <label for="phoneNumberInput" class="font-semibold text-gray-500">Phone
                                         Number</label>
                                     <input id="phoneNumberInput" class="input-style pl-4" type="number" name="phone"
-                                        value="{{ old('phone') }}" placeholder="08XXXXXXX" onchange="updateBtnNext1(this)">
+                                        value="{{ old('phone') }}" placeholder="08XXXXXXX" oninput="updateBtnNext1(this)">
                                     <p class="text-gray-500">Make sure your phone number is active to speed up the
                                         registration process</p>
                                 </div>
@@ -65,7 +65,7 @@
                                 <div class="flex flex-col">
                                     <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
                                     <input id="nameInput" class="input-style pl-2" type="text" name="name"
-                                        value="{{ old('name') }}" onchange="updateBtnNext2(this)" placeholder="ABC Store">
+                                        value="{{ old('name') }}" oninput="updateBtnNext2(this)" placeholder="ABC Store">
                                     <p class="text-gray-500">Merchant name will be displayed on your products</p>
                                 </div>
 
@@ -152,6 +152,9 @@
             if (e.value.startsWith(0) && e.value.length > 7) {
                 updateClasses("button-progress-1", ["bg-green-600", "text-white"], ["bg-gray-100"]);
                 document.getElementById("button-progress-1").removeAttribute("disabled")
+            } else {
+                updateClasses("button-progress-1", ["bg-gray-100", "text-gray-400"], ["bg-green-600", "text-white"]);
+                document.getElementById("button-progress-1").setAttribute("disabled", "disabled")
             }
         }
 

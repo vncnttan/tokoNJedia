@@ -62,18 +62,18 @@
             <div class="py-4 border-gray-50 border-b-2">
                 <a class="" href="/merchant/{{ $product->merchant->id }}">
 
-                <div class="flex flex-row gap-4">
-                    <img src="{{ $product->merchant->image }}" alt="Merchant" class="w-16 h-16 rounded-full">
-                    <div class="w-3/4">
-                        <div class="text-lg font-bold">
-                            {{ $product->merchant->name }}
-                        </div>
-                        <div
-                            class="text-green-500 py-0.5 px-4 mt-2 w-fit border-2 font-semibold rounded-md border-green-400">
-                            Follow
+                    <div class="flex flex-row gap-4">
+                        <img src="{{ $product->merchant->image }}" alt="Merchant" class="w-16 h-16 rounded-full">
+                        <div class="w-3/4">
+                            <div class="text-lg font-bold">
+                                {{ $product->merchant->name }}
+                            </div>
+                            <div
+                                class="text-green-500 py-0.5 px-4 mt-2 w-fit border-2 font-semibold rounded-md border-green-400">
+                                Follow
+                            </div>
                         </div>
                     </div>
-                </div>
                 </a>
             </div>
         </div>
@@ -119,13 +119,14 @@
                     </div>
                     <div class="py-3 flex flex-col gap-2">
                         <button
+                            id="addToCartBtn"
                             class="w-full py-2 rounded-md bg-green-500 text-white font-bold disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-80"
                             onclick="addToCart()">
                             + Add to Cart
                         </button>
                         <button
-                            class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold  disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-80"
-                        >
+                            id="buyNowBtn"
+                            class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold  disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-80">
                             Buy Now
                         </button>
                     </div>
@@ -174,7 +175,8 @@
             document.getElementById("quantityDisplay").textContent = quantity.toString();
             if (quantity === 1) {
                 document.getElementById("subtract_btn").disabled = true;
-            } else if (quantity === stock - 1) {
+            }
+            if (quantity === stock - 1) {
                 document.getElementById("add_btn").disabled = false;
             }
         }
@@ -187,7 +189,8 @@
 
             if (quantity === stock) {
                 document.getElementById("add_btn").disabled = true;
-            } else if (quantity === 2) {
+            }
+            if (quantity === 2) {
                 document.getElementById("subtract_btn").disabled = false;
             }
         }
@@ -197,7 +200,7 @@
     let stock = {{ $product->productVariants[0]->stock }};
     let variant_id;
     let product_id = '{{ $product->id }}';
-    let loggedIn = {!! json_encode($isLoggedIn ? true : false) !!};
+    let loggedIn = {!! json_encode((bool) $isLoggedIn) !!};
 
     function formatPriceJS(price) {
         return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
@@ -206,28 +209,32 @@
     function updateVariantDisplay(variantID, variantName, variantPrice, clickedBtn, variantStock) {
         variant_id = variantID;
         stock = parseInt(variantStock);
-        document.getElementById("stockDisplay").textContent = stock;
-        document.getElementById("variantTextDisplay").textContent = variantName;
-        document.getElementById("priceTextDisplay").textContent = formatPriceJS(variantPrice);
-        document.getElementById("checkoutPriceDisplay").textContent = formatPriceJS(variantPrice);
 
-        let buttons = document.querySelectorAll('.variant-button');
-        buttons.forEach(button => {
-            button.classList.remove('border-green-600');
-            button.classList.remove('text-green-600');
-            button.classList.remove('bg-green-100');
-            button.classList.add('border-gray-500');
-            button.classList.add('text-gray-500');
-        })
+        let stockDisplay = document.getElementById("stockDisplay");
+        let variantTextDisplay = document.getElementById("variantTextDisplay");
+        let priceTextDisplay = document.getElementById("priceTextDisplay");
+        let checkoutPriceDisplay = document.getElementById("checkoutPriceDisplay");
 
-        clickedBtn.classList.remove('border-gray-500');
-        clickedBtn.classList.remove('text-gray-500');
-        clickedBtn.classList.add('border-green-600');
-        clickedBtn.classList.add('bg-green-100');
-        clickedBtn.classList.add('text-green-600');
+        stockDisplay.textContent = stock <= 0 ? "Out stock" : stock < 10 ? "Sisa " + stock : stock;
+        stockDisplay.classList.toggle('text-orange-500', stock <= 10);
+        stockDisplay.classList.toggle('text-black-500', stock > 10);
 
-        document.getElementById("add_btn").disabled = stock <= 0;
-        document.getElementById("subtract_btn").disabled = stock <= 0;
+        variantTextDisplay.textContent = variantName;
+        priceTextDisplay.textContent = formatPriceJS(variantPrice);
+        checkoutPriceDisplay.textContent = formatPriceJS(variantPrice);
+
+        document.querySelectorAll('.variant-button').forEach(button => {
+            button.classList.toggle('border-green-600', button === clickedBtn);
+            button.classList.toggle('text-green-600', button === clickedBtn);
+            button.classList.toggle('bg-green-100', button === clickedBtn);
+            button.classList.toggle('border-gray-500', button !== clickedBtn);
+            button.classList.toggle('text-gray-500', button !== clickedBtn);
+        });
+
+        let isStockAvailable = stock > 0;
+        ["add_btn", "subtract_btn", "addToCartBtn", "buyNowBtn"].forEach(id => {
+            document.getElementById(id).disabled = !isStockAvailable;
+        });
     }
 
     window.onload = function () {

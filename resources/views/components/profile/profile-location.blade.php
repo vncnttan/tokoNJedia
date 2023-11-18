@@ -7,15 +7,43 @@
         </svg>
         <h1 class="text-2xl font-semibold text-black">{{ Auth::user()->username }}</h1>
     </div>
-    {{ $user->location }}
 
     <div class="flex-grow w-full rounded-lg border-[1px] border-gray-200 bg-white">
         <div class="w-full h-full p-8 box-border flex flex-col justify-start items-start gap-8">
             <div class="ml-auto rounded-lg bg-green-600">
-                <button class="px-3.5 py-2 text-white font-bold" onclick="Livewire.emit('openModal', 'add-location-modal')">
+                <button class="px-3.5 py-2 text-white font-bold"
+                        onclick="Livewire.emit('openModal', 'add-location-modal')">
                     + Add New Address
                 </button>
             </div>
+            @foreach($user->location as $loc)
+                <div class="w-full h-44">
+                    <div
+                        class="border-green-600 border-[1px] rounded-lg bg-green-50 h-full w-full flex flex-col py-5 px-6 justify-between relative">
+                        <div class="bg-green-500 w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0">
+
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="font-bold">
+                                {{ $user->username }}
+                            </div>
+                            <div>
+                                {{ $loc->city }}, {{$loc->country}}
+                            </div>
+                            <div>
+                                {{ $loc->address }}, {{ $loc->postal_code }}
+                            </div>
+                            <div>
+                                {{ $loc->notes }}
+                            </div>
+                        </div>
+                        <button class="text-sm font-bold text-green-600 w-fit">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+
+            @endforeach
         </div>
     </div>
 </div>
