@@ -20,10 +20,12 @@ class MerchantController extends Controller
         }
         return view('pages.merchant.merchant-home');
     }
+
     public function create()
     {
         return view('pages.merchant.merchant-create');
     }
+
     public function store(Request $request)
     {
         $messages = [
@@ -45,7 +47,7 @@ class MerchantController extends Controller
         ];
         $validate = Validator::make($request->all(), [
             'phone' => ['required', 'unique:merchants,phone', 'starts_with:0', 'digits:12', 'numeric'],
-            'name' =>  ['required', 'min:3', 'max:10'],
+            'name' => ['required', 'min:3', 'max:10'],
             'city' => ['required', 'min:3', 'max:20'],
             'country' => ['required', 'min:3', 'max:30'],
             'address' => ['required', 'min:5', 'max:50'],
@@ -81,18 +83,29 @@ class MerchantController extends Controller
     {
         return view('pages.merchant.merchant-chat');
     }
+
     public function addProduct()
     {
         return view('pages.merchant.merchant-create-product');
     }
+
     public function manageProduct()
     {
         $merchant = Auth::user()->Merchant;
         $products = $merchant->Products()->with(['ProductCategory', 'ProductVariants', 'ProductImages'])->get();
         return view('pages.merchant.merchant-manage-product', ['products' => $products]);
     }
-    public function homepage(string $id) {
+
+    public function homepage(string $id)
+    {
         $merchant = Merchant::find($id);
         return view('pages.merchant.merchant-homepage', ['merchant' => $merchant]);
+    }
+
+    public function merchantProduct(string $id)
+    {
+        $merchant = Merchant::find($id);
+        $products = $merchant->Products()->with(['ProductCategory', 'ProductVariants', 'ProductImages'])->get();
+        return view('pages.merchant.merchant-product', ['merchant' => $merchant, 'products' => $products]);
     }
 }

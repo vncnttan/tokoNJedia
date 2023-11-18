@@ -61,3 +61,4 @@ Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct']);
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct']);
 Route::POST('/merchant', [MerchantController::class, 'store']);
 Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
+Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
