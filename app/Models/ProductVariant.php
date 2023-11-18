@@ -17,7 +17,8 @@ class ProductVariant extends Model
     protected $table = "product_variants";
     protected $fillable = [
         "name",
-        "price"
+        "price",
+        "stock"
     ];
     protected $casts = [
         'id' => 'string',

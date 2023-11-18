@@ -10,7 +10,7 @@
         @livewire('add-product-detail')
         @livewire('add-product-variant')
         <div class="w-full flex justify-end items-center font-semibold text-md gap-8">
-            <button type="button" class="w-40 bg-white text-gray-500 py-2 rounded-md ring-1 ring-gray-300">Cancel</button>
+            <a href="/merchant/manage-product" type="button" class="w-40 bg-white text-gray-500 py-2 rounded-md ring-1 ring-gray-300 text-center">Cancel</a>
             <button class="w-40 bg-green-500  text-white py-2 rounded-md">Save</button>
         </div>
     </form>

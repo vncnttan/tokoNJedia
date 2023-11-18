@@ -28,7 +28,9 @@ class ProductController extends Controller
             'variant_name' => 'required|array|min:1',
             'variant_name.*' => 'min:3|max:50',
             'variant_price' => 'required|array|min:1',
-            'variant_price.*' => 'numeric'
+            'variant_price.*' => 'numeric',
+            'variant_stock' => 'required|array',
+            'variant_stock.*' => 'required|numeric|min:1'
         ]);
         if ($validate->fails()) {
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
@@ -38,7 +40,6 @@ class ProductController extends Controller
         $product->id = Str::uuid(36);
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->stock = 50;
         $product->merchant_id = $merchant->id;
         $product->product_category_id = $request->product_category;
         $product->condition = $request->condition;
@@ -61,10 +62,12 @@ class ProductController extends Controller
         }
         foreach ($request->variant_name as $index => $name) {
             $price = $request->variant_price[$index];
+            $stock = $request->variant_stock[$index];
             $product_variant = new ProductVariant();
             $product_variant->id = Str::uuid(36);
             $product_variant->name = $name;
             $product_variant->price = $price;
+            $product_variant->stock = $stock;
             $product_variant->product_id = $product->id;
             $product_variant->save();
         }
