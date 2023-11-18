@@ -15,10 +15,9 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->uuid('id', 36)->primary();
             $table->string("name");
-            $table->float("price")->default(0);
             $table->string("description");
             $table->string("condition");
-            $table->integer("stock");
+//            $table->integer("stock");
             $table->uuid("merchant_id");
             $table->uuid("product_category_id");
             $table->timestamps();

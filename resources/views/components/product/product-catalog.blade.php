@@ -40,7 +40,7 @@
                         <button
                             id="variant_{{ $variant->id }}"
                             class="variant-button py-2 px-4 rounded-2xl border-[1px] text-gray-500 hover:text-green-600 hover:border-green-600"
-                            onclick="updateVariantDisplay('{{ $variant->id }}', '{{ $variant->name }}', '{{ $variant->price }}', this)">
+                            onclick="updateVariantDisplay('{{ $variant->id }}', '{{ $variant->name }}', '{{ $variant->price }}', this, '{{ $variant->stock }}')">
                             {{ $variant->name }}
                         </button>
                     @endforeach
@@ -98,7 +98,7 @@
                             </button>
                         </div>
                         <div>
-                            Stock total: <span class="text-orange-500 font-bold"> Sisa {{ $product->stock }} </span>
+                            Stock total: <span id="stockDisplay" class="text-orange-500 font-bold"> Sisa {{ $product->productVariants[0]->stock }} </span>
                         </div>
                     </div>
 
@@ -190,7 +190,7 @@
     }
 
     let quantity = 1;
-    let stock = {{ $product->stock }};
+    let stock = {{ $product->productVariants[0]->stock }};
     let variant_id;
     let product_id = '{{ $product->id }}';
     let loggedIn = {!! json_encode($isLoggedIn ? true : false) !!};
@@ -199,9 +199,11 @@
         return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
     }
 
-    function updateVariantDisplay(variantID, variantName, variantPrice, clickedBtn) {
+    function updateVariantDisplay(variantID, variantName, variantPrice, clickedBtn, variantStock) {
         variant_id = variantID;
-        console.log(variant_id)
+        stock = parseInt(variantStock);
+        console.log(stock);
+        document.getElementById("stockDisplay").textContent = stock;
         document.getElementById("variantTextDisplay").textContent = variantName;
         document.getElementById("priceTextDisplay").textContent = formatPriceJS(variantPrice);
         document.getElementById("checkoutPriceDisplay").textContent = formatPriceJS(variantPrice);
