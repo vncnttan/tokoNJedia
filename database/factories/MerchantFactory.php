@@ -30,7 +30,8 @@ class MerchantFactory extends Factory
             'image' => getRandomImageURL(),
             'banner_image' => getRandomImageURL(),
             'description' => $this->faker->text(50),
-            'full_description' => $this->faker->text,
+            'catch_phrase' => $this->faker->sentence(10),
+            'full_description' => $this->faker->sentences(18, true),
             'user_id' => User::all()->random()->id,
             'phone' => $this->faker->phoneNumber,
         ];

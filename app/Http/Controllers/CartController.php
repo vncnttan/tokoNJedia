@@ -14,25 +14,27 @@ class CartController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.productImages'])->get();
+        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.productImages', 'productVariant'])->get();
         return view('pages.home.cart', ['carts' => $carts]);
     }
 
     public function addToCart(Request $request): JsonResponse
     {
         $product_id = $request->product_id;
+        $variant_id = $request->variant_id;
         $quantity = $request->quantity;
         $user_id = auth()->user()->id;
 
         $cart = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
 
         if ($cart) {
-            Cart::where('user_id', $user_id)->where('product_id', $product_id)
+            Cart::where('user_id', $user_id)->where('product_id', $product_id)->where('variant_id', $variant_id)
                 ->update(['quantity' => $quantity]);
             return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
         } else {
             Cart::create([
                 'user_id' => $user_id,
+                'variant_id' => $variant_id,
                 'product_id' => $product_id,
                 'quantity' => $quantity
             ]);

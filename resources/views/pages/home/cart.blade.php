@@ -32,7 +32,7 @@
                                     {{ $cart->product->name }}
                                 </div>
                                 <div class="font-bold">
-                                    Rp{{ formatPrice($cart->product->price) }}
+                                    Rp{{ formatPrice($cart->productVariant->price) }}
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
             let totalPrice = 0;
 
             carts.forEach(cart => {
-                totalPrice += cart.product.price * cart.quantity;
+                totalPrice += cart.product_variant.price * cart.quantity;
             });
 
             document.getElementById('totalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());

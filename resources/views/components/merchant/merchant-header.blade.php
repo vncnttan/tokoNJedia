@@ -12,17 +12,17 @@
                 </div>
             </div>
             <div class="flex flex-row gap-2">
-                <button class="bg-green-600 w-32 2xl:w-44 py-1.5 rounded-md text-white text-sm font-bold">
+                <button class="bg-green-600 w-32 2xl:w-40 py-1.5 rounded-md text-white text-sm font-bold">
                     Follow
                 </button>
                 <button
-                    class="border-green-600 text-green-600 border-[1px] w-32 2xl:w-44 py-1.5 rounded-md text-sm font-bold">
+                    class="border-green-600 text-green-600 border-[1px] w-32 2xl:w-40 py-1.5 rounded-md text-sm font-bold">
                     Chat Seller
                 </button>
             </div>
         </div>
     </div>
-    <div class="flex-grow xl:flex-grow-0 xl:w-[35rem] flex flex-row justify-evenly place-items-center h-full">
+    <div class="flex-grow xl:flex-grow-0 xl:w-[35rem] hidden md:flex flex-row justify-evenly place-items-center h-full">
         <div class="flex flex-col justify-center place-items-center">
             <div class="flex flex-row gap-2 font-bold text-xl place-items-center">
                 <svg class="w-6 h-6 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

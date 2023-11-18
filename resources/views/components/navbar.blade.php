@@ -18,7 +18,7 @@
                             Mitra Tokonjedia
                         </button>
                     </a>
-                    <a class="hover:text-green-600">
+                    <a href="merchant/create" class="hover:text-green-600">
                         <button class="whitespace-nowrap overflow-ellipsis">
                             Mulai Berjualan
                         </button>
