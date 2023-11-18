@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string("name")->unique();
             $table->string("phone");
-            $table->string("status")->default("online");
+            $table->string("status")->default("Online");
             $table->string("process_time")->default("3 hours");
             $table->string("operational_time")->default("Open 24 hours");
             $table->string("banner_image");

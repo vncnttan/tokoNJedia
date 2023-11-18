@@ -14,6 +14,7 @@ class MerchantController extends Controller
 {
     public function index()
     {
+        // TODO: CREATE MIDDLEWARE FOR THIS
         if (Auth::user()->Merchant == null) {
             return redirect('/merchant/create');
         }
@@ -90,7 +91,8 @@ class MerchantController extends Controller
         $products = $merchant->Products()->with(['ProductCategory', 'ProductVariants', 'ProductImages'])->get();
         return view('pages.merchant.merchant-manage-product', ['products' => $products]);
     }
-    public function homepage() {
-        return view('pages.merchant.merchant-homepage');
+    public function homepage(string $id) {
+        $merchant = Merchant::find($id);
+        return view('pages.merchant.merchant-homepage', ['merchant' => $merchant]);
     }
 }
