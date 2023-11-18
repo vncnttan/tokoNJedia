@@ -24,11 +24,6 @@ class EditDobModal extends ModalComponent
 
         /** @var User $user */
         $user = Auth::user();
-
-        if (!$user instanceof User) {
-            toastr()->error('Update Date Of Birth Failed');
-            return;
-        }
         $validator = Validator::make(
             ['dob' => $this->dob],
             [
@@ -57,7 +52,6 @@ class EditDobModal extends ModalComponent
         $this->closeModal();
 
         return redirect()->to('/profile');
-
     }
 
     public static function modalMaxWidth(): string

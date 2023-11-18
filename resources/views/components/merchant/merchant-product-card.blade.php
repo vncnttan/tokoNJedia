@@ -10,12 +10,12 @@
                 <h1>{{ $product->ProductVariants->first()->price ?? 0 }}</h1>
             </div>
             <div class="w-1/4">
-                <h1>{{ $product->stock }}</h1>
+                <h1>{{ $product->ProductVariants->sum('stock') }}</h1>
             </div>
             <div class="w-1/4 h-full flex flex-wrap justify-start items-center gap-2">
                 <h1>{{ $product->ProductCategory->name }}</h1>
             </div>
-            <div class="relative w-1/4 h-full flex flex-col justify-center items-start">
+            <div class="relative w-1/4 h-full flex flex-col justify-center items-start ">
                 <button class=" p-2 ring-1 ring-gray-300 rounded-lg flex justify-between items-center gap-4"
                     @click="settingDropdown = !settingDropdown" @click.away="settingDropdown = false">
                     <h1 class="text-sm font-medium text-gray-500">Manage</h1>
@@ -33,17 +33,29 @@
                 <div class="w-full flex gap-4 justify-start mt-1">
                     <div x-show="settingDropdown"
                         class="absolute z-[15] w-2/3 left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
-                        <form action="" class="w-full flex justify-center items-center rounded-md">
-                            <button
-                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                </svg>
-                                <h1>Edit</h1>
-                            </button>
-                        </form>
+
+                        <button
+                        onclick="Livewire.emit('openModal', 'add-product-variant-modal',{{$product}} )"
+                        type="button"
+                            class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+
+                            <h1>Add Variant</h1>
+                        </button>
+                        <button type="button"
+                            class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4"
+                            onclick="Livewire.emit('openModal', 'edit-product-modal', { product: {{ $product }}})">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                            </svg>
+                            <h1>Edit</h1>
+                        </button>
                         <form action="/product/{{ $product->id }}" method="POST"
                             class="w-full flex justify-center items-center rounded-md">
                             @method('DELETE')

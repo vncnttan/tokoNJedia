@@ -6,7 +6,9 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\UserController;
+use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 
@@ -61,3 +63,6 @@ Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct']);
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct']);
 Route::POST('/merchant', [MerchantController::class, 'store']);
 Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
+
+// Product Variant
+Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
