@@ -68,7 +68,7 @@ class ProductController extends Controller
             $product_variant->product_id = $product->id;
             $product_variant->save();
         }
-        return redirect()->back();
+        return redirect('/merchant/manage-product');
 
         // dd($request->input());
     }

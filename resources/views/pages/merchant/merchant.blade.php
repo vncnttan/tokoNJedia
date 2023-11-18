@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-full h-full flex-1 flex justify-center items-start "
-         x-data="{ selectedTab: 'home', showDropdown: false }">
+         x-data="{ selectedTab: 'home'}">
         @include('components.merchant.merchant-sidebar')
         <div class="w-full">
             @yield('merchant-content')

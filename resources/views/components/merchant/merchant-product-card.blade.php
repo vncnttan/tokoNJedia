@@ -2,40 +2,37 @@
     <div class="w-full  flex  justify-between items-center" x-data="{ settingDropdown: false }">
         <div class="w-1/3 flex justify-start items-center gap-4 ">
             <img class="w-24 h-24 object-cover"
-                src="{{$product->ProductImages->first()->image ?? asset('assets/login-bg.png')}}"
-                alt="">
-            <h1 class="text-sm font-bold text-black">{{$product->name}}</h1>
+                src="{{ $product->ProductImages->first()->image ?? asset('assets/login-bg.png') }}" alt="">
+            <h1 class="text-sm font-bold text-black">{{ $product->name }}</h1>
         </div>
         <div class="w-2/3 flex justify-between items-center ">
             <div class="w-1/4 flex">
-                <h1>{{$product->ProductVariants->first()->price ?? 0}}</h1>
+                <h1>{{ $product->ProductVariants->first()->price ?? 0 }}</h1>
             </div>
             <div class="w-1/4">
-                <h1>{{$product->stock}}</h1>
+                <h1>{{ $product->stock }}</h1>
             </div>
             <div class="w-1/4 h-full flex flex-wrap justify-start items-center gap-2">
-                <h1>{{$product->ProductCategory->name}}</h1>
+                <h1>{{ $product->ProductCategory->name }}</h1>
             </div>
             <div class="relative w-1/4 h-full flex flex-col justify-center items-start">
                 <button class=" p-2 ring-1 ring-gray-300 rounded-lg flex justify-between items-center gap-4"
-                    @click="settingDropdown = !settingDropdown"
-                    @click.away="settingDropdown = false"
-                    >
+                    @click="settingDropdown = !settingDropdown" @click.away="settingDropdown = false">
                     <h1 class="text-sm font-medium text-gray-500">Setting</h1>
                     <div class="ml-auto">
-                        <svg x-show="!settingDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <svg x-show="!settingDropdown" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                         </svg>
-                        <svg x-show="settingDropdown" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                        <svg x-show="settingDropdown" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                         </svg>
                     </div>
                 </button>
                 <div class="w-full flex gap-4 justify-start mt-1">
                     <div x-show="settingDropdown"
-                        class="absolute z-10 w-2/3 left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
+                        class="absolute z-[15] w-2/3 left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
                         <form action="" class="w-full flex justify-center items-center rounded-md">
                             <button
                                 class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
@@ -47,11 +44,13 @@
                                 <h1>Edit</h1>
                             </button>
                         </form>
-                        <form action="/product/{{$product->id}}" method="POST" class="w-full flex justify-center items-center rounded-md">
+                        <form action="/product/{{ $product->id }}" method="POST"
+                            class="w-full flex justify-center items-center rounded-md">
                             @method('DELETE')
                             @csrf
                             <button
-                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4" type="submit">
+                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4"
+                                type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -65,8 +64,5 @@
             </div>
         </div>
     </div>
-    <div class="w-full ">
-
-    </div>
-
+    @livewire('product-variant-dropdown', ['product' => $product])
 </div>

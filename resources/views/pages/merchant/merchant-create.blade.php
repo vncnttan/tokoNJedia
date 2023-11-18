@@ -8,16 +8,15 @@
         <div class="flex-grow w-full lg:w-1/2 lg:h-[70vh] hidden md:flex justify-center place-items-center">
             <div class="h-full w-full flex flex-row lg:flex-col justify-center items-start gap-8 text-md p-4">
                 <div class="w-full flex justify-start items-center gap-2 lg:gap-8">
-                    <img src="{{ url(asset("assets/merchants/free-benefit.png")) }}" alt="">
+                    <img src="{{ url(asset('assets/merchants/free-benefit.png')) }}" alt="">
                     <p>Open a merchant Account <b>free</b> without any charges.</p>
                 </div>
                 <div class="w-full flex justify-start items-center gap-2 lg:gap-8">
-                    <img src="{{ url(asset("assets/merchants/reach-benefit.png")) }}" alt="">
+                    <img src="{{ url(asset('assets/merchants/reach-benefit.png')) }}" alt="">
                     <p>More than <b>90 millions</b> active users every month.</p>
                 </div>
                 <div class="w-full flex justify-start items-center gap-2 lg:gap-8">
-                    <img src="{{ url(asset("assets/merchants/user-benefit.png")) }}"
-                         alt="">
+                    <img src="{{ url(asset('assets/merchants/user-benefit.png')) }}" alt="">
                     <p><b>Reach 97%</b> potential user across Indonesia</p>
                 </div>
             </div>
@@ -29,9 +28,7 @@
             <div class="w-full h-full flex flex-col justify-center gap-8">
                 <p class="text-black text-xl font-semibold">Hello, {{ Auth::user()->username }} lets fill in your
                     merchant detail</p>
-                <form
-                    id="registrationForm"
-                    class="w-full flex flex-col justify-center items-start gap-12" method="POST"
+                <form id="registrationForm" class="w-full flex flex-col justify-center items-start gap-12" method="POST"
                     action="/merchant">
                     @csrf
                     <div class="w-full flex gap-4 sm:gap-6">
@@ -46,17 +43,12 @@
                                     <label for="phoneNumberInput" class="font-semibold text-gray-500">Phone
                                         Number</label>
                                     <input id="phoneNumberInput" class="input-style pl-4" type="number" name="phone"
-                                           value="{{old('phone')}}"
-                                           placeholder="08XXXXXXX"
-                                           onchange="updateBtnNext1(this)"
-                                    >
+                                        value="{{ old('phone') }}" placeholder="08XXXXXXX" onchange="updateBtnNext1(this)">
                                     <p class="text-gray-500">Make sure your phone number is active to speed up the
                                         registration process</p>
                                 </div>
-                                <button id="button-progress-1"
-                                        class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
-                                        onclick="updateProgress(event, 1)"
-                                        disabled>
+                                <button id="button-progress-1" class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
+                                    onclick="updateProgress(event, 1)" disabled>
                                     Next
                                 </button>
                             </div>
@@ -73,23 +65,18 @@
                                 <div class="flex flex-col">
                                     <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
                                     <input id="nameInput" class="input-style pl-2" type="text" name="name"
-                                           value="{{old('name')}}"
-                                           onchange="updateBtnNext2(this)"
-                                           placeholder="ABC Store"
-                                    >
+                                        value="{{ old('name') }}" onchange="updateBtnNext2(this)" placeholder="ABC Store">
                                     <p class="text-gray-500">Merchant name will be displayed on your products</p>
                                 </div>
 
                                 <div class="flex flex-row gap-2">
-                                    <button
-                                        class="w-fit py-2 px-12 bg-gray-200 text-black rounded-md"
+                                    <button class="w-fit py-2 px-12 bg-gray-200 text-black rounded-md"
                                         onclick="updateProgress(event, -1)">
                                         Back
                                     </button>
                                     <button id="button-progress-2"
-                                            class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
-                                            onclick="updateProgress(event, 1)"
-                                            disabled>
+                                        class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
+                                        onclick="updateProgress(event, 1)" disabled>
                                         Next
                                     </button>
                                 </div>
@@ -110,37 +97,31 @@
                                     <div class="flex flex-col">
                                         <label for="cityInput" class="font-semibold text-gray-500">City</label>
                                         <input id="cityInput" class="pl-2 input-style" type="text" name="city"
-                                               placeholder="ex. Jakarta"
-                                               value="{{old('city')}}">
+                                            placeholder="ex. Jakarta" value="{{ old('city') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="countryInput" class="font-semibold text-gray-500">Country</label>
                                         <input id="countryInput" class="pl-2 input-style" type="text" name="country"
-                                               placeholder="ex. Indonesia"
-                                               value="{{old('country')}}">
+                                            placeholder="ex. Indonesia" value="{{ old('country') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="addressInput" class="font-semibold text-gray-500">Address</label>
                                         <input id="addressInput" class="pl-2 input-style" type="text" name="address"
-                                               placeholder="ex. Mister Potato Street No. 1"
-                                               value="{{old('address')}}">
+                                            placeholder="ex. Mister Potato Street No. 1" value="{{ old('address') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="postalInput" class="font-semibold text-gray-500">Postal Code</label>
                                         <input id="postalInput" class="pl-2 input-style" type="number"
-                                               name="postal_code" placeholder="ex. 14045"
-                                               value="{{old('postal_code')}}">
+                                            name="postal_code" placeholder="ex. 14045" value="{{ old('postal_code') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="notesInput" class="font-semibold text-gray-500">Notes</label>
                                         <input id="notesInput" class="pl-2 input-style" type="text" name="notes"
-                                               placeholder="ex. Near the big tree"
-                                               value="{{old('notes')}}">
+                                            placeholder="ex. Near the big tree" value="{{ old('notes') }}">
                                     </div>
                                 </div>
                                 <div class="flex flex-row w-full gap-2">
-                                    <button
-                                        class="w-fit h-fit py-2 px-12 bg-gray-200 text-black rounded-md"
+                                    <button class="w-fit h-fit py-2 px-12 bg-gray-200 text-black rounded-md"
                                         onclick="updateProgress(event, -1)">
                                         Back
                                     </button>
@@ -225,10 +206,10 @@
             updateUI();
         }
 
-        window.onload = function () {
+        window.onload = function() {
             updateUI();
             const form = document.getElementById('registrationForm');
-            form.addEventListener('keypress', function (e) {
+            form.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                 }

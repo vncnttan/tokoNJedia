@@ -1,4 +1,4 @@
-<div class="relative w-60 min-h-screen bg-white border-r-2 border-gray-100">
+<div class="relative w-60 min-h-screen bg-white border-r-2 border-gray-100" x-data="{showDropdown: false}">
     <div
         class="sticky top-32 left-0 bottom-0  w-full  flex flex-col justify-start items-center text-lg font-semibold text-black ">
         <a href="/merchant" class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border cursor-pointer"
