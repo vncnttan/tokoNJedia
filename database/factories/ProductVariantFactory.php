@@ -23,6 +23,7 @@ class ProductVariantFactory extends Factory
             'id' => Str::uuid(),
             'name' => $this->faker->word,
             'price' => $this->faker->numberBetween(1000, 100000),
+            'stock' => $this->faker->numberBetween(0, 20),
             'product_id' => Product::all()->random()->id
         ];
     }

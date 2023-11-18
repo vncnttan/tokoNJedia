@@ -29,7 +29,7 @@
                                  alt="{{ $merchant->products[$i]->name }}"
                                  class="rounded-md object-cover md:w-24 md:h-24 w-20 h-20"
                             />
-                            Rp{{ formatPrice($merchant->products[$i]->price) }}
+                            Rp{{ formatPrice($merchant->products[$i]->productVariants[0]->price) }}
                         </div>
                     </a>
 {{--                    @dd($merchant->products[$i])--}}

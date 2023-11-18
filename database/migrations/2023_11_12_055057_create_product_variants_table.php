@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string("name");
             $table->uuid("product_id");
+            $table->integer("stock");
             $table->integer("price")->default(0);
             $table->timestamp("created_at");
             $table->timestamp("updated_at")->nullable();

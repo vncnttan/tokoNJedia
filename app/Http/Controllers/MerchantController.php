@@ -90,4 +90,7 @@ class MerchantController extends Controller
         $products = $merchant->Products()->with(['ProductCategory', 'ProductVariants', 'ProductImages'])->get();
         return view('pages.merchant.merchant-manage-product', ['products' => $products]);
     }
+    public function homepage() {
+        return view('pages.merchant.merchant-homepage');
+    }
 }
