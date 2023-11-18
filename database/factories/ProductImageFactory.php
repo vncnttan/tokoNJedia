@@ -21,11 +21,10 @@ class ProductImageFactory extends Factory
     public function definition(): array
     {
 
-        $response = Http::get('https://source.unsplash.com/random');
 
         return [
             'id' => Str::uuid(),
-            'image' => $response->effectiveUri(),
+            'image' => getRandomImageURL(),
             'product_id' => Product::all()->random()->id
         ];
     }

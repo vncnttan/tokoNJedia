@@ -19,10 +19,9 @@ class PromoFactory extends Factory
      */
     public function definition(): array
     {
-        $response = Http::get('https://source.unsplash.com/random');
         return [
             'promo_name' => Str::uuid(),
-            'promo_image' => $response->effectiveUri(),
+            'promo_image' => getRandomImageURL(),
             'promo_description' => $this->faker->text,
         ];
     }

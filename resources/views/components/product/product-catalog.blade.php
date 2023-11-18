@@ -60,6 +60,8 @@
                 </div>
             </div>
             <div class="py-4 border-gray-50 border-b-2">
+                <a class="" href="/merchant/{{ $product->merchant->id }}">
+
                 <div class="flex flex-row gap-4">
                     <img src="{{ $product->merchant->image }}" alt="Merchant" class="w-16 h-16 rounded-full">
                     <div class="w-3/4">
@@ -72,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
         </div>
         <div class="h-50vh relative">
@@ -98,7 +101,8 @@
                             </button>
                         </div>
                         <div>
-                            Stock total: <span id="stockDisplay" class="text-orange-500 font-bold"> Sisa {{ $product->productVariants[0]->stock }} </span>
+                            Stock total: <span id="stockDisplay"
+                                               class="text-orange-500 font-bold"> Sisa {{ $product->productVariants[0]->stock }} </span>
                         </div>
                     </div>
 
@@ -116,13 +120,12 @@
                     <div class="py-3 flex flex-col gap-2">
                         <button
                             class="w-full py-2 rounded-md bg-green-500 text-white font-bold disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-80"
-                            {{ $product->stock <= 0 ? 'disabled' : ''}}
                             onclick="addToCart()">
                             + Add to Cart
                         </button>
                         <button
                             class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold  disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-80"
-                            {{ $product->stock <= 0 ? 'disabled' : ''}}>
+                        >
                             Buy Now
                         </button>
                     </div>
@@ -138,7 +141,8 @@
 
     function addToCart() {
         if (quantity > stock) {
-            return;
+            // TODO: Ini harusnya dijadiin middleware
+            return
         }
 
         let data = {
@@ -202,7 +206,6 @@
     function updateVariantDisplay(variantID, variantName, variantPrice, clickedBtn, variantStock) {
         variant_id = variantID;
         stock = parseInt(variantStock);
-        console.log(stock);
         document.getElementById("stockDisplay").textContent = stock;
         document.getElementById("variantTextDisplay").textContent = variantName;
         document.getElementById("priceTextDisplay").textContent = formatPriceJS(variantPrice);
@@ -222,6 +225,9 @@
         clickedBtn.classList.add('border-green-600');
         clickedBtn.classList.add('bg-green-100');
         clickedBtn.classList.add('text-green-600');
+
+        document.getElementById("add_btn").disabled = stock <= 0;
+        document.getElementById("subtract_btn").disabled = stock <= 0;
     }
 
     window.onload = function () {
