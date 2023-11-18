@@ -24,11 +24,13 @@ class MerchantFactory extends Factory
      */
     public function definition()
     {
-        $response = Http::get('https://source.unsplash.com/random');
         return [
             'id' => Str::uuid(),
             'name' => $this->faker->name,
-            'image' => $response->effectiveUri(),
+            'image' => getRandomImageURL(),
+            'banner_image' => getRandomImageURL(),
+            'description' => $this->faker->text(50),
+            'full_description' => $this->faker->text,
             'user_id' => User::all()->random()->id,
             'phone' => $this->faker->phoneNumber,
         ];
