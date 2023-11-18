@@ -32,7 +32,7 @@
                                     {{ $cart->product->name }}
                                 </div>
                                 <div class="font-bold">
-                                    Rp{{ formatPrice($cart->productVariant->price) }}
+                                    Rp {{ formatPrice($cart->productVariant->price) }}
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 
                             <div class="flex flex-row gap-5 border-b-[1px] border-gray-500 border-opacity-10">
                                 <button
-                                    {{ $cart->quantity <= 1 ? 'disabled' : '' }} onclick="changeQuantity('{{ $cart->product_id }}', 'subtract', this, {{ $cart->product->stock }})"
+                                    {{ $cart->quantity <= 1 ? 'disabled' : '' }} onclick="changeQuantity('{{ $cart->product_id }}', 'subtract', this, {{ $cart->productVariant->stock }})"
                                     class="disabled:text-gray-700 text-green-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke-width="2"
@@ -61,8 +61,8 @@
                                 {{ $cart->quantity }}
                             </span>
                                 <button
-                                    {{ $cart->quantity >= $cart->product->stock ? 'disabled' : '' }} class="disabled:text-gray-700 text-green-600"
-                                    onclick="changeQuantity('{{ $cart->product_id }}', 'add', this, {{ $cart->product->stock }})">
+                                    {{ $cart->quantity >= $cart->productVariant->stock ? 'disabled' : '' }} class="disabled:text-gray-700 text-green-600"
+                                    onclick="changeQuantity('{{ $cart->product_id }}', 'add', this, {{ $cart->productVariant->stock }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                          stroke-width="2"
                                          stroke="currentColor" class="w-6 h-6">
@@ -137,6 +137,7 @@
         }
 
         function updateSummary() {
+            console.log("Called", carts)
             let totalPrice = 0;
 
             carts.forEach(cart => {

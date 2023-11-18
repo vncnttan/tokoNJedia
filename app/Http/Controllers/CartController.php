@@ -8,13 +8,15 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.productImages', 'productVariant'])->get();
+
+        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.productImages', 'ProductVariant'])->get();
         return view('pages.home.cart', ['carts' => $carts]);
     }
 
@@ -51,7 +53,7 @@ class CartController extends Controller
         Cart::where('user_id', $user_id)->where('product_id', $product_id)
             ->update(['quantity' => $quantity]);
 
-        return response()-> json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
+        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get());
     }
 
     public function deleteCart(Request $request): JsonResponse
@@ -61,6 +63,6 @@ class CartController extends Controller
 
         Cart::where('user_id', $user_id)->where('product_id', $product_id)->delete();
         toastr()->success('Item deleted from cart', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant'])->get());
+        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get());
     }
 }
