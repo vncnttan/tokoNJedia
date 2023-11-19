@@ -12,6 +12,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <title>@yield('title') | tokoNJedia</title>
+    <link rel="icon" type="image/x-icon" sizes="144x144" href="{{ url(asset('/assets/logo/favicon-notif.ico')) }}">
 </head>
 
 <body>

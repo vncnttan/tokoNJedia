@@ -137,7 +137,6 @@
         }
 
         function updateSummary() {
-            console.log("Called", carts)
             let totalPrice = 0;
 
             carts.forEach(cart => {
