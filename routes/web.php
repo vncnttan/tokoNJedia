@@ -50,6 +50,7 @@ Route::GET('/cart', [CartController::class, 'index']);
 Route::POST('/cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 Route::PATCH('/cart', [CartController::class, 'updateCart'])->name('update-cart');
 Route::DELETE('/cart', [CartController::class, 'deleteCart'])->name('delete-cart');
+Route::GET('/cart/shipment', [CartController::class, 'shipment']);
 
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
@@ -63,10 +64,9 @@ Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct']);
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct']);
 Route::POST('/merchant', [MerchantController::class, 'store']);
 Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
-<<<<<<< HEAD
+
 
 // Product Variant
 Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
-=======
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
->>>>>>> b8f3bc021f9b2c196b2368f73dff6facf35556d6
+

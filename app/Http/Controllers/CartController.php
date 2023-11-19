@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -64,5 +65,11 @@ class CartController extends Controller
         Cart::where('user_id', $user_id)->where('product_id', $product_id)->delete();
         toastr()->success('Item deleted from cart', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get());
+    }
+
+    public function shipment() {
+        $user = User::where('id', auth()->user()->id)->first();
+        $cart = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get();
+        return view('pages.home.checkout', ['carts' => $cart, 'user' => $user]);
     }
 }
