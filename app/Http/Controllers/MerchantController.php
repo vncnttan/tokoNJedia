@@ -71,9 +71,9 @@ class MerchantController extends Controller
         $location->address = $request->address;
         $location->postal_code = $request->postal_code;
         $location->notes = $request->notes;
-        $location->locationable_id = $merchant->id;
         $location->locationable_type = "merchant";
-        $location->save();
+
+        $merchant->location()->save($location);
 
         toastr()->success("Success To Open A Merchant", '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return redirect('/merchant');

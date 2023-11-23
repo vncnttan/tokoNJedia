@@ -19,9 +19,10 @@ class ProductCard extends Component
      */
     public function __construct($productId)
     {
-        $this->product = Product::with(['productImages', 'productVariants'])
+        $this->product = Product::with(['productImages', 'productVariants', 'Merchant', 'Merchant.Location'])
             ->where('id', $productId)
             ->first();
+
 
         $this->product->image = $this->product->productImages->first()->image ?? 'https://via.placeholder.com/150';
         $this->product->price = $this->product->productVariants->first()->price ?? 0;
