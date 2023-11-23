@@ -1,5 +1,5 @@
-<div class="w-full flex flex-col" x-data="{ showDropdown: false }">
-    <button class="z-10 w-full px-4 py-2 box-border rounded-md bg-gray-100 flex justify-between items-center"
+<div class="w-full flex flex-col " x-data="{ showDropdown: false }">
+    <button class="z-10 w-full px-4 py-2 box-border rounded-md bg-gray-200 flex justify-between items-center"
         @click="showDropdown = !showDropdown">
         <h1 class="text-black text-sm font-bold">Look Product Variant</h1>
         <div class="ml-auto">
@@ -20,7 +20,7 @@
             x-transition:leave="transition ease-out duration-100"
             x-transition:leave-start="transform translate-y-0 opacity-100"
             x-transition:leave-end="transform translate-y-[-50%] opacity-0"
-            class="z-0 w-full px-2 rounded-md text-sm font-normal text-start bg-gray-100">
+            class="z-0 w-full px-2 rounded-md text-sm font-normal text-start bg-gray-100 max-h-60 overflow-y-auto   ">
             @foreach ($variants as $variant)
                 <div class="pl-4 box-border py-4 flex justify-between items-center border-b-2 border-gray-200">
                     <div class="w-full flex text-md text-black font-base ">

@@ -1,4 +1,4 @@
-<div class="w-full flex flex-col gap-2 px-4 py-2 border-b-2 border-gray-100">
+<div class="w-full flex flex-col gap-2 px-4 py-2 border-b-2 border-gray-200">
     <div class="w-full  flex  justify-between items-center" x-data="{ settingDropdown: false }">
         <div class="w-1/3 flex justify-start items-center gap-4 ">
             <img class="w-24 h-24 object-cover"

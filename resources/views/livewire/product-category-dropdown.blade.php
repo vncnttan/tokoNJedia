@@ -1,8 +1,8 @@
-<div class="w-full" x-data="{ categoryDropdown: false, selectedCategory: '', selectedCategoryName: 'Product Category', searchQuery: '' }"
+<div class="w-full" x-data="{ categoryDropdown: false, selectedCategory: '', selectedCategoryName: '{{$category}}', searchQuery: '' }"
     @click.away="categoryDropdown = false">
 
     <button type="button" x-show="!categoryDropdown"
-        class="w-full p-2 ring-1 ring-gray-300 rounded-md flex justify-between items-center gap-4"
+        class="w-full h-full p-2 ring-1 ring-gray-300 rounded-md flex justify-between items-center gap-4"
         @click.stop="categoryDropdown = !categoryDropdown">
         <p class="text-sm text-gray-400" x-text="selectedCategoryName"></p>
         <div class="ml-auto">

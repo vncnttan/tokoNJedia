@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Product;
 use App\Models\ProductVariant;
 use Livewire\Component;
 
@@ -16,8 +17,8 @@ class ProductVariantDropdown extends Component
     {
         $this->product = $product;
     }
-    public function refresh($product){
-        if($this->product->id == $product["id"]){
+    public function refresh(Product $product){
+        if($this->product->id == $product->id){
             $this->variants = $this->product->ProductVariants;
         }
     }

@@ -8,9 +8,19 @@ use LivewireUI\Modal\ModalComponent;
 class EditProductModal extends ModalComponent
 {
     public $product;
-    public function mount($product)
+    public $name;
+    public $category;
+    public $description;
+    public $product_images = [];
+    public $images = [];
+    public function mount(Product $product)
     {
         $this->product = $product;
+        $this->name = $product->name;
+        $this->category = $product->ProductCategory->name;
+        $this->description = $product->description;
+        $this->images = array_fill(0, 5, null);
+        $this->product_images = $product->ProductImages;
     }
     public function render()
     {
@@ -18,6 +28,7 @@ class EditProductModal extends ModalComponent
     }
     public static function modalMaxWidth(): string
     {
-        return 'lg';
+        return '4xl';
+
     }
 }
