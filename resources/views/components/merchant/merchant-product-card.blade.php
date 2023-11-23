@@ -35,7 +35,7 @@
                         class="absolute z-[15] w-2/3 left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
 
                         <button
-                        onclick="Livewire.emit('openModal', 'add-product-variant-modal',{{$product}} )"
+                        onclick='Livewire.emit("openModal", "add-product-variant-modal", @json([$product]))'
                         type="button"
                             class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

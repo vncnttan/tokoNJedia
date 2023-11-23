@@ -52,7 +52,7 @@
                     </div>
                 @endif
                 @foreach ($products as $product)
-                    @include('components.merchant.merchant-product-card', ['product' => $product])
+                    @livewire('merchant-product-card', ['product' => $product])
                 @endforeach
             </div>
         </div>

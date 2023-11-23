@@ -10,9 +10,16 @@ class ProductVariantDropdown extends Component
     public $product;
     public $variants;
 
+    protected $listeners = ["updatedVariant" => "refresh"];
+
     public function mount($product)
     {
         $this->product = $product;
+    }
+    public function refresh($product){
+        if($this->product->id == $product["id"]){
+            $this->variants = $this->product->ProductVariants;
+        }
     }
 
     public function destroy($id){

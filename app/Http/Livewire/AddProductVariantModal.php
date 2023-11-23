@@ -16,7 +16,6 @@ class AddProductVariantModal extends ModalComponent
     public function mount($product)
     {
         $this->product = $product;
-        dd($product);
     }
 
     public function store(){
@@ -36,10 +35,11 @@ class AddProductVariantModal extends ModalComponent
         $variant->name = $this->name;
         $variant->price = $this->price;
         $variant->stock = $this->stock;
-        $variant->product_id = $this->product->id;
+        $variant->product_id = $this->product["id"];
         $variant->save();
         toastr()->success("Add new product variant success", '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-
+        $this->closeModal();
+        $this->emit("updatedVariant", $this->product);
     }
     public function render()
     {
