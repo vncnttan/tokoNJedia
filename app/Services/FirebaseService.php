@@ -24,7 +24,7 @@ class FirebaseService
                 fclose($stream);
             }
 
-            return $fileName;
+            return env("FIREBASE_URL") . "v0/b/" . env("FIREBASE_STORAGE_BUCKET") . "o/images%2F" . $fileName . "?alt=media";
         } catch (\Exception $e) {
             if (isset($stream) && is_resource($stream)) {
                 fclose($stream);
