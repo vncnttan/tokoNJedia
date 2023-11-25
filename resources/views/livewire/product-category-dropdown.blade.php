@@ -25,7 +25,9 @@
             class="absolute z-10 w-full max-h-40 overflow-y-auto left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
             @foreach ($categories as $c)
                 <div class="w-full p-2 bg-white hover:bg-gray-300 rounded-md text-black text-md flex justify-start"
-                    @click.stop="selectedCategory = '{{ $c->id }}'; categoryDropdown = false; selectedCategoryName = '{{ $c->name }}';">
+                wire:click="$emit('categoryUpdated', '{{$c->id}}')"
+                    @click.stop="selectedCategory = '{{ $c->id }}'; categoryDropdown = false; selectedCategoryName = '{{ $c->name }}';"
+                    >
                     <h1>{{ $c->name }}</h1>
                 </div>
             @endforeach

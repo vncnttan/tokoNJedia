@@ -20,7 +20,7 @@ class EditProductModal extends ModalComponent
     public $selectedCategory;
     public $product_images = [];
     public $images = [];
-    public $test;
+    protected $listeners = ['categoryUpdated' => 'updateCategory'];
     public function mount(Product $product)
     {
         $this->product = $product;
@@ -38,13 +38,13 @@ class EditProductModal extends ModalComponent
     }
     public function save()
     {
+        Controller::SuccessMessage($this->selectedCategory);
+
         $i = count($this->product->ProductImages);
         foreach ($this->images as $index => $image) {
             if ($index < $i) {
                 if ($image != null) {
-                    Controller::SuccessMessage("Image ". $index . " not null");
                     if ($image != $this->product_images[$index]) {
-                        Controller::SuccessMessage("Image ". $index . " updated");
                         FirebaseService::deleteFile('images', $this->product->ProductImages[$index]->image);
                         $res = FirebaseService::uploadFile("images", $image);
                         $this->product->ProductImages[$index]->image = $res;
@@ -53,7 +53,6 @@ class EditProductModal extends ModalComponent
                     }
                 } else {
                     if ($this->product_images[$index] == null) {
-                        Controller::SuccessMessage("Image ". $index . " null");
                         FirebaseService::deleteFile('images', $this->product->ProductImages[$index]->image);
                         $this->product->ProductImages[$index]->delete();
                     }
@@ -68,6 +67,7 @@ class EditProductModal extends ModalComponent
                 }
             }
         }
+        $this->product->name = $this->name;
         $this->product->product_category_id = $this->selectedCategory;
         $this->product->description = $this->description;
 
@@ -84,6 +84,10 @@ class EditProductModal extends ModalComponent
         } else {
             $this->images[$index] = null;
         }
+    }
+
+    public function updateCategory($category_id){
+        $this->selectedCategory = $category_id;
     }
 
     public function render()
