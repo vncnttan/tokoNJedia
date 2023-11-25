@@ -41,18 +41,21 @@ class EditProductModal extends ModalComponent
         $i = count($this->product->ProductImages);
         foreach ($this->images as $index => $image) {
             if ($index < $i) {
-                if($image!=null){
+                if ($image != null) {
+                    Controller::SuccessMessage("Image ". $index . " not null");
                     if ($image != $this->product_images[$index]) {
+                        Controller::SuccessMessage("Image ". $index . " updated");
                         FirebaseService::deleteFile('images', $this->product->ProductImages[$index]->image);
                         $res = FirebaseService::uploadFile("images", $image);
                         $this->product->ProductImages[$index]->image = $res;
                         $img = $this->product->ProductImages[$index];
                         $img->save();
                     }
-                }
-                else{
-                    if($this->product_images[$index]==null){
+                } else {
+                    if ($this->product_images[$index] == null) {
+                        Controller::SuccessMessage("Image ". $index . " null");
                         FirebaseService::deleteFile('images', $this->product->ProductImages[$index]->image);
+                        $this->product->ProductImages[$index]->delete();
                     }
                 }
             } else {
@@ -60,8 +63,8 @@ class EditProductModal extends ModalComponent
                     $res = FirebaseService::uploadFile("images", $image);
                     $newImage = new ProductImage();
                     $newImage->id = Str::uuid(36);
+                    $newImage->image = $res;
                     $this->product->productImages()->save($newImage);
-                $newImage->image = $res;
                 }
             }
         }
@@ -73,12 +76,12 @@ class EditProductModal extends ModalComponent
         $this->closeModal();
     }
 
-    public function remove($index){
+    public function remove($index)
+    {
         $i = count($this->product->ProductImages);
-        if($index < $i){
+        if ($index < $i) {
             $this->product_images[$index] = null;
-        }
-        else{
+        } else {
             $this->images[$index] = null;
         }
     }

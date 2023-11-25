@@ -65,8 +65,8 @@ class UserController extends Controller
         /** @var User $user */
         $user = Auth::user();
         $image = $user->image;
-        FirebaseService::deleteFile("images", Controller::extractFilename($image));
-        $user->image = env("FIREBASE_URL") . "v0/b/" . env("FIREBASE_STORAGE_BUCKET") . "o/images%2F" . $res . "?alt=media";
+        FirebaseService::deleteFile("images", $image);
+        $user->image = $res;
         $user->save();
         toastr()->success('Update Profile Image Success', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return redirect('/profile');
