@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Services\FirebaseService;
+use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Str;
@@ -38,7 +39,23 @@ class EditProductModal extends ModalComponent
     }
     public function save()
     {
-        Controller::SuccessMessage($this->selectedCategory);
+        $validate = Validator::make(
+            ['name' => $this->name, 'description' => $this->description, 'category' => $this->selectedCategory],
+            [
+                'name' => 'required|min:3|max: 50',
+                'description' => 'required|min:5|max:200',
+                'category' => 'required'
+            ]
+        );
+        if ($validate->fails()) {
+            Controller::FailMessage($validate->errors()->first());
+            return;
+        }
+        $imageCount = count(array_filter($this->images)) + count(array_filter($this->product_images));
+        if ($imageCount < 1) {
+            Controller::FailMessage('Image must be at least 1');
+            return;
+        }
 
         $i = count($this->product->ProductImages);
         foreach ($this->images as $index => $image) {
@@ -71,9 +88,11 @@ class EditProductModal extends ModalComponent
         $this->product->product_category_id = $this->selectedCategory;
         $this->product->description = $this->description;
 
-        $this->product->save();
-        Controller::SuccessMessage("Update product success");
         $this->closeModal();
+        $this->product->save();
+        $this->emit("productUpdated", $this->product);
+        Controller::SuccessMessage("Update product success");
+        return redirect()->back();
     }
 
     public function remove($index)
@@ -86,7 +105,8 @@ class EditProductModal extends ModalComponent
         }
     }
 
-    public function updateCategory($category_id){
+    public function updateCategory($category_id)
+    {
         $this->selectedCategory = $category_id;
     }
 

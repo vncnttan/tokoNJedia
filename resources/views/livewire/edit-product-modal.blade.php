@@ -55,6 +55,7 @@
                     cols="30" rows="5"></textarea>
             </div>
         </div>
-        <button wire:click='save' class="px-10 py-2 text-white font-semibold bg-green-500 rounded-md">Save</button>
+        <button wire:loading.attr='disabled' wire:click='save' class="px-10 py-2 text-white font-semibold bg-green-500 rounded-md disabled:cursor-not-allowed">Save</button>
     </div>
+
 </div>

@@ -81,6 +81,7 @@ class ProductController extends Controller
         // dd($id);
         $product = Product::find($id);
         if ($product != null) {
+            Controller::SuccessMessage("Delete Product Success");
             $product->delete();
         }
         return redirect()->back();
