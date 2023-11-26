@@ -24,15 +24,16 @@ class MerchantManageProduct extends Component
         $this->products = $this->products->reject(function ($product) use ($id) {
             return $product->id === $id;
         });
-        // $this->products = $this->products->reject(function ($p) use ($product) {
-        //     return $p->id === $product->id;
-        // });
-        // $this->products = $this->products->filter(function ($p) use ($product) {
-        //     return $p->id !== $product->id;
-        // });
+    }
+
+    public function search(){
+        // $products = Product::search($this->search)->get();
+        // $this->products = $products;
     }
     public function render()
     {
+        $products = Product::search($this->search);
+        $this->products = $products;
         return view('livewire.merchant.merchant-manage-product');
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -58,7 +59,9 @@ class Product extends Model
     }
 
     public static function search($query){
-        return Product::where('name', 'like', '%' . $query . '%');
+        $user = Auth::user();
+        $products = $user->Merchant->Products()->where('name', 'like', '%' . $query . '%')->get();
+        return $products;
     }
 
 }
