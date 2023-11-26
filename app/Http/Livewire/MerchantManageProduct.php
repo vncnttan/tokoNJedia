@@ -25,11 +25,6 @@ class MerchantManageProduct extends Component
             return $product->id === $id;
         });
     }
-
-    public function search(){
-        // $products = Product::search($this->search)->get();
-        // $this->products = $products;
-    }
     public function render()
     {
         $products = Product::search($this->search);
