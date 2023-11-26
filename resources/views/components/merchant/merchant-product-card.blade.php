@@ -58,7 +58,7 @@
                             <h1>Edit</h1>
                         </button>
                         <div class="w-full flex justify-center items-center rounded-md">
-                            <button wire:click='destroy'
+                            <button wire:click='destroy({{$product}})'
                                 class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

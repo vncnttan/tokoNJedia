@@ -57,4 +57,8 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public static function search($query){
+        return Product::where('name', 'like', '%' . $query . '%');
+    }
+
 }
