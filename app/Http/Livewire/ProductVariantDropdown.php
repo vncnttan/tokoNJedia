@@ -15,11 +15,13 @@ class ProductVariantDropdown extends Component
 
     public function mount($product)
     {
+        $this->variants = $this->product->ProductVariants;
         $this->product = $product;
     }
     public function refresh(Product $product){
         if($this->product->id == $product->id){
-            $this->variants = $this->product->ProductVariants;
+            $this->variants = Product::find($product->id)->ProductVariants;
+            $this->emit('productUpdated', $product);
         }
     }
 
@@ -36,13 +38,13 @@ class ProductVariantDropdown extends Component
         }else{
             toastr()->error("Delete product variant failed", '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         }
-        $this->render();
+        $this->refresh($this->product);
     }
 
 
     public function render()
     {
-        $this->variants = $this->product->ProductVariants;
-        return view('livewire.product-variant-dropdown', ['variants' => $this->variants]);
+
+        return view('livewire.product-variant-dropdown');
     }
 }

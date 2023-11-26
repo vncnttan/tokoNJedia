@@ -77,9 +77,9 @@
                             </div>
                             <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ $merchant->name ?? "Merchant" }}</h1>
                         </a>
-                        <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/profile">
+                        <a class="max-w-36 px-2 flex justify-start items-center gap-2 nav-button" href="/profile">
                             <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
-                                <img class="w-full h-full rounded-full object-cover object-center" src="{{ Auth::user()->image }}"
+                                <img class="w-full h-full rounded-full object-cover object-center self-center" src="{{ Auth::user()->image }}"
                                     alt="">
                             </div>
                             <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ Auth::user()->username }}</h1>

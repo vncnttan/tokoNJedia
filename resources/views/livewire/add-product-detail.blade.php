@@ -34,7 +34,7 @@
         </div>
         <div class="w-full">
             <textarea class="input-style overflow-hidden w-full resize-none" name="description" id="description" cols="8"
-                rows="8"></textarea>
+                rows="8">{{ old('description') }}</textarea>
         </div>
     </div>
 </div>

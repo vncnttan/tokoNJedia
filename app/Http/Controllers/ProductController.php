@@ -78,7 +78,6 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        // dd($id);
         $product = Product::find($id);
         if ($product != null) {
             Controller::SuccessMessage("Delete Product Success");

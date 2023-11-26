@@ -74,6 +74,4 @@
         </div>
     </div>
     @livewire('product-variant-dropdown', ['product' => $product])
-
-
 </div>

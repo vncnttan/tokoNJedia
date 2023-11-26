@@ -13,6 +13,9 @@
     .icon-size{
         @apply w-4 h-4
     }
+    button{
+        @apply transition-all duration-200
+    }
 }
 input[type="radio"] {
   accent-color: green;
