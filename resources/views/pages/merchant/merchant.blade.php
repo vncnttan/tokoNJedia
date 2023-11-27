@@ -12,6 +12,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
     <title>@yield('title') | Merchant</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.10/dist/full.min.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/x-icon" sizes="144x144" href="{{ url(asset('/assets/logo/favicon-notif.ico')) }}">
 </head>
 

@@ -13,6 +13,10 @@ class Room extends Model
     protected $table = "rooms";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $primaryKey = "id";
+    protected $fillable = [
+        "id"
+    ];
 
     public function Users(){
         return $this->morphedByMany(User::class, "roomable");

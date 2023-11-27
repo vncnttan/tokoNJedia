@@ -23,3 +23,17 @@
 input[type="radio"] {
   accent-color: green;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f3f4f6; /* Tailwind color - gray-100 */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d1d5db; /* Tailwind color - gray-500 */
+    border-radius: 2rem;
+    border: 2px solid #f3f4f6; /* Tailwind color - gray-100 */
+}

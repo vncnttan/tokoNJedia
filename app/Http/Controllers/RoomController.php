@@ -10,4 +10,8 @@ use Illuminate\Support\Str;
 
 class RoomController extends Controller
 {
+    public function store($id){
+
+    }
+
 }
