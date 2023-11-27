@@ -1,7 +1,7 @@
-@extends('pages.merchant.merchant')
+@extends('pages.chat.chat')
 
 @section('title', 'Manage Product')
 
-@section('content')
+@section('chat-content')
     @livewire('merchant-manage-product')
 @endsection

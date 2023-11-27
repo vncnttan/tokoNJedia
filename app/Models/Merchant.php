@@ -22,6 +22,11 @@ class Merchant extends Model
         "image",
         "user_id"
     ];
+
+    public function Rooms(){
+        return $this->morphToMany(Room::class, "roomable");
+    }
+
     public function User(): BelongsTo
     {
         return $this->belongsTo(User::class, "user_id");

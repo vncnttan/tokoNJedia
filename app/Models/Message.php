@@ -14,11 +14,16 @@ class Message extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        "id",
         "message",
-        "room_id"
+        "room_id",
+        "user_id"
     ];
     public function Room(): BelongsTo
     {
         return $this->belongsTo(Room::class, "room_id");
+    }
+    public function User(){
+        return $this->belongsTo(User::class, "user_id");
     }
 }

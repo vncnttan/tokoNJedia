@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Route;

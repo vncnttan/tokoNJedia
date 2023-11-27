@@ -16,6 +16,9 @@
     button{
         @apply transition-all duration-200
     }
+    html, body{
+        @apply h-full
+    }
 }
 input[type="radio"] {
   accent-color: green;

@@ -1,4 +1,4 @@
-<div class="w-full h-full flex flex-col justify-center items-center gap-8 p-8 box-border">
+<div class="w-full h-full flex flex-col justify-center items-center gap-8 p-8 box-border overflow-y-auto">
 
     <div class="w-full flex justify-between items-center">
         <h1 class="text-2xl font-bold text-black">Product List</h1>
