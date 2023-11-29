@@ -13,10 +13,9 @@
                 <input class="w-full input-style" type="text">
             </div>
             <div class="w-full h-full flex flex-col gap-1 p-2 overflow-y-auto">
-                @foreach ($rooms as $room)
-                    <button class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
+                @foreach ($users as $user)
+                    {{-- <button class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
                     wire:click="getRoom('{{$room->users->first()->id}}')">
-                        {{-- {{dd($rooms->users->first()->id)}} --}}
                         <div class="w-12 h-12 rounded-full">
                             <img class="w-full h-full rounded-full object-cover" src="{{$room->users->first()->image }}"
                                 alt="">
@@ -24,34 +23,46 @@
                         <div class="flex flex-col justify-start items-start">
                             <h1 class="text-lg text-black">{{ $room->users->first()->username }}</h1>
                         </div>
+                    </button> --}}
+                    <button
+                        class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
+                        wire:click="getRoom('{{ $user->id }}')">
+                        <div class="w-12 h-12 rounded-full">
+                            <img class="w-full h-full rounded-full object-cover" src="{{ $user->image }}"
+                                alt="">
+                        </div>
+                        <div class="flex flex-col justify-start items-start">
+                            <h1 class="text-lg text-black">{{ $user->username }}</h1>
+                        </div>
                     </button>
                 @endforeach
             </div>
         </div>
         <div class="w-3/4 h-full  bg-slate-50 flex flex-col justify-start items-start">
             <div class="w-full sticky top-0 h-20 flex justify-start items-center p-4 gap-4 border-b-2 border-gray-100">
-                <img class="w-12 h-12 object-cover rounded-full " src="{{ $currUser->image ?? Auth::user()->image }}" alt="">
-                <h1 class="text-lg font-semibold text-black">{{$currUser->username ?? Auth::user()->username}}</h1>
+                <img class="w-12 h-12 object-cover rounded-full " src="{{ $currUser->image ?? Auth::user()->image }}"
+                    alt="">
+                <h1 class="text-lg font-semibold text-black">{{ $currUser->username ?? Auth::user()->username }}</h1>
             </div>
-            <div class="w-full h-full max-h-full overflow-y-auto p-4" x-ref="chatContainer" x-data="{ scrollBottom() { $nextTick(() => this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight); } }"
-                x-init="scrollBottom()">
-                @for ($i = 0; $i < 10; $i++)
-                    <div class="chat chat-start">
-                        <div class="chat-image avatar">
-                            <div class="w-10 rounded-full">
-                                <img alt="Tailwind CSS chat bubble component"
-                                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                            </div>
-                        </div>
-                        <div class="chat-header">
-                            Obi-Wan Kenobi
-                            <time class="text-xs opacity-50">12:45</time>
-                        </div>
-                        <div class="chat-bubble">You were the Chosen One!</div>
-                        <div class="chat-footer opacity-50">
-                            Delivered
-                        </div>
-                    </div>
+            <div class="w-full h-full max-h-full overflow-y-auto p-4"
+            x-ref="chatContainer"
+            x-data="{
+                init() {
+                    this.scrollBottom();
+                    this.observeChat();
+                },
+                scrollBottom() {
+                    this.$nextTick(() => this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight);
+                },
+                observeChat() {
+                    const observer = new MutationObserver(() => this.scrollBottom());
+                    observer.observe(this.$refs.chatContainer, { childList: true });
+                }
+            }"
+            x-init="init()"
+            >
+                @if($room!=null)
+                    @foreach ($room->Messages as $m)
                     <div class="chat chat-end">
                         <div class="chat-image avatar">
                             <div class="w-10 rounded-full">
@@ -60,20 +71,41 @@
                             </div>
                         </div>
                         <div class="chat-header">
-                            Anakin
-                            <time class="text-xs opacity-50">12:46</time>
+                            {{ Auth::user()->username }}
+                            <time class="text-xs opacity-50">{{$m->created_at}}</time>
                         </div>
-                        <div class="chat-bubble">I hate you!</div>
+                        <div class="chat-bubble">{{ $m->message }}</div>
                         <div class="chat-footer opacity-50">
                             Seen at 12:46
                         </div>
                     </div>
-                @endfor
+                        @if ($m->user_id == Auth::user()->id)
+                        @else
+                            <div class="chat chat-start">
+                                <div class="chat-image avatar">
+                                    <div class="w-10 rounded-full">
+                                        <img alt="Tailwind CSS chat bubble component"
+                                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    </div>
+                                </div>
+                                <div class="chat-header">
+                                    Obi-Wan Kenobi
+                                    <time class="text-xs opacity-50">12:45</time>
+                                </div>
+                                <div class="chat-bubble">You were the Chosen One!</div>
+                                <div class="chat-footer opacity-50">
+                                    Delivered
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+
             </div>
             <div
                 class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
-                <input class="input-style w-full" type="text">
-                <button class="p-2 rounded-full bg-green-500">
+                <input wire:model='message' class="input-style w-full" type="text">
+                <button class="p-2 rounded-full bg-green-500" wire:click="sendMessage">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="#ffffff" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -84,5 +116,8 @@
         </div>
 
     </div>
+    <script>
+
+        </script>
 
 </div>

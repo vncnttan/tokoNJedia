@@ -26,7 +26,7 @@ class Room extends Model
     }
 
     public function Messages(){
-        return $this->hasMany(Message::class, "room_id");
+        return $this->hasMany(Message::class);
     }
 
 }

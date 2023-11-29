@@ -1,4 +1,4 @@
-// import './bootstrap';
+import './bootstrap';
 import 'flowbite';
 
 // require('./vendor/livewire-ui/modal');
