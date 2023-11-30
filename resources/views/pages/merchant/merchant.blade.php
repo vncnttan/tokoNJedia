@@ -11,6 +11,7 @@
     {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
+
     <title>@yield('title') | Merchant</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.10/dist/full.min.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/x-icon" sizes="144x144" href="{{ url(asset('/assets/logo/favicon-notif.ico')) }}">
@@ -28,11 +29,13 @@
     </div>
     @livewire('livewire-ui-modal')
     @livewireScripts
+
     <style>
         #content {
             min-height: calc(100vh - 112px);
         }
     </style>
+
 </body>
 
 </html>

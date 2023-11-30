@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Events\NewChatMessage;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
 use App\Models\User;
@@ -13,9 +14,12 @@ class MerchantChat extends Component
 {
     public $rooms;
     public $room;
+    public $message;
     public $messages;
     public $users;
     public $currUser;
+
+    protected $listeners = ['echo:chat,NewChat' => 'newChat'];
     public function mount()
     {
         $user = User::find(auth()->id());
@@ -43,6 +47,13 @@ class MerchantChat extends Component
             $this->room = $isExist;
             $this->currUser = User::find($userId);
         }
+    }
+    public function send(){
+        event(new NewChatMessage($this->message));
+    }
+    public function newChat($data){
+        Controller::SuccessMessage($data["message"]);
+        dd($data);
     }
     public function render()
     {

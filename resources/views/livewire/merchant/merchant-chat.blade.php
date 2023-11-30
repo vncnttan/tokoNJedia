@@ -14,12 +14,13 @@
             </div>
             <div class="w-full h-full flex flex-col gap-1 p-2 overflow-y-auto">
                 @foreach ($rooms as $room)
-                    <button class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
-                    wire:click="getRoom('{{$room->users->first()->id}}')">
+                    <button
+                        class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
+                        wire:click="getRoom('{{ $room->users->first()->id }}')">
                         {{-- {{dd($rooms->users->first()->id)}} --}}
                         <div class="w-12 h-12 rounded-full">
-                            <img class="w-full h-full rounded-full object-cover" src="{{$room->users->first()->image }}"
-                                alt="">
+                            <img class="w-full h-full rounded-full object-cover"
+                                src="{{ $room->users->first()->image }}" alt="">
                         </div>
                         <div class="flex flex-col justify-start items-start">
                             <h1 class="text-lg text-black">{{ $room->users->first()->username }}</h1>
@@ -30,8 +31,9 @@
         </div>
         <div class="w-3/4 h-full  bg-slate-50 flex flex-col justify-start items-start">
             <div class="w-full sticky top-0 h-20 flex justify-start items-center p-4 gap-4 border-b-2 border-gray-100">
-                <img class="w-12 h-12 object-cover rounded-full " src="{{ $currUser->image ?? Auth::user()->image }}" alt="">
-                <h1 class="text-lg font-semibold text-black">{{$currUser->username ?? Auth::user()->username}}</h1>
+                <img class="w-12 h-12 object-cover rounded-full " src="{{ $currUser->image ?? Auth::user()->image }}"
+                    alt="">
+                <h1 class="text-lg font-semibold text-black">{{ $currUser->username ?? Auth::user()->username }}</h1>
             </div>
             <div class="w-full h-full max-h-full overflow-y-auto p-4" x-ref="chatContainer" x-data="{ scrollBottom() { $nextTick(() => this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight); } }"
                 x-init="scrollBottom()">
@@ -72,8 +74,8 @@
             </div>
             <div
                 class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
-                <input class="input-style w-full" type="text">
-                <button class="p-2 rounded-full bg-green-500">
+                <input wire:model='message' class="input-style w-full" type="text">
+                <button wire:click='send' class="p-2 rounded-full bg-green-500">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="#ffffff" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -84,5 +86,4 @@
         </div>
 
     </div>
-
 </div>
