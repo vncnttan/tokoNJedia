@@ -18,8 +18,8 @@ class MerchantChat extends Component
     public $messages;
     public $users;
     public $currUser;
+    protected $listeners = [ 'NewChat' => 'newChat'];
 
-    protected $listeners = ['echo:chat,NewChat' => 'newChat'];
     public function mount()
     {
         $user = User::find(auth()->id());
@@ -51,9 +51,8 @@ class MerchantChat extends Component
     public function send(){
         event(new NewChatMessage($this->message));
     }
-    public function newChat($data){
-        Controller::SuccessMessage($data["message"]);
-        dd($data);
+    public function newChat($event){
+        Controller::SuccessMessage($event["message"]);
     }
     public function render()
     {

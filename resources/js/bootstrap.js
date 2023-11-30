@@ -35,7 +35,7 @@ window.Echo = new Echo({
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
 });
-console.log('test')
-window.Echo.channel('chat').listen('NewChat', (e) => {
-    console.log(e)
+
+window.Echo.channel('chat').listen('.NewChat', (e) => {
+    window.Livewire.emit('NewChat', e)
 })
