@@ -37,40 +37,45 @@
             </div>
             <div class="w-full h-full max-h-full overflow-y-auto p-4" x-ref="chatContainer" x-data="{ scrollBottom() { $nextTick(() => this.$refs.chatContainer.scrollTop = this.$refs.chatContainer.scrollHeight); } }"
                 x-init="scrollBottom()">
-                @for ($i = 0; $i < 10; $i++)
-                    <div class="chat chat-start">
-                        <div class="chat-image avatar">
-                            <div class="w-10 rounded-full">
-                                <img alt="Tailwind CSS chat bubble component"
-                                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                @if ($messages != null)
+                    @foreach ($messages as $m)
+                        @if ($m->user_id == Auth::user()->id)
+                            <div class="chat chat-end">
+                                <div class="chat-image avatar">
+                                    <div class="w-10 rounded-full">
+                                        <img alt="Tailwind CSS chat bubble component"
+                                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    </div>
+                                </div>
+                                <div class="chat-header">
+                                    {{ $m->User->username }}
+                                    <time class="text-xs opacity-50">{{ $m->created_at }}</time>
+                                </div>
+                                <div class="chat-bubble">{{ $m->message }}</div>
+                                <div class="chat-footer opacity-50">
+                                    Seen at 12:46
+                                </div>
                             </div>
-                        </div>
-                        <div class="chat-header">
-                            Obi-Wan Kenobi
-                            <time class="text-xs opacity-50">12:45</time>
-                        </div>
-                        <div class="chat-bubble">You were the Chosen One!</div>
-                        <div class="chat-footer opacity-50">
-                            Delivered
-                        </div>
-                    </div>
-                    <div class="chat chat-end">
-                        <div class="chat-image avatar">
-                            <div class="w-10 rounded-full">
-                                <img alt="Tailwind CSS chat bubble component"
-                                    src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                        @else
+                            <div class="chat chat-start">
+                                <div class="chat-image avatar">
+                                    <div class="w-10 rounded-full">
+                                        <img alt="Tailwind CSS chat bubble component"
+                                            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    </div>
+                                </div>
+                                <div class="chat-header">
+                                    {{ $m->User->username }}
+                                    <time class="text-xs opacity-50">{{ $m->created_at }}</time>
+                                </div>
+                                <div class="chat-bubble">{{ $m->message }}</div>
+                                <div class="chat-footer opacity-50">
+                                    Delivered
+                                </div>
                             </div>
-                        </div>
-                        <div class="chat-header">
-                            Anakin
-                            <time class="text-xs opacity-50">12:46</time>
-                        </div>
-                        <div class="chat-bubble">I hate you!</div>
-                        <div class="chat-footer opacity-50">
-                            Seen at 12:46
-                        </div>
-                    </div>
-                @endfor
+                        @endif
+                    @endforeach
+                @endif
             </div>
             <div
                 class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
@@ -84,7 +89,12 @@
                 </button>
             </div>
         </div>
-
     </div>
-
 </div>
+<script type="module">
+    var channel = window.Echo.channel('chat')
+    channel.listen('.NewChat', function(data) {
+        alert(JSON.stringify(data))
+        Livewire.emit('NewChat', data)
+    })
+</script>
