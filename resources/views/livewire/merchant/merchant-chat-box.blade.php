@@ -11,15 +11,14 @@
                 alt="">
             <h1 class="text-lg font-semibold text-black">{{ $user->username ?? Auth::user()->username }}</h1>
         </div>
-        <div class="w-full h-full max-h-full overflow-y-auto p-4" x-ref="chatContainer">
+        <div class="w-full h-full max-h-full overflow-y-auto p-4" id="chat-container">
             @if ($messages != null)
                 @foreach ($messages as $m)
                     @if ($m->user_id == Auth::user()->id)
                         <div class="chat chat-end">
                             <div class="chat-image avatar">
                                 <div class="w-10 rounded-full">
-                                    <img alt="Tailwind CSS chat bubble component"
-                                        src="{{$m->User->image}}" />
+                                    <img alt="Tailwind CSS chat bubble component" src="{{ $m->User->image }}" />
                                 </div>
                             </div>
                             <div class="chat-header">
@@ -35,8 +34,7 @@
                         <div class="chat chat-start">
                             <div class="chat-image avatar">
                                 <div class="w-10 rounded-full">
-                                    <img alt="Tailwind CSS chat bubble component"
-                                        src="{{$m->User->image}}" />
+                                    <img alt="Tailwind CSS chat bubble component" src="{{ $m->User->image }}" />
                                 </div>
                             </div>
                             <div class="chat-header">
@@ -81,4 +79,9 @@
             window.Livewire.emit('NewChat', data)
         })
     }
+    window.addEventListener('rowChatToBottom', event => {
+        const container = document.querySelector("#chat-container")
+        container.scrollTop = container.scrollHeight;
+
+    });
 </script>

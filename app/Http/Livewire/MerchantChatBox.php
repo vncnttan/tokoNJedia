@@ -42,6 +42,7 @@ class MerchantChatBox extends Component
         $message->user_id = auth()->user()->id;
         $message->room_id = $this->room->id;
         $message->save();
+        $this->pushMessage($message);
         broadcast(new NewChatMessage($message, $this->room, Auth::user()));
     }
 
@@ -53,7 +54,10 @@ class MerchantChatBox extends Component
         if (auth()->user()->id == $user->id) {
             $this->message = "";
         }
-        $this->messages->push($message);
+        else{
+            $this->pushMessage($message);
+        }
+
     }
 
     public function onRoomChanged($roomId, $userId)
@@ -64,9 +68,15 @@ class MerchantChatBox extends Component
         $this->refreshMessage();
     }
 
+    private function pushMessage($message){
+        $this->messages->push($message);
+        $this->dispatchBrowserEvent('rowChatToBottom');
+    }
+
     private function refreshMessage(){
         if($this->room){
             $this->messages = $this->room->Messages()->orderBy('created_at', 'asc')->get();
+            $this->dispatchBrowserEvent('rowChatToBottom');
         }
     }
     public function render()
