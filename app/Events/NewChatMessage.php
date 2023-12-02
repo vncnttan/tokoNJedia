@@ -17,26 +17,25 @@ class NewChatMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
-    // public Room $room;
-    // public User $user;
+    public $room;
+    public $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    // public function __construct($message, $room, $user)
-    public function __construct($message)
+    public function __construct($message, $room, $user)
     {
         $this->message = $message;
-        // $this->room = $room;
-        // $this->user = $user;
+        $this->room = $room;
+        $this->user = $user;
     }
     public function broadcastWith(){
 
         return [
             "message" => $this->message,
-            // "room" => $this->room,
-            // "user" => $this->user
+            "room" => $this->room,
+            "user" => $this->user
         ];
     }
     public function broadcastAs(){
@@ -49,7 +48,6 @@ class NewChatMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // return new PrivateChannel('chat.' . $this->room->id);
-        return new Channel('chat');
+        return new PrivateChannel('chat.' . $this->room->id);
     }
 }
