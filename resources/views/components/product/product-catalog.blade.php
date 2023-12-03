@@ -120,7 +120,7 @@
                     <div class="py-3 flex flex-col gap-2">
                         <button
                             id="addToCartBtn"
-                            class="w-full py-2 rounded-md bg-green-500 text-white font-bold disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-80"
+                            class="w-full py-2 rounded-md bg-green-500 hover:bg-green-600 text-white font-bold disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed disabled:opacity-80"
                             onclick="addToCart()">
                             + Add to Cart
                         </button>

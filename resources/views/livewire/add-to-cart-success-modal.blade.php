@@ -14,7 +14,7 @@
                 {{ $product->name }}
             </div>
             <a href="/cart">
-                <button class="bg-green-500 p-3 rounded-md text-white font-bold">
+                <button class="bg-green-500 hover:bg-green-600 p-3 rounded-md text-white font-bold">
                     View Cart
                 </button>
             </a>

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-full flex border-b-[1px]">
-        <a class="text-green-500 p-4 font-mandala text-3xl mx-auto relative md:min-w-[1024px]" href="/"
+        <a class="text-green-500 p-4 font-mandala text-3xl mx-auto relative w-full" href="/"
            style="max-width: 1080px;">TokoNJedia</a>
     </div>
     <div class="flex flex-col md:flex-row gap-12 mx-auto px-4 py-10 md:min-w-[1024px]" style="max-width: 1080px;">
@@ -33,20 +33,34 @@
 
             <div class="flex flex-col border-t-4 border-gray-300">
                 @foreach($carts as $cart)
-                    <div class="flex flex-col gap-3 py-4">
-                        <div class="flex flex-col">
-                            <div class="font-bold text-base"> {{ $cart->product->merchant->name }}</div>
-                            <div class="text-sm text-gray-600"> {{ $cart->product->merchant->location[0]->city }}</div>
-                        </div>
-                        <div class="flex flex-row gap-4">
-                            <img src="{{ $cart->product->productImages[0]->image }}"
-                                 class="w-16 h-16 object-cover rounded-md"
-                                 alt="{{ $cart->product->name }} Image">
+                    <div class="flex flex-row gap-5">
+
+                        <div class="flex flex-col gap-3 py-4 flex-grow">
                             <div class="flex flex-col">
-                                <div class="text-base">{{ $cart->product->name }}</div>
-                                <div class="text-sm text-gray-600"> {{ $cart->quantity }} item</div>
-                                <div class="text-lg font-bold"> Rp{{ formatPrice($cart->productVariant->price) }}</div>
+                                <div class="font-bold text-base"> {{ $cart->product->merchant->name }}</div>
+                                <div
+                                    class="text-sm text-gray-600"> {{ $cart->product->merchant->location[0]->city }}</div>
                             </div>
+                            <div class="flex flex-row gap-4">
+                                <img src="{{ $cart->product->productImages[0]->image }}"
+                                     class="w-16 h-16 object-cover rounded-md"
+                                     alt="{{ $cart->product->name }} Image">
+                                <div class="flex flex-col">
+                                    <div class="text-base">{{ $cart->product->name }}</div>
+                                    <div class="text-sm text-gray-600"> {{ $cart->quantity }} item</div>
+                                    <div class="text-lg font-bold">
+                                        Rp{{ formatPrice($cart->productVariant->price) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center place-items-start w-64 gap-1">
+                            <label for="countries" class="font-bold text-sm">
+                                Choose Duration
+                            </label>
+                            <select id="countries" class="border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                                <option class="bg-white text-black" disabled selected>Shipping</option>
+                                <option class="bg-white text-black" value="US">Instant 3 Jam</option>
+                            </select>
                         </div>
                     </div>
                 @endforeach
@@ -69,7 +83,8 @@
                     <span id="totalDisplayProductCount"></span>
                     <span id="totalDisplayProduct"></span>
                 </div>
-                <div class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
+                <div
+                    class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
                     <span>Shopping Total</span>
                     <span id="totalDisplay"></span>
                 </div>
@@ -87,8 +102,8 @@
     </div>
     <div class="w-full flex border-t-[1px] border-gray-400">
         <div
-            class="text-gray-800 p-4 mx-auto relative flex flex-row gap-2 justify-start place-items-center text-opacity-50 font-bold"
-            style="max-width: 1080px; min-width: 1024px">
+            class="text-gray-800 p-4 w-full mx-auto relative flex flex-row gap-2 justify-start place-items-center text-opacity-50 font-bold"
+            style="max-width: 1080px;">
             <img src="{{ asset('assets/logo/ic-toped.jpg') }}" alt="Checkout Footer" class="h-12 w-12"/>
             © 2009 - 2023
         </div>
@@ -100,7 +115,7 @@
             let count = 0;
             @foreach($carts as $cart)
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
-                count += 1;
+            count += 1;
             @endforeach
             console.log(subtotal)
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
