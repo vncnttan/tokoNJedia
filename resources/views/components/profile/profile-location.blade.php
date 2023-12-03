@@ -17,7 +17,7 @@
                 </button>
             </div>
             @foreach($user->location as $loc)
-                <div class="w-full h-44">
+                <div class="w-full min-h-44">
                     <div
                         class=" {{ $loop->index == 0 ? 'border-green-600 bg-green-50' : ''}} border-[1px] rounded-lg h-full w-full flex flex-col py-5 px-6 justify-between relative">
                         <div class="{{ $loop->index == 0 ? 'bg-green-500' : 'bg-gray-500'}} w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0"></div>
