@@ -33,7 +33,7 @@
 
             <div class="flex flex-col border-t-4 border-gray-300">
                 @foreach($carts as $cart)
-                    <div class="flex flex-row gap-5">
+                    <div class="flex flex-col md:gap-5 md:flex-row">
 
                         <div class="flex flex-col gap-3 py-4 flex-grow">
                             <div class="flex flex-col">
@@ -53,12 +53,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col justify-center place-items-start w-64 gap-1">
+                        <div class="flex flex-col justify-center place-items-start w-72 gap-1">
                             <label for="countries" class="font-bold text-sm">
                                 Choose Duration
                             </label>
-                            <select id="countries" class="border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-                                <option class="bg-white text-black" disabled selected>Shipping</option>
+                            <select id="countries" class="border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2 px-2.5">
+                                <option class="bg-white text-black text-center" disabled selected>Shipping</option>
                                 <option class="bg-white text-black" value="US">Instant 3 Jam</option>
                             </select>
                         </div>
