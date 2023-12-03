@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use App\Models\User;
 use App\Services\FirebaseService;
 use Illuminate\Http\Request;
@@ -11,13 +12,14 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
-    public function updateUsername(Request $request){
+    public function updateUsername(Request $request)
+    {
         $user = User::find(Auth::user()->id);
-        if($user){
+        if ($user) {
             $validate = Validator::make($request->all(), [
-                'username' => 'required|min:3|max:20|unique:users,username'.$user->id,
+                'username' => 'required|min:3|max:20|unique:users,username' . $user->id,
             ]);
-            if($validate->fails()){
+            if ($validate->fails()) {
                 return redirect()->back()->withErrors($validate)->withInput()->with('error', 'Username must be filled');
             }
             $user->username = $request->username;
@@ -25,9 +27,11 @@ class UserController extends Controller
         }
         return redirect('/profile');
     }
-    public function updateDob(Request $request){
+
+    public function updateDob(Request $request)
+    {
         $user = User::find(Auth::user()->id);
-        if($user){
+        if ($user) {
             $validate = Validator::make($request->all(), [
                 'dob' => [
                     'required',
@@ -36,7 +40,7 @@ class UserController extends Controller
                     'before_or_equal:12/31/2009'
                 ],
             ]);
-            if($validate->fails()){
+            if ($validate->fails()) {
                 return redirect()->back()->toastr()->error('DOB must be filled');
             }
             $user->dob = $request->dob;
@@ -45,20 +49,21 @@ class UserController extends Controller
         return redirect('/profile');
     }
 
-    public function updateImage(Request $request){
+    public function updateImage(Request $request)
+    {
         $messages = [
             'max' => 'Image size must not be more than 10mb'
         ];
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'file' => 'required|file|max:10240',
         ], $messages);
-        if($validator->fails()){
+        if ($validator->fails()) {
             toastr()->error($validator->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect('/profile');
         }
         $file = $request->file('file');
         $res = FirebaseService::uploadFile("images", $file);
-        if($res===null){
+        if ($res === null) {
             toastr()->error('Update Profile Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect('/profile');
         }
@@ -73,8 +78,36 @@ class UserController extends Controller
     }
 
 
-    public function location() {
+    public function location()
+    {
         return view('pages.profile.profile-page-location');
+    }
+
+    public function updateLocation(Request $request)
+    {
+        $address = $request->address;
+        $city = $request->city;
+        $country = $request->country;
+        $postal = $request->postal;
+        $latitude = $request->latitude;
+        $longitude = $request->longitude;
+
+        $location = new Location();
+        $location->city = $city;
+        $location->country = $country;
+        $location->address = $address;
+        $location->postal_code = $postal;
+        $location->latitude = $latitude;
+        $location->longitude = $longitude;
+
+        $user = auth()->user();
+
+        $location->locationable_type = 'App\Models\User';
+        $location->locationable_id = $user->id;
+
+        $location->save();
+
+        return $location;
     }
 
 }

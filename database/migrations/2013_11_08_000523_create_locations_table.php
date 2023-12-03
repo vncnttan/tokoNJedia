@@ -16,11 +16,13 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->string("city")->default("Jakarta");
-            $table->string("country")->default("Indonesia");
-            $table->string("address")->default("Budi Raya Street");
+            $table->string("city");
+            $table->string("country");
+            $table->string("address");
             $table->string("notes")->default("")->nullable(true);
-            $table->string("postal_code")->default("22044");
+            $table->string("postal_code");
+            $table->double("latitude");
+            $table->double("longitude");
             $table->uuid("locationable_id");
             $table->string("locationable_type");
             $table->timestamp("created_at");

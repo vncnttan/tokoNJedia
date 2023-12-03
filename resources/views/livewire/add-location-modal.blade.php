@@ -79,11 +79,10 @@
                            class="rounded-md border-[1px] w-full border-gray-300 p-2"
                            placeholder="ex. Black Gate, White Building"/>
                 </div>
-
-
             </div>
+            <div id="error-message" class="bg-red-500 text-white w-full p-5 rounded-md hidden"></div>
             <button onclick="
-                updateProgress(event, 1)
+                addLocation()
             " class="py-2 bg-green-500 rounded-md text-white font-bold">Add New Address
             </button>
         </div>
@@ -121,6 +120,74 @@
                 updateClasses("form-content2", [], ["hidden"]);
             }
         }
+
+        window.validateAddressForm = function (address, city, country, postal) {
+            if (address.trim() === '') {
+                return 'Address is required';
+            }
+            if (city.trim() === '') {
+                return 'City is required';
+            }
+            if (country.trim() === '') {
+                return 'Country is required';
+            }
+            if (postal.trim() === '') {
+                return 'Postal code is required';
+            }
+            if (postal.trim().length !== 5) {
+                return 'Postal code must be 5 digits';
+            }
+            if (!/^\d+$/.test(postal.trim())) {
+                return 'Postal code must be a number';
+            }
+            if (postal.trim().charAt(0) === '0') {
+                return 'Postal code cannot start with 0';
+            }
+
+
+            return 'OK'
+
+        }
+
+        window.addLocation = function () {
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const country = document.getElementById('country').value;
+            const postal = document.getElementById('postal').value;
+
+            if (validateAddressForm(address, city, country, postal) !== 'OK') {
+                document.getElementById('error-message').innerHTML = validateAddressForm(address, city, country, postal);
+                document.getElementById('error-message').classList.remove('hidden');
+                return;
+            }
+
+            const data = {
+                address: address,
+                city: city,
+                country: country,
+                postal: postal,
+                latitude: window.latitude,
+                longitude: window.longitude,
+                _token: "{{ csrf_token() }}"
+            }
+
+
+            fetch('/profile/location', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(() => {
+                    location.reload()
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
+
 
         window.updateProgress = function (e, steps) {
             e.preventDefault()
