@@ -68,8 +68,9 @@ class CartController extends Controller
     }
 
     public function shipment() {
-        $user = User::where('id', auth()->user()->id)->first();
-        $cart = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get();
-        return view('pages.home.checkout', ['carts' => $cart, 'user' => $user]);
+        $user = User::where('id', auth()->user()->id)->with(['location'])->first();
+        $cart = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.merchant.location', 'productVariant'])->get();
+        $shipment = DB::table('shipments')->get();
+        return view('pages.home.checkout', ['carts' => $cart, 'user' => $user, 'shipment' => $shipment]);
     }
 }

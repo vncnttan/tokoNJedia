@@ -20,7 +20,8 @@
                 <div class="w-full min-h-44">
                     <div
                         class=" {{ $loop->index == 0 ? 'border-green-600 bg-green-50' : ''}} border-[1px] rounded-lg h-full w-full flex flex-col py-5 px-6 justify-between relative">
-                        <div class="{{ $loop->index == 0 ? 'bg-green-500' : 'bg-gray-500'}} w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0"></div>
+                        <div
+                            class="{{ $loop->index == 0 ? 'bg-green-500' : 'bg-gray-500'}} w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0"></div>
                         <div class="flex flex-col">
                             <div class="font-bold">
                                 {{ $user->username }}
@@ -42,6 +43,24 @@
                 </div>
 
             @endforeach
+
+            @if($user->location->count() == 0)
+                <div class="w-full min-h-44">
+                    <div class="border-[1px] rounded-lg h-full w-full flex flex-col py-10 px-6 justify-between relative  text-center"
+                         style="
+                            background-image: url('{{ asset('assets/checkout/no-location.png') }}');
+                            background-repeat: no-repeat;
+                            background-position: left;
+                            background-size: 50%;">
+                        <div class="font-bold">
+                            No Address added yet
+                        </div>
+                        <div class="text-gray-500">
+                            Add your address to make it easier for us to deliver your order
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </div>

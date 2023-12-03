@@ -54,13 +54,36 @@
                             </div>
                         </div>
                         <div class="flex flex-col justify-center place-items-start w-72 gap-1">
-                            <label for="countries" class="font-bold text-sm">
+                            <label for="duration" class="font-bold text-sm">
                                 Choose Duration
                             </label>
-                            <select id="countries" class="border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2 px-2.5">
+                            <select id="duration"
+                                    class="durationSelect border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2 px-2.5"
+                                    data-cart-id="{{ $cart->product->id }}">
                                 <option class="bg-white text-black text-center" disabled selected>Shipping</option>
-                                <option class="bg-white text-black" value="US">Instant 3 Jam</option>
+                                @foreach($shipment as $s)
+                                    @php
+                                        $price = shipmentPriceCalculate(
+                                            $user->location[0]->latitude,
+                                            $user->location[0]->longitude,
+                                            $cart->product->merchant->location[0]->latitude,
+                                            $user->location[0]->longitude,
+                                            $s->base_price,
+                                            $s->variable_price);
+                                    @endphp
+                                    <option class="bg-white text-black" value="{{ $s->id }}"
+                                            data-price="{{ $price }}"
+                                            data-shipment-name="{{ $s->name }}">
+                                        {{ $s->name }}
+                                    </option>
+                                @endforeach
                             </select>
+                            <div class="flex flex-row justify-between mt-2 w-full">
+                                <div id="shipmentNameDisplay{{$cart->product->id}}"
+                                     class="font-semibold text-sm text-black"></div>
+                                <div id="shipmentPriceDisplay{{$cart->product->id}}"
+                                     class="font text-sm text-gray-500"></div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -108,7 +131,6 @@
             © 2009 - 2023
         </div>
     </div>
-
     <script>
         function updateSubtotal() {
             let subtotal = 0;
@@ -117,7 +139,7 @@
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
             count += 1;
             @endforeach
-            console.log(subtotal)
+            console.log("SUBTOTAL : " + subtotal)
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProduct').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
@@ -141,8 +163,10 @@
 
         console.log($selected_location)
         window.onload = function () {
+            initializeCartSelections();
             updateLocationDisplay($selected_location);
             updateSubtotal()
+            setupEventListeners();
         }
 
         function updateLocationDisplay(location) {
@@ -155,5 +179,34 @@
         Livewire.on('locationSelected', (location) => {
             updateLocationDisplay(location)
         })
+
+        let cartSelections = {};
+
+        function initializeCartSelections() {
+            @foreach($carts as $cart)
+                cartSelections['{{ $cart->product->id }}'] = {
+                shipmentId: '',
+                shipmentPrice: 0
+            };
+            @endforeach
+        }
+
+        function setupEventListeners() {
+            Array.from(document.getElementsByClassName('durationSelect')).forEach((select, index) => {
+                select.onchange = function () {
+                    let cartId = select.getAttribute('data-cart-id');
+                    let selectedOption = select.options[select.selectedIndex];
+                    let shipmentPrice = selectedOption.getAttribute('data-price');
+                    let shipmentName = selectedOption.getAttribute('data-shipment-name');
+                    let shipmentPriceDisplay = document.getElementById('shipmentPriceDisplay' + cartId);
+                    let shipmentNameDisplay = document.getElementById('shipmentNameDisplay' + cartId);
+                    shipmentPriceDisplay.innerHTML = 'Rp. ' + shipmentPrice.toString();
+                    shipmentNameDisplay.innerHTML = shipmentName
+
+                    cartSelections[cartId].shipment = selectedOption.value;
+                    cartSelections[cartId].shipmentPrice = shipmentPrice;
+                };
+            });
+        }
     </script>
 @endsection
