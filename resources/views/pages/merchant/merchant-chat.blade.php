@@ -1,5 +1,7 @@
 @extends('pages.merchant.merchant')
 
-@section('merchant-content')
-    <h1>Chat</h1>
+@section('title', 'Chat')
+
+@section('content')
+    @livewire('merchant-chat')
 @endsection

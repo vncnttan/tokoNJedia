@@ -1,4 +1,5 @@
 <div class="w-full flex flex-col gap-2 px-4 py-2 border-b-2 border-gray-200">
+
     <div class="w-full  flex  justify-between items-center" x-data="{ settingDropdown: false }">
         <div class="w-1/3 flex justify-start items-center gap-4 ">
             <img class="w-24 h-24 object-cover"
@@ -35,8 +36,8 @@
                         class="absolute z-[15] w-2/3 left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
 
                         <button
-                        onclick='Livewire.emit("openModal", "add-product-variant-modal", @json([$product]))'
-                        type="button"
+                            onclick='Livewire.emit("openModal", "add-product-variant-modal", @json([$product]))'
+                            type="button"
                             class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -56,13 +57,9 @@
                             </svg>
                             <h1>Edit</h1>
                         </button>
-                        <form action="/product/{{ $product->id }}" method="POST"
-                            class="w-full flex justify-center items-center rounded-md">
-                            @method('DELETE')
-                            @csrf
-                            <button
-                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4"
-                                type="submit">
+                        <div class="w-full flex justify-center items-center rounded-md">
+                            <button wire:click='destroy({{$product}})'
+                                class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -70,7 +67,7 @@
                                 </svg>
                                 <h1>Delete</h1>
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

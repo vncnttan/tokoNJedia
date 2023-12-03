@@ -12,6 +12,7 @@ class ProductCategoryDropdown extends Component
     public function mount($currCategory="Product Category"){
         $this->category = $currCategory;
     }
+
     public function render()
     {
         $categories = ProductCategory::search($this->search)->get();

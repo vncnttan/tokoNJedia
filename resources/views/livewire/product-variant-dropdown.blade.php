@@ -20,7 +20,7 @@
             x-transition:leave="transition ease-out duration-100"
             x-transition:leave-start="transform translate-y-0 opacity-100"
             x-transition:leave-end="transform translate-y-[-50%] opacity-0"
-            class="z-0 w-full px-2 rounded-md text-sm font-normal text-start bg-gray-100 max-h-60 overflow-y-auto   ">
+            class="z-0 w-full px-2 rounded-md text-sm font-normal text-start bg-gray-100 max-h-60   ">
             @foreach ($variants as $variant)
                 <div class="pl-4 box-border py-4 flex justify-between items-center border-b-2 border-gray-200">
                     <div class="w-full flex text-md text-black font-base ">
@@ -29,7 +29,7 @@
                                 {{ $variant->name }}
                             </h1>
                         </div>
-                        <div class="relative w-2/3 flex justify-start items-center" x-data="{ settingDropdown: false }">
+                        <div class=" w-2/3 flex justify-start items-center" x-data="{ settingDropdown: false }">
                             <div class=" w-1/4   flex gap-2 items-center">
                                 <h1>
                                     {{ $variant->price }}
@@ -67,8 +67,9 @@
                                     <div x-show="settingDropdown"
                                         class="absolute z-[15] w-2/3 left-0 bg-white shadow-md rounded-md text-sm font-normal text-start">
                                         <button type="button"
-                                            class="w-full p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4"
-                                            onclick="Livewire.emit('openModal', 'edit-product-modal', { variant: {{ $variant }}})">
+                                            class="w-full  p-2 hover:bg-slate-100 text-black cursor-pointer flex justify-start items-center gap-4"
+                                            onclick='Livewire.emit("openModal", "edit-product-variant-modal", @json([$product, $variant]))'
+                                            >
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"

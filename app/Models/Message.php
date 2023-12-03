@@ -12,13 +12,24 @@ class Message extends Model
     protected $table = "messages";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $primaryKey = "id";
 
     protected $fillable = [
+        "id",
         "message",
-        "room_id"
+        "room_id",
+        "user_id",
+        "read_at"
     ];
+    protected $date = "read_at";
     public function Room(): BelongsTo
     {
         return $this->belongsTo(Room::class, "room_id");
+    }
+    public function User(){
+        return $this->belongsTo(User::class, "user_id");
+    }
+    public function isRead(){
+        return $this->read_at != null;
     }
 }

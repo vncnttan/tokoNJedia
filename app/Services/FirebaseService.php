@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
 use Kreait\Firebase\Factory;
 
@@ -24,7 +25,7 @@ class FirebaseService
                 fclose($stream);
             }
 
-            return $fileName;
+            return env("FIREBASE_URL") . "v0/b/" . env("FIREBASE_STORAGE_BUCKET") . "o/images%2F" . $fileName . "?alt=media";
         } catch (\Exception $e) {
             if (isset($stream) && is_resource($stream)) {
                 fclose($stream);
@@ -38,7 +39,7 @@ class FirebaseService
         $storage = $firebaseFactory->createStorage();
         $defaultBucket = $storage->getBucket();
         try {
-            $defaultBucket->object($path . '/' . $filename)->delete();
+            $defaultBucket->object($path . '/' . Controller::extractFilename($filename))->delete();
         } catch (\Exception $e) {
             // Handle exception if the file does not exist or any other errors
             // Log the error or handle it as per your requirement

@@ -55,7 +55,7 @@ class ProductController extends Controller
                 }
                 $product_image = new ProductImage();
                 $product_image->id = Str::uuid(36);
-                $product_image->image = env("FIREBASE_URL") . "v0/b/" . env("FIREBASE_STORAGE_BUCKET") . "o/images%2F" . $res . "?alt=media";
+                $product_image->image = $res;
                 $product_image->product_id = $product->id;
                 $product_image->save();
             }
@@ -78,9 +78,9 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        // dd($id);
         $product = Product::find($id);
         if ($product != null) {
+            Controller::SuccessMessage("Delete Product Success");
             $product->delete();
         }
         return redirect()->back();

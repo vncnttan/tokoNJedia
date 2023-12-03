@@ -1,7 +1,7 @@
-<div class="relative w-60 min-h-screen bg-white border-r-2 border-gray-100" x-data="{showDropdown: false}">
-    <div
-        class="sticky top-32 left-0 bottom-0  w-full  flex flex-col justify-start items-center text-lg font-semibold text-black ">
-        <a href="/merchant" class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border cursor-pointer"
+<div class="fixed top-28 left-0 bottom-0 w-60  z-10 bg-white overflow-y-auto border-r-2 border-gray-100" x-data="{ showDropdown: false }">
+    <div class=" h-full  flex flex-col justify-start items-center text-lg font-semibold text-black ">
+        <a href="/merchant"
+            class="w-full flex gap-4 justify-start items-center hover:bg-slate-100 px-6 py-2 box-border cursor-pointer"
             @click="selectedTab = 'home'"
             :class="{ 'text-green-500': selectedTab === 'home', 'text-black': selectedTab !== 'home' }">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -51,9 +51,11 @@
                 x-transition:leave-start="transform translate-y-0 opacity-100"
                 x-transition:leave-end="transform translate-y-[-50%] opacity-0"
                 class="z-0 w-full bg-white  rounded-md text-sm font-normal text-start">
-                <a href="/merchant/add-product" class="block w-full pl-6  py-2 hover:bg-slate-100 text-black cursor-pointer">Add
+                <a href="/merchant/add-product" @click="selectedTab = 'product';"
+                    class="block w-full pl-6  py-2 hover:bg-slate-100 text-black cursor-pointer">Add
                     Product</a>
-                <a href="/merchant/manage-product" class="block w-full pl-6  py-2 hover:bg-slate-100 text-black cursor-pointer">Product
+                <a href="/merchant/manage-product"  @click="selectedTab = 'product';"
+                    class="block w-full pl-6  py-2 hover:bg-slate-100 text-black cursor-pointer">Product
                     List</a>
             </div>
         </div>

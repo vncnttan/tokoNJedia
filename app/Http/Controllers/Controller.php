@@ -18,4 +18,10 @@ class Controller extends BaseController
 
         return $filename;
     }
+    public static function SuccessMessage($msg){
+        toastr()->success($msg, '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+    }
+    public static function FailMessage($msg){
+        toastr()->error($msg, '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+    }
 }

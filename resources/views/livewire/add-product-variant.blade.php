@@ -17,7 +17,7 @@
                     <p class="w-full">Product variant name min. 3 character</p>
                 </div>
                 <div class="w-full">
-                    <input type="text" wire:model="variants.{{$index}}.name" name="variant_name[{{ $index }}]" class="input-style w-full"
+                    <input type="text" wire:model="variants.{{$index}}.name" value="{{old('variants.$index.name')}}" name="variant_name[{{ $index }}]" class="input-style w-full"
                         placeholder="Example: Nike Man Shoes Variant 1 (Product Type/Category/Brand/Other)">
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <p class="w-full">Product variant price must be more than 0</p>
                 </div>
                 <div class="w-full">
-                    <input type="number" wire:model="variants.{{$index}}.price" name="variant_price[{{ $index }}]" class="input-style w-full" placeholder="Example: 50000">
+                    <input type="number" wire:model="variants.{{$index}}.price" value="variants.{{$index}}.price" name="variant_price[{{ $index }}]" class="input-style w-full" placeholder="Example: 50000">
                 </div>
             </div>
             <div class="w-full flex justify-between items-center gap-4">
@@ -37,7 +37,7 @@
                     <p class="w-full">Product variant stock must be more than 0</p>
                 </div>
                 <div class="w-full">
-                    <input type="number" wire:model="variants.{{$index}}.stock" name="variant_stock[{{ $index }}]" class="input-style w-full" placeholder="Example: 50">
+                    <input type="number" wire:model="variants.{{$index}}.stock" value="variants.{{$index}}.stock" name="variant_stock[{{ $index }}]" class="input-style w-full" placeholder="Example: 50">
                 </div>
             </div>
             {{-- <button wire:click="removeVariant({{ $index }})">

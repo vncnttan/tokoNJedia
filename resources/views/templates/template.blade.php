@@ -17,7 +17,7 @@
 
 <body>
     <div class="min-h-screen min-w-screen flex flex-col items-center justify-between">
-        <div class="h-full w-full flex flex-col items-center">
+        <div class="h-full w-full min-h-screen flex flex-col items-center">
             <x-navbar />
             @yield('content')
         </div>

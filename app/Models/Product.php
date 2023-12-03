@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
@@ -55,6 +56,12 @@ class Product extends Model
     public function ProductVariants(): HasMany
     {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public static function search($query){
+        $user = Auth::user();
+        $products = $user->Merchant->Products()->where('name', 'like', '%' . $query . '%')->get();
+        return $products;
     }
 
 }

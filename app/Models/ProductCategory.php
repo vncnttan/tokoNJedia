@@ -12,6 +12,7 @@ class ProductCategory extends Model
     protected $table = "product_categories";
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $primaryKey = "id";
 
     protected $fillable = [
         "name"

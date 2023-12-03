@@ -6,8 +6,8 @@
                 class="relative group w-36 h-36 border-2 border-dashed rounded-lg text-sm font-semibold cursor-pointer flex flex-col justify-center items-center text-gray-500 hover:text-green-500 hover:border-green-500">
                 <input wire:model="images.{{ $index }}" name="images[{{ $index }}]" type="file"
                     accept="image/*" class="hidden">
-                @if ($index < count($product_images) && $product_images[$index])
-                    <img src="{{ $image }}" class="w-full h-full object-contain">
+                @if ($index < count($product_images) && $product_images[$index] && $image==null)
+                    <img src="{{ $product_images[$index] }}" class="w-full h-full object-contain">
                     <button type="button"
                         class="group-hover:flex hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white p-2 w-full h-full bg-black bg-opacity-25 justify-center items-center"
                         wire:click="remove({{ $index }})">
@@ -55,6 +55,7 @@
                     cols="30" rows="5"></textarea>
             </div>
         </div>
-        <button class="px-10 py-2 text-white font-semibold bg-green-500 rounded-md">Save</button>
+        <button wire:loading.attr='disabled' wire:click='save' class="px-10 py-2 text-white font-semibold bg-green-500 rounded-md disabled:cursor-not-allowed">Save</button>
     </div>
+
 </div>

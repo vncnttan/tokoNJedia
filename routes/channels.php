@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Room;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,6 +14,17 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('chat', function(){
+    return true;
+});
+// Broadcast::channel('chat.{room}', function($rooms, $roomId){
+//     $roomIds = array_column($rooms, 'id');
+//     return in_array($roomId, $roomIds);
+//     // return true;
+// });
+
+Broadcast::channel('chat.{roomId}', function($user, $roomId){
+    $room = Room::find($roomId);
+    return $room->Users()->where('id', $user->id)->exists() ||
+           $room->Merchants()->where('id', $user->id)->exists();
 });

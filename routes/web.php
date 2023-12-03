@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\NewChatMessage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleController;
@@ -7,8 +8,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Models\ProductVariant;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
 
@@ -70,3 +73,6 @@ Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
 Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
 
+Route::GET('/send', function(){
+    broadcast(new NewChatMessage("hayiii"));
+});
