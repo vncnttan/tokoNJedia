@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
@@ -39,8 +40,11 @@ Route::GET("/profile", function(){
 Route::MATCH(["POST", "PUT"],"/profile/username", [UserController::class, 'updateUsername']);
 Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob']);
 Route::POST("/profile/image", [UserController::class, 'updateImage']);
-Route::GET('/profile/location', [UserController::class, 'location']);
-Route::POST('/profile/location', [UserController::class, 'updateLocation']);
+
+// Location
+Route::GET('/profile/location', [LocationController::class, 'location']);
+Route::POST('/profile/location', [LocationController::class, 'updateLocation']);
+ROUTE::DELETE('/profile/location', [LocationController::class, 'deleteLocation']);
 
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -78,36 +78,5 @@ class UserController extends Controller
     }
 
 
-    public function location()
-    {
-        return view('pages.profile.profile-page-location');
-    }
-
-    public function updateLocation(Request $request)
-    {
-        $address = $request->address;
-        $city = $request->city;
-        $country = $request->country;
-        $postal = $request->postal;
-        $latitude = $request->latitude;
-        $longitude = $request->longitude;
-
-        $location = new Location();
-        $location->city = $city;
-        $location->country = $country;
-        $location->address = $address;
-        $location->postal_code = $postal;
-        $location->latitude = $latitude;
-        $location->longitude = $longitude;
-
-        $user = auth()->user();
-
-        $location->locationable_type = 'App\Models\User';
-        $location->locationable_id = $user->id;
-
-        $location->save();
-
-        return $location;
-    }
 
 }

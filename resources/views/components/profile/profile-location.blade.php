@@ -19,10 +19,8 @@
             @foreach($user->location as $loc)
                 <div class="w-full h-44">
                     <div
-                        class="border-green-600 border-[1px] rounded-lg bg-green-50 h-full w-full flex flex-col py-5 px-6 justify-between relative">
-                        <div class="bg-green-500 w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0">
-
-                        </div>
+                        class=" {{ $loop->index == 0 ? 'border-green-600 bg-green-50' : ''}} border-[1px] rounded-lg h-full w-full flex flex-col py-5 px-6 justify-between relative">
+                        <div class="{{ $loop->index == 0 ? 'bg-green-500' : 'bg-gray-500'}} w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0"></div>
                         <div class="flex flex-col">
                             <div class="font-bold">
                                 {{ $user->username }}
@@ -37,7 +35,7 @@
                                 {{ $loc->notes }}
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-green-600 w-fit">
+                        <button class="text-sm font-bold text-green-600 w-fit" onclick="deleteItem('{{ $loc->id }}')">
                             Delete
                         </button>
                     </div>
@@ -47,3 +45,25 @@
         </div>
     </div>
 </div>
+<script>
+    function deleteItem($location_id) {
+        const data = {
+            id: $location_id,
+            _token: "{{ csrf_token() }}"
+        }
+        fetch('/profile/location', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(() => {
+                location.reload()
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+    }
+</script>
