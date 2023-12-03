@@ -19,8 +19,7 @@ return new class extends Migration
             $table->uuid("room_id");
             $table->uuid("user_id");
             $table->timestamp("read_at")->nullable();
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
             $table->foreign("room_id")->references("id")->on("rooms")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
         });

@@ -19,6 +19,26 @@ if(!function_exists('getRandomImageURL')) {
     }
 }
 
+if(!function_exists('shipmentPriceCalculate')) {
+    function shipmentPriceCalculate($latitudeTo, $longitudeTo, $latitudeFrom, $longitudeFrom, $basePrice, $variablePrice): int
+    {
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+
+        $distance = $angle * 6371000;
+
+        return $basePrice + ($distance / 1000) * $variablePrice;
+    }
+}
+
 if(!function_exists('calculateMerchantRating')) {
     function calculateMerchantRating($merchantId): int {
         $products = Product::where('merchant_id', $merchantId)->get();

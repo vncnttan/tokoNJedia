@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('base_price');
             $table->integer('variable_price');
             $table->timestamp('created_at');
-            $table->timestamp('updated_at')->nullable;
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
