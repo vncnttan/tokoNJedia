@@ -3,11 +3,14 @@
 namespace App\View\Components;
 
 use App\Models\Merchant;
+use App\Models\Room;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 use Illuminate\View\Component;
+use Illuminate\Support\Str;
 
 class MerchantHeader extends Component
 {
@@ -22,6 +25,24 @@ class MerchantHeader extends Component
     {
 //        dd($merchantId);
         $this->merchant = Merchant::where('id', $merchantId)->first();
+    }
+
+    public function chat(){
+        dd("test");
+        // $user = User::find(auth()->id());
+        // $merchantId = $this->merchant->id;
+        // $isExist = $user->Rooms()->whereHas("users", function ($query) use ($merchantId) {
+        //     $query->where("roomable_id", $merchantId)
+        //         ->where('roomable_type', Merchant::class);
+        // })->first();
+        // if (!$isExist) {
+        //     $room = new Room();
+        //     $room->id = Str::uuid();
+        //     $room->save();
+        //     $room->Users()->attach($merchantId);
+        //     $room->Users()->attach($user->id);
+        // }
+        // return redirect('/chat');
     }
 
     /**

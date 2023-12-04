@@ -23,12 +23,11 @@
                             </div>
                             <div class="chat-header">
                                 {{ $m->User->username }}
-                                <time class="text-xs opacity-50">{{ $m->created_at }}</time>
                             </div>
                             <div class="chat-bubble">{{ $m->message }}</div>
-                            {{-- <div class="chat-footer opacity-50">
-                                Seen at 12:46
-                            </div> --}}
+                            <div class="chat-footer ">
+                                <time class="text-xs opacity-50">{{ $m->created_at }}</time>
+                            </div>
                         </div>
                     @else
                         <div class="chat chat-start">
@@ -39,18 +38,19 @@
                             </div>
                             <div class="chat-header">
                                 {{ $m->User->username }}
-                                <time class="text-xs opacity-50">{{ $m->created_at }}</time>
                             </div>
                             <div class="chat-bubble">{{ $m->message }}</div>
-                            {{-- <div class="chat-footer opacity-50">
-                                Delivered
-                            </div> --}}
+                            <div class="chat-footer ">
+                                <time class="text-xs opacity-50">{{ $m->created_at }}</time>
+
+                            </div>
                         </div>
                     @endif
                 @endforeach
             @endif
         </div>
-        <div class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
+        <form wire:submit.prevent='send'
+            class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
             <input wire:model='message' class="input-style w-full" type="text">
             <button wire:click='send' class="p-2 rounded-full bg-green-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -59,7 +59,7 @@
                         d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                 </svg>
             </button>
-        </div>
+        </form>
     </div>
 @endif
 <script type="module">
@@ -75,13 +75,11 @@
         window.currentEchoChannel = roomId;
         var channel = window.Echo.private(`chat.${roomId}`)
         channel.listen('.NewChat', function(data) {
-            // alert(JSON.stringify(data["room"]["id"]))
             window.Livewire.emit('NewChat', data)
         })
     }
     window.addEventListener('rowChatToBottom', event => {
         const container = document.querySelector("#chat-container")
         container.scrollTop = container.scrollHeight;
-
     });
 </script>

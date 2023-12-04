@@ -35,15 +35,19 @@ class MerchantChatBox extends Component
 
     public function send()
     {
-
-        $message = new Message();
-        $message->id = Str::uuid();
-        $message->message = $this->message;
-        $message->user_id = auth()->user()->id;
-        $message->room_id = $this->room->id;
-        $message->save();
-        $this->pushMessage($message);
-        broadcast(new NewChatMessage($message, $this->room, Auth::user()));
+        if($this->message!=null){
+            $message = new Message();
+            $message->id = Str::uuid();
+            $message->message = $this->message;
+            $message->user_id = auth()->user()->id;
+            $message->room_id = $this->room->id;
+            if (auth()->user()->id != $this->user->id) {
+                $this->message = "";
+            }
+            $message->save();
+            $this->pushMessage($message);
+            broadcast(new NewChatMessage($message, $this->room, Auth::user()));
+        }
     }
 
     public function newChat($event)
@@ -51,11 +55,10 @@ class MerchantChatBox extends Component
         $message = Message::find($event["message"]["id"]);
         $room = Room::find($event["room"]["id"]);
         $user = User::find($event["user"]["id"]);
-        if (auth()->user()->id == $user->id) {
-            $this->message = "";
+        if (auth()->user()->id != $user->id) {
+            $this->pushMessage($message);
         }
         else{
-            $this->pushMessage($message);
         }
 
     }
