@@ -116,7 +116,7 @@
                     <a href="https://www.tokopedia.com/terms" class="text-green-500">terms and conditions</a>
                 </div>
 
-                <button class="bg-green-600 py-2 text-white font-bold rounded-md">
+                <button class="bg-green-600 py-2 text-white font-bold rounded-md" onclick="proceedTransaction()">
                     Proceed Transaction
                 </button>
             </div>
@@ -131,6 +131,32 @@
         </div>
     </div>
     <script>
+        let user_id = "{{ $user->id }}";
+        function proceedTransaction() {
+            let data = {
+                user_id: user_id,
+                shipment_ids: cartSelections,
+                _token: "{{ csrf_token() }}"
+            }
+
+            console.log(data)
+
+            fetch('/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(() => {
+                    Livewire.emit('openModal', 'add-to-cart-success-modal', data)
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
+
         function updateSubtotal() {
             let subtotal = 0;
             let count = 0;
@@ -138,6 +164,7 @@
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
                 count += 1;
             @endforeach
+
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProduct').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProductCount').innerHTML = 'Total Price (' + count.toString() + ' Product)';

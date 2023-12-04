@@ -10,6 +10,7 @@ use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\UserController;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Log;
@@ -73,10 +74,12 @@ Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduc
 Route::POST('/merchant', [MerchantController::class, 'store']);
 Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
 
-
 // Product Variant
 Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
+
+// Transaction
+Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
 
 Route::GET('/send', function(){
     broadcast(new NewChatMessage("hayiii"));

@@ -194,6 +194,7 @@
                 updateClasses("form-content1", [], ["hidden"]);
                 updateClasses("form-content2", ["hidden"], []);
                 updateClasses("form-content3", ["hidden"], []);
+                updateBtnNext1();
             } else if (progress === 1) {
                 updateClasses("progress-indicator1", ["bg-green-600", "text-white"], []);
                 updateSVG("progress-indicator1", svg);
@@ -202,6 +203,7 @@
                 updateClasses("form-content1", ["hidden"], []);
                 updateClasses("form-content2", [], ["hidden"]);
                 updateClasses("form-content3", ["hidden"], []);
+                updateBtnNext2();
             } else if (progress === 2) {
                 updateClasses("progress-indicator1", ["bg-green-600", "text-white"], []);
                 updateClasses("progress-indicator2", ["bg-green-600", "text-white"], []);
