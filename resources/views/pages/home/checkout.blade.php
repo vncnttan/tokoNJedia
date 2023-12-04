@@ -101,6 +101,10 @@
                     <span id="totalDisplayProductCount"></span>
                     <span id="totalDisplayProduct"></span>
                 </div>
+                <div class="flex flex-row justify-between">
+                    <span id="totalShipmentProductCount">a</span>
+                    <span id="totalShipmentProduct">a</span>
+                </div>
                 <div
                     class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
                     <span>Shopping Total</span>
@@ -132,23 +136,31 @@
             let count = 0;
             @foreach($carts as $cart)
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
-            count += 1;
+                count += 1;
             @endforeach
-            console.log("SUBTOTAL : " + subtotal)
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
-            document.getElementById('totalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProduct').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProductCount').innerHTML = 'Total Price (' + count.toString() + ' Product)';
+
+            let cartTotal = 0;
+            let selectedCart = 0
+            Object.values(cartSelections).forEach((cartSelection) => {
+                cartTotal += cartSelection.shipmentPrice;
+                if (cartSelection.shipmentPrice > 0) {
+                    selectedCart += 1;
+                }
+            });
+
+            document.getElementById("totalShipmentProductCount").innerHTML = 'Shipping (' + selectedCart.toString() + ' Product)';
+            document.getElementById("totalShipmentProduct").innerHTML = 'Rp' + formatPriceJS(cartTotal.toString());
+
+            document.getElementById('totalDisplay').innerHTML = 'Rp' + formatPriceJS((subtotal + cartTotal).toString());
         }
 
         function formatPriceJS(price) {
             return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
         }
 
-    </script>
-
-
-    <script>
         {{--        Script to deal with changing location chosen--}}
         function chooseOtherLocation() {
             Livewire.emit('openModal', 'checkout-change-location-modal', {selected_location_id: $selected_location.id})
@@ -165,7 +177,7 @@
 
         function updateLocationDisplay(location) {
             $selected_location = location;
-            console.log($selected_location)
+            updateSubtotal()
             document.getElementById('locCityCountry').innerHTML = location.city + ', ' + location.country;
             document.getElementById('locAddressPostalCode').innerHTML = location.address + ', ' + location.postal_code;
             document.getElementById('locNotes').innerHTML = location.notes;
@@ -173,7 +185,7 @@
 
         Livewire.on('locationSelected', (location) => {
             updateLocationDisplay(location)
-            console.log("called")
+            updateSubtotal()
             Array.from(document.getElementsByClassName('durationSelect')).forEach((select, index) => {
                 updateShipmentPriceDisplay(select);
             });
@@ -206,7 +218,7 @@
             let shipmentBasePrice = parseInt(selectedOption.getAttribute('data-base-price'));
             let shipmentVariablePrice = parseInt(selectedOption.getAttribute('data-variable-price'));
 
-            if(!shipmentBasePrice || !shipmentVariablePrice) {
+            if (!shipmentBasePrice || !shipmentVariablePrice) {
                 return;
             }
             let userLatitude = $selected_location.latitude;
@@ -222,6 +234,7 @@
 
             cartSelections[cartId].shipment = selectedOption.value;
             cartSelections[cartId].shipmentPrice = shipmentPrice;
+            updateSubtotal()
         }
 
         function calculatePrice(latitudeFrom, longitudeFrom, latitudeTo, longitudeTo, basePrice, variablePrice) {
