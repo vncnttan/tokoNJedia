@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('shipments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->integer('base_price');
             $table->integer('variable_price');

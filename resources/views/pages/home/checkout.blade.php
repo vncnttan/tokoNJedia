@@ -67,6 +67,7 @@
                                 @foreach($shipment as $s)
                                     <option class="bg-white text-black" value="{{ $s->id }}"
                                             data-shipment-name="{{ $s->name }}"
+                                            data-shipment-id="{{ $s->id }}"
                                             data-base-price="{{$s->base_price}}"
                                             data-variable-price="{{ $s->variable_price }}">
                                         {{ $s->name }}
@@ -138,8 +139,6 @@
                 shipment_ids: cartSelections,
                 _token: "{{ csrf_token() }}"
             }
-
-            console.log(data)
 
             fetch('/transaction', {
                 method: 'POST',
@@ -254,12 +253,14 @@
             let shipmentPrice = calculatePrice(userLatitude, userLongitude, parseFloat(merchantLat), parseFloat(merchantLong), shipmentBasePrice, shipmentVariablePrice);
 
             let shipmentName = selectedOption.getAttribute('data-shipment-name');
+            let shipmentId = selectedOption.getAttribute('data-shipment-id')
             let shipmentPriceDisplay = document.getElementById('shipmentPriceDisplay' + cartId);
             let shipmentNameDisplay = document.getElementById('shipmentNameDisplay' + cartId);
             shipmentPriceDisplay.innerHTML = 'Rp. ' + formatPriceJS(shipmentPrice.toString())
             shipmentNameDisplay.innerHTML = shipmentName
 
             cartSelections[cartId].shipment = selectedOption.value;
+            cartSelections[cartId].shipmentId = shipmentId;
             cartSelections[cartId].shipmentPrice = shipmentPrice;
             updateSubtotal()
         }
