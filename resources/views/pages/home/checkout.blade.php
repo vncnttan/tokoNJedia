@@ -61,13 +61,13 @@
                                     class="durationSelect border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2 px-2.5"
                                     data-cart-id="{{ $cart->product->id }}"
                                     data-merchant-lat="{{ $cart->product->merchant->location[0]->latitude }}"
-                                    data-merchant-long="{{$cart->product->merchant->location[0]->longitude}}">
+                                    data-merchant-long="{{$cart->product->merchant->location[0]->longitude}}"
+                                    data-variant-id="{{ $cart->productVariant->id }}">
 
                                 <option class="bg-white text-black text-center" disabled selected>Shipping</option>
                                 @foreach($shipment as $s)
                                     <option class="bg-white text-black" value="{{ $s->id }}"
                                             data-shipment-name="{{ $s->name }}"
-                                            data-shipment-id="{{ $s->id }}"
                                             data-base-price="{{$s->base_price}}"
                                             data-variable-price="{{ $s->variable_price }}">
                                         {{ $s->name }}
@@ -133,6 +133,7 @@
     </div>
     <script>
         let user_id = "{{ $user->id }}";
+
         function proceedTransaction() {
             let data = {
                 user_id: user_id,
@@ -149,7 +150,8 @@
             })
                 .then(response => response.json())
                 .then(() => {
-                    Livewire.emit('openModal', 'add-to-cart-success-modal', data)
+                    console.log('Success adding to transaction')
+                    location.reload();
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -161,7 +163,7 @@
             let count = 0;
             @foreach($carts as $cart)
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
-                count += 1;
+            count += 1;
             @endforeach
 
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
@@ -238,6 +240,7 @@
             let cartId = select.getAttribute('data-cart-id');
             let merchantLat = select.getAttribute('data-merchant-lat');
             let merchantLong = select.getAttribute('data-merchant-long');
+            let variantId = select.getAttribute('data-variant-id');
 
             let selectedOption = select.options[select.selectedIndex];
 
@@ -253,14 +256,14 @@
             let shipmentPrice = calculatePrice(userLatitude, userLongitude, parseFloat(merchantLat), parseFloat(merchantLong), shipmentBasePrice, shipmentVariablePrice);
 
             let shipmentName = selectedOption.getAttribute('data-shipment-name');
-            let shipmentId = selectedOption.getAttribute('data-shipment-id')
             let shipmentPriceDisplay = document.getElementById('shipmentPriceDisplay' + cartId);
             let shipmentNameDisplay = document.getElementById('shipmentNameDisplay' + cartId);
             shipmentPriceDisplay.innerHTML = 'Rp. ' + formatPriceJS(shipmentPrice.toString())
             shipmentNameDisplay.innerHTML = shipmentName
 
-            cartSelections[cartId].shipment = selectedOption.value;
-            cartSelections[cartId].shipmentId = shipmentId;
+            cartSelections[cartId].shipmentId = selectedOption.value;
+            cartSelections[cartId].productId = cartId;
+            cartSelections[cartId].variantId = variantId;
             cartSelections[cartId].shipmentPrice = shipmentPrice;
             updateSubtotal()
         }
