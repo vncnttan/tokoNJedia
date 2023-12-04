@@ -14,7 +14,7 @@
                 @endif
                 @foreach($carts as $cart)
                     <div class="px-10 flex flex-col gap-5">
-                        <div class="flex flex-col">
+                        <a href="/merchant/{{ $cart->product->merchant->id }}" class="flex flex-col">
                             {{--                         Store--}}
                             <div class="text-lg font-bold">
                                 {{$cart->product->merchant->name}}
@@ -22,7 +22,7 @@
                             <div class="text-sm text-gray-500">
                                 {{$cart->product->merchant->location[0]->city}}
                             </div>
-                        </div>
+                        </a>
 
                         <div class="flex flex-row text-lg gap-3">
                             <img src="{{$cart->product->productImages[0]->image}}" alt="Product Image"
@@ -115,7 +115,7 @@
                                 <span id="grandTotalPriceDisplay"></span>
                             </div>
                             <a href="/cart/shipment"
-                               class="bg-green-600 py-2 text-white font-bold rounded-md justify-center text-center">
+                               class="bg-green-600 hover:bg-green-700 py-2 text-white font-bold rounded-md justify-center text-center">
                                 <button>
                                     Buy
                                 </button>

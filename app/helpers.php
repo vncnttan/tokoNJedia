@@ -4,14 +4,14 @@ use App\Models\Product;
 use App\Models\Rating;
 use Illuminate\Support\Facades\Http;
 
-if(!function_exists('formatPrice')) {
+if (!function_exists('formatPrice')) {
     function formatPrice($price): string
     {
         return number_format($price, 0, ',', '.');
     }
 }
 
-if(!function_exists('getRandomImageURL')) {
+if (!function_exists('getRandomImageURL')) {
     function getRandomImageURL(): string
     {
         $response = Http::get('https://source.unsplash.com/random');
@@ -19,8 +19,29 @@ if(!function_exists('getRandomImageURL')) {
     }
 }
 
-if(!function_exists('calculateMerchantRating')) {
-    function calculateMerchantRating($merchantId): int {
+if (!function_exists('shipmentPriceCalculate')) {
+    function shipmentPriceCalculate($latitudeTo, $longitudeTo, $latitudeFrom, $longitudeFrom, $basePrice, $variablePrice): string
+    {
+        $latFrom = deg2rad($latitudeFrom);
+        $lonFrom = deg2rad($longitudeFrom);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+
+        $distance = $angle * 6371000;
+
+        return formatPrice($basePrice + ($distance / 1000000) * $variablePrice);
+    }
+}
+
+if (!function_exists('calculateMerchantRating')) {
+    function calculateMerchantRating($merchantId): int
+    {
         $products = Product::where('merchant_id', $merchantId)->get();
 
         $totalRating = 0;

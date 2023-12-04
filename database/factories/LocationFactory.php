@@ -26,6 +26,8 @@ class LocationFactory extends Factory
             'postal_code' => $this->faker->postcode,
             'locationable_type' => 'user',
             'locationable_id' => User::all()->random()->id,
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
         ];
     }
 }
