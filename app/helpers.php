@@ -20,7 +20,7 @@ if (!function_exists('getRandomImageURL')) {
 }
 
 if (!function_exists('shipmentPriceCalculate')) {
-    function shipmentPriceCalculate($latitudeTo, $longitudeTo, $latitudeFrom, $longitudeFrom, $basePrice, $variablePrice): string
+    function shipmentPriceCalculate($latitudeTo, $longitudeTo, $latitudeFrom, $longitudeFrom, $basePrice, $variablePrice): int
     {
         $latFrom = deg2rad($latitudeFrom);
         $lonFrom = deg2rad($longitudeFrom);
@@ -35,7 +35,7 @@ if (!function_exists('shipmentPriceCalculate')) {
 
         $distance = $angle * 6371000;
 
-        return formatPrice($basePrice + ($distance / 1000000) * $variablePrice);
+        return $basePrice + ($distance / 1000000) * $variablePrice;
     }
 }
 
