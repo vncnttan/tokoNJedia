@@ -151,7 +151,7 @@
                 .then(response => response.json())
                 .then(() => {
                     console.log('Success adding to transaction')
-                    location.reload();
+                    location.href = '/transaction'
                 })
                 .catch((error) => {
                     console.error('Error:', error);

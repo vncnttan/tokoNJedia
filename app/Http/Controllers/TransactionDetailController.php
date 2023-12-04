@@ -48,9 +48,7 @@ class TransactionDetailController extends Controller
             $transactionDetail->quantity = $cart->quantity;
             $transactionDetail->save();
 
-                $cart->delete();
-
-
+            $cart->delete();
         }
 
         return response()->json([
