@@ -61,7 +61,7 @@
                         </h1>
                         <div class="flex-grow flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Merchant Name</h1>
-                            <div id="form-content2" class="flex flex-col gap-2">
+                            <div id="form-content2" class="hidden flex flex-col gap-2">
                                 <div class="flex flex-col">
                                     <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
                                     <input id="nameInput" class="input-style pl-2" type="text" name="name"
@@ -91,9 +91,16 @@
                         </h1>
                         <div class="flex-grow flex flex-col gap-4 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Location</h1>
-                            <div class="flex flex-col gap-8" id="form-content3">
+                            <div class="flex flex-col gap-8 hidden" id="form-content3">
                                 <div class="flex flex-col gap-2">
-
+                                    <div class="flex flex-row gap-5 text-gray-500 font-semibold">
+                                        <label id="latitudeText" for="lat">
+                                            <input disabled hidden name="lat" id="lat" value="0"/>
+                                        </label>
+                                        <label id="longitudeText" for="long">
+                                            <input disabled hidden name="long" id="long" value="0"/>
+                                        </label>
+                                    </div>
                                     <div class="flex flex-col">
                                         <label for="cityInput" class="font-semibold text-gray-500">City</label>
                                         <input id="cityInput" class="pl-2 input-style" type="text" name="city"
@@ -117,7 +124,7 @@
                                     <div class="flex flex-col">
                                         <label for="notesInput" class="font-semibold text-gray-500">Notes</label>
                                         <input id="notesInput" class="pl-2 input-style" type="text" name="notes"
-                                            placeholder="ex. Near the big tree" value="{{ old('notes') }}">
+                                            placeholder="ex. White building, Yellow Roof" value="{{ old('notes') }}">
                                     </div>
                                 </div>
                                 <div class="flex flex-row w-full gap-2">
@@ -218,5 +225,26 @@
                 }
             });
         }
+
+        let pos = 0;
+        let lat = 0;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                document.getElementById("latitudeText").innerHTML = `Latitude: ${pos.lat}`;
+                document.getElementById("longitudeText").innerHTML = `Longitude: ${pos.lng}`;
+                document.getElementById("lat").value = pos.lat;
+                document.getElementById("long").value = pos.lng;
+            }, function () {
+                console.log("Error 2")
+            });
+        } else {
+            console.log("Error 1")
+        }
+
     </script>
 @endsection

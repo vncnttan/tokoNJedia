@@ -70,6 +70,8 @@ class MerchantController extends Controller
         $location->country = $request->country;
         $location->address = $request->address;
         $location->postal_code = $request->postal_code;
+        $location->latitude = $request->latitude;
+        $location->longitude = $request->longitude;
         $location->notes = $request->notes;
         $location->locationable_type = "merchant";
 
