@@ -79,15 +79,8 @@ Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
 Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
 
-<<<<<<< HEAD
 // Chat
 Route::GET('/chat', [ChatController::class, 'index']);
-=======
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
 Route::GET('/profile/transaction', [TransactionDetailController::class, 'index']);
-
-Route::GET('/send', function(){
-    broadcast(new NewChatMessage("hayiii"));
-});
->>>>>>> 3aef9ddfd6bfe125213fbf7a7a357b51113580d5
