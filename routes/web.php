@@ -3,6 +3,7 @@
 use App\Events\NewChatMessage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
@@ -78,10 +79,8 @@ Route::GET('/merchant/{id}', [MerchantController::class, 'homepage']);
 Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
 
+// Chat
+Route::GET('/chat', [ChatController::class, 'index']);
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
 Route::GET('/profile/transaction', [TransactionDetailController::class, 'index']);
-
-Route::GET('/send', function(){
-    broadcast(new NewChatMessage("hayiii"));
-});

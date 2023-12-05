@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('roomables', function (Blueprint $table) {
             $table->uuid('room_id', 36);
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('CASCADE');
+            $table->foreign("room_id")->references("id")->on("rooms")->onDelete("CASCADE");
             $table->uuid("roomable_id");
             $table->string("roomable_type");
             $table->timestamps();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('roomables');
     }
 };

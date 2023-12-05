@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string("address");
             $table->string("notes")->default("")->nullable(true);
             $table->string("postal_code");
-            $table->double("latitude");
-            $table->double("longitude");
+            $table->double("latitude")->nullable();
+            $table->double("longitude")->nullable();
             $table->uuid("locationable_id");
             $table->string("locationable_type");
             $table->timestamp("created_at");

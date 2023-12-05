@@ -35,8 +35,9 @@ class User extends Authenticatable
     ];
     protected $table = "users";
 
-    public function Messages(): HasMany{
-        return $this->hasMany(Message::class, "user_id");
+    public function Messages()
+    {
+        return $this->morphMany(Message::class, 'messageable');
     }
     public function Rooms(){
         return $this->morphToMany(Room::class, "roomable");

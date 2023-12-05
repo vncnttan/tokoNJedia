@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Events\NewChatMessage;
-use App\Http\Controllers\Controller;
 use App\Models\Merchant;
 use App\Models\Message;
 use App\Models\Room;
@@ -12,11 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
-class MerchantChatBox extends Component
+class ChatBox extends Component
 {
     public $room;
     public $messages;
-    public $user;
+    public $merchant;
     public $message;
 
     public function getListeners()
@@ -27,33 +26,31 @@ class MerchantChatBox extends Component
         ];
     }
 
-    public function mount($room, $user)
+    public function mount($room, $merchant)
     {
-
         $this->room = $room;
-        $this->user = $user;
+        $this->merchant = $merchant;
         $this->refreshMessage();
     }
 
     public function send()
     {
-        if($this->message!=null){
+        if ($this->message != null) {
             $message = new Message();
             $message->id = Str::uuid();
             $message->message = $this->message;
             $message->room_id = $this->room->id;
-            $message->messageable_id = auth()->user()->Merchant->id;
-            $message->messageable_type = Merchant::class;
+            $message->messageable_id = auth()->id();
+            $message->messageable_type = User::class;
             $this->resetMessage();
             $message->save();
             $this->pushMessage($message);
             broadcast(new NewChatMessage($message, $this->room, Auth::user()));
         }
     }
-
     public function resetMessage(){
-        if(auth()->user() != null){
-            if (auth()->user()->id != $this->user->id) {
+        if(auth()->user()->Merchant != null){
+            if (auth()->user()->Merchant->id != $this->merchant->id) {
                 $this->message = "";
             }
         }
@@ -69,33 +66,33 @@ class MerchantChatBox extends Component
         $user = User::find($event["user"]["id"]);
         if (auth()->user()->id != $user->id) {
             $this->pushMessage($message);
+        } else {
         }
-        else{
-        }
-
     }
 
-    public function onRoomChanged($roomId, $userId)
+    public function onRoomChanged($roomId, $merchantId)
     {
         $this->room = Room::find($roomId);
-        $this->user = User::find($userId);
+        $this->merchant = Merchant::find($merchantId);
         $this->dispatchBrowserEvent('room-updated', ['roomId' => $roomId]);
         $this->refreshMessage();
     }
 
-    private function pushMessage($message){
+    private function pushMessage($message)
+    {
         $this->messages->push($message);
         $this->dispatchBrowserEvent('rowChatToBottom');
     }
 
-    private function refreshMessage(){
-        if($this->room){
-            $this->messages = $this->room->Messages()->with('Messageable')->orderBy('created_at', 'asc')->get();
+    private function refreshMessage()
+    {
+        if ($this->room) {
+            $this->messages = $this->room->Messages()->orderBy('created_at', 'asc')->get();
             $this->dispatchBrowserEvent('rowChatToBottom');
         }
     }
     public function render()
     {
-        return view('livewire.merchant.merchant-chat-box');
+        return view('livewire.chat.chat-box');
     }
 }

@@ -26,7 +26,10 @@ class Merchant extends Model
     public function Rooms(){
         return $this->morphToMany(Room::class, "roomable");
     }
-
+    public function Messages()
+    {
+        return $this->morphMany(Message::class, 'messageable');
+    }
     public function User(): BelongsTo
     {
         return $this->belongsTo(User::class, "user_id");
