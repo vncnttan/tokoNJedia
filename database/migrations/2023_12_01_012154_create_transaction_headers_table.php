@@ -17,9 +17,11 @@ return new class extends Migration
             $table->uuid('id', 36)->primary();
             $table->uuid("user_id");
             $table->timestamp("date");
-//            $table->uuid("payment_method_id");
+            $table->uuid("location_id");
+            // nanti taroh promo id disini
             $table->timestamps();
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
+            $table->foreign("location_id")->references("id")->on("locations")->onUpdate("CASCADE")->onDelete("CASCADE");
         });
     }
 

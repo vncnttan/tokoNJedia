@@ -31,6 +31,7 @@ class TransactionDetailController extends Controller
         $transactionHeader = new TransactionHeader();
         $transactionHeader->id = $transactionId;
         $transactionHeader->user_id = $userId;
+        $transactionHeader->location_id = $request->location_id;
         $transactionHeader->date = now();
         $transactionHeader->save();
 
@@ -45,6 +46,7 @@ class TransactionDetailController extends Controller
             $transactionDetail->product_id = $detail["productId"];
             $transactionDetail->variant_id = $detail["variantId"];
             $transactionDetail->shipment_id = $shipmentId;
+            $transactionDetail->status = 'Pending';
             $transactionDetail->quantity = $cart->quantity;
             $transactionDetail->save();
 

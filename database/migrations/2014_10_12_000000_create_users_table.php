@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->float("balance")->default(0);
+//            $table->float("balance")->default(0);
             $table->date("dob")->nullable();
             $table->string("gender")->default("");
             $table->string("image")->default('assets/logo/user.png');
