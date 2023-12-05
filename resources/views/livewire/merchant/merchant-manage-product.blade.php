@@ -3,7 +3,7 @@
     <div class="w-full flex justify-between items-center">
         <h1 class="text-2xl font-bold text-black">Product List</h1>
         <div>
-            <a class="text-white font-bold bg-green-500 p-2 rounded-md" href="/merchant/add-product">+ Add Product</a>
+            <a class="text-white font-bold bg-green-600 hover:bg-green-700 py-2 px-6 rounded-md" href="/merchant/add-product">+ Add Product</a>
         </div>
     </div>
     <div
@@ -40,13 +40,14 @@
 
         <div class="w-full h-full flex flex-col justify-start items-center ">
             @if (count($products) == 0)
-                <div class="w-full h-full flex flex-col justify-center items-center p-10 box-border ">
+                <div class="w-full h-full flex flex-col justify-center items-center p-10 box-border gap-2">
                     <div class="w-72 h-72">
                         <img class="w-full h-full object-contain"
                             src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/icarus/kratos/1aab13db.jpg"
                             alt="">
                     </div>
-                    <h1 class="text-3xl text-black font-semibold">There is no product</h1>
+                    <h1 class="text-3xl text-black font-semibold">There is no product yet</h1>
+                    <div> Please add a new product to start selling!</div>
                 </div>
             @endif
             @foreach ($products as $product)
