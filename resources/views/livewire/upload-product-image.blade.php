@@ -1,7 +1,7 @@
 <div class="w-full flex flex-wrap justify-between gap-4">
     @foreach ($images as $index => $image)
         <label
-            class="relative group w-36 h-36 border-2 border-dashed rounded-lg text-sm font-semibold cursor-pointer flex flex-col justify-center items-center text-gray-500 hover:text-green-500 hover:border-green-500">
+            class="relative group w-24 md:w-36 h-24 md:h-36 border-2 border-dashed rounded-lg text-sm font-semibold cursor-pointer flex flex-col justify-center items-center text-gray-500 hover:text-green-500 hover:border-green-500">
             <input wire:model="images.{{ $index }}" name="images[{{ $index }}]" type="file"
                 accept="image/*" class="hidden">
             @if ($image)

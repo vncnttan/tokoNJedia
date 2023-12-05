@@ -3,10 +3,10 @@
 @section('title', 'Add Product')
 
 @section('content')
-    <form wire:submit.prevent action="/product" method="POST" enctype="multipart/form-data"  class="max-w-7xl w-full h-full flex flex-col justify-center items-center gap-8 p-8 box-border">
+    <form wire:submit.prevent action="/product" method="POST" enctype="multipart/form-data"  class="max-w-7xl w-full h-full flex flex-col justify-center items-center gap-8 p-4 sm:p-8 box-border">
         @csrf
         <div class="w-full">
-            <h1 class="text-2xl font-bold text-black">Add Product</h1>
+            <h1 class="text-2xl font-bold text-black pl-4 sm:p-0">Add Product</h1>
         </div>
         @livewire('add-product-information')
         @livewire('add-product-detail')

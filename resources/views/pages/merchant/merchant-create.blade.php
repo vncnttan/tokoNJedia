@@ -225,6 +225,7 @@
 
         window.onload = function () {
             updateUI();
+            updateBtnNext1();
             const form = document.getElementById('registrationForm');
             form.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
