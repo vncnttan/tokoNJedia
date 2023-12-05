@@ -15,9 +15,10 @@ class Chat extends Component
     public $message;
     public $users;
     public $currMerchant;
+    public $search = '';
+
     public function mount(){
-        $user = User::find(auth()->id());
-        $this->rooms = $user->Rooms()->with(['Merchants'])->get();
+
         $this->currRoom = null;
     }
 
@@ -43,8 +44,17 @@ class Chat extends Component
         $this->emit('roomChanged', $this->currRoom->id, $merchantId);
     }
 
+    public function updatedSearch(){
+
+    }
+
     public function render()
     {
+        $user = User::find(auth()->id());
+        $this->rooms = $user->Rooms()->with(['Merchants'])
+            ->whereHas("Merchants", function($query){
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })->get();
         return view('livewire.chat.chat');
     }
 }

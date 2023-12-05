@@ -26,6 +26,4 @@ Broadcast::channel('chat', function(){
 Broadcast::channel('chat.{roomId}', function($user, $roomId){
     $room = Room::find($roomId);
     return true;
-    // return $room->Users()->where('id', $user->id)->exists() ||
-    //        $room->Merchants()->where('id', $user->id)->exists();
 });

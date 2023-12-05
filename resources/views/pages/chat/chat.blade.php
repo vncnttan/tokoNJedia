@@ -5,3 +5,7 @@
 @section('content')
     @livewire('chat')
 @endsection
+
+@section('footer')
+
+@endsection

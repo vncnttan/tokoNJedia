@@ -19,11 +19,11 @@ class MerchantChat extends Component
     public $message;
     public $users;
     public $currUser;
+    public $search = '';
 
     public function mount()
     {
-        $merchant = Merchant::find(auth()->user()->Merchant->id);
-        $this->rooms = $merchant->Rooms()->with(['Users'])->has("Messages")->get();
+
         $this->currRoom = null;
     }
     public function getRoom($userId)
@@ -41,6 +41,12 @@ class MerchantChat extends Component
 
     public function render()
     {
+        $merchant = Merchant::find(auth()->user()->Merchant->id);
+        $this->rooms = $merchant->Rooms()->with(['Users'])->has("Messages")
+        ->whereHas("Users", function($query){
+            $query->where('username', 'like', '%' . $this->search . '%');
+        })
+        ->get();
         return view('livewire.merchant.merchant-chat');
     }
 }

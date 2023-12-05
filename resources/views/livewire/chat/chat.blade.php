@@ -12,7 +12,7 @@
                     <div class="w-full flex justify-between items-center">
                         <h1 class="text-xl text-black font-bold">Chats</h1>
                     </div>
-                    <input class="w-full input-style" type="text">
+                    <input wire:model='search' class="w-full input-style" type="text">
                 </div>
                 <div class="w-full h-full flex flex-col gap-1 p-2 overflow-y-auto">
                     @foreach ($rooms as $room)

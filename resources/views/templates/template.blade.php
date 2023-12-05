@@ -22,7 +22,7 @@
             <x-navbar />
             @yield('content')
         </div>
-        @include('components.footer')
+        @yield('footer', View::make('components.footer'))
     </div>
     @livewire('livewire-ui-modal')
     @livewireScripts
