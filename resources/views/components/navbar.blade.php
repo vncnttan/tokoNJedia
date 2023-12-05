@@ -46,7 +46,7 @@
                     <a class="nav-button">Category</a>
                     <form id="searchForm" class="h-full w-full" onsubmit="e.preventDefault()">
                         <label class="h-full w-full">
-                            <input class="input-style w-full" type="text" id="search" placeholder="Search...">
+                            <input class="bg-white input-style w-full" type="text" id="search" placeholder="Search...">
                         </label>
                     </form>
                 </div>
