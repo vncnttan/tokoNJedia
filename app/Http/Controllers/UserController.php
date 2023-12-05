@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use App\Models\User;
-use App\Services\FirebaseService;
+use App\Services\StorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -62,7 +62,7 @@ class UserController extends Controller
             return redirect('/profile');
         }
         $file = $request->file('file');
-        $res = FirebaseService::uploadFile("images", $file);
+        $res = StorageService::uploadFile("images", $file);
         if ($res === null) {
             toastr()->error('Update Profile Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect('/profile');
@@ -70,7 +70,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = Auth::user();
         $image = $user->image;
-        FirebaseService::deleteFile("images", $image);
+        StorageService::deleteFile("images", $image);
         $user->image = $res;
         $user->save();
         toastr()->success('Update Profile Image Success', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);

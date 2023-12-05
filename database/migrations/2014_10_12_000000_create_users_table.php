@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float("balance")->default(0);
             $table->date("dob")->nullable();
             $table->string("gender")->default("");
-            $table->string("image")->default(url(asset('assets/logo/user.png')));
+            $table->string("image")->default('assets/logo/user.png');
             $table->string('google_id')->nullable();
             $table->timestamps();
         });
