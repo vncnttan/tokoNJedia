@@ -16,7 +16,7 @@ class StorageService
 
         try {
             $filePath = $file->storeAs('public/'.$path, $fileName, 'local');
-            return Storage::url($filePath);
+            return asset(Storage::url($filePath));
         } catch (\Exception $e) {
             return null;
         }
