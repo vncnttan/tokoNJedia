@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string("catch_phrase")->default("");
             $table->string("process_time")->default("3 hours");
             $table->string("operational_time")->default("Open 24 hours");
-            $table->string("banner_image")->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuCeOsmEVzu7c-75cAA_P7_dasGfgdr4bwfw&usqp=CAU");
+            $table->string("banner_image")->default(url(asset('assets/logo/banner-merchant.jpeg')));
             $table->string("description")->default("");
             $table->text("full_description")->default("");
-            $table->string("image")->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuCeOsmEVzu7c-75cAA_P7_dasGfgdr4bwfw&usqp=CAU");
+            $table->string("image")->default(url(asset('assets/logo/logo.png')));
             $table->uuid("user_id");
             $table->timestamp("created_at");
             $table->timestamp("updated_at")->nullable();

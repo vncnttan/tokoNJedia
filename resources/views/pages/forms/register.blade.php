@@ -7,7 +7,7 @@
         <div class="w-full sm:block hidden">
             <div class="flex justify-center items-center text-5xl text-green-500 font-semibold">
                 <a href="/">
-                    <h1 class="font-mandala">NJpediaCX</h1>
+                    <h1 class="font-mandala">tokoNJedia</h1>
                 </a>
             </div>
         </div>
@@ -50,7 +50,7 @@
                             @csrf
                             <label for="emailInput">Email</label>
                             <input type="text" name="email" id="emailInput" class="input-style">
-                            <p class="text-gray-400">Example: email@njpediacx.com</p>
+                            <p class="text-gray-400">Example: email@tokonjedia.com</p>
                             <label for="passwordInput">Password</label>
                             <input type="password" name="password" id="passwordInput" class="input-style">
                             <p class="text-gray-400">Requirements:</p>
