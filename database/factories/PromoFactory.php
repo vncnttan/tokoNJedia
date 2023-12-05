@@ -20,9 +20,9 @@ class PromoFactory extends Factory
     public function definition(): array
     {
         return [
-            'promo_name' => Str::uuid(),
-            'promo_image' => getRandomImageURL(),
-            'promo_description' => $this->faker->text,
+            'promo_name' => $this->faker->word,
+            'promo_image' => $this->faker->imageUrl,
+            'promo_description' => $this->faker->sentence,
         ];
     }
 }
