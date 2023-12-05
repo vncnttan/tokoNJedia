@@ -24,8 +24,10 @@ class MerchantController extends Controller
         $pendingOrders = TransactionDetail::whereHas('product', function($query) use ($merchantId) {
             $query->where('merchant_id', $merchantId);
         })->with(['product', 'productVariant', 'transactionHeader', 'transactionHeader.user'])->where('status', 'pending')->get();
-
-        return view('pages.merchant.merchant-home', ['pendingOrders' => $pendingOrders]);
+        $shippingOrders = TransactionDetail::whereHas('product', function($query) use ($merchantId) {
+            $query->where('merchant_id', $merchantId);
+        })->with(['product', 'shipment', 'productVariant', 'transactionHeader', 'transactionHeader.location'])->where('status', 'shipping')->get();
+        return view('pages.merchant.merchant-home', ['pendingOrders' => $pendingOrders, 'shippingOrders' => $shippingOrders]);
     }
 
     public function create()

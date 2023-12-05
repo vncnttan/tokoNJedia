@@ -65,7 +65,7 @@ class TransactionDetailController extends Controller
         ], 200);
     }
 
-    public function acceptOrder(): JsonResponse
+    public function completeOrder(): JsonResponse
     {
         $transactionId = request()->transaction_id;
         $variantId = request()->variant_id;

@@ -25,29 +25,39 @@
                             <div>
                                 {{ $transaction->created_at->format('d M Y') }}
                             </div>
-                            <div>
+                            <div class="hidden lg:block">
                                 {{ $transaction->created_at->format('H:i') }}
                             </div>
                             <div
-                                class="{{ $t->status == 'Pending' ? 'bg-amber-300 text-amber-600' : '' }} px-2 rounded-sm">
+                                class="
+                                {{ $t->status == 'Pending' ? 'bg-amber-300 text-amber-600' : '' }}
+                                {{ $t->status == 'Shipping' ? 'bg-blue-300 text-blue-600' : '' }}
+                                {{ $t->status == 'Rejected' ? 'bg-red-300 text-red-600' : '' }}
+                                 px-2 rounded-sm">
                                 {{ $t->status }}
                             </div>
-                            <div class="text-gray-500">
+                            <div class="text-gray-500 hidden lg:block">
                                 {{ $transaction->id }}
                             </div>
                         </div>
                         <div class="flex flex-col gap-4">
-                            <a href="merchant/{{ $t->product->merchant->id }}" class="font-bold">
+                            <a href="/merchant/{{ $t->product->merchant->id }}" class="font-bold">
                                 {{ $t->product->merchant->name }}
                             </a>
-                            <div class="flex flex-row justify-between">
+
+                            <a href="/product-detail/{{ $t->product->id }}" class="flex flex-col lg:flex-row justify-between">
                                 <div class="flex flex-row gap-4">
                                     <img alt="Product Image"
                                          src="{{ asset($t->product->productImages->first()->image) }}"
                                          class="w-16 h-16 rounded-md">
                                     <div class="flex flex-col justify-center">
-                                        <div class="font-semibold">
-                                            {{ $t->product->name }}
+                                        <div class="flex flex-row gap-2 place-items-center">
+                                            <div class="font-semibold">
+                                                {{ $t->product->name }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                {{ $t->productVariant->name }}
+                                            </div>
                                         </div>
                                         <div class="text-gray-500">
                                             {{ $t->quantity }} pcs x Rp{{ formatPrice($t->productVariant->price) }}
@@ -55,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="px-8 h-fit mr-6 flex flex-col justify-center place-items-start border-gray-500 border-opacity-30 border-l-[1px]">
+                                    class="lg:px-8 h-fit mr-6 flex flex-col justify-center place-items-start border-gray-500 border-opacity-30 lg:border-l-[1px]">
                                     <div class="text-gray-500">
                                         Total Price
                                     </div>
@@ -69,7 +79,7 @@
                                                                                                 $t->shipment->variable_price) )}}
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="w-full text-end">
                             @if($t->status == 'Pending')
