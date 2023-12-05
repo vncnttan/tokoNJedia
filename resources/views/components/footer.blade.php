@@ -1,4 +1,4 @@
-<div class="w-full p-6 box-border border-t-2 pb-16 sm:block hidden">
+<div class="w-full p-6 box-border border-gray-100 border-t-2 pb-16 sm:block hidden">
     <div class="flex flex-row md:px-12 justify-center md:gap-12 gap-6">
         <div class="text-gray-700 flex flex-col gap-2 ">
             <div class="font-bold text-black text-xl">

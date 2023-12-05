@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
     <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" sizes="144x144" href="{{ url(asset('/assets/logo/favicon-notif.ico')) }}"></head>
 
-<body>
+<body class="bg-white text-black">
 
 @livewire('livewire-ui-modal')
 @livewireScripts
