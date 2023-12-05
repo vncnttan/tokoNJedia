@@ -46,7 +46,9 @@ class MerchantChat extends Component
         ->whereHas("Users", function($query){
             $query->where('username', 'like', '%' . $this->search . '%');
         })
-        ->get();
+        ->get()->sortByDesc(function ($room) {
+            return $room->Messages->max('created_at');
+        });;
         return view('livewire.merchant.merchant-chat');
     }
 }

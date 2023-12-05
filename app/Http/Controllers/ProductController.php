@@ -6,7 +6,7 @@ use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
-use App\Services\FirebaseService;
+use App\Services\StorageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -48,7 +48,7 @@ class ProductController extends Controller
         foreach ($request->images as $i) {
             if ($i != null) {
                 $file = $i;
-                $res = FirebaseService::uploadFile("images", $file);
+                $res = StorageService::uploadFile("images/product/".$product->name, $file);
                 if ($res === null) {
                     toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
                     return redirect()->back();

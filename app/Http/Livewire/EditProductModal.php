@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductImage;
-use App\Services\FirebaseService;
+use App\Services\StorageService;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use LivewireUI\Modal\ModalComponent;
@@ -62,21 +62,21 @@ class EditProductModal extends ModalComponent
             if ($index < $i) {
                 if ($image != null) {
                     if ($image != $this->product_images[$index]) {
-                        FirebaseService::deleteFile('images', $this->product->ProductImages[$index]->image);
-                        $res = FirebaseService::uploadFile("images", $image);
+                        StorageService::deleteFile('images', $this->product->ProductImages[$index]->image);
+                        $res = StorageService::uploadFile("images", $image);
                         $this->product->ProductImages[$index]->image = $res;
                         $img = $this->product->ProductImages[$index];
                         $img->save();
                     }
                 } else {
                     if ($this->product_images[$index] == null) {
-                        FirebaseService::deleteFile('images', $this->product->ProductImages[$index]->image);
+                        StorageService::deleteFile('images', $this->product->ProductImages[$index]->image);
                         $this->product->ProductImages[$index]->delete();
                     }
                 }
             } else {
                 if ($image != null) {
-                    $res = FirebaseService::uploadFile("images", $image);
+                    $res = StorageService::uploadFile("images", $image);
                     $newImage = new ProductImage();
                     $newImage->id = Str::uuid(36);
                     $newImage->image = $res;

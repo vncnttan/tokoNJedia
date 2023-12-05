@@ -29,7 +29,7 @@
                 <p class="text-black text-xl font-semibold">Hello, {{ Auth::user()->username }} lets fill in your
                     merchant detail</p>
                 <form id="registrationForm" class="w-full flex flex-col justify-center items-start gap-12" method="POST"
-                    action="/merchant">
+                      action="/merchant">
                     @csrf
                     <div class="w-full flex gap-4 sm:gap-6">
                         <h1 id="progress-indicator1"
@@ -43,12 +43,14 @@
                                     <label for="phoneNumberInput" class="font-semibold text-gray-500">Phone
                                         Number</label>
                                     <input id="phoneNumberInput" class="input-style pl-4" type="number" name="phone"
-                                        value="{{ old('phone') }}" placeholder="08XXXXXXX" oninput="updateBtnNext1(this)">
+                                           value="{{ old('phone') }}" placeholder="08XXXXXXX"
+                                           oninput="updateBtnNext1(this)">
                                     <p class="text-gray-500">Make sure your phone number is active to speed up the
                                         registration process</p>
                                 </div>
-                                <button id="button-progress-1" class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
-                                    onclick="updateProgress(event, 1)" disabled>
+                                <button id="button-progress-1"
+                                        class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
+                                        onclick="updateProgress(event, 1)" disabled>
                                     Next
                                 </button>
                             </div>
@@ -61,22 +63,23 @@
                         </h1>
                         <div class="flex-grow flex flex-col gap-2 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Merchant Name</h1>
-                            <div id="form-content2" class="flex flex-col gap-2">
+                            <div id="form-content2" class="hidden flex flex-col gap-2">
                                 <div class="flex flex-col">
                                     <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
                                     <input id="nameInput" class="input-style pl-2" type="text" name="name"
-                                        value="{{ old('name') }}" oninput="updateBtnNext2(this)" placeholder="ABC Store">
+                                           value="{{ old('name') }}" oninput="updateBtnNext2(this)"
+                                           placeholder="ABC Store">
                                     <p class="text-gray-500">Merchant name will be displayed on your products</p>
                                 </div>
 
                                 <div class="flex flex-row gap-2">
                                     <button class="w-fit py-2 px-12 bg-gray-200 text-black rounded-md"
-                                        onclick="updateProgress(event, -1)">
+                                            onclick="updateProgress(event, -1)">
                                         Back
                                     </button>
                                     <button id="button-progress-2"
-                                        class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
-                                        onclick="updateProgress(event, 1)" disabled>
+                                            class="w-fit py-2 px-12 bg-gray-100 text-gray-400 rounded-md"
+                                            onclick="updateProgress(event, 1)" disabled>
                                         Next
                                     </button>
                                 </div>
@@ -91,38 +94,47 @@
                         </h1>
                         <div class="flex-grow flex flex-col gap-4 justify-center">
                             <h1 class="font-semibold text-2xl text-black">Enter Your Location</h1>
-                            <div class="flex flex-col gap-8" id="form-content3">
+                            <div class="flex flex-col gap-8 hidden" id="form-content3">
                                 <div class="flex flex-col gap-2">
-
+                                    <div class="flex flex-row gap-5 text-gray-500 font-semibold">
+                                        <label id="latitudeText" for="lat">
+                                        </label>
+                                        <input hidden name="lat" id="lat" value="0"/>
+                                        <label id="longitudeText" for="long">
+                                        </label>
+                                        <input hidden name="long" id="long" value="0"/>
+                                    </div>
                                     <div class="flex flex-col">
                                         <label for="cityInput" class="font-semibold text-gray-500">City</label>
                                         <input id="cityInput" class="pl-2 input-style" type="text" name="city"
-                                            placeholder="ex. Jakarta" value="{{ old('city') }}">
+                                               placeholder="ex. Jakarta" value="{{ old('city') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="countryInput" class="font-semibold text-gray-500">Country</label>
                                         <input id="countryInput" class="pl-2 input-style" type="text" name="country"
-                                            placeholder="ex. Indonesia" value="{{ old('country') }}">
+                                               placeholder="ex. Indonesia" value="{{ old('country') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="addressInput" class="font-semibold text-gray-500">Address</label>
                                         <input id="addressInput" class="pl-2 input-style" type="text" name="address"
-                                            placeholder="ex. Mister Potato Street No. 1" value="{{ old('address') }}">
+                                               placeholder="ex. Mister Potato Street No. 1"
+                                               value="{{ old('address') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="postalInput" class="font-semibold text-gray-500">Postal Code</label>
                                         <input id="postalInput" class="pl-2 input-style" type="number"
-                                            name="postal_code" placeholder="ex. 14045" value="{{ old('postal_code') }}">
+                                               name="postal_code" placeholder="ex. 14045"
+                                               value="{{ old('postal_code') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="notesInput" class="font-semibold text-gray-500">Notes</label>
                                         <input id="notesInput" class="pl-2 input-style" type="text" name="notes"
-                                            placeholder="ex. Near the big tree" value="{{ old('notes') }}">
+                                               placeholder="ex. White building, Yellow Roof" value="{{ old('notes') }}">
                                     </div>
                                 </div>
                                 <div class="flex flex-row w-full gap-2">
                                     <button class="w-fit h-fit py-2 px-12 bg-gray-200 text-black rounded-md"
-                                        onclick="updateProgress(event, -1)">
+                                            onclick="updateProgress(event, -1)">
                                         Back
                                     </button>
                                     <button
@@ -182,6 +194,7 @@
                 updateClasses("form-content1", [], ["hidden"]);
                 updateClasses("form-content2", ["hidden"], []);
                 updateClasses("form-content3", ["hidden"], []);
+                updateBtnNext1();
             } else if (progress === 1) {
                 updateClasses("progress-indicator1", ["bg-green-600", "text-white"], []);
                 updateSVG("progress-indicator1", svg);
@@ -190,6 +203,7 @@
                 updateClasses("form-content1", ["hidden"], []);
                 updateClasses("form-content2", [], ["hidden"]);
                 updateClasses("form-content3", ["hidden"], []);
+                updateBtnNext2();
             } else if (progress === 2) {
                 updateClasses("progress-indicator1", ["bg-green-600", "text-white"], []);
                 updateClasses("progress-indicator2", ["bg-green-600", "text-white"], []);
@@ -209,14 +223,38 @@
             updateUI();
         }
 
-        window.onload = function() {
+        window.onload = function () {
             updateUI();
+            updateBtnNext1();
             const form = document.getElementById('registrationForm');
-            form.addEventListener('keypress', function(e) {
+            form.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                 }
             });
         }
+
+        let pos = 0;
+        let lat = 0;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                document.getElementById("latitudeText").innerHTML = `Latitude: ${pos.lat}`;
+                document.getElementById("longitudeText").innerHTML = `Longitude: ${pos.lng}`;
+                document.getElementById("lat").value = pos.lat;
+                document.getElementById("long").value = pos.lng;
+
+                console.log(document.getElementById("long").value)
+            }, function () {
+                console.log("Error 2")
+            });
+        } else {
+            console.log("Error 1")
+        }
+
     </script>
 @endsection

@@ -28,6 +28,7 @@
                             </div>
                             <div class="flex flex-col justify-start items-start">
                                 <h1 class="text-lg text-black">{{ $merchant->name }}</h1>
+                                <h1 class="max-w-10 w-40 text-sm text-gray-400  overflow-hidden overflow-ellipsis">{{ $room->Messages->last()->message }}</h1>
                             </div>
                         </button>
                     @endforeach

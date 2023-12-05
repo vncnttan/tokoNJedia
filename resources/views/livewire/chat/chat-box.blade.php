@@ -51,7 +51,7 @@
         </div>
         <form wire:submit.prevent='send'
             class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
-            <input wire:model='message' class="input-style w-full" type="text">
+            <input wire:model='message' class="input-style w-full" type="text" @keydown="isTyping" @keyup="notTyping" @keyup.enter="sendMessage">
             <button wire:click='send' class="p-2 rounded-full bg-green-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="#ffffff" class="w-6 h-6">
@@ -75,12 +75,16 @@
         window.currentEchoChannel = roomId;
         var channel = window.Echo.private(`chat.${roomId}`)
         channel.listen('.NewChat', function(data) {
-        console.log("testing")
+            console.log("testing")
             window.Livewire.emit('NewChat', data)
+        })
+        channel.whisper(".Typing", {
+            console.log("Typing")
         })
     }
     window.addEventListener('rowChatToBottom', event => {
         const container = document.querySelector("#chat-container")
         container.scrollTop = container.scrollHeight;
     });
+
 </script>

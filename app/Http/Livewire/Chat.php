@@ -44,10 +44,6 @@ class Chat extends Component
         $this->emit('roomChanged', $this->currRoom->id, $merchantId);
     }
 
-    public function updatedSearch(){
-
-    }
-
     public function render()
     {
         $user = User::find(auth()->id());

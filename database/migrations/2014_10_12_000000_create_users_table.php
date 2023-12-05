@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->float("balance")->default(0);
+//            $table->float("balance")->default(0);
             $table->date("dob")->nullable();
             $table->string("gender")->default("");
-            $table->string("image")->default("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeMIAx7-Zgl6AdkUXBXZydQPW0EyvuyxAI5w&usqp=CAU");
+            $table->string("image")->default('assets/logo/user.png');
             $table->string('google_id')->nullable();
             $table->timestamps();
         });

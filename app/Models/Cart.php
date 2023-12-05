@@ -2,19 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cart extends Model
 {
     use HasFactory;
     protected $table = "carts";
     public $incrementing = false;
-    protected $keyType = 'string';
-    protected $primaryKey = null;
 
     protected $casts = [
         "user_id" => "string",
@@ -43,4 +40,13 @@ class Cart extends Model
     {
         return $this->belongsTo(User::class, "user_id");
     }
+
+
+    protected function setKeysForSaveQuery($query): Builder
+    {
+        return $query->where('user_id', $this->getAttribute('user_id'))
+            ->where('variant_id', $this->getAttribute('variant_id'))
+            ->where('product_id', $this->getAttribute('product_id'));
+    }
+
 }

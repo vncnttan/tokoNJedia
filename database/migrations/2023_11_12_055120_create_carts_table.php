@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("variant_id")->references("id")->on("product_variants")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("product_id")->references("id")->on("products")->onUpdate("CASCADE")->onDelete("CASCADE");
-            $table->primary(["user_id", "product_id"]);
+            $table->primary(["user_id", "product_id", "variant_id"], "carts_primary_key");
         });
     }
 

@@ -35,22 +35,22 @@ class MerchantController extends Controller
             'phone.digits' => "Phone Number Must Be 12 Characters",
             'phone.numeric' => "Phone Number Must Be Numeric",
             'name.min' => "Merchant Name Must Be At Least 3 Characters",
-            'name.max' => "Merchant Name Must Not More Than 10 Characters",
+            'name.max' => "Merchant Name Must Not More Than 25 Characters",
             'city.min' => "City Length Must Be At Least 3 Characters",
             'city.max' => "City Length Must Not More Than 20 Characters",
             'country.min' => "Country Length Must Be At Least 3 Characters",
             'country.max' => "Country Length Must Not More Than 30 Characters",
             'address.min' => "Address Length Must Be At Least 5 Characters",
-            'address.max' => "Address Length Must Not More Than 50 Characters",
+            'address.max' => "Address Length Must Not More Than 255 Characters",
             'postal_code.digits' => "Postal Code Length Must Be 5 Characters",
             'postal_code.numeric' => "Postal Code Must Be Numeric"
         ];
         $validate = Validator::make($request->all(), [
             'phone' => ['required', 'unique:merchants,phone', 'starts_with:0', 'digits:12', 'numeric'],
-            'name' => ['required', 'min:3', 'max:10'],
+            'name' => ['required', 'min:3', 'max:25'],
             'city' => ['required', 'min:3', 'max:20'],
             'country' => ['required', 'min:3', 'max:30'],
-            'address' => ['required', 'min:5', 'max:50'],
+            'address' => ['required', 'min:5', 'max:255'],
             'postal_code' => ['required', 'digits:5', 'numeric'],
         ], $messages);
         if ($validate->fails()) {
@@ -70,6 +70,8 @@ class MerchantController extends Controller
         $location->country = $request->country;
         $location->address = $request->address;
         $location->postal_code = $request->postal_code;
+        $location->latitude = $request->lat;
+        $location->longitude = $request->long;
         $location->notes = $request->notes;
         $location->locationable_type = "merchant";
 

@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <div class="min-h-screen min-w-screen flex flex-col items-center justify-start">
+    <div class="min-h-screen min-w-screen flex flex-col items-center justify-start bg-white">
         <x-navbar />
         <div class="w-full h-full flex justify-center items-start" x-data="{ selectedTab: 'home' }">
             @include('components.merchant.merchant-sidebar')

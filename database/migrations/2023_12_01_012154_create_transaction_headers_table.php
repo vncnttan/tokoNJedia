@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('transaction_headers', function (Blueprint $table) {
             $table->uuid('id', 36)->primary();
             $table->uuid("user_id");
-            $table->date("date");
-            $table->string("destination_address");
-            $table->uuid("payment_method_id");
+            $table->timestamp("date");
+            $table->uuid("location_id");
+            // nanti taroh promo id disini
             $table->timestamps();
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
-            $table->foreign("payment_method_id")->references("id")->on("payment_methods")->onUpdate("CASCADE")->onDelete("CASCADE");
+            $table->foreign("location_id")->references("id")->on("locations")->onUpdate("CASCADE")->onDelete("CASCADE");
         });
     }
 

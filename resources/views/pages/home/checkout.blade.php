@@ -59,21 +59,17 @@
                             </label>
                             <select id="duration"
                                     class="durationSelect border-r-8 bg-green-600 w-full border border-green-600 text-white font-semibold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block py-2 px-2.5"
-                                    data-cart-id="{{ $cart->product->id }}">
+                                    data-cart-id="{{ $cart->product->id }}"
+                                    data-merchant-lat="{{ $cart->product->merchant->location[0]->latitude }}"
+                                    data-merchant-long="{{$cart->product->merchant->location[0]->longitude}}"
+                                    data-variant-id="{{ $cart->productVariant->id }}">
+
                                 <option class="bg-white text-black text-center" disabled selected>Shipping</option>
                                 @foreach($shipment as $s)
-                                    @php
-                                        $price = shipmentPriceCalculate(
-                                            $user->location[0]->latitude,
-                                            $user->location[0]->longitude,
-                                            $cart->product->merchant->location[0]->latitude,
-                                            $user->location[0]->longitude,
-                                            $s->base_price,
-                                            $s->variable_price);
-                                    @endphp
                                     <option class="bg-white text-black" value="{{ $s->id }}"
-                                            data-price="{{ $price }}"
-                                            data-shipment-name="{{ $s->name }}">
+                                            data-shipment-name="{{ $s->name }}"
+                                            data-base-price="{{$s->base_price}}"
+                                            data-variable-price="{{ $s->variable_price }}">
                                         {{ $s->name }}
                                     </option>
                                 @endforeach
@@ -106,6 +102,10 @@
                     <span id="totalDisplayProductCount"></span>
                     <span id="totalDisplayProduct"></span>
                 </div>
+                <div class="flex flex-row justify-between">
+                    <span id="totalShipmentProductCount">a</span>
+                    <span id="totalShipmentProduct">a</span>
+                </div>
                 <div
                     class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
                     <span>Shopping Total</span>
@@ -117,7 +117,7 @@
                     <a href="https://www.tokopedia.com/terms" class="text-green-500">terms and conditions</a>
                 </div>
 
-                <button class="bg-green-600 py-2 text-white font-bold rounded-md">
+                <button class="bg-green-600 py-2 text-white font-bold rounded-md" onclick="proceedTransaction()">
                     Proceed Transaction
                 </button>
             </div>
@@ -132,6 +132,33 @@
         </div>
     </div>
     <script>
+        let user_id = "{{ $user->id }}";
+
+        function proceedTransaction() {
+            let data = {
+                location_id: $selected_location.id,
+                user_id: user_id,
+                shipment_ids: cartSelections,
+                _token: "{{ csrf_token() }}"
+            }
+
+            fetch('/transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(() => {
+                    console.log('Success adding to transaction')
+                    location.href = '/transaction'
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                })
+        }
+
         function updateSubtotal() {
             let subtotal = 0;
             let count = 0;
@@ -139,21 +166,30 @@
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
             count += 1;
             @endforeach
-            console.log("SUBTOTAL : " + subtotal)
+
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
-            document.getElementById('totalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProduct').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
             document.getElementById('totalDisplayProductCount').innerHTML = 'Total Price (' + count.toString() + ' Product)';
+
+            let cartTotal = 0;
+            let selectedCart = 0
+            Object.values(cartSelections).forEach((cartSelection) => {
+                cartTotal += cartSelection.shipmentPrice;
+                if (cartSelection.shipmentPrice > 0) {
+                    selectedCart += 1;
+                }
+            });
+
+            document.getElementById("totalShipmentProductCount").innerHTML = 'Shipping (' + selectedCart.toString() + ' Product)';
+            document.getElementById("totalShipmentProduct").innerHTML = 'Rp' + formatPriceJS(cartTotal.toString());
+
+            document.getElementById('totalDisplay').innerHTML = 'Rp' + formatPriceJS((subtotal + cartTotal).toString());
         }
 
         function formatPriceJS(price) {
             return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
         }
 
-    </script>
-
-
-    <script>
         {{--        Script to deal with changing location chosen--}}
         function chooseOtherLocation() {
             Livewire.emit('openModal', 'checkout-change-location-modal', {selected_location_id: $selected_location.id})
@@ -161,7 +197,6 @@
 
         let $selected_location = {!! json_encode($user->location[0]->toArray()) !!};
 
-        console.log($selected_location)
         window.onload = function () {
             initializeCartSelections();
             updateLocationDisplay($selected_location);
@@ -171,6 +206,7 @@
 
         function updateLocationDisplay(location) {
             $selected_location = location;
+            updateSubtotal()
             document.getElementById('locCityCountry').innerHTML = location.city + ', ' + location.country;
             document.getElementById('locAddressPostalCode').innerHTML = location.address + ', ' + location.postal_code;
             document.getElementById('locNotes').innerHTML = location.notes;
@@ -178,6 +214,10 @@
 
         Livewire.on('locationSelected', (location) => {
             updateLocationDisplay(location)
+            updateSubtotal()
+            Array.from(document.getElementsByClassName('durationSelect')).forEach((select, index) => {
+                updateShipmentPriceDisplay(select);
+            });
         })
 
         let cartSelections = {};
@@ -193,20 +233,61 @@
 
         function setupEventListeners() {
             Array.from(document.getElementsByClassName('durationSelect')).forEach((select, index) => {
-                select.onchange = function () {
-                    let cartId = select.getAttribute('data-cart-id');
-                    let selectedOption = select.options[select.selectedIndex];
-                    let shipmentPrice = selectedOption.getAttribute('data-price');
-                    let shipmentName = selectedOption.getAttribute('data-shipment-name');
-                    let shipmentPriceDisplay = document.getElementById('shipmentPriceDisplay' + cartId);
-                    let shipmentNameDisplay = document.getElementById('shipmentNameDisplay' + cartId);
-                    shipmentPriceDisplay.innerHTML = 'Rp. ' + shipmentPrice.toString();
-                    shipmentNameDisplay.innerHTML = shipmentName
-
-                    cartSelections[cartId].shipment = selectedOption.value;
-                    cartSelections[cartId].shipmentPrice = shipmentPrice;
-                };
+                select.onchange = updateShipmentPriceDisplay.bind(null, select);
             });
+        }
+
+        function updateShipmentPriceDisplay(select) {
+            let cartId = select.getAttribute('data-cart-id');
+            let merchantLat = select.getAttribute('data-merchant-lat');
+            let merchantLong = select.getAttribute('data-merchant-long');
+            let variantId = select.getAttribute('data-variant-id');
+
+            let selectedOption = select.options[select.selectedIndex];
+
+            let shipmentBasePrice = parseInt(selectedOption.getAttribute('data-base-price'));
+            let shipmentVariablePrice = parseInt(selectedOption.getAttribute('data-variable-price'));
+
+            if (!shipmentBasePrice || !shipmentVariablePrice) {
+                return;
+            }
+            let userLatitude = $selected_location.latitude;
+            let userLongitude = $selected_location.longitude;
+
+            let shipmentPrice = calculatePrice(userLatitude, userLongitude, parseFloat(merchantLat), parseFloat(merchantLong), shipmentBasePrice, shipmentVariablePrice);
+
+            let shipmentName = selectedOption.getAttribute('data-shipment-name');
+            let shipmentPriceDisplay = document.getElementById('shipmentPriceDisplay' + cartId);
+            let shipmentNameDisplay = document.getElementById('shipmentNameDisplay' + cartId);
+            shipmentPriceDisplay.innerHTML = 'Rp. ' + formatPriceJS(shipmentPrice.toString())
+            shipmentNameDisplay.innerHTML = shipmentName
+
+            cartSelections[cartId].shipmentId = selectedOption.value;
+            cartSelections[cartId].productId = cartId;
+            cartSelections[cartId].variantId = variantId;
+            cartSelections[cartId].shipmentPrice = shipmentPrice;
+            updateSubtotal()
+        }
+
+        function calculatePrice(latitudeFrom, longitudeFrom, latitudeTo, longitudeTo, basePrice, variablePrice) {
+            const deg2rad = deg => deg * (Math.PI / 180);
+
+            let latFrom = deg2rad(latitudeFrom);
+            let lonFrom = deg2rad(longitudeFrom);
+            let latTo = deg2rad(latitudeTo);
+            let lonTo = deg2rad(longitudeTo);
+
+            let latDelta = latTo - latFrom;
+            let lonDelta = lonTo - lonFrom;
+
+            let angle = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(latDelta / 2), 2) +
+                Math.cos(latFrom) * Math.cos(latTo) * Math.pow(Math.sin(lonDelta / 2), 2)));
+
+            let distance = angle * 6371000;
+            let numericalBasePrice = parseFloat(basePrice);
+            let numericalVariablePrice = parseFloat(variablePrice);
+
+            return Math.floor(numericalBasePrice + (distance / 1000000) * numericalVariablePrice);
         }
     </script>
 @endsection
