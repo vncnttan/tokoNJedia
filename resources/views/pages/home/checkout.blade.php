@@ -136,7 +136,7 @@
 
         function proceedTransaction() {
             let data = {
-                transaction_id: $selected_location.id,
+                location_id: $selected_location.id,
                 user_id: user_id,
                 shipment_ids: cartSelections,
                 _token: "{{ csrf_token() }}"

@@ -80,6 +80,7 @@ Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProdu
 
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
+Route::GET('/profile/transaction', [TransactionDetailController::class, 'index']);
 
 Route::GET('/send', function(){
     broadcast(new NewChatMessage("hayiii"));

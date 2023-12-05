@@ -12,6 +12,11 @@ use Illuminate\Support\Str;
 
 class TransactionDetailController extends Controller
 {
+
+    function index() {
+        return view('pages.profile.profile-page-transaction');
+    }
+
     function addTransaction(Request $request)
     {
         $userId = auth()->user()->id;
