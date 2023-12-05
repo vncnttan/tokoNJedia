@@ -22,10 +22,15 @@ class TransactionHeader extends Model
     ];
     public function TransactionDetails(): HasMany
     {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->hasMany(TransactionDetail::class, "transaction_id", "id");
     }
     public function User(): BelongsTo
     {
         return $this->belongsTo(User::class, "user_id");
+    }
+
+    public function Location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, "location_id", "id");
     }
 }

@@ -30,7 +30,7 @@ class Product extends Model
 
     public function Merchant(): BelongsTo
     {
-        return $this->belongsTo(Merchant::class, "merchant_id");
+        return $this->belongsTo(Merchant::class, "merchant_id", "id");
     }
     public function ProductCategory(): BelongsTo
     {

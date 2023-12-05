@@ -9,58 +9,79 @@
     </div>
 
     <div class="flex-grow w-full rounded-lg border-[1px] border-gray-200 bg-white">
-        <div class="w-full h-full p-8 box-border flex flex-col justify-start items-start gap-8">
-            <div class="ml-auto rounded-lg bg-green-600">
-                <button class="px-3.5 py-2 text-white font-bold"
-                        onclick="Livewire.emit('openModal', 'add-location-modal')">
-                    + Add New Address
-                </button>
-            </div>
-            @foreach($user->location as $loc)
-                <div class="w-full min-h-44">
-                    <div
-                        class=" {{ $loop->index == 0 ? 'border-green-600 bg-green-50' : ''}} border-[1px] rounded-lg h-full w-full flex flex-col py-5 px-6 justify-between relative">
-                        <div
-                            class="{{ $loop->index == 0 ? 'bg-green-500' : 'bg-gray-500'}} w-1.5 h-12 rounded-br-md rounded-tr-md absolute left-0"></div>
-                        <div class="flex flex-col">
-                            <div class="font-bold">
-                                {{ $user->username }}
+        <div class="w-full h-full p-4 box-border flex flex-col justify-start items-start gap-4">
+            @foreach($transactions as $transaction)
+                @foreach($transaction->transactionDetails as $t)
+                    <div class="rounded-md flex flex-col p-6 border-gray-500 border-2 border-opacity-10 gap-4 w-full">
+                        <div class="flex flex-row place-items-center gap-2 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/>
+                            </svg>
+                            <div class="font-semibold">
+                                Shopping
                             </div>
                             <div>
-                                {{ $loc->city }}, {{$loc->country}}
+                                {{ $transaction->created_at->format('d M Y') }}
                             </div>
                             <div>
-                                {{ $loc->address }}, {{ $loc->postal_code }}
+                                {{ $transaction->created_at->format('H:i') }}
                             </div>
-                            <div>
-                                {{ $loc->notes }}
+                            <div
+                                class="{{ $t->status == 'Pending' ? 'bg-amber-300 text-amber-600' : '' }} px-2 rounded-sm">
+                                {{ $t->status }}
+                            </div>
+                            <div class="text-gray-500">
+                                {{ $transaction->id }}
                             </div>
                         </div>
-                        <button class="text-sm font-bold text-green-600 w-fit" onclick="deleteItem('{{ $loc->id }}')">
-                            Delete
-                        </button>
+                        <div class="flex flex-col gap-4">
+                            <a href="merchant/{{ $t->product->merchant->id }}" class="font-bold">
+                                {{ $t->product->merchant->name }}
+                            </a>
+                            <div class="flex flex-row justify-between">
+                                <div class="flex flex-row gap-4">
+                                    <img alt="Product Image"
+                                         src="{{ asset($t->product->productImages->first()->image) }}"
+                                         class="w-16 h-16 rounded-md">
+                                    <div class="flex flex-col justify-center">
+                                        <div class="font-semibold">
+                                            {{ $t->product->name }}
+                                        </div>
+                                        <div class="text-gray-500">
+                                            {{ $t->quantity }} pcs x Rp{{ formatPrice($t->productVariant->price) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="px-8 h-fit mr-6 flex flex-col justify-center place-items-start border-gray-500 border-opacity-30 border-l-[1px]">
+                                    <div class="text-gray-500">
+                                        Total Price
+                                    </div>
+                                    <div class="font-bold">
+                                        Rp. {{ formatPrice($t->productVariant->price + shipmentPriceCalculate(
+                                                                                                $transaction->location['latitude'],
+                                                                                                $transaction->location['longitude'],
+                                                                                                $t->product->merchant->location->first()->latitude,
+                                                                                                $t->product->merchant->location->first()->longitude,
+                                                                                                $t->shipment->base_price,
+                                                                                                $t->shipment->variable_price) )}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full text-end">
+                            @if($t->status == 'Pending')
+                                <a href="/"
+                                   class="bg-green-600 hover:bg-green-700 py-2 px-12 text-white rounded-md font-bold">
+                                    Chat Seller
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                </div>
-
+                @endforeach
             @endforeach
-
-            @if($user->location->count() == 0)
-                <div class="w-full min-h-44">
-                    <div class="border-[1px] rounded-lg h-full w-full flex flex-col py-10 px-6 justify-between relative  text-center"
-                         style="
-                            background-image: url('{{ asset('assets/checkout/no-location.png') }}');
-                            background-repeat: no-repeat;
-                            background-position: left;
-                            background-size: 50%;">
-                        <div class="font-bold">
-                            No Address added yet
-                        </div>
-                        <div class="text-gray-500">
-                            Add your address to make it easier for us to deliver your order
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 </div>

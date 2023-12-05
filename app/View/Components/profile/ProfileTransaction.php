@@ -2,6 +2,8 @@
 
 namespace App\View\Components\profile;
 
+use App\Models\Cart;
+use App\Models\TransactionHeader;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -24,10 +26,11 @@ class ProfileTransaction extends Component
      * Get the view / contents that represent the component.
      *
      * @return Application|Factory|View
-     */
+     **/
     public function render(): View|Factory|Application
     {
         $user = User::find(auth()->user()->id);
-    return view('components.profile-transaction', ['user' => $user]);
+        $transactions = TransactionHeader::where('user_id', auth()->user()->id)->with(['location', 'transactionDetails', 'transactionDetails.product', 'transactionDetails.product.merchant', 'transactionDetails.product.productImages', 'transactionDetails.product.merchant.location', 'transactionDetails.shipment'])->get();
+        return view('components.profile-transaction', ['user' => $user, 'transactions' => $transactions]);
     }
 }
