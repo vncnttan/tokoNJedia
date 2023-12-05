@@ -11,9 +11,9 @@
     <div class="flex-grow w-full rounded-lg border-[1px] border-gray-200 bg-white">
         <div class="w-full h-full p-8 box-border flex justify-center items-center gap-8">
             <div
-                class="w-[300px] h-full p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
-                <div class="w-full">
-                    <img class="w-full h-full object-cover" src="{{ Auth::user()->image ?: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm15_Q2sAap5FoKCLvFMVyAlyi7Ct91SlMLw&usqp=CAU' }}" alt="">
+                class="w-72 max-w-72 h-full  p-4 box-border rounded-lg shadow-card flex flex-col justify-start items-center gap-4">
+                <div class="w-full min-h-72 h-72 max-h-72">
+                    <img class="w-full h-full object-contain bg-gray-50" src="{{ Auth::user()->image ?: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm15_Q2sAap5FoKCLvFMVyAlyi7Ct91SlMLw&usqp=CAU' }}" alt="">
                 </div>
                 <form action="/profile/image" method="POST" class="w-full" id="fileUploadForm" enctype="multipart/form-data">
                     @csrf

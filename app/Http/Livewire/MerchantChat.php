@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Events\NewChatMessage;
 use App\Http\Controllers\Controller;
+use App\Models\Merchant;
 use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
@@ -21,39 +22,22 @@ class MerchantChat extends Component
 
     public function mount()
     {
-        $user = User::find(auth()->id());
-        $this->rooms = $user->Rooms()->with(['Users' => function ($query) use ($user) {
-            $query->where('users.id', '!=', $user->id)->first();
-        }])->get();
+        $merchant = Merchant::find(auth()->user()->Merchant->id);
+        $this->rooms = $merchant->Rooms()->with(['Users'])->has("Messages")->get();
         $this->currRoom = null;
     }
     public function getRoom($userId)
     {
-        $user = User::find(auth()->id());
-        // $this->currRoom = $room;
-        // $this->currUser = $room->users->reject(function ($u) use ($user) {
-        //     return $u->id === $user->id;
-        // })->first();
-        $isExist = $user->Rooms()->whereHas("users", function ($query) use ($userId) {
-            $query->where("roomable_id", $userId)
-                ->where('roomable_type', User::class);
+        $merchant = Merchant::find(auth()->user()->Merchant->id);
+        $isExist = $merchant->Rooms()->whereHas("Users", function ($query) use ($userId) {
+            $query->where("id", $userId);
         })->first();
-
-        if (!$isExist) {
-            $room = new Room();
-            $room->id = Str::uuid();
-            $room->save();
-            $room->Users()->attach($userId);
-            $room->Users()->attach($user->id);
-            $this->currRoom = $room;
-        } else {
+        if($isExist){
             $this->currRoom = $isExist;
+            $this->currUser = User::find($userId);
+            $this->emit('roomChanged', $this->currRoom->id, $userId);
         }
-        $this->currUser = $user;
-        $this->emit('roomChanged', $this->currRoom->id, $userId);
     }
-
-
 
     public function render()
     {

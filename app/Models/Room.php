@@ -18,11 +18,11 @@ class Room extends Model
         "id"
     ];
 
-    public function Users(){
-        return $this->morphedByMany(User::class, "roomable");
-    }
     public function Merchants(){
         return $this->morphedByMany(Merchant::class, "roomable");
+    }
+    public function Users(){
+        return $this->morphedByMany(User::class, "roomable");
     }
 
     public function Messages(){

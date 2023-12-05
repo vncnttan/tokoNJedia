@@ -17,23 +17,23 @@
                 <div class="w-full h-full flex flex-col gap-1 p-2 overflow-y-auto">
                     @foreach ($rooms as $room)
                         @php
-                            $user = $room->users->firstWhere('id', '!=', auth()->id());
+                            $merchant = $room->Merchants->firstWhere('id', '!=', auth()->id());
                         @endphp
                         <button
                             class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
-                            wire:click="getRoom('{{ $user->id }}')">
+                            wire:click="getRoom('{{ $merchant->id }}')">
                             <div class="w-12 h-12 rounded-full">
-                                <img class="w-full h-full rounded-full object-cover" src="{{ $user->image }}"
+                                <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image }}"
                                     alt="">
                             </div>
                             <div class="flex flex-col justify-start items-start">
-                                <h1 class="text-lg text-black">{{ $user->username }}</h1>
+                                <h1 class="text-lg text-black">{{ $merchant->name }}</h1>
                             </div>
                         </button>
                     @endforeach
                 </div>
             </div>
-            @livewire('merchant-chat-box', ['room' => $currRoom, 'user' => $currUser])
+            @livewire('chat-box', ['room' => $currRoom, 'merchant' => $currMerchant])
         </div>
     @endif
 </div>

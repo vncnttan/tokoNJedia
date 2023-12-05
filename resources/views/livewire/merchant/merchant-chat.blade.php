@@ -17,7 +17,7 @@
                 <div class="w-full h-full flex flex-col gap-1 p-2 overflow-y-auto">
                     @foreach ($rooms as $room)
                         @php
-                            $user = $room->users->firstWhere('id', '!=', auth()->id());
+                           $user = $room->Users->first();
                         @endphp
                         <button
                             class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"

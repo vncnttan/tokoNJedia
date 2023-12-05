@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Merchant;
+use App\Models\User;
+
 
 class Message extends Model
 {
@@ -26,8 +29,9 @@ class Message extends Model
     {
         return $this->belongsTo(Room::class, "room_id");
     }
-    public function User(){
-        return $this->belongsTo(User::class, "user_id");
+    public function Messageable()
+    {
+        return $this->morphTo();
     }
     public function isRead(){
         return $this->read_at != null;

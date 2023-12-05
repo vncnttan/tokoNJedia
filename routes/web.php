@@ -80,4 +80,4 @@ Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destro
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct']);
 
 // Chat
-Route::GET('/chat/{id}', [ChatController::class, 'index']);
+Route::GET('/chat', [ChatController::class, 'index']);
