@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Room;
+use App\Models\TransactionHeader;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -31,6 +32,7 @@ class MerchantHeader extends Component
         }
         return redirect('/chat');
     }
+
     public function render()
     {
         return view('components.merchant.merchant-header');

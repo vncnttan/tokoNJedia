@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Shipment;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -63,4 +64,35 @@ class TransactionDetailController extends Controller
             'data' => null
         ], 200);
     }
+
+    public function acceptOrder(): JsonResponse
+    {
+        $transactionId = request()->transaction_id;
+        $variantId = request()->variant_id;
+        $productId = request()->product_id;
+        $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)->where('variant_id', $variantId)->where('product_id', $productId)->first();
+        $transactionDetail->status = 'Shipping';
+        $transactionDetail->save();
+
+        return response()->json([
+            'message' => 'Transaction success',
+            'data' => null
+        ], 200);
+    }
+
+    public function rejectOrder(): JsonResponse
+    {
+        $transactionId = request()->transaction_id;
+        $variantId = request()->variant_id;
+        $productId = request()->product_id;
+        $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)->where('variant_id', $variantId)->where('product_id', $productId)->first();
+        $transactionDetail->status = 'Rejected';
+        $transactionDetail->save();
+
+        return response()->json([
+            'message' => 'Rejection success',
+            'data' => null
+        ], 200);
+    }
+
 }

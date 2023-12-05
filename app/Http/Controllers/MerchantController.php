@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Location;
 use App\Models\Merchant;
 use App\Models\Product;
+use App\Models\TransactionDetail;
+use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +20,12 @@ class MerchantController extends Controller
         if (Auth::user()->Merchant == null) {
             return redirect('/merchant/create');
         }
-        return view('pages.merchant.merchant-home');
+        $merchantId = Auth::user()->Merchant->id;
+        $pendingOrders = TransactionDetail::whereHas('product', function($query) use ($merchantId) {
+            $query->where('merchant_id', $merchantId);
+        })->with(['product', 'productVariant', 'transactionHeader', 'transactionHeader.user'])->where('status', 'pending')->get();
+
+        return view('pages.merchant.merchant-home', ['pendingOrders' => $pendingOrders]);
     }
 
     public function create()

@@ -81,6 +81,9 @@ Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProdu
 
 // Chat
 Route::GET('/chat', [ChatController::class, 'index']);
+
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
 Route::GET('/profile/transaction', [TransactionDetailController::class, 'index']);
+Route::PATCH('/transaction/accept-order', [TransactionDetailController::class, 'acceptOrder']);
+Route::PATCH('/transaction/reject-order', [TransactionDetailController::class, 'rejectOrder']);
