@@ -78,9 +78,6 @@
             console.log("testing")
             window.Livewire.emit('NewChat', data)
         })
-        channel.whisper(".Typing", {
-            console.log("Typing")
-        })
     }
     window.addEventListener('rowChatToBottom', event => {
         const container = document.querySelector("#chat-container")
