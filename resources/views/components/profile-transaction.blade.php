@@ -33,6 +33,7 @@
                                 {{ $t->status == 'Pending' ? 'bg-amber-300 text-amber-600' : '' }}
                                 {{ $t->status == 'Shipping' ? 'bg-blue-300 text-blue-600' : '' }}
                                 {{ $t->status == 'Rejected' ? 'bg-red-300 text-red-600' : '' }}
+                                {{ $t->status == 'Completed' ? 'bg-green-300 text-green-600' : '' }}
                                  px-2 rounded-sm">
                                 {{ $t->status }}
                             </div>
@@ -45,7 +46,8 @@
                                 {{ $t->product->merchant->name }}
                             </a>
 
-                            <a href="/product-detail/{{ $t->product->id }}" class="flex flex-col lg:flex-row justify-between">
+                            <a href="/product-detail/{{ $t->product->id }}"
+                               class="flex flex-col lg:flex-row justify-between">
                                 <div class="flex flex-row gap-4">
                                     <img alt="Product Image"
                                          src="{{ asset($t->product->productImages->first()->image) }}"
@@ -87,6 +89,25 @@
                                    class="bg-green-600 hover:bg-green-700 py-2 px-12 text-white rounded-md font-bold">
                                     Chat Seller
                                 </a>
+                            @elseif($t->status == 'Shipping')
+                                Already received the product?
+                                <button
+                                    onclick="onConfirmReceived('{{ $transaction->id }}', '{{ $t->product->id }}', '{{ $t->productVariant->id }}')"
+                                    class="ml-4 bg-white hover:bg-gray-100 border-[1px] text-green-600 border-green-600 py-2 px-12 rounded-md font-bold">
+                                    Confirm Received
+                                </button>
+                            @elseif($t->status == 'Completed')
+                                <div class="justify-end flex flex-row gap-2">
+                                    <a
+                                        onclick="onConfirmReceived('{{ $transaction->id }}', '{{ $t->product->id }}', '{{ $t->productVariant->id }}')"
+                                        class="ml-4 bg-white hover:bg-gray-100 border-[1px] text-green-600 border-green-600 py-2 px-12 rounded-md font-bold">
+                                        Give Reviews
+                                    </a>
+                                    <a href="/product-detail/{{ $t->product->id }}"
+                                       class="bg-green-600 hover:bg-green-700 py-2 px-12 text-white rounded-md font-bold">
+                                        Buy Again
+                                    </a>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -95,3 +116,28 @@
         </div>
     </div>
 </div>
+<script>
+    function onConfirmReceived(transaction_id, product_id, variant_id) {
+        let data = {
+            transaction_id: transaction_id,
+            product_id: product_id,
+            variant_id: variant_id,
+            _token: "{{ csrf_token() }}"
+        }
+        fetch('/transaction/shipment-done', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+
+    }
+</script>

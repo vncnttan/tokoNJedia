@@ -95,4 +95,19 @@ class TransactionDetailController extends Controller
         ], 200);
     }
 
+    public function shipmentDone(): JsonResponse
+    {
+        $transactionId = request()->transaction_id;
+        $variantId = request()->variant_id;
+        $productId = request()->product_id;
+        $transactionDetail = TransactionDetail::where('transaction_id', $transactionId)->where('variant_id', $variantId)->where('product_id', $productId)->first();
+        $transactionDetail->status = 'Completed';
+        $transactionDetail->save();
+
+        return response()->json([
+            'message' => 'Shipment done',
+            'data' => null
+        ], 200);
+    }
+
 }
