@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-full h-full" id="merchant-home-screen">
-        <div class="w-full h-full p-10 flex flex-col gap-4">
+        <div class="w-full p-10 flex flex-col h-fit gap-4">
             <div class="bg-black p-8 rounded-md bg-opacity-20 flex flex-col gap-4">
                 <h1 class="text-white font-bold text-2xl">
                     Pending Orders

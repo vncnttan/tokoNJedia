@@ -1,7 +1,7 @@
 <a href="/merchant/{{ $merchant->id }}">
     <div class="w-72 md:w-80 rounded-md shadow-md flex flex-col gap-2">
         <div class="flex flex-row p-2 gap-2">
-            <img src="{{ $merchant->image }}"
+            <img src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
                  alt="{{ $merchant->name }}"
                  class="h-12 w-1/6 rounded-full object-cover"
             />

@@ -23,7 +23,7 @@
                             class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
                             wire:click="getRoom('{{ $merchant->id }}')">
                             <div class="w-12 h-12 rounded-full">
-                                <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image }}"
+                                <img class="w-full h-full rounded-full object-cover" src="{{ $merchant->image ?? asset('assets/logo/logo.png')}}"
                                     alt="">
                             </div>
                             <div class="flex flex-col justify-start items-start text-start ">

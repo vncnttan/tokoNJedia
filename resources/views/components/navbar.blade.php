@@ -73,7 +73,7 @@
                         <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/merchant">
                             <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center ">
                                 @if($merchant)
-                                    <img class="w-full h-full rounded-full object-cover object-center" src="{{ url(asset($merchant->image)) }}"
+                                    <img class="w-full h-full rounded-full object-cover object-center" src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
                                         alt="">
                                 @else
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

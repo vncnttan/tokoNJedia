@@ -63,7 +63,7 @@
                 <a class="" href="/merchant/{{ $product->merchant->id }}">
 
                     <div class="flex flex-row gap-4">
-                        <img src="{{ $product->merchant->image }}" alt="Merchant" class="w-16 h-16 rounded-full">
+                        <img src="{{ $product->merchant->image ?? asset('assets/logo/logo.png') }}" alt="Merchant" class="w-16 h-16 rounded-full">
                         <div class="w-3/4">
                             <div class="text-lg font-bold">
                                 {{ $product->merchant->name }}
@@ -82,7 +82,7 @@
                 <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-4">
                     <h1 class="font-bold text-lg">Atur Jumlah dan Catatan</h1>
                     <div class="flex flex-row gap-4 place-items-center">
-                        <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md">
+                        <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md border-gray-500">
                             <button id="subtract_btn" class="disabled:text-gray-500 text-green-600"
                                     onclick="subtractQuantity()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

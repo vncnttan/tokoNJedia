@@ -1,7 +1,7 @@
 <div
     class="flex flex-row justify-between place-items-center p-6 rounded-md border-[1px] border-gray-300 border-opacity-50">
     <div class="flex flex-row gap-4">
-        <img src="{{ $merchant->image }}" alt="{{ $merchant->name }}" class="w-24 h-24 rounded-full">
+        <img src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}" alt="{{ $merchant->name }}" class="w-24 h-24 rounded-full">
         <div class="flex flex-col justify-between">
             <div class="flex flex-col justify-center">
                 <div class="text-2xl font-bold">

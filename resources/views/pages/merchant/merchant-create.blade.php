@@ -138,7 +138,7 @@
                                         Back
                                     </button>
                                     <button
-                                        class="flex-grow rounded-lg bg-green-500 text-white font-semibold p-2 box-border self-center"
+                                        class="flex-grow rounded-lg !bg-green-500 text-white font-semibold p-2 box-border self-center"
                                         type="submit">Save
                                     </button>
                                 </div>

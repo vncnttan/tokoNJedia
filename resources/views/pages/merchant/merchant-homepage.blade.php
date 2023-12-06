@@ -22,7 +22,7 @@
                 </a>
             </div>
             <div class="relative h-96 mt-6 overflow-hidden rounded-lg md:h-[50vh]">
-                <img src="{{$merchant->banner_image}}"
+                <img src="{{$merchant->banner_image ?? asset('assets/logo/banner-merchant.jpeg')}}"
                      class="absolute block w-full h-full object-cover"
                      alt="Promo Banner">
             </div>
