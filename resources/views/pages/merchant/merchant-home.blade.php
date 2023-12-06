@@ -12,7 +12,7 @@
                 <div class="flex flex-row flex-wrap gap-4">
                     @if($pendingOrders->count() < 1)
                         <div class="w-full h-full py-2 flex flex-col gap-2 justify-center place-items-center">
-                            <img alt="Placeholder" src="{{ url(asset('assets/merchants/no-history.png')) }}" class="w-auto h-64">
+                            <img alt="Placeholder" src="{{ url(asset('assets/merchants/no-pending.png')) }}" class="w-auto h-64">
                             <div class="text-gray-100 font-bold text-3xl">
                                 No Pending Orders
                             </div>

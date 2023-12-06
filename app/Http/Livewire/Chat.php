@@ -17,9 +17,12 @@ class Chat extends Component
     public $currMerchant;
     public $search = '';
 
-    public function mount($room = null){
-
+    public function mount($room){
         $this->currRoom = $room;
+        if($room){
+            $this->currMerchant = $room->Merchants()->first();
+            $this->emit('roomChanged', $this->currRoom->id, $this->currMerchant->id);
+        }
     }
 
     public function getRoom($merchantId)

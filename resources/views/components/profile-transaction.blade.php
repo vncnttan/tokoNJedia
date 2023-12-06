@@ -105,10 +105,10 @@
                         </div>
                         <div class="w-full text-end">
                             @if($t->status == 'Pending')
-                                <button onclick="/chat/{{ $t->product->merchant->id }}"
+                                <a href="/chat/{{ $t->product->merchant->id }}"
                                    class="bg-green-600 hover:bg-green-700 py-2 px-12 text-white rounded-md font-bold">
                                     Chat Seller
-                                </button>
+                                </a>
                             @elseif($t->status == 'Shipping')
                                 Already received the product?
                                 <button

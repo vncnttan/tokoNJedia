@@ -3,7 +3,7 @@
 @section('title', 'Chat')
 
 @section('content')
-    @livewire('chat')
+    @livewire('chat', ['room' => $room])
 @endsection
 
 @section('footer')

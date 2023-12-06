@@ -81,7 +81,7 @@ Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProdu
 
 // Chat
 Route::GET('/chat', [ChatController::class, 'index']);
-Route::POST('/chat/{id}', [ChatController::class, 'show']);
+Route::GET('/chat/{id}', [ChatController::class, 'index']);
 
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
