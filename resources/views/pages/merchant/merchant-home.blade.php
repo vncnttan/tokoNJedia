@@ -10,6 +10,17 @@
                     Pending Orders
                 </h1>
                 <div class="flex flex-row flex-wrap gap-4">
+                    @if($pendingOrders->count() < 1)
+                        <div class="w-full h-full py-2 flex flex-col gap-2 justify-center place-items-center">
+                            <img alt="Placeholder" src="{{ url(asset('assets/merchants/no-history.png')) }}" class="w-auto h-64">
+                            <div class="text-gray-100 font-bold text-3xl">
+                                No Pending Orders
+                            </div>
+                            <div class="text-gray-100 text-base">
+                                Start promoting your products to reach more customers
+                            </div>
+                        </div>
+                    @endif
                     @foreach($pendingOrders as $pending)
                         <div class="w-96 bg-white p-4 rounded-md flex flex-col gap-4">
                             <div class="flex flex-row gap-4 place-items-center">
@@ -64,6 +75,17 @@
                     Shipped Orders
                 </h1>
                 <div class="flex flex-row flex-wrap gap-4">
+                    @if($shippingOrders->count() < 1)
+                        <div class="w-full h-full py-2 flex flex-col gap-2 justify-center place-items-center">
+                            <img alt="Placeholder" src="{{ url(asset('assets/merchants/no-shipping.png')) }}" class="w-auto h-64">
+                            <div class="text-gray-100 font-bold text-3xl">
+                                No Shipped Orders
+                            </div>
+                            <div class="text-gray-100 text-base">
+                                Start completing pending orders
+                            </div>
+                        </div>
+                    @endif
                     @foreach($shippingOrders as $shipped)
                         <div class="w-96 bg-white p-4 rounded-md flex flex-col gap-4">
                             <div class="flex flex-row gap-4 place-items-center">

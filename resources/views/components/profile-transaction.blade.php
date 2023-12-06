@@ -10,6 +10,26 @@
 
     <div class="flex-grow w-full rounded-lg border-[1px] border-gray-200 bg-white">
         <div class="w-full h-full p-4 box-border flex flex-col justify-start items-start gap-4">
+            @if($transactions->count() == 0)
+                <div class="w-full flex flex-col justify-center items-center gap-4 py-12">
+                    <img alt="Empty Transaction" src="{{ url(asset('assets/profile/no-history.png'))  }}"
+                         class="w-auto h-64">
+                    <div class="flex flex-col gap-1 place-items-center">
+                        <h1 class="text-2xl font-bold ">
+                            You don't have any transaction yet
+                        </h1>
+                        <h5 class="text-base text-gray-700">
+                            Start checkout items in your cart to start transactions
+                        </h5>
+                    </div>
+
+                    <a href="/cart">
+                        <button class="bg-green-600 py-2 px-16 rounded-md text-white font-bold">
+                            Shop Now
+                        </button>
+                    </a>
+                </div>
+            @endif
             @foreach($transactions as $transaction)
                 @foreach($transaction->transactionDetails as $t)
                     <div class="rounded-md flex flex-col p-6 border-gray-500 border-2 border-opacity-10 gap-4 w-full">
@@ -85,10 +105,10 @@
                         </div>
                         <div class="w-full text-end">
                             @if($t->status == 'Pending')
-                                <a href="/"
+                                <button onclick="/chat/{{ $t->product->merchant->id }}"
                                    class="bg-green-600 hover:bg-green-700 py-2 px-12 text-white rounded-md font-bold">
                                     Chat Seller
-                                </a>
+                                </button>
                             @elseif($t->status == 'Shipping')
                                 Already received the product?
                                 <button

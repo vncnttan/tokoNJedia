@@ -52,12 +52,16 @@
                  x-transition:leave-start="transform translate-y-0 opacity-100"
                  x-transition:leave-end="transform translate-y-[-50%] opacity-0"
                  class="z-0 w-full bg-white  rounded-md text-sm font-normal text-start">
-                <a href="/merchant/add-product" @click="selectedTab = 'product';"
-                   class=" block w-full pl-6 ml-4 rounded-l-md py-2 hover:bg-slate-100 text-black cursor-pointer hover:font-bold">Add
-                    Product</a>
-                <a href="/merchant/manage-product" @click="selectedTab = 'product';"
-                   class="block w-full pl-6 ml-4 rounded-l-md py-2 hover:bg-slate-100 text-black cursor-pointer hover:font-bold">Product
-                    List</a>
+                <div class="pl-4">
+                    <a href="/merchant/add-product" @click="selectedTab = 'product';"
+                       class=" block w-full pl-6 rounded-l-md py-2 hover:bg-slate-100 text-black cursor-pointer hover:font-bold">Add
+                        Product</a>
+                </div>
+                <div class="pl-4">
+                    <a href="/merchant/manage-product" @click="selectedTab = 'product';"
+                       class="block w-full pl-6 rounded-l-md py-2 hover:bg-slate-100 text-black cursor-pointer hover:font-bold">Product
+                        List</a>
+                </div>
             </div>
         </div>
     </div>
