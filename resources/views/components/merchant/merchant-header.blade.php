@@ -12,13 +12,13 @@
                 </div>
             </div>
             <div class="flex flex-row gap-2">
-                <button class="bg-green-600 w-32 2xl:w-40 py-1.5 rounded-md text-white text-sm font-bold">
+                <button class="bg-green-600 w-32 py-1.5 rounded-md text-white text-sm font-bold">
                     Follow
                 </button>
-                <button wire:click='chat'
-                    class="border-green-600 text-green-600 border-[1px] w-32 2xl:w-40 py-1.5 rounded-md text-sm font-bold">
+                <a href="/chat/{{ $merchant->id }}"
+                    class="border-green-600 text-green-600 border-[1px] w-32 py-1.5 rounded-md text-sm font-bold text-center">
                     Chat Seller
-                </button>
+                </a>
             </div>
         </div>
     </div>

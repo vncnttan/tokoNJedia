@@ -3,6 +3,7 @@
 namespace App\View\Components\profile;
 
 use App\Models\Cart;
+use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
@@ -30,7 +31,10 @@ class ProfileTransaction extends Component
     public function render(): View|Factory|Application
     {
         $user = User::find(auth()->user()->id);
-        $transactions = TransactionHeader::where('user_id', auth()->user()->id)->with(['location', 'transactionDetails', 'transactionDetails.product', 'transactionDetails.product.merchant', 'transactionDetails.product.productImages', 'transactionDetails.product.merchant.location', 'transactionDetails.shipment'])->get();
-        return view('components.profile-transaction', ['user' => $user, 'transactions' => $transactions]);
+        $transactionDetails = TransactionDetail::whereHas('transactionHeader', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->with(['transactionHeader', 'product', 'product.merchant', 'product.productImages', 'product.merchant.location', 'shipment'])
+            ->paginate(5);
+        return view('components.profile-transaction', ['user' => $user, 'transactionDetails' => $transactionDetails]);
     }
 }
