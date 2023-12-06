@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\Guest;
+use App\Http\Middleware\HaveLocation;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\ValidateSignature;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -82,11 +83,8 @@ class Kernel extends HttpKernel
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
+        'auth.guest' => Guest::class,
+        'auth.location' => HaveLocation::class,
     ];
 
-    protected array $middlewareAliases  = [
-        'auth' => Authenticate::class,
-        'auth.guest' => Guest::class,
-        
-    ];
 }

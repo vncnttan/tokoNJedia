@@ -61,7 +61,7 @@ Route::GET('/cart', [CartController::class, 'index'])->name('cart')->middleware(
 Route::POST('/cart', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('auth');
 Route::PATCH('/cart', [CartController::class, 'updateCart'])->name('update-cart')->middleware('auth');
 Route::DELETE('/cart', [CartController::class, 'deleteCart'])->name('delete-cart')->middleware('auth');
-Route::GET('/cart/shipment', [CartController::class, 'shipment'])->name('shipment')->middleware('auth');
+Route::GET('/cart/shipment', [CartController::class, 'shipment'])->name('shipment')->middleware('auth', 'auth.location');
 
 // Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
