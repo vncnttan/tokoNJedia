@@ -90,3 +90,4 @@ Route::GET('/profile/transaction', [TransactionDetailController::class, 'index']
 Route::PATCH('/transaction/complete-order', [TransactionDetailController::class, 'completeOrder']);
 Route::PATCH('/transaction/reject-order', [TransactionDetailController::class, 'rejectOrder']);
 Route::PATCH('/transaction/shipment-done', [TransactionDetailController::class, 'shipmentDone']);
+Route::POST('/transaction/electricity', [TransactionDetailController::class, 'electricOrder']);

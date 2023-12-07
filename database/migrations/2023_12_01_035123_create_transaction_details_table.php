@@ -19,7 +19,7 @@ return new class extends Migration
             $table->uuid("variant_id");
             $table->integer("quantity");
             $table->string("status");
-            $table->uuid("shipment_id");
+            $table->uuid("shipment_id")->nullable();
             $table->timestamps();
             $table->foreign("transaction_id")->references("id")->on("transaction_headers")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("product_id")->references("id")->on("products")->onUpdate("CASCADE")->onDelete("CASCADE");

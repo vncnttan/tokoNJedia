@@ -14,7 +14,8 @@ use Illuminate\Support\Str;
 class TransactionDetailController extends Controller
 {
 
-    function index() {
+    function index()
+    {
         return view('pages.profile.profile-page-transaction');
     }
 
@@ -106,6 +107,26 @@ class TransactionDetailController extends Controller
 
         return response()->json([
             'message' => 'Shipment done',
+            'data' => null
+        ], 200);
+    }
+
+    public function electricOrder(Request $request): JsonResponse
+    {
+        $userId = auth()->user()->id;
+
+        $transactionId = Str::uuid();
+
+        $transactionHeader = new TransactionHeader();
+        $transactionHeader->id = $transactionId;
+        $transactionHeader->user_id = $userId;
+        $transactionHeader->location_id = $request->location_id;
+        $transactionHeader->date = now();
+        $transactionHeader->save();
+
+
+        return response()->json([
+            'message' => 'Electric order success',
             'data' => null
         ], 200);
     }

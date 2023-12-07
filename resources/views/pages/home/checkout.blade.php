@@ -150,12 +150,15 @@
                 body: JSON.stringify(data),
             })
                 .then(response => response.json())
-                .then(() => {
-                    console.log('Success adding to transaction')
-                    location.href = '/profile/transaction'
-                })
                 .catch((error) => {
                     console.error('Error:', error);
+                })
+                .then((response) => {
+                    location.reload()
+                    if(response.message) {
+                        console.log('Success adding to transaction')
+                        location.href = '/profile/transaction'
+                    }
                 })
         }
 
