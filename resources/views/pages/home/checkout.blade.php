@@ -154,7 +154,7 @@
                     console.error('Error:', error);
                 })
                 .then((response) => {
-                    location.reload()
+                    // location.reload()
                     if(response.message) {
                         console.log('Success adding to transaction')
                         location.href = '/profile/transaction'

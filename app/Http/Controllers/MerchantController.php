@@ -21,10 +21,10 @@ class MerchantController extends Controller
             return redirect('/merchant/create');
         }
         $merchantId = Auth::user()->Merchant->id;
-        $pendingOrders = TransactionDetail::whereHas('product', function($query) use ($merchantId) {
+        $pendingOrders = TransactionDetail::whereHas('product', function ($query) use ($merchantId) {
             $query->where('merchant_id', $merchantId);
         })->with(['product', 'productVariant', 'transactionHeader', 'transactionHeader.user'])->where('status', 'pending')->get();
-        $shippingOrders = TransactionDetail::whereHas('product', function($query) use ($merchantId) {
+        $shippingOrders = TransactionDetail::whereHas('product', function ($query) use ($merchantId) {
             $query->where('merchant_id', $merchantId);
         })->with(['product', 'shipment', 'productVariant', 'transactionHeader', 'transactionHeader.location'])->where('status', 'shipping')->get();
         return view('pages.merchant.merchant-home', ['pendingOrders' => $pendingOrders, 'shippingOrders' => $shippingOrders]);
@@ -116,5 +116,18 @@ class MerchantController extends Controller
         $merchant = Merchant::find($id);
         $products = $merchant->Products()->with(['ProductCategory', 'ProductVariants', 'ProductImages'])->get();
         return view('pages.merchant.merchant-product', ['merchant' => $merchant, 'products' => $products]);
+    }
+
+    public function merchantTransactions()
+    {
+        $merchant = Auth::user()->Merchant;
+
+        $transactionDetails = TransactionDetail::whereHas('product.merchant', function ($query) use ($merchant) {
+            $query->where('id', $merchant->id);
+        })->where('status', '!=', 'pending')->where('status', '!=', 'shipping')
+            ->with(['transactionHeader', 'product', 'product.merchant', 'product.productImages', 'product.merchant.location', 'shipment'])
+            ->get();
+
+        return view('pages.merchant.merchant-transaction', ['merchant' => $merchant, 'historyTransaction' => $transactionDetails]);
     }
 }

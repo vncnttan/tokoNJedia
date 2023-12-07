@@ -40,6 +40,14 @@ class Navbar extends Component
             $merchant = Auth::user()->Merchant;
         }
 
-        return view('components.navbar', ['product_names' => $productNames, 'merchant' => $merchant]);
+        $merchantRouteList = ['merchant', 'merchant/chat', 'merchant/add-product', 'merchant/manage-product'];
+
+        if (Auth::check() && in_array(request()->path(), $merchantRouteList)) {
+            $merchantPage = true;
+        } else {
+            $merchantPage = false;
+        }
+
+        return view('components.navbar', ['product_names' => $productNames, 'merchant' => $merchant, 'merchantPage' => $merchantPage]);
     }
 }

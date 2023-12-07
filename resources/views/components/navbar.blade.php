@@ -3,7 +3,10 @@
         <div class="w-full bg-gray-100 py-1 text-sm md:px-12 px-6 text-gray-600 box-border">
             <div class="flex flex-row justify-between place-items-center">
                 <div class="flex flex-row place-items-center gap-2 whitespace-nowrap">
-                    <svg style="fill: #999999" xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 384 512"><path d="M16 64C16 28.7 44.7 0 80 0H304c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64V64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64H80V384H304V64z"/></svg>
+                    <svg style="fill: #999999" xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 384 512">
+                        <path
+                            d="M16 64C16 28.7 44.7 0 80 0H304c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H80c-35.3 0-64-28.7-64-64V64zM224 448a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM304 64H80V384H304V64z"/>
+                    </svg>
                     Download Tokonjedia App
                 </div>
 
@@ -40,7 +43,13 @@
         <div class="w-full h-fit box-border flex flex-col justify-center lg:px-12 px-6 py-2">
             <div class="w-full h-full flex justify-between items-center lg:gap-8 gap-2">
                 <div class="h-full flex justify-center items-center">
-                    <a class="text-green-500 font-semibold font-mandala text-3xl" href="/">TokoNJedia</a>
+                    @if($merchantPage)
+                        <div class="flex flex-row gap-2 place-items-end">
+                            <a class="text-green-500 font-semibold font-mandala text-3xl" href="/merchant">TokoNJedia</a> Seller
+                        </div>
+                    @else
+                        <a class="text-green-500 font-semibold font-mandala text-3xl" href="/">TokoNJedia</a>
+                    @endif
                 </div>
                 <div class="w-full h-full hidden md:flex justify-between items-center gap-4">
                     <a class="nav-button">Category</a>
@@ -73,20 +82,25 @@
                         <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/merchant">
                             <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center ">
                                 @if($merchant)
-                                    <img class="w-full h-full rounded-full object-cover object-center" src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
-                                        alt="">
+                                    <img class="w-full h-full rounded-full object-cover object-center"
+                                         src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
+                                         alt="">
                                 @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/>
                                     </svg>
                                 @endif
                             </div>
                             <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ $merchant->name ?? "Merchant" }}</h1>
                         </a>
                         <a class="max-w-36 px-2 flex justify-start items-center gap-2 nav-button" href="/profile">
-                            <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
-                                <img class="w-full h-full rounded-full object-cover object-center self-center" src="{{ url(asset(Auth::user()->image)) }}"
-                                    alt="">
+                            <div
+                                class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
+                                <img class="w-full h-full rounded-full object-cover object-center self-center"
+                                     src="{{ url(asset(Auth::user()->image)) }}"
+                                     alt="">
                             </div>
                             <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ Auth::user()->username }}</h1>
                         </a>
@@ -106,7 +120,8 @@
                     @endguest
                 </div>
             </div>
-            <div class="w-full py-1 h-full xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4">
+            <div
+                class="w-full py-1 h-full xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4">
                 @foreach($product_names as $product_name)
                     <div class="hover:text-green-600 overflow-hidden space-x-0.5 h-5">
                         <a href="/search-page/{{ $product_name }}">
@@ -118,7 +133,7 @@
         </div>
     </div>
     <script>
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const userInput = document.getElementById('search').value;
             window.location.href = '/search-page/' + userInput;

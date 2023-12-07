@@ -71,11 +71,12 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 
 // Merchant
 Route::GET('/merchant', [MerchantController::class, 'index'])->middleware('auth')->name('merchant-dashboard');
+Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth');
 Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth')->name('merchant-create');
 Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->middleware('auth')->name('merchant-chat');
 Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->middleware('auth')->name('merchant-add-product');
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth')->name('merchant-manage-product');
-Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth');
+Route::GET('/merchant/transactions', [MerchantController::class, 'merchantTransactions'])->name('merchant-transaction');
 Route::GET('/merchant/{id}', [MerchantController::class, 'homepage'])->middleware('auth')->name('merchant-homepage');
 
 // Product Variant

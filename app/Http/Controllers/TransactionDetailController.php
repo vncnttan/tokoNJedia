@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
+use App\Models\ProductVariant;
 use App\Models\Shipment;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
@@ -57,8 +59,13 @@ class TransactionDetailController extends Controller
             $transactionDetail->quantity = $cart->quantity;
             $transactionDetail->save();
 
+            $variant = ProductVariant::where('id', $detail["variantId"])->first();
+            $variant->stock = $variant->stock - $cart->quantity;
+            $variant->save();
+
             $cart->delete();
         }
+
 
         return response()->json([
             'message' => 'Transaction success',

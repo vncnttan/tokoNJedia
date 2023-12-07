@@ -76,6 +76,11 @@
                     </div>
                 </a>
             </div>
+            <div class="py-8">
+                <div class="font-bold text-sm">
+                    REVIEWS
+                </div>
+            </div>
         </div>
         <div class="h-50vh relative">
             <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
@@ -133,8 +138,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>
 
 
