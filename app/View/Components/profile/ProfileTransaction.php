@@ -44,12 +44,10 @@ class ProfileTransaction extends Component
         })->with(['transactionHeader'])
             ->get();
 
-        // Merging and sorting the collections
-        $combinedTransactions = $transactionDetails->merge($electricityTransactions)->sortByDesc(function($transaction) {
-            return $transaction->transactionHeader->date; // Replace 'date' with the actual date attribute
+        $combinedTransactions = $transactionDetails->concat($electricityTransactions)->sortByDesc(function($transaction) {
+            return $transaction->transactionHeader->created_at;
         });
 
-        // Paginate the combined collection
         $perPage = 5;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $combinedTransactions->slice(($currentPage - 1) * $perPage, $perPage)->all();

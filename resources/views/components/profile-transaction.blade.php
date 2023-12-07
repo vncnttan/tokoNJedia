@@ -31,7 +31,7 @@
                 </div>
             @endif
             @foreach($transactionDetails as $t)
-                @if($t->merchant)
+                @if($t->electric_token == null)
                     <div class="rounded-md flex flex-col p-6 border-gray-500 border-2 border-opacity-10 gap-4 w-full">
                         <div class="flex flex-row place-items-center gap-2 text-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
