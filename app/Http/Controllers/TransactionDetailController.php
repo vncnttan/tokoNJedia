@@ -111,24 +111,6 @@ class TransactionDetailController extends Controller
         ], 200);
     }
 
-    public function electricOrder(Request $request): JsonResponse
-    {
-        $userId = auth()->user()->id;
 
-        $transactionId = Str::uuid();
-
-        $transactionHeader = new TransactionHeader();
-        $transactionHeader->id = $transactionId;
-        $transactionHeader->user_id = $userId;
-        $transactionHeader->location_id = $request->location_id;
-        $transactionHeader->date = now();
-        $transactionHeader->save();
-
-
-        return response()->json([
-            'message' => 'Electric order success',
-            'data' => null
-        ], 200);
-    }
 
 }

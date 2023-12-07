@@ -4,6 +4,7 @@ use App\Events\NewChatMessage;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ElectricTransactionDetailController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LoggedIn;
+use App\Models\ElectricTransactionDetail;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -68,16 +70,16 @@ Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // Merchant
-Route::GET('/merchant', [MerchantController::class, 'index'])->name('merchant-dashboard');
-Route::GET('/merchant/create', [MerchantController::class, 'create'])->name('merchant-create');
-Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->name('merchant-chat');
-Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->name('merchant-add-product');
-Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->name('merchant-manage-product');
-Route::POST('/merchant', [MerchantController::class, 'store']);
-Route::GET('/merchant/{id}', [MerchantController::class, 'homepage'])->name('merchant-homepage');
+Route::GET('/merchant', [MerchantController::class, 'index'])->middleware('auth')->name('merchant-dashboard');
+Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth')->name('merchant-create');
+Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->middleware('auth')->name('merchant-chat');
+Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->middleware('auth')->name('merchant-add-product');
+Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth')->name('merchant-manage-product');
+Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth');
+Route::GET('/merchant/{id}', [MerchantController::class, 'homepage'])->middleware('auth')->name('merchant-homepage');
 
 // Product Variant
-Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy']);
+Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy'])->middleware('auth');
 Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProduct'])->name('merchant-product');
 
 // Chat
@@ -87,7 +89,7 @@ Route::GET('/chat/{id}', [ChatController::class, 'index'])->middleware('auth');
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);
 Route::GET('/profile/transaction', [TransactionDetailController::class, 'index'])->middleware('auth')->name('transaction');
-Route::PATCH('/transaction/complete-order', [TransactionDetailController::class, 'completeOrder']);
-Route::PATCH('/transaction/reject-order', [TransactionDetailController::class, 'rejectOrder']);
-Route::PATCH('/transaction/shipment-done', [TransactionDetailController::class, 'shipmentDone']);
-Route::POST('/transaction/electricity', [TransactionDetailController::class, 'electricOrder']);
+Route::PATCH('/transaction/complete-order', [TransactionDetailController::class, 'completeOrder'])->middleware('auth');
+Route::PATCH('/transaction/reject-order', [TransactionDetailController::class, 'rejectOrder'])->middleware('auth');
+Route::PATCH('/transaction/shipment-done', [TransactionDetailController::class, 'shipmentDone'])->middleware('auth');
+Route::POST('/transaction/electricity', [ElectricTransactionDetailController::class, 'electricOrder'])->middleware('auth');

@@ -18,7 +18,6 @@ class TransactionHeader extends Model
         "user_id",
         "date",
         "destination_address",
-        "payment_method_id"
     ];
     public function TransactionDetails(): HasMany
     {
@@ -32,5 +31,10 @@ class TransactionHeader extends Model
     public function Location(): BelongsTo
     {
         return $this->belongsTo(Location::class, "location_id", "id");
+    }
+
+    public function ElectricTransactionDetails(): HasMany
+    {
+        return $this->hasMany(ElectricTransactionDetail::class, "transaction_id", "id");
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id', 36)->primary();
             $table->uuid("user_id");
             $table->timestamp("date");
-            $table->uuid("location_id");
+            $table->uuid("location_id")->nullable();
             // nanti taroh promo id disini
             $table->timestamps();
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");

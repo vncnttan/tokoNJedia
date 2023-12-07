@@ -18,10 +18,10 @@
                                 @if($productCategory->products->count() > 0 && $productCategory->products[0]->productImages->count() > 0)
                                     <img src="{{ $productCategory->products[0]->productImages[0]->image }}"
                                          alt="{{ $productCategory->name }}"
-                                         class="sm:w-32 w-16 sm:h-32 h-16 object-cover rounded-sm"/>
+                                         class="sm:w-32 w-16 sm:h-32 h-16 object-cover rounded-md"/>
                                 @else
                                     <img src="https://placehold.co/600x400"
-                                         class="sm:w-32 w-16 sm:h-32 h-16 object-cover rounded-sm"
+                                         class="sm:w-32 w-16 sm:h-32 h-16 object-cover rounded-md"
                                          alt="{{$productCategory->name}}"/>
                                 @endif
                                 <div>{{ $productCategory->name }}</div>
@@ -32,6 +32,7 @@
                 <div class="flex flex-col gap-6 flex-grow">
                     <h1 class="font-bold text-xl"> Top up & Bills </h1>
                     <form class="flex flex-row place-items-end md:flex-col gap-4" action="/transaction/electricity" method="POST">
+                        @csrf
                         <div class="flex flex-col w-full gap-1">
                             <label for="subscriptionNumber" class="font-semibold text-gray-500">Subscription Number</label>
                             <input name="subscriptionNumber" id="subscriptionNumber" class="w-full rounded-md border-gray-500 border p-1.5" placeholder="ex. 1212112" type="number"/>
