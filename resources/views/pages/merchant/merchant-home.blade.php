@@ -22,7 +22,7 @@
                         </div>
                     @endif
                     @foreach($pendingOrders as $pending)
-                        <div class="w-96 bg-white p-4 rounded-md flex flex-col gap-4">
+                        <div class="flex-grow bg-white p-4 rounded-md flex flex-col gap-4">
                             <div class="flex flex-row gap-4 place-items-center">
                                 <div class="font-semibold text-sm">
                                     {{ $pending->transactionHeader->user->username }}
@@ -55,12 +55,12 @@
                             </div>
                             <div class="justify-end flex flex-row gap-2">
                                 <button
-                                    class="bg-red-400 hover:bg-red-500 py-2 px-4 text-white rounded-md font-bold"
+                                    class="bg-red-400 max-w-md flex-grow hover:bg-red-500 py-2 px-4 text-white rounded-md font-bold"
                                     onclick="rejectOrder('{{$pending->transaction_id}}' , '{{$pending->variant_id}}', '{{$pending->product_id}}')">
                                     Reject Order
                                 </button>
                                 <button
-                                    class="bg-green-600 hover:bg-green-700 py-2 px-4 text-white rounded-md font-bold"
+                                    class="bg-green-600 max-w-md flex-grow hover:bg-green-700 py-2 px-4 text-white rounded-md font-bold"
                                     onclick="completeOrder('{{$pending->transaction_id}}' , '{{$pending->variant_id}}', '{{$pending->product_id}}')">
                                     Complete Order
                                 </button>
