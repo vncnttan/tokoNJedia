@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\Promo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,9 @@ class ProductPromoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "promo_id" => Promo::all()->random()->id,
+            "product_id" => Product::all()->random()->id,
+            "discount" => random_int(25, 75),
         ];
     }
 }
