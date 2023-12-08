@@ -37,4 +37,9 @@ class TransactionHeader extends Model
     {
         return $this->hasMany(ElectricTransactionDetail::class, "transaction_id", "id");
     }
+
+    public function Ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class, "transaction_id", "id");
+    }
 }

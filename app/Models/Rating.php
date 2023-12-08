@@ -25,10 +25,13 @@ class Rating extends Model
     }
     public function ProductVariant(): BelongsTo
     {
-        return $this->belongsTo(Product::class, "product_id", "id");
+        return $this->belongsTo(ProductVariant::class, "variant_id", "id");
     }
     public function Transaction(): BelongsTo
     {
         return $this->belongsTo(TransactionHeader::class, "transaction_id", "id");
+    }
+    public function Product() : BelongsTo{
+        return $this->belongsTo(Product::class, "product_id", "id");
     }
 }

@@ -18,9 +18,11 @@ return new class extends Migration
             $table->uuid("user_id");
             $table->uuid("transaction_id");
             $table->uuid('variant_id');
+            $table->uuid('product_id');
             $table->integer("rating");
             $table->string("message");
             $table->timestamps();
+            $table->foreign("product_id")->references("id")->on("products")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("user_id")->references("id")->on("users")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("transaction_id")->references("id")->on("transaction_headers")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("variant_id")->references("id")->on("product_variants")->onUpdate("CASCADE")->onDelete("CASCADE");
