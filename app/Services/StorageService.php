@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,7 @@ class StorageService
         try {
             $filePath = $file->storeAs('public/'.$path, $fileName, 'local');
             return asset(Storage::url($filePath));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
@@ -32,7 +33,7 @@ class StorageService
             } else {
                 Log::error('File ' . $fullPath . ' does not exist');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
     }
 

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('nominal');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
+            $table->foreign("transaction_id")->references("id")->on("transaction_headers")->onUpdate("CASCADE")->onDelete("CASCADE");
         });
     }
 

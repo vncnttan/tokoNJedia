@@ -48,7 +48,7 @@ class MerchantChat extends Component
         })
         ->get()->sortByDesc(function ($room) {
             return $room->Messages->max('created_at');
-        });;
+        });
         return view('livewire.merchant.merchant-chat');
     }
 }

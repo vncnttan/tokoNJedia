@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\TransactionHeader;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TransactionHeader>
+ * @extends Factory<TransactionHeader>
  */
 class TransactionHeaderFactory extends Factory
 {
