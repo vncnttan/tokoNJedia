@@ -22,7 +22,9 @@ class ProductVariant extends Model
     ];
     protected $casts = [
         'id' => 'string',
+        'name' => 'string'
     ];
+
     public function Product(): BelongsTo
     {
         return $this->belongsTo(Product::class, "product_id");
