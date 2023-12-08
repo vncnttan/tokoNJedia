@@ -121,7 +121,7 @@
                             @elseif($t->status == 'Completed')
                                 <div class="justify-end flex flex-row gap-2">
                                     <a
-                                        onclick="onConfirmReceived('{{ $t->transactionHeader->id }}', '{{ $t->product->id }}', '{{ $t->productVariant->id }}')"
+                                        href="/review/{{ $t->transactionHeader->id }}/{{ $t->product->id }}/{{ $t->productVariant->id }}"
                                         class="ml-4 bg-white hover:bg-gray-100 border-[1px] text-green-600 border-green-600 py-2 px-12 rounded-md font-bold">
                                         Give Reviews
                                     </a>

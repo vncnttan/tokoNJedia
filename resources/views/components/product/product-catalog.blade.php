@@ -77,9 +77,7 @@
                 </a>
             </div>
             <div class="py-8">
-                <div class="font-bold text-sm">
-                    REVIEWS
-                </div>
+                <x-review-section :productId="$product->id"/>
             </div>
         </div>
         <div class="h-50vh relative">

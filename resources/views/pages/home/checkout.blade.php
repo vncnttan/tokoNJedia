@@ -167,7 +167,7 @@
             let count = 0;
             @foreach($carts as $cart)
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
-            count += 1;
+                count += 1;
             @endforeach
 
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());

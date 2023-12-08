@@ -11,12 +11,13 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\LoggedIn;
 use App\Models\ElectricTransactionDetail;
 use App\Models\ProductVariant;
+use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Spatie\Csp\AddCspHeaders;
@@ -56,7 +57,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
 Route::GET('/search-page/{keyword}', [ProductController::class, 'search'])->name('search');
 Route::POST('/product', [ProductController::class, 'store']);
-Route::DELETE('/product/{id}', [ProductController::class, 'destroy']);
+Route::DELETE('/product/{id}', [ProductController::class, 'destroy'])->middleware('auth.productExists');
 
 // Carts
 Route::GET('/cart', [CartController::class, 'index'])->name('cart')->middleware('auth');
@@ -71,8 +72,8 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 
 // Merchant
 Route::GET('/merchant', [MerchantController::class, 'index'])->middleware('auth', 'auth.merchant')->name('merchant-dashboard');
-Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth', 'auth.merchant');
-Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth', 'auth.merchant')->name('merchant-create');
+Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth');
+Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth')->name('merchant-create');
 Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->middleware('auth', 'auth.merchant')->name('merchant-chat');
 Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->middleware('auth', 'auth.merchant')->name('merchant-add-product');
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth', 'auth.merchant')->name('merchant-manage-product');
@@ -94,3 +95,7 @@ Route::PATCH('/transaction/complete-order', [TransactionDetailController::class,
 Route::PATCH('/transaction/reject-order', [TransactionDetailController::class, 'rejectOrder'])->middleware('auth');
 Route::PATCH('/transaction/shipment-done', [TransactionDetailController::class, 'shipmentDone'])->middleware('auth');
 Route::POST('/transaction/electricity', [ElectricTransactionDetailController::class, 'electricOrder'])->middleware('auth');
+
+// Review
+Route::GET('/review/{transactionId}/{productId}/{variantId}', [RatingController::class, 'index'])->middleware('auth', 'createReviewMiddleware')->name('review');
+Route::POST('/review', [RatingController::class, 'addReview'])->middleware('auth');

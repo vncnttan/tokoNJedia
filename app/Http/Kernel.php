@@ -3,12 +3,14 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CreateReviewMiddleware;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\Guest;
 use App\Http\Middleware\HaveLocation;
 use App\Http\Middleware\MerchantExists;
 use App\Http\Middleware\MerchantMiddleware;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
+use App\Http\Middleware\ProductExists;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
@@ -95,6 +97,8 @@ class Kernel extends HttpKernel
         'auth.location' => HaveLocation::class,
         'auth.merchant' => MerchantMiddleware::class,
         'auth.merchantExists' => MerchantExists::class,
+        'auth.productExists' => ProductExists::class,
+        'createReviewMiddleware' => CreateReviewMiddleware::class,
     ];
 
 }
