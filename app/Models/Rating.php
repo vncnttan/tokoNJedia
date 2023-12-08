@@ -21,10 +21,14 @@ class Rating extends Model
     ];
     public function User(): BelongsTo
     {
-        return $this->belongsTo(User::class, "user_id");
+        return $this->belongsTo(User::class, "user_id", 'id');
     }
-    public function Product(): BelongsTo
+    public function ProductVariant(): BelongsTo
     {
-        return $this->belongsTo(Product::class, "product_id");
+        return $this->belongsTo(Product::class, "product_id", "id");
+    }
+    public function Transaction(): BelongsTo
+    {
+        return $this->belongsTo(TransactionHeader::class, "transaction_id", "id");
     }
 }

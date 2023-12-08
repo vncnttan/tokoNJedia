@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Rating;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Rating>
+ * @extends Factory<Rating>
  */
 class RatingFactory extends Factory
 {
