@@ -17,7 +17,7 @@ class MerchantExists
      * @param Closure(Request): (Response|RedirectResponse) $next
      * @return Response|RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
         $merchantId = $request->route()->parameter('id');
         if ($merchantId != null) {

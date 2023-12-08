@@ -23,6 +23,7 @@ class CreateReviewMiddleware
         $productId = $request->route()->parameter('productId');
 
         $userId = auth()->user()->id;
+        
         $transactionDetail = TransactionDetail::whereHas('transactionHeader', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })

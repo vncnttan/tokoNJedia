@@ -7,7 +7,7 @@
         <div class="flex flex-col gap-5">
             <div class="border-2 border-gray-500 border-opacity-10 p-4 flex flex-row gap-8 rounded-xl">
                 <div class="xl:flex hidden flex-col gap-6">
-                    Test
+                    {{ $transactionDetail }}
                 </div>
             </div>
         </div>

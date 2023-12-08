@@ -38,8 +38,8 @@ class ProductVariant extends Model
         return $this->hasMany(TransactionDetail::class);
     }
 
-    public function Ratings() : HasMany
-    {
-        return $this->hasMany(Rating::class);
-    }
+//    public function Ratings() : HasMany
+//    {
+//        return $this->hasMany(Rating::class);
+//    }
 }

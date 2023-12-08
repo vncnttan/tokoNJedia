@@ -97,5 +97,5 @@ Route::PATCH('/transaction/shipment-done', [TransactionDetailController::class, 
 Route::POST('/transaction/electricity', [ElectricTransactionDetailController::class, 'electricOrder'])->middleware('auth');
 
 // Review
-Route::GET('/review/{transactionId}/{productId}/{variantId}', [RatingController::class, 'index'])->middleware('auth', 'createReviewMiddleware')->name('review');
+Route::GET('/review/{transactionId}/{productId}', [RatingController::class, 'index'])->middleware('auth', 'createReviewMiddleware')->name('review');
 Route::POST('/review', [RatingController::class, 'addReview'])->middleware('auth');
