@@ -70,14 +70,14 @@ Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // Merchant
-Route::GET('/merchant', [MerchantController::class, 'index'])->middleware('auth')->name('merchant-dashboard');
-Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth');
-Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth')->name('merchant-create');
-Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->middleware('auth')->name('merchant-chat');
-Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->middleware('auth')->name('merchant-add-product');
-Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth')->name('merchant-manage-product');
-Route::GET('/merchant/transactions', [MerchantController::class, 'merchantTransactions'])->name('merchant-transaction');
-Route::GET('/merchant/{id}', [MerchantController::class, 'homepage'])->middleware('auth')->name('merchant-homepage');
+Route::GET('/merchant', [MerchantController::class, 'index'])->middleware('auth', 'auth.merchant')->name('merchant-dashboard');
+Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth', 'auth.merchant');
+Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth', 'auth.merchant')->name('merchant-create');
+Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->middleware('auth', 'auth.merchant')->name('merchant-chat');
+Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->middleware('auth', 'auth.merchant')->name('merchant-add-product');
+Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth', 'auth.merchant')->name('merchant-manage-product');
+Route::GET('/merchant/transactions', [MerchantController::class, 'merchantTransactions'])->middleware('auth', 'auth.merchant')->name('merchant-transaction');
+Route::GET('/merchant/{id}', [MerchantController::class, 'homepage'])->middleware('auth', 'auth.merchantExists')->name('merchant-homepage');
 
 // Product Variant
 Route::DELETE('/product-variant/{id}', [ProductVariantController::class, 'destroy'])->middleware('auth');

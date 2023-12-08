@@ -6,6 +6,8 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\Guest;
 use App\Http\Middleware\HaveLocation;
+use App\Http\Middleware\MerchantExists;
+use App\Http\Middleware\MerchantMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\ValidateSignature;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -85,6 +87,8 @@ class Kernel extends HttpKernel
         'verified' => EnsureEmailIsVerified::class,
         'auth.guest' => Guest::class,
         'auth.location' => HaveLocation::class,
+        'auth.merchant' => MerchantMiddleware::class,
+        'auth.merchantExists' => MerchantExists::class,
     ];
 
 }

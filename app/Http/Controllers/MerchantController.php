@@ -16,10 +16,6 @@ class MerchantController extends Controller
 {
     public function index()
     {
-        // TODO: CREATE MIDDLEWARE FOR THIS
-        if (Auth::user()->Merchant == null) {
-            return redirect('/merchant/create');
-        }
         $merchantId = Auth::user()->Merchant->id;
         $pendingOrders = TransactionDetail::whereHas('product', function ($query) use ($merchantId) {
             $query->where('merchant_id', $merchantId);

@@ -94,7 +94,7 @@
                                         Total Price
                                     </div>
                                     <div class="font-bold">
-                                        Rp. {{ formatPrice($t->productVariant->price + shipmentPriceCalculate(
+                                        Rp. {{ formatPrice($t->productVariant->price * $t->quantity + shipmentPriceCalculate(
                                                                                                 $t->transactionHeader->location['latitude'],
                                                                                                 $t->transactionHeader->location['longitude'],
                                                                                                 $t->product->merchant->location->first()->latitude,
