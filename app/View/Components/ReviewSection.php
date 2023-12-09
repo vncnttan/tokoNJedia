@@ -26,7 +26,7 @@ class ReviewSection extends Component
      */
     public function render()
     {
-        $Ratings = Rating::with(['user', 'transactionHeader', 'productVariant'])
+        $Ratings = Rating::with(['user', 'transactionHeader'])
             ->where('product_id', $this->productId)
             ->get();
         return view('components.review-section');

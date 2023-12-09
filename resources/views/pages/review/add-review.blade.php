@@ -7,7 +7,9 @@
         <h1 class="font-bold text-3xl">
             Add Review
         </h1>
-        <div class="flex flex-col gap-12 border-gray-500 rounded-xl border-opacity-10 border-2 p-12">
+        <form action="/review" method="POST"
+              class="flex flex-col gap-12 border-gray-500 rounded-xl border-opacity-10 border-2 p-12">
+            @csrf
             <div class="flex flex-row gap-8">
                 <div class="flex flex-col xl:flex-row justify-between w-full place-items-center">
                     <div class="flex flex-row gap-4 place-items-center">
@@ -65,17 +67,25 @@
             </div>
             <div class="w-full flex justify-between items-center gap-4 flex-col xl:flex-row">
                 <div class="xl:w-64 w-full flex flex-col justify-start text-start items-center gap-1 flex-wrap">
-                    <h1 class="w-full text-lg text-gray-400 font-semibold">Message <span class="text-red-600">*</span> </h1>
+                    <h1 class="w-full text-lg text-gray-400 font-semibold">Message <span class="text-red-600">*</span>
+                    </h1>
                 </div>
                 <label for="message" class="w-full">
-                    <textarea name="message" class="w-full p-1 h-24 border-gray-500 border-2 rounded-md border-opacity-30" placeholder="Review Message"> </textarea>
+                    <textarea name="message"
+                              class="w-full p-1 h-24 border-gray-500 border-2 rounded-md border-opacity-30"
+                              placeholder="Review Message"> </textarea>
                 </label>
             </div>
 
-            <button class="p-2 bg-green-500 rounded-md text-white font-semibold">
+            <input type="hidden" id="rating" name="rating" value="0">
+            <input type="hidden" id="transaction_id" name="transaction_id"
+                   value="{{ $transactionDetail->transaction_id }}">
+            <input type="hidden" id="product_id" name="product_id" value="{{ $transactionDetail->product->id }}">
+
+            <button type="submit" class="py-2 px-4 !bg-green-500 w-fit rounded-md text-white font-semibold">
                 Insert Review
             </button>
-        </div>
+        </form>
     </div>
 
     <style>
@@ -99,14 +109,17 @@
             resetStars();
             const rating = event.currentTarget.dataset.rating;
             highlightStars(rating);
+            document.getElementById('rating').value = rating;
         }
 
         function onClick(event) {
+            resetStars()
             const rating = event.currentTarget.dataset.rating;
             document.querySelectorAll('.star').forEach(star => {
                 star.removeEventListener('mouseover', onMouseOver);
             });
             highlightStars(rating);
+            document.getElementById("rating").value = rating;
         }
 
         function resetStars() {

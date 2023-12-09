@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rating;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RatingController extends Controller
 {
@@ -40,8 +43,21 @@ class RatingController extends Controller
         return view('pages.review.add-review', ['transactionDetail' => $transactionDetail, 'allVariantsInTransaction' => $allVariantsInTransaction]);
     }
 
-    public function addReview()
+    public function addReview(Request $request)
     {
-        //
+        $images = $request->images;
+        $message = $request->message;
+        $rating = $request->rating;
+
+        $newRating = new Rating();
+        $newRating->id = Str::uuid();
+        $newRating->user_id = auth()->user()->id;
+        $newRating->transaction_id = $request->transaction_id;
+        $newRating->product_id = $request->product_id;
+        $newRating->rating = $rating;
+        $newRating->message = $message;
+
+        $newRating->save();
+        return redirect('/profile/transaction');
     }
 }

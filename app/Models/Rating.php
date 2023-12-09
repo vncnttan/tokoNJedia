@@ -29,7 +29,7 @@ class Rating extends Model
 //    {
 //        return $this->belongsTo(ProductVariant::class, "variant_id", "id");
 //    }
-    public function Transaction(): BelongsTo
+    public function TransactionHeader(): BelongsTo
     {
         return $this->belongsTo(TransactionHeader::class, "transaction_id", "id");
     }
