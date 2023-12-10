@@ -122,6 +122,7 @@ class MerchantController extends Controller
             $query->where('id', $merchant->id);
         })->where('status', '!=', 'pending')->where('status', '!=', 'shipping')
             ->with(['transactionHeader', 'product', 'product.merchant', 'product.productImages', 'product.merchant.location', 'shipment'])
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('pages.merchant.merchant-transaction', ['merchant' => $merchant, 'historyTransaction' => $transactionDetails]);

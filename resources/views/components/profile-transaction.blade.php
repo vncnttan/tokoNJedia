@@ -113,6 +113,7 @@
                                 </a>
                             @elseif($t->status == 'Shipping')
                                 Already received the product?
+
                                 <button
                                     onclick="onConfirmReceived('{{ $t->transactionHeader->id }}', '{{ $t->product->id }}', '{{ $t->productVariant->id }}')"
                                     class="ml-4 bg-white hover:bg-gray-100 border-[1px] text-green-600 border-green-600 py-2 px-12 rounded-md font-bold">
@@ -120,11 +121,13 @@
                                 </button>
                             @elseif($t->status == 'Completed')
                                 <div class="justify-end flex flex-row gap-2">
-                                    <a
-                                        href="/review/{{ $t->transactionHeader->id }}/{{ $t->product->id }}"
-                                        class="ml-4 bg-white hover:bg-gray-100 border-[1px] text-green-600 border-green-600 py-2 px-12 rounded-md font-bold">
-                                        Give Reviews
-                                    </a>
+                                    @can('review-product', [$t->transactionHeader->id, $t->product->id])
+                                        <a
+                                            href="/review/{{ $t->transactionHeader->id }}/{{ $t->product->id }}"
+                                            class="ml-4 bg-white hover:bg-gray-100 border-[1px] text-green-600 border-green-600 py-2 px-12 rounded-md font-bold">
+                                            Give Reviews
+                                        </a>
+                                    @endcan
                                     <a href="/product-detail/{{ $t->product->id }}"
                                        class="bg-green-600 hover:bg-green-700 py-2 px-12 text-white rounded-md font-bold">
                                         Buy Again
@@ -137,8 +140,10 @@
 
                     <div class="rounded-md flex flex-col p-6 border-gray-500 border-2 border-opacity-10 gap-4 w-full">
                         <div class="flex flex-row place-items-center gap-2 text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
                             </svg>
 
                             <div class="font-semibold">
