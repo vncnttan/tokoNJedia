@@ -30,7 +30,7 @@ class ReviewSection extends Component
     {
         $ratings = Rating::with(['user', 'transactionHeader'])
             ->where('product_id', $this->productId)
-            ->get();
+            ->paginate(5);
         $recommendedImages = RatingImage::with('rating')
             ->whereHas('rating', function ($query) {
                 $query->where('product_id', $this->productId);
