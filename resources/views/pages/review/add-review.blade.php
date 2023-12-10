@@ -63,7 +63,7 @@
                     <p class="w-full">
                         File extension allowed: .MP4, .MOV</p>
                 </div>
-                @livewire('upload-product-image', ['slot' => 5])
+                @livewire('upload-review-video', ['slot' => 5])
             </div>
             <div class="w-full flex justify-between items-center gap-4 flex-col xl:flex-row">
                 <div class="xl:w-64 w-full flex flex-col justify-start text-start items-center gap-1 flex-wrap">

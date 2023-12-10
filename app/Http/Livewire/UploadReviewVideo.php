@@ -5,23 +5,22 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class UploadProductImage extends Component
+class UploadReviewVideo extends Component
 {
     use WithFileUploads;
 
-    public $images = [];
+    public $videos = [];
     public $slot;
     public function mount($slot = 5)
     {
         $this->slot = $slot;
-        $this->images = array_fill(0, $slot, null);
+        $this->videos = array_fill(0, $slot, null);
     }
-
     public function remove($index){
-        $this->images[$index] = null;
+        $this->videos[$index] = null;
     }
     public function render()
     {
-        return view('livewire.upload-product-image');
+        return view('livewire.upload-review-video');
     }
 }
