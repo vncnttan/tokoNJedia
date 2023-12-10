@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use App\Models\Rating;
+use App\Models\RatingImage;
+use App\Models\RatingVideo;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -26,9 +28,21 @@ class ReviewSection extends Component
      */
     public function render()
     {
-        $Ratings = Rating::with(['user', 'transactionHeader'])
+        $ratings = Rating::with(['user', 'transactionHeader'])
             ->where('product_id', $this->productId)
             ->get();
-        return view('components.review-section');
+        $recommendedImages = RatingImage::with('rating')
+            ->whereHas('rating', function ($query) {
+                $query->where('product_id', $this->productId);
+            })
+            ->limit(3)
+            ->get();
+        $recommendedVideos = RatingVideo::with('rating')
+            ->whereHas('rating', function ($query) {
+                $query->where('product_id', $this->productId);
+            })
+            ->limit(3)
+            ->get();
+        return view('components.review-section', ['reviews' => $ratings, 'recommendedImages' => $recommendedImages, 'recommendedVideos' => $recommendedVideos]);
     }
 }

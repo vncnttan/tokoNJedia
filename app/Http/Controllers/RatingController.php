@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductImage;
 use App\Models\Rating;
+use App\Models\RatingImage;
+use App\Models\RatingVideo;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
+use App\Services\StorageService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class RatingController extends Controller
@@ -45,19 +50,67 @@ class RatingController extends Controller
 
     public function addReview(Request $request)
     {
-        $images = $request->images;
+        $validate = Validator::make($request->all(), [
+            'video' => 'file|mimetypes:video/avi,video/mpeg,video/quicktime,video/mp4|max:50000',
+        ]);
+
+        if ($validate->fails()) {
+            toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back()->withInput();
+        }
+
         $message = $request->message;
         $rating = $request->rating;
 
+        $ratingId = Str::uuid();
+
         $newRating = new Rating();
-        $newRating->id = Str::uuid();
+        $newRating->id = $ratingId;
         $newRating->user_id = auth()->user()->id;
         $newRating->transaction_id = $request->transaction_id;
         $newRating->product_id = $request->product_id;
         $newRating->rating = $rating;
         $newRating->message = $message;
-
         $newRating->save();
+
+
+        foreach ($request->images as $i) {
+            if ($i != null) {
+                $file = $i;
+                $image_path = "images/review/" . $request->transaction_id . '/' . auth()->user()->id . '/' . $request->product_id;
+                $res = StorageService::uploadFile($image_path, $file);
+                if ($res === null) {
+                    toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+                    return redirect()->back();
+                }
+                $rating_image = new RatingImage();
+                $rating_image->id = Str::uuid(36);
+                $rating_image->image = $res;
+                $rating_image->rating_id = $ratingId;
+                $rating_image->save();
+            }
+        }
+
+
+        if ($request->videos) {
+
+            foreach ($request->videos as $v) {
+                if ($v != null) {
+                    $file = $v;
+                    $res = StorageService::uploadFile("videos/review/" . $request->transaction_id . '/' . auth()->user->id . '/' . $request->product_id, $file);
+                    if ($res === null) {
+                        toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+                        return redirect()->back();
+                    }
+                    $rating_video = new RatingVideo();
+                    $rating_video->id = Str::uuid(36);
+                    $rating_video->video = $res;
+                    $rating_video->rating_id = $ratingId;
+                    $rating_video->save();
+                }
+            }
+        }
+
         return redirect('/profile/transaction');
     }
 }

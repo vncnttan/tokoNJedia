@@ -7,7 +7,7 @@
         <h1 class="font-bold text-3xl">
             Add Review
         </h1>
-        <form action="/review" method="POST"
+        <form action="/review" method="POST" enctype="multipart/form-data"
               class="flex flex-col gap-12 border-gray-500 rounded-xl border-opacity-10 border-2 p-12">
             @csrf
             <div class="flex flex-row gap-8">
