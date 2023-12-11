@@ -151,6 +151,7 @@
         #merchant-home-screen {
             background-image: url('https://assets.tokopedia.net/assets-tokopedia-lite/v2/icarus/kratos/0e750897.png');
             height: calc(100vh - 112px);
+            background-repeat: no-repeat;
         }
     </style>
     <script>

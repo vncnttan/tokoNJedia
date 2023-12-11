@@ -50,6 +50,17 @@
                 <div class="w-full text-end">
                     See Reply
                 </div>
+
+                @can('admin-view')
+                    <div class="flex flex-row gap-2">
+                        <button class="bg-green-500 text-white rounded-lg px-4 py-2">
+                            Approve
+                        </button>
+                        <button class="bg-red-500 text-white rounded-lg px-4 py-2">
+                            Reject
+                        </button>
+                    </div>
+                @endcan
             </div>
         @endforeach
         <div class="!fill-gray-700 text-gray-500">

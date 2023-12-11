@@ -35,6 +35,10 @@ class User extends Authenticatable
     ];
     protected $table = "users";
 
+    public function isAdmin() {
+        return Merchant::where('user_id', $this->id)->exists();
+    }
+
     public function Messages()
     {
         return $this->morphMany(Message::class, 'messageable');

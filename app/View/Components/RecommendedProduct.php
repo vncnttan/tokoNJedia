@@ -37,7 +37,7 @@ class RecommendedProduct extends Component
             ->get()
             ->map(function ($product) {
                 $product->merchant_city = $product->merchant->location[0]->city ?? 'N/A';
-                $product->average_rating = $product->ratings->avg('rating') ?? 0;
+                $product->average_rating = round($product->ratings->avg('rating') ?? 0, 2);
                 return $product;
             })->random($this->requestCount);
         return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts]);

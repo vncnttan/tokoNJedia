@@ -26,7 +26,7 @@ class ProductCatalog extends Component
                 $query->select(DB::raw("SUM(quantity)"));
             }])
             ->first();
-        $this->product->average_rating = $this->product->ratings->avg('rating') ?? 0;
+        $this->product->average_rating = round($this->product->ratings->avg('rating') ?? 0, 2);
         $this->product->rating_count = $this->product->ratings->count() ?? 0;
     }
 

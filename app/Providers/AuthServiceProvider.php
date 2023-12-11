@@ -46,6 +46,9 @@ class AuthServiceProvider extends ServiceProvider
 
             return true;
         });
+        Gate::define('admin-view', function ($user) {
+            return $user->isAdmin();
+        });
     }
 
 
