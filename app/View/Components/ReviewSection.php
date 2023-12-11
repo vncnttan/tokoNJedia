@@ -28,7 +28,7 @@ class ReviewSection extends Component
      */
     public function render()
     {
-        $ratings = Rating::with(['user', 'transactionHeader', 'ratingImages', 'ratingVideos'])
+        $ratings = Rating::with(['user', 'transactionHeader', 'ratingImages', 'ratingVideos', 'reply'])
             ->where('product_id', $this->productId)
             ->paginate(5);
         $recommendedImages = RatingImage::with('rating')

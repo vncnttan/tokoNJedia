@@ -48,7 +48,6 @@ class ProductController extends Controller
         foreach ($request->images as $i) {
             if ($i != null) {
                 $file = $i;
-                dd($file);
                 $res = StorageService::uploadFile("images/product/".$product->name, $file);
                 if ($res === null) {
                     toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);

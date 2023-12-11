@@ -46,4 +46,9 @@ class Rating extends Model
         return $this->hasMany(RatingVideo::class, "rating_id", "id");
     }
 
+    public function Reply(): HasMany
+    {
+        return $this->hasMany(RatingReply::class, "rating_id", "id");
+    }
+
 }

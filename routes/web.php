@@ -54,7 +54,7 @@ ROUTE::DELETE('/profile/location', [LocationController::class, 'deleteLocation']
 
 // Products
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->name('detail');
+Route::get('/product-detail/{id}', [HomeController::class, 'detail'])->middleware('auth.productExists')->name('detail');
 Route::GET('/search-page/{keyword}', [ProductController::class, 'search'])->name('search');
 Route::POST('/product', [ProductController::class, 'store']);
 Route::DELETE('/product/{id}', [ProductController::class, 'destroy'])->middleware('auth.productExists');
@@ -99,3 +99,4 @@ Route::POST('/transaction/electricity', [ElectricTransactionDetailController::cl
 // Review
 Route::GET('/review/{transactionId}/{productId}', [RatingController::class, 'index'])->middleware('auth', 'createReviewMiddleware')->name('review');
 Route::POST('/review', [RatingController::class, 'addReview'])->middleware('auth');
+Route::POST('/reply', [RatingController::class, 'addReply'])->middleware('auth');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductImage;
 use App\Models\Rating;
 use App\Models\RatingImage;
+use App\Models\RatingReply;
 use App\Models\RatingVideo;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
@@ -97,7 +98,7 @@ class RatingController extends Controller
             foreach ($request->videos as $v) {
                 if ($v != null) {
                     $file = $v;
-                    $res = StorageService::uploadFile("videos/review/" . $request->transaction_id . '/' . auth()->user->id . '/' . $request->product_id, $file);
+                    $res = StorageService::uploadFile("videos/review/" . $request->transaction_id . '/' . auth()->user()->id . '/' . $request->product_id, $file);
                     if ($res === null) {
                         toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
                         return redirect()->back();
@@ -112,5 +113,13 @@ class RatingController extends Controller
         }
 
         return redirect('/profile/transaction');
+    }
+
+    public function addReply(Request $request) {
+        $newReply = new RatingReply();
+        $newReply->id = Str::uuid();
+        $newReply->rating_id = $request->rating_id;
+        $newReply->reply = $request->reply;
+        $newReply->save();
     }
 }

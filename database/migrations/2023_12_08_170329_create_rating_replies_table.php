@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('rating_replies', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->uuid('rating_id');
             $table->string('reply');
             $table->foreign('rating_id')->references('id')->on('ratings')->onUpdate('CASCADE')->onDelete('CASCADE');

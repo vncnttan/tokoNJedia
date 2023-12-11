@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Merchant;
+use App\Models\Product;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,10 +21,11 @@ class ProductExists
     public function handle(Request $request, Closure $next)
     {
         $productId = $request->route()->parameter('id');
-        if ($productId != null) {
-            if (Merchant::find($productId) == null) {
-                return redirect('/404');
-            }
+        if ($productId == null) {
+            return redirect('/404');
+        }
+        if (Product::find($productId) == null) {
+            return redirect('/404');
         }
         return $next($request);
     }
