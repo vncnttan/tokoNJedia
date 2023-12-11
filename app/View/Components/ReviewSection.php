@@ -2,6 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Models\Merchant;
+use App\Models\Product;
 use App\Models\Rating;
 use App\Models\RatingImage;
 use App\Models\RatingVideo;
@@ -30,6 +32,7 @@ class ReviewSection extends Component
     {
         $ratings = Rating::with(['user', 'transactionHeader', 'ratingImages', 'ratingVideos', 'reply'])
             ->where('product_id', $this->productId)
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
         $recommendedImages = RatingImage::with('rating')
             ->whereHas('rating', function ($query) {
@@ -43,6 +46,7 @@ class ReviewSection extends Component
             })
             ->limit(3)
             ->get();
-        return view('components.review-section', ['reviews' => $ratings, 'recommendedImages' => $recommendedImages, 'recommendedVideos' => $recommendedVideos]);
+        $product = Product::with('merchant', 'merchant.user')->find($this->productId);
+        return view('components.review-section', ['reviews' => $ratings, 'recommendedImages' => $recommendedImages, 'recommendedVideos' => $recommendedVideos, 'merchant' => $product->merchant]);
     }
 }

@@ -121,5 +121,6 @@ class RatingController extends Controller
         $newReply->rating_id = $request->rating_id;
         $newReply->reply = $request->reply;
         $newReply->save();
+        return redirect()->back();
     }
 }
