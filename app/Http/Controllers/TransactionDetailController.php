@@ -49,7 +49,7 @@ class TransactionDetailController extends Controller
 
             $cart = Cart::where('user_id', $userId)->where('product_id', $detail["productId"])->where('variant_id', $detail["variantId"])->first();
 
-            $product = Product::where('id', $detail["productId"])->first();
+            $variant = ProductVariant::where('id', $detail["variantId"])->first();
 
             $transactionDetail = new TransactionDetail();
             $transactionDetail->transaction_id = $transactionId;
@@ -57,7 +57,7 @@ class TransactionDetailController extends Controller
             $transactionDetail->variant_id = $detail["variantId"];
             $transactionDetail->shipment_id = $shipmentId;
             $transactionDetail->status = 'Pending';
-            $transactionDetail->price = $product->price;
+            $transactionDetail->price = $variant->price;
             $transactionDetail->total_paid = calculateTotalPrice($cart->price,
                                             $cart->quantity, $detail["merchantId"],
                                             $request->location_id, $shipmentId, getMaximumDiscount($detail["productId"]));

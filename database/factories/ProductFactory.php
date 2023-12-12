@@ -49,12 +49,10 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $product) {
-            // Ensure at least one image is associated with the product
             ProductImage::factory()->create([
                 'product_id' => $product->id,
             ]);
 
-            // Ensure at least one variant is associated with the product
             ProductVariant::factory()->create([
                 'product_id' => $product->id,
             ]);

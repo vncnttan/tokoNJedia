@@ -5,6 +5,7 @@ use App\Models\Location;
 use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\Promo;
+use App\Models\PromoProduct;
 use App\Models\Review;
 use App\Models\Shipment;
 use Illuminate\Support\Facades\Http;
@@ -65,7 +66,7 @@ if(!function_exists('calculateTotalPrice')) {
 
 if(!function_exists("getMaximumDiscount")) {
     function getMaximumDiscount($productId) {
-        $promo = Promo::where('product_id', $productId)->first();
+        $promo = PromoProduct::where('product_id', $productId)->first();
         $flashSale = FlashSaleProduct::where('product_id', $productId)->first();
 
         $discount = 0;

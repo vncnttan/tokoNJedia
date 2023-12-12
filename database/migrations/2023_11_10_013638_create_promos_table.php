@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('promo_name');
             $table->string('promo_image');
             $table->string('promo_description');
-            $table->uuid('product_id');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
         });

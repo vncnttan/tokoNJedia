@@ -65,4 +65,9 @@ class Product extends Model
         return $products;
     }
 
+    public function PromoProducts(): HasMany
+    {
+        return $this->hasMany(PromoProducts::class);
+    }
+
 }

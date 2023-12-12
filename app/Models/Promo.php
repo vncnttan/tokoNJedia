@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Promo extends Model
 {
@@ -21,4 +22,8 @@ class Promo extends Model
         "promo_description",
     ];
 
+    public function PromoProducts(): HasMany
+    {
+        return $this->hasMany(PromoProducts::class);
+    }
 }
