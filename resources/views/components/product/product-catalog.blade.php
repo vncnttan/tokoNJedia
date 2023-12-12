@@ -82,7 +82,7 @@
                 <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-4">
                     <h1 class="font-bold text-lg">Atur Jumlah dan Catatan</h1>
                     <div class="flex flex-row gap-4 place-items-center">
-                        <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md border-gray-500">
+                        <div class="border-[1px] px-3 py-1 flex flex-row place-items-center gap-4 rounded-md border-gray-200">
                             <button id="subtract_btn" class="disabled:text-gray-500 text-green-600"
                                     onclick="subtractQuantity()">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -142,7 +142,6 @@
 
     function addToCart() {
         if (quantity > stock) {
-            // TODO: Ini harusnya dijadiin middleware
             return
         }
 
@@ -160,7 +159,14 @@
             },
             body: JSON.stringify(data),
         })
-            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                if (response.redirected) {
+                    location.href = response.url
+                } else {
+                    response.json();
+                }
+            })
             .then(() => {
                 Livewire.emit('openModal', 'add-to-cart-success-modal', data)
             })

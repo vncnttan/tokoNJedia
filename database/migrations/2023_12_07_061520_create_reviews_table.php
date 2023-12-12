@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id', 36)->primary();
             $table->uuid("user_id");
             $table->uuid("transaction_id");
-//            $table->uuid('variant_id');
+            $table->string('variant_bought');
             $table->uuid('product_id');
             $table->integer("review");
             $table->string("message");

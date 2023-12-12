@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\FlashSaleProduct;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FlashSaleProduct>
+ * @extends Factory<FlashSaleProduct>
  */
 class FlashSaleProductFactory extends Factory
 {
@@ -14,10 +17,13 @@ class FlashSaleProductFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
-            //
+            'product_id' => Product::all()->random()->id,
+            'start_date' => Carbon::yesterday()->setTime(22, 0),
+            'end_date' => Carbon::now()->addWeek()->setTime(22, 0),
+            'discount' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

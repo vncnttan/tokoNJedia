@@ -31,7 +31,6 @@ use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Spatie\Csp\AddCspHeaders;
 
 class Kernel extends HttpKernel
 {
