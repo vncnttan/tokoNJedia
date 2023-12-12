@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer("quantity");
             $table->integer("price");
             $table->string("status");
-            $table->uuid("shipment_id")->nullable();
+            $table->uuid("shipment_id");
             $table->string("promo_name")->nullable();
             $table->integer("discount")->nullable();
             $table->integer("total_paid");

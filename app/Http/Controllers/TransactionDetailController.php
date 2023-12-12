@@ -49,13 +49,19 @@ class TransactionDetailController extends Controller
 
             $cart = Cart::where('user_id', $userId)->where('product_id', $detail["productId"])->where('variant_id', $detail["variantId"])->first();
 
-            Log::alert($cart);
+            $product = Product::where('id', $detail["productId"])->first();
+
             $transactionDetail = new TransactionDetail();
             $transactionDetail->transaction_id = $transactionId;
             $transactionDetail->product_id = $detail["productId"];
             $transactionDetail->variant_id = $detail["variantId"];
             $transactionDetail->shipment_id = $shipmentId;
             $transactionDetail->status = 'Pending';
+            $transactionDetail->price = $product->price;
+            $transactionDetail->total_paid = calculateTotalPrice($cart->price,
+                                            $cart->quantity, $detail["merchantId"],
+                                            $request->location_id, $shipmentId, getMaximumDiscount($detail["productId"]));
+            $transactionDetail->discount = getMaximumDiscount($detail["productId"]);
             $transactionDetail->quantity = $cart->quantity;
             $transactionDetail->save();
 
@@ -65,7 +71,6 @@ class TransactionDetailController extends Controller
 
             $cart->delete();
         }
-
 
         return response()->json([
             'message' => 'Transaction success',
@@ -117,7 +122,6 @@ class TransactionDetailController extends Controller
             'data' => null
         ], 200);
     }
-
 
 
 }

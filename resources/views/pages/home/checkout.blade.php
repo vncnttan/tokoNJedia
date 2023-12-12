@@ -25,8 +25,8 @@
             </div>
             <div>
                 <button
-                    class="font-semibold text-gray-600 border-[1px] border-gray-500 border-opacity-30 p-2 px-4 rounded-lg"
-                    onclick="chooseOtherLocation()">
+                        class="font-semibold text-gray-600 border-[1px] border-gray-500 border-opacity-30 p-2 px-4 rounded-lg"
+                        onclick="chooseOtherLocation()">
                     Choose other address
                 </button>
             </div>
@@ -39,7 +39,7 @@
                             <div class="flex flex-col">
                                 <div class="font-bold text-base"> {{ $cart->product->merchant->name }}</div>
                                 <div
-                                    class="text-sm text-gray-600"> {{ $cart->product->merchant->location[0]->city }}</div>
+                                        class="text-sm text-gray-600"> {{ $cart->product->merchant->location[0]->city }}</div>
                             </div>
                             <div class="flex flex-row gap-4">
                                 <img src="{{ $cart->product->productImages[0]->image }}"
@@ -62,7 +62,9 @@
                                     data-cart-id="{{ $cart->product->id }}"
                                     data-merchant-lat="{{ $cart->product->merchant->location[0]->latitude }}"
                                     data-merchant-long="{{$cart->product->merchant->location[0]->longitude}}"
-                                    data-variant-id="{{ $cart->productVariant->id }}">
+                                    data-variant-id="{{ $cart->productVariant->id }}"
+                                    data-product-id="{{ $cart->product->id }}"
+                                    data-merchant-id="{{ $cart->product->merchant->id }}">
 
                                 <option class="bg-white text-black text-center" disabled selected>Shipping</option>
                                 @foreach($shipment as $s)
@@ -107,7 +109,7 @@
                     <span id="totalShipmentProduct">a</span>
                 </div>
                 <div
-                    class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
+                        class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
                     <span>Shopping Total</span>
                     <span id="totalDisplay"></span>
                 </div>
@@ -125,8 +127,8 @@
     </div>
     <div class="w-full flex border-t-[1px] border-gray-400">
         <div
-            class="text-gray-800 p-4 w-full mx-auto relative flex flex-row gap-2 justify-start place-items-center text-opacity-50 font-bold"
-            style="max-width: 1080px;">
+                class="text-gray-800 p-4 w-full mx-auto relative flex flex-row gap-2 justify-start place-items-center text-opacity-50 font-bold"
+                style="max-width: 1080px;">
             <img src="{{ asset('assets/logo/ic-toped.jpg') }}" alt="Checkout Footer" class="h-12 w-12"/>
             © 2009 - 2023
         </div>
@@ -140,7 +142,7 @@
                 user_id: user_id,
                 shipment_ids: cartSelections,
                 _token: "{{ csrf_token() }}"
-            }
+            };
 
             fetch('/transaction', {
                 method: 'POST',
@@ -149,17 +151,23 @@
                 },
                 body: JSON.stringify(data),
             })
-                .then(response => response.json())
-                .catch((error) => {
-                    console.error('Error:', error);
+                .then(response => {
+                    if (!response.ok) {
+                        return response.text().then(text => {
+                            throw new Error(text);
+                        });
+                    }
+                    return response.json();
                 })
                 .then((response) => {
-                    // location.reload()
-                    if(response.message) {
-                        console.log('Success adding to transaction')
-                        location.href = '/profile/transaction'
+                    if (response.message) {
+                        console.log('Success adding to transaction');
+                        location.href = '/profile/transaction';
                     }
                 })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
 
         function updateSubtotal() {
@@ -167,7 +175,7 @@
             let count = 0;
             @foreach($carts as $cart)
                 subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
-                count += 1;
+            count += 1;
             @endforeach
 
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
@@ -194,7 +202,7 @@
         }
 
         {{--        Script to deal with changing location chosen--}}
-        function chooseOtherLocation() {
+            window.chooseOtherLocation = function () {
             Livewire.emit('openModal', 'checkout-change-location-modal', {selected_location_id: $selected_location.id})
         }
 
@@ -245,6 +253,8 @@
             let merchantLat = select.getAttribute('data-merchant-lat');
             let merchantLong = select.getAttribute('data-merchant-long');
             let variantId = select.getAttribute('data-variant-id');
+            let productId = select.getAttribute('data-product-id');
+            let merchantId = select.getAttribute('data-merchant-id');
 
             let selectedOption = select.options[select.selectedIndex];
 
@@ -269,6 +279,8 @@
             cartSelections[cartId].productId = cartId;
             cartSelections[cartId].variantId = variantId;
             cartSelections[cartId].shipmentPrice = shipmentPrice;
+            cartSelections[cartId].productId = productId;
+            cartSelections[cartId].merchantId = merchantId;
             updateSubtotal()
         }
 

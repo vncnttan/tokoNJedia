@@ -1,7 +1,12 @@
 <?php
 
+use App\Models\FlashSaleProduct;
+use App\Models\Location;
+use App\Models\Merchant;
 use App\Models\Product;
+use App\Models\Promo;
 use App\Models\Review;
+use App\Models\Shipment;
 use Illuminate\Support\Facades\Http;
 
 if (!function_exists('formatPrice')) {
@@ -36,6 +41,47 @@ if (!function_exists('shipmentPriceCalculate')) {
         $distance = $angle * 6371000;
 
         return $basePrice + ($distance / 1000000) * $variablePrice;
+    }
+}
+
+if(!function_exists('calculateTotalPrice')) {
+    function calculateTotalPrice($price, $quantity, $merchantId, $userLocationId, $shipmentId, $discountPercentage): int
+    {
+        $merchant = Merchant::find($merchantId);
+        $merchantLat = $merchant->location[0]->latitude;
+        $merchantLong = $merchant->location[0]->longitude;
+
+        $userLocation = Location::find($userLocationId);
+        $userLat = $userLocation->latitude;
+        $userLong = $userLocation->longitude;
+
+        $shipment = Shipment::find($shipmentId);
+
+        $shipmentPrice = shipmentPriceCalculate($userLat, $userLong, $merchantLat, $merchantLong, $shipment->base_price, $shipment->variable_price);
+
+        return ($price * $quantity) - (($price * $quantity) * $discountPercentage / 100) + $shipmentPrice;
+    }
+}
+
+if(!function_exists("getMaximumDiscount")) {
+    function getMaximumDiscount($productId) {
+        $promo = Promo::where('product_id', $productId)->first();
+        $flashSale = FlashSaleProduct::where('product_id', $productId)->first();
+
+        $discount = 0;
+        if($promo && $flashSale) {
+            if ($promo->discount > $flashSale->discount) {
+                $discount = $promo->discount;
+            } else if ($flashSale->discount > $promo->discount) {
+                $discount = $flashSale->discount;
+            }
+        } else if ($promo) {
+            $discount = $promo->discount;
+        } else if ($flashSale) {
+            $discount = $flashSale->discount;
+        }
+
+        return $discount;
     }
 }
 
