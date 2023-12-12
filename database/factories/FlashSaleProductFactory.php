@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\ReviewImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<ReviewImage>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FlashSaleProduct>
  */
-class ReviewImageFactory extends Factory
+class FlashSaleProductFactory extends Factory
 {
     /**
      * Define the model's default state.

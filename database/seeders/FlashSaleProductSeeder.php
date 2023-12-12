@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\FlashSaleProduct;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class UserRoomsSeeder extends Seeder
+class FlashSaleProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,6 @@ class UserRoomsSeeder extends Seeder
      */
     public function run()
     {
-        //
+        FlashSaleProduct::factory()->count(10)->create();
     }
 }

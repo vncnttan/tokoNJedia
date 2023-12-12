@@ -14,7 +14,7 @@ class ShipmentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Shipment::create([
             'id' => Str::uuid(),

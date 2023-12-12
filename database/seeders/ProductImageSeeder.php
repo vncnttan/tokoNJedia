@@ -12,7 +12,7 @@ class ProductImageSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         ProductImage::factory()->count(15)->create();
     }

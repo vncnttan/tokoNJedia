@@ -16,7 +16,7 @@ class ProductCategorySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $categories = [
             'Shoes', 'Shirts', 'Pants', 'T-Shirt', 'Jeans', 'Hoodie', 'Jacket', 'Hat', 'Dress', 'Scarf',

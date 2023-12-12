@@ -13,7 +13,7 @@ class ProductPromoSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         ProductPromo::factory()->count(20)->create();
     }

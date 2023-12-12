@@ -20,8 +20,6 @@ class ProductImageFactory extends Factory
      */
     public function definition(): array
     {
-
-
         return [
             'id' => Str::uuid(),
             'image' => getRandomImageURL(),
