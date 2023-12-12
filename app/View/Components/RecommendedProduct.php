@@ -30,14 +30,14 @@ class RecommendedProduct extends Component
      */
     public function render()
     {
-        $recommendedProducts = Product::with(['merchant.location', 'ratings'])
+        $recommendedProducts = Product::with(['merchant.location', 'reviews'])
             ->withCount(['transactionDetails as sold' => function ($query) {
                 $query->select(DB::raw("SUM(quantity)"));
             }])
             ->get()
             ->map(function ($product) {
                 $product->merchant_city = $product->merchant->location[0]->city ?? 'N/A';
-                $product->average_rating = round($product->ratings->avg('rating') ?? 0, 2);
+                $product->average_review = round($product->reviews->avg('review') ?? 0, 2);
                 return $product;
             })->random($this->requestCount);
         return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts]);

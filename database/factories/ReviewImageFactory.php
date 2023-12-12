@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Rating;
+use App\Models\ReviewImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Rating>
+ * @extends Factory<ReviewImage>
  */
-class RatingFactory extends Factory
+class ReviewImageFactory extends Factory
 {
     /**
      * Define the model's default state.

@@ -11,7 +11,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MerchantController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
-use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\UserController;
@@ -97,6 +97,6 @@ Route::PATCH('/transaction/shipment-done', [TransactionDetailController::class, 
 Route::POST('/transaction/electricity', [ElectricTransactionDetailController::class, 'electricOrder'])->middleware('auth');
 
 // Review
-Route::GET('/review/{transactionId}/{productId}', [RatingController::class, 'index'])->middleware('auth', 'createReviewMiddleware')->name('review');
-Route::POST('/review', [RatingController::class, 'addReview'])->middleware('auth');
-Route::POST('/reply', [RatingController::class, 'addReply'])->middleware('auth');
+Route::GET('/review/{transactionId}/{productId}', [ReviewController::class, 'index'])->middleware('auth', 'createReviewMiddleware')->name('review');
+Route::POST('/review', [ReviewController::class, 'addReview'])->middleware('auth');
+Route::POST('/reply', [ReviewController::class, 'addReply'])->middleware('auth');

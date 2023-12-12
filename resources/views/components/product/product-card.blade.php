@@ -16,7 +16,7 @@
             </div>
             <div class="flex flex-ro place-items-center gap-1 text-xs text-gray-500">
                 {{-- SVG and Ratings Here --}}
-                {{ $product->ratings->count() }} | {{ $product->sold }} terjual
+                {{ $product->reviews->count() }} | {{ $product->sold }} terjual
             </div>
         </div>
     </div>

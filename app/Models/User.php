@@ -67,9 +67,9 @@ class User extends Authenticatable
         return $this->hasMany(TransactionHeader::class);
     }
 
-    public function Ratings(): HasMany
+    public function Reviews(): HasMany
     {
-        return $this->hasMany(Rating::class);
+        return $this->hasMany(Review::class);
     }
 
     /**

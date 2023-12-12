@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Rating extends Model
+class Review extends Model
 {
     use HasFactory;
-    protected $table = "ratings";
+    protected $table = "reviews";
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
         "user_id",
         "product_id",
-        "rating",
+        "review",
         "message"
     ];
 
@@ -37,18 +37,18 @@ class Rating extends Model
     public function Product() : BelongsTo{
         return $this->belongsTo(Product::class, "product_id", "id");
     }
-    public function RatingImages(): HasMany
+    public function ReviewImages(): HasMany
     {
-        return $this->hasMany(RatingImage::class, "rating_id", "id");
+        return $this->hasMany(ReviewImage::class, "review_id", "id");
     }
-    public function RatingVideos(): HasMany
+    public function ReviewVideos(): HasMany
     {
-        return $this->hasMany(RatingVideo::class, "rating_id", "id");
+        return $this->hasMany(ReviewVideo::class, "review_id", "id");
     }
 
     public function Reply(): HasMany
     {
-        return $this->hasMany(RatingReply::class, "rating_id", "id");
+        return $this->hasMany(ReviewReply::class, "review_id", "id");
     }
 
 }

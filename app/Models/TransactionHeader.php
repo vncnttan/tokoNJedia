@@ -38,8 +38,8 @@ class TransactionHeader extends Model
         return $this->hasMany(ElectricTransactionDetail::class, "transaction_id", "id");
     }
 
-    public function Ratings(): HasMany
+    public function Reviews(): HasMany
     {
-        return $this->hasMany(Rating::class, "transaction_id", "id");
+        return $this->hasMany(Review::class, "transaction_id", "id");
     }
 }

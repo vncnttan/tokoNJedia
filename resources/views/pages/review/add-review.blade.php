@@ -38,9 +38,9 @@
                             </div>
                         </div>
                     </div>
-                    <div id="star-rating" class="flex flex-row gap-6">
+                    <div id="star-review" class="flex flex-row gap-6">
                         @for ($i = 1; $i <= 5; $i++)
-                            <svg class="star selected" width="50" height="50" data-rating="{{ $i }}"
+                            <svg class="star selected" width="50" height="50" data-review="{{ $i }}"
                                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                       d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
@@ -77,7 +77,7 @@
                 </label>
             </div>
 
-            <input type="hidden" id="rating" name="rating" value="5">
+            <input type="hidden" id="review" name="review" value="5">
             <input type="hidden" id="transaction_id" name="transaction_id"
                    value="{{ $transactionDetail->transaction_id }}">
             <input type="hidden" id="product_id" name="product_id" value="{{ $transactionDetail->product->id }}">
@@ -107,19 +107,19 @@
 
         function onMouseOver(event) {
             resetStars();
-            const rating = event.currentTarget.dataset.rating;
-            highlightStars(rating);
-            document.getElementById('rating').value = rating;
+            const review = event.currentTarget.dataset.review;
+            highlightStars(review);
+            document.getElementById('review').value = review;
         }
 
         function onClick(event) {
             resetStars()
-            const rating = event.currentTarget.dataset.rating;
+            const review = event.currentTarget.dataset.review;
             document.querySelectorAll('.star').forEach(star => {
                 star.removeEventListener('mouseover', onMouseOver);
             });
-            highlightStars(rating);
-            document.getElementById("rating").value = rating;
+            highlightStars(review);
+            document.getElementById("review").value = review;
         }
 
         function resetStars() {
@@ -128,9 +128,9 @@
             });
         }
 
-        function highlightStars(rating) {
+        function highlightStars(review) {
             document.querySelectorAll('.star').forEach(star => {
-                if (star.dataset.rating <= rating) {
+                if (star.dataset.review <= review) {
                     star.classList.add('selected');
                 }
             });

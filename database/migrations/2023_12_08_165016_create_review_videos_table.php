@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rating_replies', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('rating_id');
-            $table->string('reply');
-            $table->foreign('rating_id')->references('id')->on('ratings')->onUpdate('CASCADE')->onDelete('CASCADE');
+        Schema::create('review_videos', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->uuid('review_id');
+            $table->string('video');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
+            $table->foreign('review_id')->references('id')->on('reviews')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rating_replies');
+        Schema::dropIfExists('review_videos');
     }
 };

@@ -20,14 +20,14 @@ class ProductCatalog extends Component
 
     public function __construct($productId)
     {
-        $this->product = Product::with(['productVariants', 'ratings', 'merchant'])
+        $this->product = Product::with(['productVariants', 'reviews', 'merchant'])
             ->where('id', $productId)
             ->withCount(['transactionDetails as sold' => function ($query) {
                 $query->select(DB::raw("SUM(quantity)"));
             }])
             ->first();
-        $this->product->average_rating = round($this->product->ratings->avg('rating') ?? 0, 2);
-        $this->product->rating_count = $this->product->ratings->count() ?? 0;
+        $this->product->average_review = round($this->product->reviews->avg('review') ?? 0, 2);
+        $this->product->review_count = $this->product->reviews->count() ?? 0;
     }
 
     /**

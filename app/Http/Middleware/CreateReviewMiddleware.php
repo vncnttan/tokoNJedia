@@ -23,17 +23,17 @@ class CreateReviewMiddleware
         $productId = $request->route()->parameter('productId');
 
         $userId = auth()->user()->id;
-        
+
         $transactionDetail = TransactionDetail::whereHas('transactionHeader', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })
-            ->with(['transactionHeader', 'transactionHeader.ratings'])
+            ->with(['transactionHeader', 'transactionHeader.reviews'])
             ->where('transaction_id', $transactionId)
             ->where('product_id', $productId)
             ->first();
 
 
-        if ($transactionDetail == null || $transactionDetail->transactionHeader->ratings->count() > 0) {
+        if ($transactionDetail == null || $transactionDetail->transactionHeader->reviews->count() > 0) {
             return redirect()->route('home');
         }
 

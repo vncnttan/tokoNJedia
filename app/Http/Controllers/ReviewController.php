@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductImage;
-use App\Models\Rating;
-use App\Models\RatingImage;
-use App\Models\RatingReply;
-use App\Models\RatingVideo;
+use App\Models\Review;
+use App\Models\ReviewImage;
+use App\Models\ReviewReply;
+use App\Models\ReviewVideo;
 use App\Models\TransactionDetail;
 use App\Models\TransactionHeader;
 use App\Services\StorageService;
@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class RatingController extends Controller
+class ReviewController extends Controller
 {
     //
     public function index($transactionId, $productId): Factory|View|Application
@@ -41,7 +41,7 @@ class RatingController extends Controller
         $transactionDetail = TransactionDetail::whereHas('transactionHeader', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })
-            ->with(['transactionHeader', 'transactionHeader.ratings', 'product', 'product.merchant', 'product.productImages', 'product.merchant.location', 'shipment', 'productVariant'])
+            ->with(['transactionHeader', 'transactionHeader.reviews', 'product', 'product.merchant', 'product.productImages', 'product.merchant.location', 'shipment', 'productVariant'])
             ->where('transaction_id', $transactionId)
             ->where('product_id', $productId)
             ->first();
@@ -61,18 +61,18 @@ class RatingController extends Controller
         }
 
         $message = $request->message;
-        $rating = $request->rating;
+        $review = $request->review;
 
-        $ratingId = Str::uuid();
+        $reviewId = Str::uuid();
 
-        $newRating = new Rating();
-        $newRating->id = $ratingId;
-        $newRating->user_id = auth()->user()->id;
-        $newRating->transaction_id = $request->transaction_id;
-        $newRating->product_id = $request->product_id;
-        $newRating->rating = $rating;
-        $newRating->message = $message;
-        $newRating->save();
+        $newReview = new Review();
+        $newReview->id = $reviewId;
+        $newReview->user_id = auth()->user()->id;
+        $newReview->transaction_id = $request->transaction_id;
+        $newReview->product_id = $request->product_id;
+        $newReview->review = $review;
+        $newReview->message = $message;
+        $newReview->save();
 
 
         foreach ($request->images as $i) {
@@ -84,11 +84,11 @@ class RatingController extends Controller
                     toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
                     return redirect()->back();
                 }
-                $rating_image = new RatingImage();
-                $rating_image->id = Str::uuid(36);
-                $rating_image->image = $res;
-                $rating_image->rating_id = $ratingId;
-                $rating_image->save();
+                $review_image = new ReviewImage();
+                $review_image->id = Str::uuid(36);
+                $review_image->image = $res;
+                $review_image->review_id = $reviewId;
+                $review_image->save();
             }
         }
 
@@ -103,11 +103,11 @@ class RatingController extends Controller
                         toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
                         return redirect()->back();
                     }
-                    $rating_video = new RatingVideo();
-                    $rating_video->id = Str::uuid(36);
-                    $rating_video->video = $res;
-                    $rating_video->rating_id = $ratingId;
-                    $rating_video->save();
+                    $review_video = new ReviewVideo();
+                    $review_video->id = Str::uuid(36);
+                    $review_video->video = $res;
+                    $review_video->review_id = $reviewId;
+                    $review_video->save();
                 }
             }
         }
@@ -116,9 +116,9 @@ class RatingController extends Controller
     }
 
     public function addReply(Request $request) {
-        $newReply = new RatingReply();
+        $newReply = new ReviewReply();
         $newReply->id = Str::uuid();
-        $newReply->rating_id = $request->rating_id;
+        $newReply->review_id = $request->review_id;
         $newReply->reply = $request->reply;
         $newReply->save();
         return redirect()->back();

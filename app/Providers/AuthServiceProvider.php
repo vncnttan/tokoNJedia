@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Product;
-use App\Models\Rating;
+use App\Models\Review;
 use App\Models\TransactionHeader;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
 
-            $review = Rating::where('transaction_id', $transactionId)->where('product_id', $productId)->where('user_id', $user->id)->first();
+            $review = Review::where('transaction_id', $transactionId)->where('product_id', $productId)->where('user_id', $user->id)->first();
             if($review !== null){
                 return false;
             }

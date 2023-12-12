@@ -35,14 +35,14 @@
                 <div class="flex flex-col gap-4">
                     <div class="flex flex-col gap-2">
                         <div class="flex flex-row gap-1">
-                            @for($i = 0; $i < $rev->rating; $i++)
+                            @for($i = 0; $i < $rev->review; $i++)
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-yellow-500"
                                      viewBox="0 0 20 20" fill="currentColor">
                                     <path
                                         d="M10 12.585l-4.243 2.415 1.618-4.92L2.93 7.17l5.305-.386L10 2l2.765 4.784 5.305.386-4.445 3.91 1.618 4.92L10 12.585z"/>
                                 </svg>
                             @endfor
-                            @for($i = 0; $i < 5 - $rev->rating; $i++)
+                            @for($i = 0; $i < 5 - $rev->review; $i++)
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-400"
                                      viewBox="0 0 20 20" fill="currentColor">
                                     <path
@@ -66,8 +66,8 @@
                             {{ $rev->message }}
                         </div>
                         <div class="flex flex-row gap-2">
-                            @if($rev->ratingImages)
-                                @foreach($rev->ratingImages as $image)
+                            @if($rev->reviewImages)
+                                @foreach($rev->reviewImages as $image)
                                     <a href="{{ $image->image }}" target="_blank">
                                         <div
                                             class="h-24 w-24 bg-gray-200 rounded-lg border-gray-500 border border-opacity-30">
@@ -77,8 +77,8 @@
                                     </a>
                                 @endforeach
                             @endif
-                            @if($rev->ratingVideos)
-                                @foreach($rev->ratingVideos as $video)
+                            @if($rev->reviewVideos)
+                                @foreach($rev->reviewVideos as $video)
                                     <a href="{{ $video->video }}" target="_blank">
                                         <div
                                             class="h-24 w-24 bg-gray-200 rounded-lg border-gray-500 border border-opacity-30">
@@ -131,7 +131,7 @@
                                 <form action="/reply" method="POST">
                                     @csrf
                                     <label>
-                                        <input hidden name="rating_id" value="{{ $rev->id }}">
+                                        <input hidden name="review_id" value="{{ $rev->id }}">
                                     </label>
                                     <div class="flex flex-row gap-2 place-items-center">
                                         <label for="reply" class="flex-grow h-full">

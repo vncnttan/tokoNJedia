@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Product;
-use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Support\Facades\Http;
 
 if (!function_exists('formatPrice')) {
@@ -39,37 +39,37 @@ if (!function_exists('shipmentPriceCalculate')) {
     }
 }
 
-if (!function_exists('calculateMerchantRating')) {
-    function calculateMerchantRating($merchantId): int
+if (!function_exists('calculateMerchantReview')) {
+    function calculateMerchantReview($merchantId): int
     {
         $products = Product::where('merchant_id', $merchantId)->get();
 
-        $totalRating = 0;
+        $totalReview = 0;
         $totalCount = 0;
 
         foreach ($products as $product) {
-            $ratings = Rating::where('product_id', $product->id)->get();
-            $productRating = 0;
+            $reviews = Review::where('product_id', $product->id)->get();
+            $productReview = 0;
             $productCount = 0;
 
-            foreach ($ratings as $rating) {
-                $productRating += $rating->rating;
+            foreach ($reviews as $review) {
+                $productReview += $review->review;
                 $productCount++;
             }
 
             if ($productCount > 0) {
-                $productAverage = $productRating / $productCount;
-                $totalRating += $productAverage;
+                $productAverage = $productReview / $productCount;
+                $totalReview += $productAverage;
                 $totalCount++;
             }
         }
 
         if ($totalCount > 0) {
-            $averageRating = $totalRating / $totalCount;
+            $averageReview = $totalReview / $totalCount;
         } else {
-            $averageRating = 0;
+            $averageReview = 0;
         }
 
-        return $averageRating;
+        return $averageReview;
     }
 }

@@ -4,9 +4,9 @@ namespace App\View\Components;
 
 use App\Models\Merchant;
 use App\Models\Product;
-use App\Models\Rating;
-use App\Models\RatingImage;
-use App\Models\RatingVideo;
+use App\Models\Review;
+use App\Models\ReviewImage;
+use App\Models\ReviewVideo;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -30,23 +30,23 @@ class ReviewSection extends Component
      */
     public function render()
     {
-        $ratings = Rating::with(['user', 'transactionHeader', 'ratingImages', 'ratingVideos', 'reply'])
+        $reviews = Review::with(['user', 'transactionHeader', 'reviewImages', 'reviewVideos', 'reply'])
             ->where('product_id', $this->productId)
             ->orderBy('created_at', 'desc')
             ->paginate(5);
-        $recommendedImages = RatingImage::with('rating')
-            ->whereHas('rating', function ($query) {
+        $recommendedImages = ReviewImage::with('review')
+            ->whereHas('review', function ($query) {
                 $query->where('product_id', $this->productId);
             })
             ->limit(3)
             ->get();
-        $recommendedVideos = RatingVideo::with('rating')
-            ->whereHas('rating', function ($query) {
+        $recommendedVideos = ReviewVideo::with('review')
+            ->whereHas('review', function ($query) {
                 $query->where('product_id', $this->productId);
             })
             ->limit(3)
             ->get();
         $product = Product::with('merchant', 'merchant.user')->find($this->productId);
-        return view('components.review-section', ['reviews' => $ratings, 'recommendedImages' => $recommendedImages, 'recommendedVideos' => $recommendedVideos, 'merchant' => $product->merchant]);
+        return view('components.review-section', ['reviews' => $reviews, 'recommendedImages' => $recommendedImages, 'recommendedVideos' => $recommendedVideos, 'merchant' => $product->merchant]);
     }
 }
