@@ -16,12 +16,11 @@ return new class extends Migration
         Schema::create('flash_sale_products', function (Blueprint $table) {
             $table->uuid('id');
             $table->uuid('product_id');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->integer('discount');
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

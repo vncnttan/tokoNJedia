@@ -21,8 +21,7 @@ return new class extends Migration
             $table->integer("price");
             $table->string("status");
             $table->uuid("shipment_id")->nullable();
-            $table->uuid("promo_id")->nullable();
-            $table->uuid("flash_sale_id")->nullable();
+            $table->string("promo_name")->nullable();
             $table->integer("discount")->nullable();
             $table->integer("total_paid");
             $table->timestamps();
@@ -30,8 +29,6 @@ return new class extends Migration
             $table->foreign("product_id")->references("id")->on("products")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("variant_id")->references("id")->on("product_variants")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->foreign("shipment_id")->references("id")->on("shipments")->onUpdate("CASCADE")->onDelete("CASCADE");
-            $table->foreign("promo_id")->references("id")->on("promos")->onUpdate("CASCADE")->onDelete("CASCADE");
-            $table->foreign("flash_sale_id")->references("id")->on("flash_sale_products")->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->primary(["transaction_id", "product_id", "variant_id"], "transaction_details_primary_key");
         });
     }
