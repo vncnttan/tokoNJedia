@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CreateReviewMiddleware;
+use App\Http\Middleware\CustomerMiddleware;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\Guest;
 use App\Http\Middleware\HaveLocation;
@@ -97,6 +98,7 @@ class Kernel extends HttpKernel
         'auth.merchant' => MerchantMiddleware::class,
         'auth.merchantExists' => MerchantExists::class,
         'auth.productExists' => ProductExists::class,
+        'auth.customer' => CustomerMiddleware::class,
         'createReviewMiddleware' => CreateReviewMiddleware::class,
     ];
 

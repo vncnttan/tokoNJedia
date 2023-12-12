@@ -73,7 +73,7 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 // Merchant
 Route::GET('/merchant', [MerchantController::class, 'index'])->middleware('auth', 'auth.merchant')->name('merchant-dashboard');
 Route::POST('/merchant', [MerchantController::class, 'store'])->middleware('auth');
-Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth')->name('merchant-create');
+Route::GET('/merchant/create', [MerchantController::class, 'create'])->middleware('auth', 'auth.customer')->name('merchant-create');
 Route::GET('/merchant/chat', [MerchantController::class, 'chat'])->middleware('auth', 'auth.merchant')->name('merchant-chat');
 Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->middleware('auth', 'auth.merchant')->name('merchant-add-product');
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth', 'auth.merchant')->name('merchant-manage-product');
