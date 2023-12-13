@@ -7,7 +7,7 @@
 @else
     <div class="w-3/4 h-full  bg-slate-50 flex flex-col justify-start items-start">
         <div class="w-full sticky top-0 h-20 flex justify-start items-center p-4 gap-4 border-b-2 border-gray-100">
-            <img class="w-12 h-12 object-cover rounded-full " src="{{ $user->image ?? Auth::user()->image }}"
+            <img class="w-12 h-12 object-cover rounded-full " src="{{ asset($user->image) ?? asset('assets/logo/logo.png') }}"
                 alt="">
             <h1 class="text-lg font-semibold text-black">{{ $user->username ?? Auth::user()->username }}</h1>
         </div>
@@ -18,7 +18,7 @@
                         <div class="chat chat-end">
                             <div class="chat-image avatar">
                                 <div class="w-10 rounded-full">
-                                    <img alt="Tailwind CSS chat bubble component" src="{{ $m->Messageable->image }}" />
+                                    <img alt="Tailwind CSS chat bubble component" src="{{ $m->Messageable->image ? asset($m->Messageable->image) : asset('assets/logo/logo.png') }}" />
                                 </div>
                             </div>
                             <div class="chat-header">
@@ -33,7 +33,7 @@
                         <div class="chat chat-start">
                             <div class="chat-image avatar">
                                 <div class="w-10 rounded-full">
-                                    <img alt="Tailwind CSS chat bubble component" src="{{ $m->Messageable->image }}" />
+                                    <img alt="Tailwind CSS chat bubble component" src="{{ $m->Messageable->image ? asset($m->Messageable->image) : asset('assets/logo/logo.png')}}" />
                                 </div>
                             </div>
                             <div class="chat-header">
@@ -51,7 +51,9 @@
         </div>
         <form wire:submit.prevent='send'
             class="w-full sticky bottom-0 h-20 border-t-2 border-gray-100 flex justify-center items-center gap-4 p-4">
-            <input wire:model='message' class="input-style w-full" type="text">
+            <label class="w-full">
+                <input wire:model='message' class="input-style w-full" type="text" placeholder="Send something as {{ auth()->user()->Merchant->name }} store...">
+            </label>
             <button wire:click='send' class="p-2 rounded-full bg-green-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="#ffffff" class="w-6 h-6">

@@ -19,7 +19,7 @@ class OthersIdMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if ($request->route('id') == Merchant::where('user_id', auth()->user()->id)->first()->id) {
+        if ($request->route('id') == Merchant::where('user_id', auth()->user()->id)->first()?->id) {
             return redirect('404');
         }
         return $next($request);

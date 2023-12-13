@@ -12,7 +12,9 @@
                     <div class="w-full flex justify-between items-center">
                         <h1 class="text-xl text-black font-bold">Chats</h1>
                     </div>
-                    <input wire:model='search' class="w-full input-style" type="text">
+                    <label class="w-full">
+                        <input wire:model='search' class="w-full input-style" type="text" placeholder="Search user">
+                    </label>
                 </div>
                 <div class="w-full h-full flex flex-col gap-1 p-2 overflow-y-auto">
                     @foreach ($rooms as $room)
@@ -23,7 +25,7 @@
                             class="w-full p-2 flex justify-start items-center gap-2 hover:bg-gray-200 rounded-lg cursor-pointer"
                             wire:click="getRoom('{{ $user->id }}')">
                             <div class="w-12 h-12 rounded-full">
-                                <img class="w-full h-full rounded-full object-cover" src="{{ $user->image }}"
+                                <img class="w-full h-full rounded-full object-cover" src="{{ asset($user->image) ?? asset('assets/logo/logo.png') }}"
                                     alt="">
                             </div>
                             <div class="w-full flex flex-col justify-start items-start  text-start ">
