@@ -9,6 +9,17 @@
 
 ## About tokoNJedia
 
+How to run this project:
+- Clone this project
+- Run `composer install`
+- Run `php artisan migrate:fresh --seed`
+- Run `php artisan storage:link`
+- Run `npm install`
+- Run `npm run dev`
+- Run `php artisan websockets:serve`
+- Run `php artisan serve`
+- Open `localhost:8000
+
 TokoNJedia
 Laravel Core Training BP :]
 
