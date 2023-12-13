@@ -23,7 +23,7 @@ class FlashSaleProductFactory extends Factory
             'product_id' => Product::all()->random()->id,
             'start_date' => Carbon::yesterday()->setTime(22, 0),
             'end_date' => Carbon::now()->addWeek()->setTime(22, 0),
-            'discount' => $this->faker->numberBetween(1, 100),
+            'discount' => $this->faker->numberBetween(50, 100),
         ];
     }
 }

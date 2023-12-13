@@ -39,8 +39,10 @@ class PromoFactory extends Factory
         return $this->afterCreating(function (Promo $promo) {
             for ($i = 0; $i < 5; $i++) {
                 ProductPromo::create([
+                    'id' => Str::uuid(),
                     'promo_id' => $promo->id,
                     'product_id' => Product::all()->random()->id,
+                    'discount' => $this->faker->numberBetween(25, 40),
                 ]);
             }
         });
