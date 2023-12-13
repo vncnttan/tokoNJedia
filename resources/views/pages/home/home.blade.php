@@ -49,7 +49,12 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-col gap-5">
+        <div>
+            <h1 class="font-bold text-xl"> Flash Sale </h1>
+            <x-flash-sale-product-section/>
+        </div>
+        <div class="flex flex-col">
+            <h1 class="font-bold text-xl"> Based on your activity </h1>
             <x-recommended-product/>
         </div>
     </div>

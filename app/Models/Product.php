@@ -67,7 +67,12 @@ class Product extends Model
 
     public function PromoProducts(): HasMany
     {
-        return $this->hasMany(PromoProducts::class);
+        return $this->hasMany(PromoProduct::class, "product_id", "id");
+    }
+
+    public function FlashSaleProducts(): HasMany
+    {
+        return $this->hasMany(FlashSaleProduct::class, "product_id", "id");
     }
 
 }
