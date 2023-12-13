@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Cart;
 use App\Models\Merchant;
 use Bezhanov\Faker\ProviderCollectionHelper;
 use Illuminate\Contracts\Foundation\Application;
@@ -50,6 +51,8 @@ class Navbar extends Component
             $merchantPage = false;
         }
 
-        return view('components.navbar', ['product_names' => $productNames, 'merchant' => $merchant, 'merchantPage' => $merchantPage]);
+        $cartCount = Cart::where('user_id', Auth::user()->id)->count();
+
+        return view('components.navbar', ['product_names' => $productNames, 'merchant' => $merchant, 'merchantPage' => $merchantPage, 'cartCount' => $cartCount]);
     }
 }

@@ -90,63 +90,67 @@
                             @endif
                         </div>
                     </div>
-                    <div class="flex flex-col gap-4" x-data="{ showForm: false }">
-                        <button @click="showForm = !showForm"
-                                class="w-full justify-end flex flex-row place-items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                 stroke="currentColor" class="w-4 h-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-                            </svg>
-                            See Reply
-                        </button>
-                        <div x-show="showForm" class="flex flex-col gap-5"
-                             x-transition:enter="transition ease-out duration-500"
-                             x-transition:enter-start="transform opacity-0"
-                             x-transition:enter-end="transform opacity-100"
-                             x-transition:leave="transition ease-in duration-500"
-                             x-transition:leave-start="transform opacity-100"
-                             x-transition:leave-end="transform opacity-0">
-                            @foreach($rev->reply as $r)
-                                <div class="flex flex-col gap-2 bg-gray-100 rounded-lg p-4">
-                                    <div class="flex flex-row gap-2 place-items-center">
-                                        <img src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
-                                             class="w-6 h-6 object-cover bg-white rounded-full" alt="Image Store">
-                                        <div class="font-semibold ml-2">
-                                            {{ $merchant->name ?? 'Admin' }}
-                                        </div>
-                                        <div class="bg-green-200 p-0.5 text-green-700 text-xs font-semibold">
-                                            Seller
+                    @if($rev->reply->count() > 0 || auth()->user()->can('admin-view'))
+                        <div class="flex flex-col gap-4" x-data="{ showForm: false }">
+                            <button @click="showForm = !showForm"
+                                    class="w-full justify-end flex flex-row place-items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+                                </svg>
+                                See Reply
+                            </button>
+                            <div x-show="showForm" class="flex flex-col gap-5"
+                                 x-transition:enter="transition ease-out duration-500"
+                                 x-transition:enter-start="transform opacity-0"
+                                 x-transition:enter-end="transform opacity-100"
+                                 x-transition:leave="transition ease-in duration-500"
+                                 x-transition:leave-start="transform opacity-100"
+                                 x-transition:leave-end="transform opacity-0">
+                                @foreach($rev->reply as $r)
+                                    <div class="flex flex-col gap-2 bg-gray-100 rounded-lg p-4">
+                                        <div class="flex flex-row gap-2 place-items-center">
+                                            <img src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
+                                                 class="w-6 h-6 object-cover bg-white rounded-full" alt="Image Store">
+                                            <div class="font-semibold ml-2">
+                                                {{ $merchant->name ?? 'Admin' }}
+                                            </div>
+                                            <div class="bg-green-200 p-0.5 text-green-700 text-xs font-semibold">
+                                                Seller
+                                            </div>
+                                            <div class="text-sm">
+                                                {{ $r->created_at->diffForHumans() }}
+                                            </div>
                                         </div>
                                         <div class="text-sm">
-                                            {{ $r->created_at->diffForHumans() }}
+                                            {{ $r->reply }}
                                         </div>
                                     </div>
-                                    <div class="text-sm">
-                                        {{ $r->reply }}
-                                    </div>
-                                </div>
-                            @endforeach
+                                @endforeach
 
-                            @can('admin-view')
-                                <form action="/reply" method="POST">
-                                    @csrf
-                                    <label>
-                                        <input hidden name="review_id" value="{{ $rev->id }}">
-                                    </label>
-                                    <div class="flex flex-row gap-2 place-items-center">
-                                        <label for="reply" class="flex-grow h-full">
-                                            <input type="text" name="reply"
-                                                   class="p-2 h-full border border-gray-500 rounded-lg w-full"
-                                                   placeholder="Reply to this review">
+                                @can('admin-view')
+                                    <form action="/reply" method="POST">
+                                        @csrf
+                                        <label>
+                                            <input hidden name="review_id" value="{{ $rev->id }}">
                                         </label>
-                                        <button class="bg-gray-500 rounded-lg text-white px-4 py-2">
-                                            Reply
-                                        </button>
-                                    </div>
-                                </form>
-                            @endcan
+                                        <div class="flex flex-row gap-2 place-items-center">
+                                            <label for="reply" class="flex-grow h-full">
+                                                <input type="text" name="reply"
+                                                       class="p-2 h-full border border-gray-500 rounded-lg w-full"
+                                                       placeholder="Reply to this review">
+                                            </label>
+                                            <button class="bg-gray-500 rounded-lg text-white px-4 py-2">
+                                                Reply
+                                            </button>
+                                        </div>
+                                    </form>
+                                @endcan
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         @endforeach
