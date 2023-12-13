@@ -86,7 +86,7 @@ Route::GET('/merchant/{id}/products', [MerchantController::class, 'merchantProdu
 
 // Chat
 Route::GET('/chat', [ChatController::class, 'index'])->middleware('auth')->name('chat');
-Route::GET('/chat/{id}', [ChatController::class, 'index'])->middleware('auth');
+Route::GET('/chat/{id}', [ChatController::class, 'index'])->middleware('auth', 'othersId');
 
 // Transaction
 Route::POST('/transaction', [TransactionDetailController::class, 'addTransaction']);

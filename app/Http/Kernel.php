@@ -10,6 +10,7 @@ use App\Http\Middleware\Guest;
 use App\Http\Middleware\HaveLocation;
 use App\Http\Middleware\MerchantExists;
 use App\Http\Middleware\MerchantMiddleware;
+use App\Http\Middleware\OthersIdMiddleware;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\ProductExists;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -100,6 +101,7 @@ class Kernel extends HttpKernel
         'auth.productExists' => ProductExists::class,
         'auth.customer' => CustomerMiddleware::class,
         'createReviewMiddleware' => CreateReviewMiddleware::class,
+        'othersId' => OthersIdMiddleware::class,
     ];
 
 }
