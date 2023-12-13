@@ -39,20 +39,21 @@ class AuthController extends Controller
 
     }
     public function register(Request $request){
-
         $messages = [
             'email.required' => 'All Fields Must Be Filled',
             'email.unique' => 'Email Has Already Been Taken',
-            'email.ends_with' => 'Email Must Ends With @gmail.com',
-            'email.doesnt_start_with' => 'Email Must Not Start With @gmail.com',
+            'email.ends_with' => 'Email Must Ends With .com',
+            'email.doesnt_start_with' => 'Email Must Not Start With .com',
             'password.required' => 'All Fields Must Be Filled',
             'password.regex' => 'Password Must Contain At Least 1 Lowercase, 1 Uppercase, 1 Number',
             'password.min' => 'Password Must Be At Least 5 Characters Long',
             'password.max' => 'Password Must Not Be Longer Than 20 Characters',
+            'username.unique' => 'Username Has Already Been Taken',
+            'username.required' => 'All Fields Must Be Filled',
         ];
 
         $validate = Validator::make($request->all(), [
-            'email' => ['required', 'unique:users,email', 'ends_with:@gmail.com', 'doesnt_start_with:@gmail.com'],
+            'email' => ['required', 'unique:users,email', 'ends_with:.com', 'doesnt_start_with:.com'],
             'password' => ['required',
             'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
             'min:5',
@@ -67,6 +68,7 @@ class AuthController extends Controller
         $user->id = Str::uuid();
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->username = $request->username;
         $user->save();
         return redirect('/login');
     }

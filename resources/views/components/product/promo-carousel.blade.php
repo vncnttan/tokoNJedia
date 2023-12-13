@@ -10,15 +10,15 @@
     </div>
 
     <div class="absolute z-50 flex space-x-1 -translate-x-1/2 bottom-5 left-0 pl-24">
-        <button type="button" class="w-2 h-2 rounded-full" aria-current="true" aria-label="Slide 1"
+        <button class="w-2 h-2 rounded-full bg-gray-500" aria-current="true" aria-label="Slide 1"
                 data-carousel-slide-to="0"></button>
-        <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 2"
+        <button class="w-2 h-2 rounded-full bg-gray-500" aria-current="false" aria-label="Slide 2"
                 data-carousel-slide-to="1"></button>
-        <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 3"
+        <button class="w-2 h-2 rounded-full bg-gray-500" aria-current="false" aria-label="Slide 3"
                 data-carousel-slide-to="2"></button>
-        <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 4"
+        <button class="w-2 h-2 rounded-full bg-gray-500" aria-current="false" aria-label="Slide 4"
                 data-carousel-slide-to="3"></button>
-        <button type="button" class="w-2 h-2 rounded-full" aria-current="false" aria-label="Slide 5"
+        <button class="w-2 h-2 rounded-full bg-gray-500" aria-current="false" aria-label="Slide 5"
                 data-carousel-slide-to="4"></button>
     </div>
 

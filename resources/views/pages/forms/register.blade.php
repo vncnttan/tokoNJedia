@@ -49,10 +49,12 @@
                         <form action="/register" method="POST" class="w-full h-full text-sm flex flex-col gap-1">
                             @csrf
                             <label for="emailInput">Email</label>
-                            <input type="text" name="email" id="emailInput" class="input-style">
-                            <p class="text-gray-400">Example: email@tokonjedia.com</p>
+                            <input type="text" name="email" id="emailInput" class="input-style" placeholder="Input Email">
+                            <p class="text-gray-400">Example: email@gmail.com</p>
                             <label for="passwordInput">Password</label>
-                            <input type="password" name="password" id="passwordInput" class="input-style">
+                            <input type="password" name="password" id="passwordInput" class="input-style" placeholder="Input Password">
+                            <label for="usernameInput">Username</label>
+                            <input type="text" name="username" id="usernameInput" class="input-style" placeholder="Input Username">
                             <p class="text-gray-400">Requirements:</p>
                             @if ($errors->any())
                                 <p class="text-red-500 w-full flex justify-center">
