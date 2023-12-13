@@ -93,6 +93,26 @@
                     Mitra
                 </button>
             </a>
+            <div class="font-bold text-black text-xl mt-5">
+                Developer
+            </div>
+            <div class="flex flex-row gap-4">
+                <a href="https://www.instagram.com/vncnt_tan/" class="hover:text-green-600 text-sm" target="_blank">
+                    <button class="text-left">
+                        NJ23-1
+                    </button>
+                </a>
+                <a href="https://www.instagram.com/r.i.c.c.a.r.d.o_4/" class="hover:text-green-600 text-sm" target="_blank">
+                    <button class="text-left">
+                        CX23-1
+                    </button>
+                </a>
+                <a href="https://www.instagram.com/d4ve_p/" class="hover:text-green-600 text-sm" target="_blank">
+                    <button class="text-left">
+                        PB23-1
+                    </button>
+                </a>
+            </div>
         </div>
         <div class="lg:flex flex-col justify-center items-center text-green-500 font-semibold text-center hidden xl:px-20 px-5">
             <img src="{{ asset('assets/footer/footer_img.png') }}" class="h-48 w-auto object-cover" alt="Footer image">
