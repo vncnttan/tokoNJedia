@@ -1,4 +1,4 @@
-<div class="flex flex-col h-fit pb-12 gap-5">
+<div class="flex flex-col h-fit gap-5">
     <div class="flex flex-row h-fit w-full gap-6 place-items-end">
         <div class="flex flex-col h-fit">
             <h1 class="font-bold text-xl"> Flash Sale </h1>
@@ -50,11 +50,29 @@
 <script>
     const currentDate = new Date()
     const startTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 20, 0, 0).getTime();
-    const endTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 22, 0, 0).getTime();
+    const endTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 24, 0, 0).getTime();
 
     function updateCountdown() {
         const currentTime = new Date().getTime();
-        const timeDifference = endTime - currentTime;
+        let timeDifference;
+
+        if(currentTime > startTime && currentTime < endTime) {
+            timeDifference = endTime - currentTime;
+            document.getElementById('hour-count-down').classList.add('bg-red-500');
+            document.getElementById('minute-count-down').classList.add('bg-red-500');
+            document.getElementById('second-count-down').classList.add('bg-red-500');
+            document.getElementById('hour-count-down').classList.remove('bg-gray-400');
+            document.getElementById('minute-count-down').classList.remove('bg-gray-400');
+            document.getElementById('second-count-down').classList.remove('bg-gray-400');
+        } else {
+            timeDifference = startTime - currentTime;
+            document.getElementById('hour-count-down').classList.add('bg-gray-400');
+            document.getElementById('minute-count-down').classList.add('bg-gray-400');
+            document.getElementById('second-count-down').classList.add('bg-gray-400');
+            document.getElementById('hour-count-down').classList.remove('bg-red-500');
+            document.getElementById('minute-count-down').classList.remove('bg-red-500');
+            document.getElementById('second-count-down').classList.remove('bg-red-500');
+        }
 
         if (timeDifference > 0) {
             const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
