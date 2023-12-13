@@ -50,7 +50,6 @@
             </div>
         </div>
         <div>
-            <h1 class="font-bold text-xl"> Flash Sale </h1>
             <x-flash-sale-product-section/>
         </div>
         <div class="flex flex-col">

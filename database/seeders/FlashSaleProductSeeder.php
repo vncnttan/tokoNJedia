@@ -15,6 +15,6 @@ class FlashSaleProductSeeder extends Seeder
      */
     public function run()
     {
-        FlashSaleProduct::factory()->count(10)->create();
+        FlashSaleProduct::factory()->count(5)->create();
     }
 }

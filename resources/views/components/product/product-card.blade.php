@@ -1,4 +1,4 @@
-<a href="/product-detail/{{ $product->id }}">
+<a href="/product-detail/{{ $product->id }}" class="z-10 bg-white rounded-md">
     {{-- {{ dd($product->Merchant->Location->first()) }} --}}
     <div class="w-36 h-80 md:w-48 md:h-80 rounded-md shadow-md flex flex-col">
         <img src="{{ $product->image }}" alt="{{ $product->name }}"
