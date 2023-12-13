@@ -74,27 +74,27 @@ class ReviewController extends Controller
         $newReview->message = $message;
         $newReview->save();
 
-
-        foreach ($request->images as $i) {
-            if ($i != null) {
-                $file = $i;
-                $image_path = "images/review/" . $request->transaction_id . '/' . auth()->user()->id . '/' . $request->product_id;
-                $res = StorageService::uploadFile($image_path, $file);
-                if ($res === null) {
-                    toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-                    return redirect()->back();
+        if ($request->images) {
+            foreach ($request->images as $i) {
+                if ($i != null) {
+                    $file = $i;
+                    $image_path = "images/review/" . $request->transaction_id . '/' . auth()->user()->id . '/' . $request->product_id;
+                    $res = StorageService::uploadFile($image_path, $file);
+                    if ($res === null) {
+                        toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+                        return redirect()->back();
+                    }
+                    $review_image = new ReviewImage();
+                    $review_image->id = Str::uuid(36);
+                    $review_image->image = $res;
+                    $review_image->review_id = $reviewId;
+                    $review_image->save();
                 }
-                $review_image = new ReviewImage();
-                $review_image->id = Str::uuid(36);
-                $review_image->image = $res;
-                $review_image->review_id = $reviewId;
-                $review_image->save();
             }
         }
 
 
         if ($request->videos) {
-
             foreach ($request->videos as $v) {
                 if ($v != null) {
                     $file = $v;
@@ -115,7 +115,8 @@ class ReviewController extends Controller
         return redirect('/profile/transaction');
     }
 
-    public function addReply(Request $request) {
+    public function addReply(Request $request)
+    {
         $newReply = new ReviewReply();
         $newReply->id = Str::uuid();
         $newReply->review_id = $request->review_id;

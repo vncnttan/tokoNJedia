@@ -60,14 +60,16 @@
                         </label>
                     </form>
                 </div>
-                @if(!$merchant)
-                    <div class="h-full hidden md:flex justify-center items-center lg:gap-4 gap-2">
+                <div class="h-full hidden md:flex justify-center items-center lg:gap-4 gap-2">
+                    @if(!$merchant)
                         <div class="h-full flex justify-center items-center  gap-2">
                             <a class="nav-button relative" href="/cart">
-                                <div
-                                    class="rounded-full text-xs bg-red-500 w-4 h-4 text-white font-bold absolute top-0 right-0 flex justify-center place-items-center">
-                                    {{ $cartCount }}
-                                </div>
+                                @if($cartCount > 0)
+                                    <div
+                                        class="rounded-full text-xs bg-red-500 w-4 h-4 text-white font-bold absolute top-0 right-0 flex justify-center place-items-center">
+                                        {{ $cartCount }}
+                                    </div>
+                                @endif
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" fill="#ffffff"
@@ -83,49 +85,49 @@
 
                             </a>
                         </div>
-                        @endif
-                        <div class="border-r-[1px] border-gray-400 h-8 opacity-30"></div>
-                        @auth
-                            <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/merchant"
-                               target="_blank">
-                                <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center ">
-                                    @if($merchant)
-                                        <img class="w-full h-full rounded-full object-cover object-center"
-                                             src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
-                                             alt="">
-                                    @else
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                  d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/>
-                                        </svg>
-                                    @endif
-                                </div>
-                                <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ $merchant->name ?? "Merchant" }}</h1>
-                            </a>
-                            <a class="max-w-36 px-2 flex justify-start items-center gap-2 nav-button" href="/profile">
-                                <div
-                                    class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
-                                    <img class="w-full h-full rounded-full object-cover object-center self-center"
-                                         src="{{ url(asset(Auth::user()->image)) }}"
+                    @endif
+                    <div class="border-r-[1px] border-gray-400 h-8 opacity-30"></div>
+                    @auth
+                        <a class="w-36 flex justify-start items-center gap-2 nav-button" href="/merchant"
+                           target="_blank">
+                            <div class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center ">
+                                @if($merchant)
+                                    <img class="w-full h-full rounded-full object-cover object-center"
+                                         src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}"
                                          alt="">
-                                </div>
-                                <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ Auth::user()->username }}</h1>
-                            </a>
-                        @endauth
-                        @guest
-                            <a href="/login">
-                                <button class="border-[1px] border-green-600 px-4 py-1 rounded-md text-green-600">Login
-                                </button>
-                            </a>
-                            <a href="/register">
-                                <button
-                                    class="bg-green-600 px-4 py-1 border-[1px] border-green-600 rounded-md text-white font-semibold">
-                                    Register
-                                </button>
-                            </a>
-                        @endguest
-                    </div>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/>
+                                    </svg>
+                                @endif
+                            </div>
+                            <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ $merchant->name ?? "Merchant" }}</h1>
+                        </a>
+                        <a class="max-w-36 px-2 flex justify-start items-center gap-2 nav-button" href="/profile">
+                            <div
+                                class="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-gray-50">
+                                <img class="w-full h-full rounded-full object-cover object-center self-center"
+                                     src="{{ url(asset(Auth::user()->image)) }}"
+                                     alt="">
+                            </div>
+                            <h1 class="text-md text-black whitespace-nowrap overflow-hidden max-w-full">{{ Auth::user()->username }}</h1>
+                        </a>
+                    @endauth
+                    @guest
+                        <a href="/login">
+                            <button class="border-[1px] border-green-600 px-4 py-1 rounded-md text-green-600">Login
+                            </button>
+                        </a>
+                        <a href="/register">
+                            <button
+                                class="bg-green-600 px-4 py-1 border-[1px] border-green-600 rounded-md text-white font-semibold">
+                                Register
+                            </button>
+                        </a>
+                    @endguest
+                </div>
             </div>
             <div
                 class="w-full py-1 h-full xl:pl-72 lg:px-12 hidden md:flex text-gray-500 lg:text-sm text-xs flex-row gap-4">
