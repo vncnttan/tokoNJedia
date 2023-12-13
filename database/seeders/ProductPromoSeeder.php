@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+
 use App\Models\ProductPromo;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ProductPromoSeeder extends Seeder

@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Model;
 use App\Models\Product;
 use App\Models\Promo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Model>
+ * @extends Factory<Model\>
  */
 class ProductPromoFactory extends Factory
 {

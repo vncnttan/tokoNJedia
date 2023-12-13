@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductPromo extends Model
 {
@@ -19,4 +20,14 @@ class ProductPromo extends Model
         "product_id",
         "discount",
     ];
+
+
+    public function Promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+    public function Product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
 use App\Models\Promo;
-use App\Models\PromoProducts;
 use Illuminate\Database\Seeder;
 
 class PromoSeeder extends Seeder

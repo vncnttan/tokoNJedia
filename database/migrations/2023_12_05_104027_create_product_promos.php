@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_promos', function (Blueprint $table) {
-            $table->uuid("promo_id");
+            $table->uuid("id");
             $table->uuid("product_id");
+            $table->uuid("promo_id");
             $table->integer("discount");
             $table->timestamps();
             $table->foreign("promo_id")->references("id")->on("promos")->onUpdate("CASCADE")->onDelete("CASCADE");
-            $table->foreign("product_id")->references("id")->on("products")->onUpdate("CASCADE")->onDelete("CASCADE");  
+            $table->foreign("product_id")->references("id")->on("products")->onUpdate("CASCADE")->onDelete("CASCADE");
         });
     }
 
