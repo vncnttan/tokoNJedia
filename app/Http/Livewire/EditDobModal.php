@@ -37,8 +37,8 @@ class EditDobModal extends ModalComponent
             [
                 'required' => 'The :attribute field is required',
                 'date' => 'The :attribute must be a valid date',
-                'after_or_equal' => 'The :attribute must be a date after or equal to 1970-01-01',
-                'before_or_equal' => 'The :attribute must be a date before or equal to 2009-12-31',
+                'after_or_equal' => 'Date must be after 1970-01-01',
+                'before_or_equal' => 'Date must be before 2009-12-31',
             ]
         );
         if ($validator->fails()) {

@@ -11,6 +11,6 @@
             <p class="text-sm text-gray-500">1 January 1970 - 31 December 2009</p>
         </div>
         <button
-            class="w-full text-xl text-white font-semibold   bg-green-500 rounded-lg flex justify-center p-2 box-border">Save</button>
+            class="w-full text-xl text-white font-semibold bg-green-500 rounded-lg flex justify-center p-2 box-border">Save</button>
     </form>
 </div>

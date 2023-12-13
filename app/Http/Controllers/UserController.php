@@ -41,7 +41,8 @@ class UserController extends Controller
                 ],
             ]);
             if ($validate->fails()) {
-                return redirect()->back()->toastr()->error('DOB must be filled');
+                toastr()->error('DOB must be filled');
+                return redirect()->back();
             }
             $user->dob = $request->dob;
             $user->save();
