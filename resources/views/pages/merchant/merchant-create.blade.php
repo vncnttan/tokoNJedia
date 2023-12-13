@@ -41,7 +41,9 @@
                             <div class="flex flex-col gap-2" id="form-content1">
                                 <div class="flex flex-col">
                                     <label for="phoneNumberInput" class="font-semibold text-gray-500">Phone
-                                        Number</label>
+                                        Number
+                                        <span class="text-red-600">*</span>
+                                    </label>
                                     <input id="phoneNumberInput" class="input-style pl-4" type="number" name="phone"
                                            value="{{ old('phone') }}" placeholder="08XXXXXXX"
                                            oninput="updateBtnNext1()">
@@ -65,7 +67,9 @@
                             <h1 class="font-semibold text-2xl text-black">Enter Your Merchant Name</h1>
                             <div id="form-content2" class="hidden flex flex-col gap-2">
                                 <div class="flex flex-col">
-                                    <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
+                                    <label for="nameInput" class="font-semibold text-gray-500">Merchant Name
+                                        <span class="text-red-600">*</span>
+                                    </label>
                                     <input id="nameInput" class="input-style pl-2" type="text" name="name"
                                            value="{{ old('name') }}" oninput="updateBtnNext2()"
                                            placeholder="ABC Store">
@@ -105,30 +109,43 @@
                                         <input hidden name="long" id="long" value="0"/>
                                     </div>
                                     <div class="flex flex-col">
-                                        <label for="cityInput" class="font-semibold text-gray-500">City</label>
-                                        <input id="cityInput" class="pl-2 input-style" type="text" name="city"
+                                        <label for="cityInput" class="font-semibold text-gray-500">City
+                                            <span class="text-red-600">*</span>
+                                        </label>
+                                        <input oninput="updateBtnNext3()" id="cityInput" class="pl-2 input-style"
+                                               type="text" name="city"
                                                placeholder="ex. Jakarta" value="{{ old('city') }}">
                                     </div>
                                     <div class="flex flex-col">
-                                        <label for="countryInput" class="font-semibold text-gray-500">Country</label>
-                                        <input id="countryInput" class="pl-2 input-style" type="text" name="country"
+                                        <label for="countryInput" class="font-semibold text-gray-500">Country
+                                            <span class="text-red-600">*</span>
+                                        </label>
+                                        <input oninput="updateBtnNext3()" id="countryInput" class="pl-2 input-style"
+                                               type="text" name="country"
                                                placeholder="ex. Indonesia" value="{{ old('country') }}">
                                     </div>
                                     <div class="flex flex-col">
-                                        <label for="addressInput" class="font-semibold text-gray-500">Address</label>
-                                        <input id="addressInput" class="pl-2 input-style" type="text" name="address"
+                                        <label for="addressInput" class="font-semibold text-gray-500">Address
+                                            <span class="text-red-600">*</span>
+                                        </label>
+                                        <input oninput="updateBtnNext3()" id="addressInput" class="pl-2 input-style"
+                                               type="text" name="address"
                                                placeholder="ex. Mister Potato Street No. 1"
                                                value="{{ old('address') }}">
                                     </div>
                                     <div class="flex flex-col">
-                                        <label for="postalInput" class="font-semibold text-gray-500">Postal Code</label>
-                                        <input id="postalInput" class="pl-2 input-style" type="number"
+                                        <label for="postalInput" class="font-semibold text-gray-500">Postal Code
+                                            <span class="text-red-600">*</span>
+                                        </label>
+                                        <input oninput="updateBtnNext3()" id="postalInput" class="pl-2 input-style"
+                                               type="number"
                                                name="postal_code" placeholder="ex. 14045"
                                                value="{{ old('postal_code') }}">
                                     </div>
                                     <div class="flex flex-col">
                                         <label for="notesInput" class="font-semibold text-gray-500">Notes</label>
-                                        <input id="notesInput" class="pl-2 input-style" type="text" name="notes"
+                                        <input oninput="updateBtnNext3()" id="notesInput" class="pl-2 input-style"
+                                               type="text" name="notes"
                                                placeholder="ex. White building, Yellow Roof" value="{{ old('notes') }}">
                                     </div>
                                 </div>
@@ -138,6 +155,7 @@
                                         Back
                                     </button>
                                     <button
+                                        id="button-progress-3"
                                         class="flex-grow rounded-lg !bg-green-500 text-white font-semibold p-2 box-border self-center"
                                         type="submit">Save
                                     </button>
@@ -152,6 +170,28 @@
 
     <script>
         let progress = 0;
+
+        function updateBtnNext3() {
+            const lat = document.getElementById("latitudeText");
+            const long = document.getElementById("longitudeText");
+            const cit = document.getElementById("cityInput");
+            const cont = document.getElementById("countryInput");
+            const address = document.getElementById("addressInput");
+            const postal = document.getElementById("postalInput");
+
+            if (lat.innerHTML.length < 1 || long.innerHTML.length < 1 || cit.value.length < 3 && cont.value.length < 1 || address.value.length < 1 || postal.value.length < 1) {
+                updateClasses("button-progress-3", ["!bg-gray-100", "text-gray-400"], ["bg-green-600", "text-white"]);
+                document.getElementById("button-progress-3").setAttribute("disabled", "disabled")
+            } else if (cit.value.length > 25 || cont.value.length > 25 || address.value.length > 255 || postal.value.length !== 5) {
+                updateClasses("button-progress-3", ["!bg-gray-100", "text-gray-400"], ["bg-green-600", "text-white"]);
+                document.getElementById("button-progress-3").setAttribute("disabled", "disabled")
+            } else {
+                updateClasses("button-progress-3", ["bg-green-600", "text-white"], ["!bg-gray-100"]);
+                document.getElementById("button-progress-3").removeAttribute("disabled")
+            }
+
+
+        }
 
         function updateBtnNext2() {
             const e = document.getElementById("nameInput");
@@ -171,6 +211,7 @@
                 document.getElementById("button-progress-1").setAttribute("disabled", "disabled")
             }
         }
+
 
         function updateClasses(id, classesToAdd, classesToRemove) {
             const element = document.getElementById(id);
@@ -230,6 +271,7 @@
             console.log("ONLOAD CALLED")
             updateBtnNext1();
             updateBtnNext2();
+            updateBtnNext3();
             const form = document.getElementById('registrationForm');
             form.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
