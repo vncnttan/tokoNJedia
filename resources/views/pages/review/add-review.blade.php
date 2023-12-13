@@ -81,6 +81,7 @@
             <input type="hidden" id="transaction_id" name="transaction_id"
                    value="{{ $transactionDetail->transaction_id }}">
             <input type="hidden" id="product_id" name="product_id" value="{{ $transactionDetail->product->id }}">
+            <input type="hidden" id="variant_bought" name="variant_bought" value="{{ $allVariantsInTransaction }}">
 
             <button type="submit" class="py-2 px-4 !bg-green-500 !hover:bg-green-600 w-fit rounded-md text-white font-semibold">
                 Insert Review

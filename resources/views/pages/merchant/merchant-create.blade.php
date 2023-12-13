@@ -44,7 +44,7 @@
                                         Number</label>
                                     <input id="phoneNumberInput" class="input-style pl-4" type="number" name="phone"
                                            value="{{ old('phone') }}" placeholder="08XXXXXXX"
-                                           oninput="updateBtnNext1(this)">
+                                           oninput="updateBtnNext1()">
                                     <p class="text-gray-500">Make sure your phone number is active to speed up the
                                         registration process</p>
                                 </div>
@@ -67,7 +67,7 @@
                                 <div class="flex flex-col">
                                     <label for="nameInput" class="font-semibold text-gray-500">Merchant Name</label>
                                     <input id="nameInput" class="input-style pl-2" type="text" name="name"
-                                           value="{{ old('name') }}" oninput="updateBtnNext2(this)"
+                                           value="{{ old('name') }}" oninput="updateBtnNext2()"
                                            placeholder="ABC Store">
                                     <p class="text-gray-500">Merchant name will be displayed on your products</p>
                                 </div>
@@ -153,14 +153,16 @@
     <script>
         let progress = 0;
 
-        function updateBtnNext2(e) {
+        function updateBtnNext2() {
+            const e = document.getElementById("nameInput");
             if (e.value.length > 5) {
                 updateClasses("button-progress-2", ["bg-green-600", "text-white"], ["bg-gray-100"]);
                 document.getElementById("button-progress-2").removeAttribute("disabled")
             }
         }
 
-        function updateBtnNext1(e) {
+        function updateBtnNext1() {
+            const e = document.getElementById("phoneNumberInput");
             if (e.value.startsWith(0) && e.value.length > 7) {
                 updateClasses("button-progress-1", ["bg-green-600", "text-white"], ["bg-gray-100"]);
                 document.getElementById("button-progress-1").removeAttribute("disabled")
@@ -225,7 +227,9 @@
 
         window.onload = function () {
             updateUI();
+            console.log("ONLOAD CALLED")
             updateBtnNext1();
+            updateBtnNext2();
             const form = document.getElementById('registrationForm');
             form.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {

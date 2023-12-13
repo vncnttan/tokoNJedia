@@ -37,7 +37,6 @@ class ReviewController extends Controller
 
         $allVariantsInTransaction = $transactionHeader->transactionDetails->pluck('productVariant');
 
-
         $transactionDetail = TransactionDetail::whereHas('transactionHeader', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })
@@ -69,6 +68,7 @@ class ReviewController extends Controller
         $newReview->id = $reviewId;
         $newReview->user_id = auth()->user()->id;
         $newReview->transaction_id = $request->transaction_id;
+        $newReview->variant_bought = $request->variant_bought;
         $newReview->product_id = $request->product_id;
         $newReview->review = $review;
         $newReview->message = $message;

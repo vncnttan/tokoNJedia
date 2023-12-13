@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Merchant;
 use Bezhanov\Faker\ProviderCollectionHelper;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -37,7 +38,8 @@ class Navbar extends Component
         }
         $merchant = null;
         if(Auth::check()){
-            $merchant = Auth::user()->Merchant;
+            $merchantId = Auth::user()->id;
+            $merchant = Merchant::where('user_id', $merchantId)->first();
         }
 
         $merchantRouteList = ['merchant', 'merchant/chat', 'merchant/add-product', 'merchant/manage-product'];

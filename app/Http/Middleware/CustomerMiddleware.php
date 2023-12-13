@@ -23,7 +23,8 @@ class CustomerMiddleware
             return redirect()->route('login');
         }
         $userId = auth()->user()->id;
-        if (Merchant::where('user_id', $userId)){
+        $merchant = Merchant::where('user_id', $userId)->first();
+        if ($merchant){
             return redirect()->route('home');
         }
         return $next($request);

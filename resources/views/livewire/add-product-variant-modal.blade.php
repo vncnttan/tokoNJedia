@@ -19,6 +19,6 @@
                 placeholder="Example: 50">
             <p class="w-full text-gray-500 text-xs">Product variant stock must be more than 0</p>
         </div>
-        <button  type="submit" class="w-full p-2 text-white font-semibold text-lg bg-green-500 rounded-md">Save</button>
+        <button  type="submit" class="w-full p-2 text-white font-semibold text-lg !bg-green-500 rounded-md">Save</button>
     </form>
 </div>
