@@ -298,11 +298,11 @@
             let angle = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(latDelta / 2), 2) +
                 Math.cos(latFrom) * Math.cos(latTo) * Math.pow(Math.sin(lonDelta / 2), 2)));
 
-            let distance = angle * 6371000;
+            let distance = angle * 6371;
             let numericalBasePrice = parseFloat(basePrice);
             let numericalVariablePrice = parseFloat(variablePrice);
 
-            return Math.floor(numericalBasePrice + (distance / 1000000) * numericalVariablePrice);
+            return Math.floor(numericalBasePrice + (distance / 1000) * numericalVariablePrice);
         }
     </script>
 @endsection

@@ -38,9 +38,9 @@ if (!function_exists('shipmentPriceCalculate')) {
         $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
                 cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
 
-        $distance = $angle * 6371000;
+        $distance = $angle * 6371;
 
-        return $basePrice + ($distance / 1000000) * $variablePrice;
+        return $basePrice + ($distance / 1000) * $variablePrice;
     }
 }
 
