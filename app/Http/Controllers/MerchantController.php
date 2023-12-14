@@ -58,6 +58,7 @@ class MerchantController extends Controller
             'address' => ['required', 'min:5', 'max:255'],
             'postal_code' => ['required', 'digits:5', 'numeric'],
         ], $messages);
+
         if ($validate->fails()) {
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect()->back()->withErrors($validate)->withInput($request->input);
