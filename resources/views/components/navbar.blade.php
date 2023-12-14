@@ -53,7 +53,7 @@
                     @endif
                 </div>
                 <div class="w-full h-full hidden md:flex justify-between items-center gap-4">
-                    <a class="nav-button">Category</a>
+{{--                    <a class="nav-button">Category</a>--}}
                     <form id="searchForm" class="h-full w-full" onsubmit="e.preventDefault()">
                         <label class="h-full w-full">
                             <input class="bg-white input-style w-full" type="text" id="search" placeholder="Search...">

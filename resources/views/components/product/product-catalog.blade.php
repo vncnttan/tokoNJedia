@@ -17,10 +17,10 @@
                         <span>{{ $product->average_review }}</span>
                         <span class="text-gray-500"> ({{ $product->review_count }} review) </span>
                     </div>
-                    •
-                    <div class="flex flex-row place-items-center gap-1.5">
-                        Discussion
-                    </div>
+{{--                    •--}}
+{{--                    <div class="flex flex-row place-items-center gap-1.5">--}}
+{{--                        Discussion--}}
+{{--                    </div>--}}
                 </div>
             </div>
             <div>
@@ -129,6 +129,7 @@
                         </button>
                         <button
                             id="buyNowBtn"
+                            onclick="buyNow()"
                             class="w-full py-2 rounded-md border-2 border-green-500 text-green-500 font-bold  disabled:border-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed disabled:opacity-80">
                             Buy Now
                         </button>
@@ -170,6 +171,41 @@
                     location.href = '/login';
                 } else {
                     Livewire.emit('openModal', 'add-to-cart-success-modal', data)
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+    }
+
+
+    function buyNow() {
+        if (quantity > stock) {
+            return
+        }
+
+        let data = {
+            product_id: product_id,
+            variant_id: variant_id,
+            quantity: quantity,
+            _token: "{{ csrf_token() }}"
+        }
+
+        console.log(data._token)
+
+        fetch('/cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                console.log(response)
+                if (response.status === 419 || response.redirected) {
+                    location.href = '/login';
+                } else {
+                    location.href = '/cart/shipment';
                 }
             })
             .catch((error) => {

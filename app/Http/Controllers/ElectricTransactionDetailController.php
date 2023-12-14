@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ElectricTransactionDetail;
 use App\Models\TransactionHeader;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ElectricTransactionDetailController extends Controller
@@ -15,7 +16,25 @@ class ElectricTransactionDetailController extends Controller
         $subscriptionNumber = $request->subscriptionNumber;
         $nominal = $request->nominal;
 
-//        dd($nominal);
+        $messages = [
+            'subscriptionNumber.required' => "Subscription Number Must Be Filled",
+            'subscriptionNumber.min' => "Subscription Number Must Be At Least 11 Characters",
+            'subscriptionNumber.max' => "Subscription Number Must Not More Than 12 Characters",
+            'subscriptionNumber.numeric' => "Subscription Number Must Be Numeric",
+            'nominal.required' => "Nominal Must Be Filled",
+            'nominal.numeric' => "Nominal Must Be Numeric",
+            'nominal.min' => "Nominal Must Be At Least 10000",
+            'nominal.max' => "Nominal Must Not More Than 1000000",
+        ];
+        $validate = Validator::make($request->all(), [
+            'subscriptionNumber' => ['required', 'min:11', 'max:12', 'numeric'],
+            'nominal' => ['required', 'numeric', 'min:10000', 'max:1000000'],
+        ], $messages);
+
+        if ($validate->fails()) {
+            toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back()->withErrors($validate)->withInput($request->input);
+        }
 
         $transactionId = Str::uuid();
 

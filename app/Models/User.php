@@ -35,7 +35,7 @@ class User extends Authenticatable
     ];
     protected $table = "users";
 
-    public function isAdmin() {
+    public function isMerchant() {
         return Merchant::where('user_id', $this->id)->exists();
     }
 

@@ -46,8 +46,24 @@ class AuthServiceProvider extends ServiceProvider
 
             return true;
         });
-        Gate::define('admin-view', function ($user) {
-            return $user->isAdmin();
+
+        Gate::define('merchant-view', function ($user) {
+            return $user->isMerchant();
+        });
+
+        Gate::define('merchant-edit', function ($merchantId) {
+            $user = auth()->user();
+            if($user === null){
+                return false;
+            }
+            $merchant = $user->Merchant;
+            if($merchant === null){
+                return false;
+            }
+            if($merchant->id !== $merchantId){
+                return false;
+            }
+            return true;
         });
     }
 

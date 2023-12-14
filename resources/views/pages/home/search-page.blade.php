@@ -47,7 +47,7 @@
                             <a href="/merchant/{{ $stores[0]->id }}" class="h-fit flex-grow">
                                 <div
                                     class="h-80 md:h-80 w-full flex flex-col p-2 justify-center place-items-center gap-5">
-                                    <img src="{{$stores[0]->image}}" alt="{{ $stores[0]->name }}"
+                                    <img src="{{$stores[0]->image ?? asset('/assets/logo/logo.png')}}" alt="{{ $stores[0]->name }}"
                                          class="rounded-full w-20 h-20 border-[1px] border-gray-300"/>
 
                                     <div class="flex flex-col gap-0.5 w-full place-items-center">

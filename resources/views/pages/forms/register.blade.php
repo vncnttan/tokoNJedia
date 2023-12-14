@@ -49,14 +49,20 @@
                         <form action="/register" method="POST" class="w-full h-full text-sm flex flex-col gap-1">
                             @csrf
                             <label for="emailInput">Email</label>
-                            <input type="text" name="email" id="emailInput" class="input-style" placeholder="Input Email">
-                            <p class="text-gray-400">Example: email@gmail.com</p>
+                            <input type="text" name="email" id="emailInput" class="input-style" placeholder="Example: email@gmail.com">
                             <label for="passwordInput">Password</label>
                             <input type="password" name="password" id="passwordInput" class="input-style" placeholder="Input Password">
                             <label for="usernameInput">Username</label>
                             <input type="text" name="username" id="usernameInput" class="input-style" placeholder="Input Username">
-                            <p class="text-gray-400">Requirements:</p>
-                            @if ($errors->any())
+                            <div>
+                                <p class="text-gray-400">Requirements:</p>
+                                <p class="text-xs text-gray-500">- All fields must be filled </p>
+                                <p class="text-xs text-gray-500">- Email and username must be unique </p>
+                                <p class="text-xs text-gray-500">- Email must end and does not start with .com </p>
+                                <p class="text-xs text-gray-500">- Password must contain at least 1 lowercase, 1 uppercase and 1 number </p>
+                                <p class="text-xs text-gray-500">- Password must be between 5 and 20 characters inclusively </p>
+                            </div>
+                        @if ($errors->any())
                                 <p class="text-red-500 w-full flex justify-center">
                                     {{ $errors->first() }}
                                 </p>

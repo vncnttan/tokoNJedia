@@ -35,11 +35,13 @@
                         @csrf
                         <div class="flex flex-col w-full gap-1">
                             <label for="subscriptionNumber" class="font-semibold text-gray-500">Subscription Number</label>
-                            <input name="subscriptionNumber" id="subscriptionNumber" class="w-full rounded-md border-gray-500 border p-1.5" placeholder="ex. 1212112" type="number"/>
+                            <input name="subscriptionNumber" id="subscriptionNumber" class="w-full rounded-md border-gray-500 border p-1.5" placeholder="ex. 12345678910" type="number"/>
+                            <p class="text-xs text-gray-500">Must be between 11 and 12 numbers</p>
                         </div>
                         <div class="flex flex-col w-full gap-1">
                             <label for="nominal" class="font-semibold text-gray-500">Nominal</label>
                             <input name="nominal" id="nominal" class="w-full rounded-md border-gray-500 border p-1.5" placeholder="ex. 50000" type="number"/>
+                            <p class="text-xs text-gray-500">Must be between 10000 and 1000000</p>
                         </div>
 
                         <button class="p-2 w-full h-fit bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold">

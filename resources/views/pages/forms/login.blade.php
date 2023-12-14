@@ -43,6 +43,7 @@
                             <label for="passwordInput">Password</label>
                             <input type="password" name="password" id="passwordInput" class="input-style">
                             <p class="text-gray-400">Requirements:</p>
+                            <p class="text-gray-400">- All fields must be filled</p>
                             @if ($errors->any())
                                 <p class="text-red-500 w-full flex justify-center">
                                     {{ $errors->first() }}
