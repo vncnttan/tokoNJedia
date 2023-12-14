@@ -6,6 +6,7 @@ use App\Models\Location;
 use Flasher\Laravel\Support\Laravel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class LocationController extends Controller
 {
@@ -26,6 +27,25 @@ class LocationController extends Controller
 
     public function updateLocation(Request $request)
     {
+
+        $messages = [
+            'required' => 'The :attribute field is required.',
+            'digits' => 'The :attribute field must be 5 digits.',
+            'numeric' => 'The :attribute field must be numeric.'
+        ];
+
+        $validate = Validator::make($request->all(), [
+            'address' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'postal' => 'required, digits:5, numeric',
+            'latitude' => 'required',
+            'longitude' => 'required'
+        ], $messages);
+
+        if ($validate->fails()) {
+            return response()->json(['errors' => $validate->errors()->first()]);
+        }
 
 
         $address = $request->address;
