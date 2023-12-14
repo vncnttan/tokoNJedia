@@ -1,12 +1,12 @@
 <div class="flex flex-col gap-5">
     <h1 class="text-4xl font-bold">Recommended for you</h1>
+    <div id="product-container" class="flex flex-wrap gap-3">
+        @foreach($recommendedProducts as $product)
+            <x-product-card :productId="$product->id"/>
+        @endforeach
+    </div>
     <div class="flex flex-row flex-wrap gap-3">
-        <div id="product-container" class="flex flex-row flex-wrap gap-3">
-            @foreach($recommendedProducts as $product)
-                <x-product-card :productId="$product->id"/>
-            @endforeach
-        </div>
-        @for($i = 0; $i < 6; $i++ )
+        @for($i = 0; $i < $requestCount / 2; $i++ )
             <div role="status"
                  class="loading-card space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
                 <div
@@ -68,7 +68,6 @@
                         console.error("Error fetching data:", error);
                         loading = false;
                         hideLoadingPlaceholder()
-
                     });
             }
         });
