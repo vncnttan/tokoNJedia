@@ -59,7 +59,6 @@ Route::GET('/search-page/{keyword}', [ProductController::class, 'search'])->name
 Route::POST('/product', [ProductController::class, 'store']);
 Route::DELETE('/product/{id}', [ProductController::class, 'destroy'])->middleware('auth.productExists');
 Route::get('/lazy-load/{requestCount}', [ProductController::class, 'lazyLoad']);
-//Route::get('/get-product-card/{id}', [ProductController::class, 'getProductCard']);
 
 // Carts
 Route::GET('/cart', [CartController::class, 'index'])->name('cart')->middleware('auth');

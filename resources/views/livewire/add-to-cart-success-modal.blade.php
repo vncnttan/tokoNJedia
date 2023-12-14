@@ -20,5 +20,5 @@
             </a>
         </div>
     </div>
-    <x-recommended-product />
+    <x-recommended-product :is-infinite-scrolling="0" request-count="12" />
 </div>

@@ -28,7 +28,7 @@ class Navbar extends Component
      *
      * @return Application|Factory|View
      */
-    public function render()
+    public function render(): View|Factory|Application
     {
         $faker = \Faker\Factory::create();
         ProviderCollectionHelper::addAllProvidersTo($faker);

@@ -125,8 +125,8 @@
                 </div>
             @endif
         </div>
-        <div class="md:block hidden my-16 w-fit ">
-            <x-recommended-product :request-count="6"/>
+        <div class="md:block hidden my-16 w-fit md:w-4/5 lg:w-5/6">
+            <x-recommended-product :request-count="12"/>
         </div>
     </div>
 

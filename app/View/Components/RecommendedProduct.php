@@ -13,14 +13,16 @@ class RecommendedProduct extends Component
 {
 
     private int $requestCount;
+    private int $isInfiniteScrolling;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($requestCount = 6)
+    public function __construct($isInfiniteScrolling = 1, $requestCount = 6)
     {
         $this->requestCount = $requestCount;
+        $this->isInfiniteScrolling = $isInfiniteScrolling;
     }
 
     /**
@@ -31,7 +33,7 @@ class RecommendedProduct extends Component
     public function render(): View|Factory|Application
     {
         $recommendedProducts = $this->getRecommendedProducts($this->requestCount);
-        return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts, 'requestCount' => $this->requestCount]);
+        return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts, 'requestCount' => $this->requestCount, 'isInfiniteScrolling' => $this->isInfiniteScrolling]);
     }
 
     public function getRecommendedProducts($requestCount)
