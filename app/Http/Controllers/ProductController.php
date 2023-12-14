@@ -22,6 +22,25 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $merchant = $user->Merchant;
+        $messages = [
+            'name.required' => 'Product Name is required',
+            'name.min' => 'Product Name at least 3 characters',
+            'name.max' => 'Product Name at most 50 characters',
+            'product_category.required' => 'Product Category is required',
+            'images.required' => 'Product Image is required',
+            'images.min' => 'Product Image at least 1 image',
+            'condition.required' => 'Product Condition is required',
+            'description.required' => 'Product Description is required',
+            'description.min' => 'Product Description at least 5 characters',
+            'variant_name.required' => 'Product Variant Name is required',
+            'variant_name.min' => 'Product Variant Name at least 3 characters',
+            'variant_name.max' => 'Product Variant Name at most 50 characters',
+            'variant_price.required' => 'Product Variant Price is required',
+            'variant_price.numeric' => 'Product Variant Price a number',
+            'variant_stock.required' => 'Product Variant Stock is required',
+            'variant_stock.numeric' => 'Product Variant Stock a number',
+            'variant_stock.min' => 'Product Variant Stock at least 1',
+        ];
         $validate = Validator::make($request->all(), [
             'name' => 'required|min:3|max:50',
             'product_category' => 'required',
@@ -34,7 +53,7 @@ class ProductController extends Controller
             'variant_price.*' => 'numeric',
             'variant_stock' => 'required|array',
             'variant_stock.*' => 'required|numeric|min:1'
-        ]);
+        ], $messages);
         if ($validate->fails()) {
             toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
             return redirect()->back()->withInput();
@@ -101,18 +120,5 @@ class ProductController extends Controller
         $requestCount = $request->requestCount;
         $recommendedProducts = app(RecommendedProduct::class)->getRecommendedProducts($requestCount);
         return view('components.product-card-loop-load', ['products' => $recommendedProducts])->render();
-    }
-
-    public function getProductCardHtml(Request $request)
-    {
-        $product = Product::with(['productImages', 'productVariants', 'Merchant', 'Merchant.Location'])
-            ->where('id', $request->id)
-            ->first();
-
-        $product->image = $product->productImages->first()->image ?? 'https://via.placeholder.com/150';
-        $product->price = $product->productVariants->first()->price ?? 0;
-
-        $html = View::make('components.product.product-card', ['product' => $product])->render();
-        return response()->json(['html' => $html]);
     }
 }
