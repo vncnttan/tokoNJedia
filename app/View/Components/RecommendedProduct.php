@@ -28,9 +28,15 @@ class RecommendedProduct extends Component
      *
      * @return Application|Factory|View
      */
-    public function render()
+    public function render(): View|Factory|Application
     {
-        $recommendedProducts = Product::with(['merchant.location', 'reviews'])
+        $recommendedProducts = $this->getRecommendedProducts($this->requestCount);
+        return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts, 'requestCount' => $this->requestCount]);
+    }
+
+    public function getRecommendedProducts($requestCount)
+    {
+        return Product::with(['merchant.location', 'reviews'])
             ->withCount(['transactionDetails as sold' => function ($query) {
                 $query->select(DB::raw("SUM(quantity)"));
             }])
@@ -39,7 +45,6 @@ class RecommendedProduct extends Component
                 $product->merchant_city = $product->merchant->location[0]->city ?? 'N/A';
                 $product->average_review = round($product->reviews->avg('review') ?? 0, 2);
                 return $product;
-            })->random($this->requestCount);
-        return view('components.recommended-product', ['recommendedProducts' =>  $recommendedProducts]);
+            })->random($requestCount);
     }
 }

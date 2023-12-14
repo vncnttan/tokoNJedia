@@ -51,7 +51,8 @@ class Navbar extends Component
             $merchantPage = false;
         }
 
-        $cartCount = Cart::where('user_id', Auth::user()->id)->count();
+
+        $cartCount = Auth::user() ? Cart::where('user_id', Auth::user()->id)->count(): 0;
 
         return view('components.navbar', ['product_names' => $productNames, 'merchant' => $merchant, 'merchantPage' => $merchantPage, 'cartCount' => $cartCount]);
     }

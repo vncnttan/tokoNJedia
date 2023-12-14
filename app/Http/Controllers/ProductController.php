@@ -7,9 +7,12 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Services\StorageService;
+use App\View\Components\RecommendedProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -91,5 +94,25 @@ class ProductController extends Controller
         $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
         $stores = Merchant::with(['products'])->where('name', 'like', '%' . $keyword . '%')->get();
         return view('pages.home.search-page', compact('products', 'keyword', 'stores'));
+    }
+
+    public function lazyLoad(Request $request)
+    {
+        $requestCount = $request->requestCount;
+        $recommendedProducts = app(RecommendedProduct::class)->getRecommendedProducts($requestCount);
+        return view('components.product-card-loop-load', ['products' => $recommendedProducts])->render();
+    }
+
+    public function getProductCardHtml(Request $request)
+    {
+        $product = Product::with(['productImages', 'productVariants', 'Merchant', 'Merchant.Location'])
+            ->where('id', $request->id)
+            ->first();
+
+        $product->image = $product->productImages->first()->image ?? 'https://via.placeholder.com/150';
+        $product->price = $product->productVariants->first()->price ?? 0;
+
+        $html = View::make('components.product.product-card', ['product' => $product])->render();
+        return response()->json(['html' => $html]);
     }
 }

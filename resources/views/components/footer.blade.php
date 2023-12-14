@@ -94,14 +94,9 @@
                 </button>
             </a>
             <div class="font-bold text-black text-xl mt-5">
-                Developer
+                Special Thanks
             </div>
             <div class="flex flex-row gap-4">
-                <a href="https://www.instagram.com/vncnt_tan/" class="hover:text-green-600 text-sm" target="_blank">
-                    <button class="text-left">
-                        NJ23-1
-                    </button>
-                </a>
                 <a href="https://www.instagram.com/r.i.c.c.a.r.d.o_4/" class="hover:text-green-600 text-sm" target="_blank">
                     <button class="text-left">
                         CX23-1

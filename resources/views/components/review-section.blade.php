@@ -90,7 +90,7 @@
                             @endif
                         </div>
                     </div>
-                    @if($rev->reply->count() > 0 || auth()->user()->can('admin-view'))
+                    @if($rev->reply->count() > 0 || (auth()->user() && auth()->user()->can('admin-view')))
                         <div class="flex flex-col gap-4" x-data="{ showForm: false }">
                             <button @click="showForm = !showForm"
                                     class="w-full justify-end flex flex-row place-items-center gap-2">

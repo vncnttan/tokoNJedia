@@ -22,8 +22,3 @@
     </div>
 </a>
 
-{{-- <script>
-   function formatPrice(price) {
-       return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
-   }
-</script> --}}

@@ -54,7 +54,7 @@
         </div>
         <div class="flex flex-col">
             <h1 class="font-bold text-xl"> Based on your activity </h1>
-            <x-recommended-product/>
+            <x-recommended-product request-count="24"/>
         </div>
     </div>
 @endsection
