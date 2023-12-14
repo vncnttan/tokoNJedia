@@ -26,6 +26,8 @@ class LocationController extends Controller
 
     public function updateLocation(Request $request)
     {
+
+
         $address = $request->address;
         $city = $request->city;
         $country = $request->country;

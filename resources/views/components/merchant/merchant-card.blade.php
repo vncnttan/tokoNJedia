@@ -23,7 +23,7 @@
         <div class="w-full h-full flex flex-row gap-1.5 pb-4 justify-center">
             @for($i = 0; $i < 3; $i++)
                 @if($merchant->products->count() > $i)
-                    <a class="h-full w-fit z-20" href="/product-detail/{{ $merchant->products[$i]->id }}">
+                    <a class="h-full w-fit z-10" href="/product-detail/{{ $merchant->products[$i]->id }}">
                         <div class="flex flex-col gap-1 font-semibold text-sm">
                             <img src="{{ $merchant->products[$i]->productImages[0]->image }}"
                                  alt="{{ $merchant->products[$i]->name }}"

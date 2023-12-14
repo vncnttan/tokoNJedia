@@ -10,6 +10,7 @@ use LivewireUI\Modal\ModalComponent;
 class EditPhoneModal extends ModalComponent
 {
     public $phone;
+
     public function mount()
     {
         $this->phone = Auth::user()->phone;
@@ -42,7 +43,7 @@ class EditPhoneModal extends ModalComponent
         );
         if ($validator->fails()) {
             toastr()->error($validator->errors()->first('phone'), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-            return;
+            return redirect()->back()->withErrors($validator)->withInput()->with('error', $validator->errors()->first('phone'));
         }
 
         $user->phone = $this->phone;
@@ -52,6 +53,7 @@ class EditPhoneModal extends ModalComponent
 
         return redirect()->to('/profile');
     }
+
     public function render()
     {
         return view('livewire.edit-phone-modal');

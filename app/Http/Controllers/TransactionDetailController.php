@@ -11,6 +11,7 @@ use App\Models\TransactionHeader;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class TransactionDetailController extends Controller
@@ -25,6 +26,21 @@ class TransactionDetailController extends Controller
     {
         $userId = auth()->user()->id;
         $details = $request->shipment_ids;
+
+        $message = [
+            'location_id.required' => 'Location is required',
+            'shipment_ids.required' => 'Shipment is required',
+        ];
+
+        $validate = Validator::make($request->all(), [
+            'location_id' => 'required',
+            'shipment_ids' => 'required',
+        ], $message);
+
+        if ($validate->fails()) {
+            toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back()->withErrors($validate->errors())->withInput();
+        }
 
         foreach ($details as $detail) {
             if (!Shipment::find($detail['shipmentId'])) {

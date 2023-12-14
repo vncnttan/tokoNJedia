@@ -16,11 +16,18 @@ class UserController extends Controller
     {
         $user = User::find(Auth::user()->id);
         if ($user) {
+            $message = [
+                'username.required' => 'Username is required',
+                'username.min' => 'Username must be at least 3 characters',
+                'username.max' => 'Username must be at most 20 characters',
+                'username.unique' => 'Username already exists',
+            ];
             $validate = Validator::make($request->all(), [
                 'username' => 'required|min:3|max:20|unique:users,username' . $user->id,
-            ]);
+            ], $message);
             if ($validate->fails()) {
-                return redirect()->back()->withErrors($validate)->withInput()->with('error', 'Username must be filled');
+                toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+                return redirect()->back()->withErrors($validate)->withInput()->with('error', $validate->errors()->first());
             }
             $user->username = $request->username;
             $user->save();
@@ -32,17 +39,22 @@ class UserController extends Controller
     {
         $user = User::find(Auth::user()->id);
         if ($user) {
+            $message = [
+                'dob.required' => 'DOB is required',
+                'dob.date_format' => 'DOB must be in format mm/dd/yyyy',
+                'dob.after_or_equal' => 'User must be at least 18 years old',
+            ];
             $validate = Validator::make($request->all(), [
                 'dob' => [
                     'required',
                     'date_format:m/d/Y',
                     'after_or_equal:01/01/1970',
-                    'before_or_equal:12/31/2009'
+                    today()->subtract(18, 'years')
                 ],
-            ]);
+            ], $message);
             if ($validate->fails()) {
-                toastr()->error('DOB must be filled');
-                return redirect()->back();
+                toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+                return redirect()->back()->withErrors($validate)->withInput()->with('error', $validate->errors()->first());
             }
             $user->dob = $request->dob;
             $user->save();
