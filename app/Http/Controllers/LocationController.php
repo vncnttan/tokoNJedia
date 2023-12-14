@@ -27,7 +27,6 @@ class LocationController extends Controller
 
     public function updateLocation(Request $request)
     {
-
         $messages = [
             'required' => 'The :attribute field is required.',
             'digits' => 'The :attribute field must be 5 digits.',

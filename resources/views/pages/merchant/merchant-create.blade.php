@@ -156,7 +156,7 @@
                                     </button>
                                     <button
                                         id="button-progress-3"
-                                        class="flex-grow rounded-lg !bg-green-500 text-white font-semibold p-2 box-border self-center"
+                                        class="flex-grow rounded-lg bg-green-600 text-white font-semibold p-2 box-border self-center"
                                         type="submit">Save
                                     </button>
                                 </div>
@@ -186,7 +186,7 @@
                 updateClasses("button-progress-3", ["!bg-gray-100", "text-gray-400"], ["bg-green-600", "text-white"]);
                 document.getElementById("button-progress-3").setAttribute("disabled", "disabled")
             } else {
-                updateClasses("button-progress-3", ["bg-green-600", "text-white"], ["!bg-gray-100"]);
+                updateClasses("button-progress-3", ["!bg-green-600", "text-white"], ["!bg-gray-100"]);
                 document.getElementById("button-progress-3").removeAttribute("disabled")
             }
 

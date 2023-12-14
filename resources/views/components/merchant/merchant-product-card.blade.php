@@ -1,4 +1,4 @@
-<div class="w-full flex flex-col gap-2 px-4 py-2 border-b-2 border-gray-200">
+<a href="/product-detail/{{ $product->id }}" class="w-full flex flex-col gap-2 px-4 py-2 border-b-2 border-gray-200">
     <div class="w-full  flex  justify-between items-center" x-data="{ settingDropdown: false }">
         <img class="w-24 h-24 object-cover"
              src="{{ $product->productImages->first()->image ?? url(asset('assets/logo/logo.png')) }}" alt="">
@@ -71,5 +71,5 @@
         </div>
     </div>
 
-</div>
+</a>
 @livewire('product-variant-dropdown', ['product' => $product])

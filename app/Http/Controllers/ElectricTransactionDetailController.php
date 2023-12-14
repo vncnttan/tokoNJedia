@@ -17,9 +17,9 @@ class ElectricTransactionDetailController extends Controller
         $nominal = $request->nominal;
 
         $messages = [
-            'subscriptionNumber.required' => "Subscription Number Must Be Filled",
-            'subscriptionNumber.min' => "Subscription Number Must Be At Least 11 Characters",
-            'subscriptionNumber.max' => "Subscription Number Must Not More Than 12 Characters",
+            'subscriptionNumber.required' => "SN Must Be Filled",
+            'subscriptionNumber.min' => "SN Must Be At Least 11 Characters",
+            'subscriptionNumber.max' => "SN Must Not More Than 12 Characters",
             'subscriptionNumber.numeric' => "Subscription Number Must Be Numeric",
             'nominal.required' => "Nominal Must Be Filled",
             'nominal.numeric' => "Nominal Must Be Numeric",
@@ -27,7 +27,7 @@ class ElectricTransactionDetailController extends Controller
             'nominal.max' => "Nominal Must Not More Than 1000000",
         ];
         $validate = Validator::make($request->all(), [
-            'subscriptionNumber' => ['required', 'min:11', 'max:12', 'numeric'],
+            'subscriptionNumber' => ['required', 'min_digits:11', 'max_digits:12', 'numeric'],
             'nominal' => ['required', 'numeric', 'min:10000', 'max:1000000'],
         ], $messages);
 

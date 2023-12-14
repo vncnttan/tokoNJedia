@@ -51,7 +51,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isMerchant();
         });
 
-        Gate::define('merchant-edit', function ($merchantId) {
+        Gate::define('merchant-edit', function ($user, $merchantId) {
             $user = auth()->user();
             if($user === null){
                 return false;
@@ -60,7 +60,7 @@ class AuthServiceProvider extends ServiceProvider
             if($merchant === null){
                 return false;
             }
-            if($merchant->id !== $merchantId){
+            if($merchant->id != $merchantId){
                 return false;
             }
             return true;
