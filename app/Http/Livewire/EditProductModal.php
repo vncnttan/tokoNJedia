@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 class EditProductModal extends ModalComponent
 {
     use WithFileUploads;
+
     public $product;
     public $name;
     public $category;
@@ -22,6 +23,7 @@ class EditProductModal extends ModalComponent
     public $product_images = [];
     public $images = [];
     protected $listeners = ['categoryUpdated' => 'updateCategory'];
+
     public function mount(Product $product)
     {
         $this->product = $product;
@@ -37,24 +39,35 @@ class EditProductModal extends ModalComponent
             }
         }
     }
-    public function save()
+
+    public function save(): bool|\Illuminate\Http\RedirectResponse
     {
+        $messages = [
+            'name.required' => 'Product name is required',
+            'name.min' => 'Product name must be at least 3 characters',
+            'name.max' => 'Product name must be at most 50 characters',
+            'description.required' => 'Product description is required',
+            'description.min' => 'Product description must be at least 5 characters',
+            'description.max' => 'Product description must be at most 200 characters',
+            'category.required' => 'Product category is required',
+        ];
         $validate = Validator::make(
             ['name' => $this->name, 'description' => $this->description, 'category' => $this->selectedCategory],
             [
                 'name' => 'required|min:3|max: 50',
                 'description' => 'required|min:5|max:200',
                 'category' => 'required'
-            ]
+            ],
+            $messages
         );
         if ($validate->fails()) {
             Controller::FailMessage($validate->errors()->first());
-            return;
+            return false;
         }
         $imageCount = count(array_filter($this->images)) + count(array_filter($this->product_images));
         if ($imageCount < 1) {
             Controller::FailMessage('Image must be at least 1');
-            return;
+            return false;
         }
 
         $i = count($this->product->ProductImages);
@@ -114,6 +127,7 @@ class EditProductModal extends ModalComponent
     {
         return view('livewire.edit-product-modal');
     }
+
     public static function modalMaxWidth(): string
     {
         return '4xl';

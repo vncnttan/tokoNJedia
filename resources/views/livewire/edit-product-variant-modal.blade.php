@@ -3,16 +3,22 @@
     <div class=" w-full flex justify-center items-end gap-8">
         <div class="w-full flex flex-col justify-center items-center gap-4">
             <div class="w-full flex flex-col gap-2">
-                <label for="">Product Variant Name</label>
-                <input wire:model="name" class="input-style w-full" type="text">
+                <label for="nameInput">Product Variant Name
+                    <span class="text-red-500">*</span>
+                </label>
+                <input id="nameInput" wire:model="name" class="input-style w-full" type="text">
             </div>
             <div class="w-full flex flex-col gap-2">
-                <label for="">Product Variant Price</label>
-                <input wire:model="price" class="input-style w-full" type="text">
+                <label for="priceInput">Product Variant Price
+                    <span class="text-red-500">*</span>
+                </label>
+                <input id="priceInput" wire:model="price" class="input-style w-full" type="text">
             </div>
             <div class="w-full flex flex-col gap-2">
-                <label for="">Product Variant Stock</label>
-                <input wire:model="stock" class="input-style w-full" type="text">
+                <label for="stockInput">Product Variant Stock
+                    <span class="text-red-500">*</span>
+                </label>
+                <input id="stockInput" wire:model="stock" class="input-style w-full" type="text">
             </div>
         </div>
     </div>

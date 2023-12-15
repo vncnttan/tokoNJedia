@@ -38,10 +38,9 @@
                         <form action="/login" method="POST" class="w-full h-full text-sm flex flex-col gap-1">
                             @csrf
                             <label for="emailInput">Email</label>
-                            <input type="text" name="email" id="emailInput" class="input-style">
-                            <p class="text-gray-400">Example: email@tokonjedia.com</p>
+                            <input type="text" name="email" id="emailInput" class="input-style" placeholder="Example: email@tokonjedia.com">
                             <label for="passwordInput">Password</label>
-                            <input type="password" name="password" id="passwordInput" class="input-style">
+                            <input type="password" name="password" id="passwordInput" class="input-style" placeholder="Input password">
                             <p class="text-gray-400">Requirements:</p>
                             <p class="text-gray-400">- All fields must be filled</p>
                             @if ($errors->any())
