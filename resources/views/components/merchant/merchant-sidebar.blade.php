@@ -51,7 +51,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5"/>
                 </svg>
             </div>
-
         </a>
         <div class="w-full flex gap-4 justify-start">
             <div x-show="showDropdown" x-transition:enter="transition ease-out duration-300"

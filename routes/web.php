@@ -9,6 +9,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MerchantController;
+use App\Http\Controllers\MerchantFollowerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductVariantController;
 use App\Http\Controllers\ReviewController;
@@ -46,6 +47,10 @@ Route::GET("/profile", function () {
 Route::MATCH(["POST", "PUT"], "/profile/username", [UserController::class, 'updateUsername'])->middleware('auth');
 Route::MATCH(["POST", "PUT"], "/profile/dob", [UserController::class, 'updateDob'])->middleware('auth');
 Route::POST("/profile/image", [UserController::class, 'updateImage'])->middleware('auth');
+
+// Following
+Route::GET('/profile/following', [MerchantFollowerController::class, 'index'])->middleware('auth')->name('following');
+Route::POST('/follow', [MerchantFollowerController::class, 'follow'])->middleware('auth');
 
 // Location
 Route::GET('/profile/location', [LocationController::class, 'location'])->middleware('auth')->name('location');

@@ -71,6 +71,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+    public function Following(): HasMany
+    {
+        return $this->hasMany(MerchantFollower::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
