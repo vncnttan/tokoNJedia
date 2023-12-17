@@ -1,6 +1,6 @@
 @extends('templates.template')
 
-@section('title', 'Location')
+@section('title', 'Following')
 
 @section('content')
     <div
@@ -26,6 +26,17 @@
                         @foreach($stores as $store)
                             <x-merchant-card :merchantId="$store->id"/>
                         @endforeach
+                        @if($stores->count() < 1)
+                            <div class="flex flex-row gap-2">
+                                <img alt="No Following" src="{{ asset('assets/general/no-following.png') }}"/>
+                                <div class="flex flex-col gap-1">
+                                    <h1 class="text-xl font-bold ">No Following</h1>
+                                    <div class="text-gray-500">
+                                        Find your favorite store and follow them to get the latest update!
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

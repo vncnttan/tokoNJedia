@@ -11,8 +11,10 @@ use Illuminate\Support\Str;
 class MerchantHeader extends Component
 {
     public $merchant;
+    public $following;
     public function mount($merchant){
         $this->merchant = $merchant;
+        $this->following = auth()->user()->Following()->where('merchant_id', $merchant->id)->first();
     }
     public function chat(){
         $user = User::find(auth()->id());

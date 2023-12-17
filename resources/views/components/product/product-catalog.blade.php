@@ -67,10 +67,23 @@
                             <div class="text-lg font-bold">
                                 {{ $product->merchant->name }}
                             </div>
-                            <div
-                                class="text-green-500 py-0.5 px-4 mt-2 w-fit border-2 font-semibold rounded-md border-green-400">
-                                Follow
-                            </div>
+                            <form action="/follow" method="POST">
+                                @csrf
+                                <input type="hidden" name="merchant_id" value="{{ $product->merchant->id }}">
+                                <button type="submit"
+                                    class="text-green-500 py-0.5 px-4 mt-2 w-fit border-2 font-semibold rounded-md border-green-400">
+                                    @if($following)
+                                        <div class="flex flex-row gap-1 place-items-center justify-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                            </svg>
+                                            Unfollow
+                                        </div>
+                                    @else
+                                        Follow
+                                    @endif
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </a>

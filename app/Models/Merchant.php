@@ -42,4 +42,8 @@ class Merchant extends Model
     {
         return $this->MorphMany(Location::class, 'locationable');
     }
+    public function Followers(): HasMany
+    {
+        return $this->hasMany(MerchantFollower::class);
+    }
 }

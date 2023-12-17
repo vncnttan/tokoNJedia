@@ -17,6 +17,7 @@ class ProductCatalog extends Component
      * @return void
      */
     public $product;
+    public $following;
 
     public function __construct($productId)
     {
@@ -26,6 +27,7 @@ class ProductCatalog extends Component
                 $query->select(DB::raw("SUM(quantity)"));
             }])
             ->first();
+        $this->following = auth()->user()->Following()->where('merchant_id', $this->product->merchant->id)->first();
         $this->product->average_review = round($this->product->reviews->avg('review') ?? 0, 2);
         $this->product->review_count = $this->product->reviews->count() ?? 0;
     }
@@ -37,6 +39,6 @@ class ProductCatalog extends Component
      */
     public function render(): View|Factory|Application
     {
-        return view('components.product.product-catalog', ["product" => $this->product, 'isLoggedIn' => auth()->check()]);
+        return view('components.product.product-catalog', ["product" => $this->product, 'isLoggedIn' => auth()->check(), 'following' => $this->following]);
     }
 }
