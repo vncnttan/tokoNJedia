@@ -1,4 +1,5 @@
-<div class="flex flex-col h-fit gap-5 z-0">
+<div class="flex flex-col h-fit gap-5 z-0 dev
+">
     <div class="flex flex-row h-fit w-full gap-6 place-items-end">
         <div class="flex flex-col h-fit">
             <h1 class="font-bold text-xl"> Flash Sale </h1>

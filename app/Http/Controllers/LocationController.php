@@ -37,7 +37,7 @@ class LocationController extends Controller
             'address' => 'required',
             'city' => 'required',
             'country' => 'required',
-            'postal' => 'required, digits:5, numeric',
+            'postal' => 'required|digits:5|numeric',
             'latitude' => 'required',
             'longitude' => 'required'
         ], $messages);
