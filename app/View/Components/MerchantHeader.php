@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class MerchantHeader extends Component
 {
     private Merchant $merchant;
-    private MerchantFollower $following;
+    private mixed $following;
 
     /**
      * Create a new component instance.
@@ -25,7 +25,7 @@ class MerchantHeader extends Component
      */
     public function __construct($merchantId)
     {
-//        dd($merchantId);
+//        dd(MerchantFollower::where('user_id', auth()->id())->first());
         $this->following = MerchantFollower::where('user_id', auth()->id())->where('merchant_id', $merchantId)->first();
         $this->merchant = Merchant::where('id', $merchantId)->first();
     }

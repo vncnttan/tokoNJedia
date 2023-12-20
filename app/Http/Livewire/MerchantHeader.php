@@ -13,6 +13,7 @@ class MerchantHeader extends Component
     public $merchant;
     public $following;
     public function mount($merchant){
+
         $this->merchant = $merchant;
         $this->following = auth()->user()->Following()->where('merchant_id', $merchant->id)->first();
     }
@@ -20,7 +21,7 @@ class MerchantHeader extends Component
         $user = User::find(auth()->id());
         $merchantId = $this->merchant->id;
         $rooms = $user->Rooms()->with(["Merchants"])->get();
-        // dd($rooms);
+//         dd($rooms);
         $isExist = $user->Rooms()->whereHas("Merchants", function ($query) use ($merchantId) {
             $query->where("id", $merchantId);
         })->first();

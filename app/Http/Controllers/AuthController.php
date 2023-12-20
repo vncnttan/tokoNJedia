@@ -70,6 +70,7 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->username = $request->username;
         $user->save();
+        toastr()->success('Register Success', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return redirect('/login');
     }
 
