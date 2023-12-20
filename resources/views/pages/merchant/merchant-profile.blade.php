@@ -70,9 +70,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <label for="operationalTime">Banner Image</label>
-                    <div class="relative h-96 mt-6 overflow-hidden rounded-lg md:h-[50vh]">
+                <div class="flex flex-col gap-4">
+                    Banner Image
+                    <div class="relative h-96 overflow-hidden rounded-lg md:h-[50vh]">
                         <img src="{{$merchant->banner_image ?? asset('assets/logo/banner-merchant.jpeg')}}"
                              class="absolute block w-full h-full object-cover"
                              alt="Merchant Banner">
