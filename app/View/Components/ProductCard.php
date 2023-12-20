@@ -11,18 +11,19 @@ use Illuminate\View\Component;
 class ProductCard extends Component
 {
     public $product;
+    public $productPromo;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($productId)
+    public function __construct($productId, $productPromo = null)
     {
         $this->product = Product::with(['productImages', 'productVariants', 'Merchant', 'Merchant.Location'])
             ->where('id', $productId)
             ->first();
-
+        $this->productPromo = $productPromo;
 
         $this->product->image = $this->product->productImages->first()->image ?? 'https://via.placeholder.com/150';
         $this->product->price = $this->product->productVariants->first()->price ?? 0;
