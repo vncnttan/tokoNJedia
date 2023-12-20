@@ -65,7 +65,19 @@ if (!function_exists('calculateTotalPrice')) {
 
 
 if (!function_exists("getPriceAfterPromo")) {
-    function getPriceAfterPromo($productId): int
+    function getPriceAfterPromo($productId, $promoId): int
+    {
+        $product = Product::find($productId);
+        $price = $product->price;
+        $promo = ProductPromo::find($promoId);
+        $discount = $promo->discount;
+
+        return $price - ($price * $discount / 100);
+    }
+}
+
+if (!function_exists("getPriceAfterMaxPromo")) {
+    function getPriceAfterMaxPromo($productId): int
     {
         $product = Product::find($productId);
         $price = $product->price;
@@ -74,6 +86,7 @@ if (!function_exists("getPriceAfterPromo")) {
         return $price - ($price * $discount / 100);
     }
 }
+
 
 if (!function_exists("getMaximumDiscount")) {
     function getMaximumDiscount($productId)
@@ -97,6 +110,8 @@ if (!function_exists("getMaximumDiscount")) {
         return $discount;
     }
 }
+
+
 
 if (!function_exists("getMaximumPromoName")) {
     function getMaximumPromoName($productId)

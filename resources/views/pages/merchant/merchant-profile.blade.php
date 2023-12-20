@@ -8,7 +8,7 @@
             <h1 class="text-black font-bold text-2xl">
                 Edit Profile
             </h1>
-            <div class="flex flex-col flex-wrap gap-4">
+            <div class="flex flex-col flex-wrap gap-8">
                 {{--                    Profile --}}
                 <div class="flex flex-row gap-12">
                     <div class="w-48 h-48 relative">
@@ -72,12 +72,10 @@
                 </div>
                 <div class="flex flex-col gap-4">
                     Banner Image
-                    <div class="relative h-96 overflow-hidden rounded-lg md:h-[50vh]">
-                        <img src="{{$merchant->banner_image ?? asset('assets/logo/banner-merchant.jpeg')}}"
-                             class="absolute block w-full h-full object-cover"
-                             alt="Merchant Banner">
-                    </div>
+                    @livewire('upload-profile-banner-image', ['merchant' => $merchant])
                 </div>
+
+
                 {{ $merchant }}
             </div>
         </div>
