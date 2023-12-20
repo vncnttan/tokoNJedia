@@ -24,7 +24,7 @@
             <div class="relative h-96 mt-6 overflow-hidden rounded-lg md:h-[50vh]">
                 <img src="{{$merchant->banner_image ?? asset('assets/logo/banner-merchant.jpeg')}}"
                      class="absolute block w-full h-full object-cover"
-                     alt="Promo Banner">
+                     alt="Merchant Banner">
             </div>
         </div>
         <x-merchant-footer :merchantId="$merchant->id"/>
