@@ -2,7 +2,7 @@
     class="flex flex-row justify-between place-items-center p-6 rounded-md border-[1px] border-gray-300 border-opacity-50">
     <div class="flex flex-row gap-4">
         <img src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}" alt="{{ $merchant->name }}"
-             class="w-24 h-24 rounded-full">
+             class="w-24 h-24 rounded-full object-cover">
         <div class="flex flex-col justify-between">
             <div class="flex flex-col justify-center">
                 <div class="text-2xl font-bold">
@@ -64,7 +64,7 @@
         <div class="h-8 w-[1px] bg-gray-300"></div>
         <div class="flex flex-col justify-center place-items-center">
             <div class="flex flex-row font-bold text-xl place-items-center">
-                {{ $merchant->operational_time }}
+                Open {{ $merchant->operational_time }}
             </div>
             <div class="text-gray-500 text-sm ">
                 Operational Hours

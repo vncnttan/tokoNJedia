@@ -44,7 +44,7 @@ if (!function_exists('shipmentPriceCalculate')) {
     }
 }
 
-if(!function_exists('calculateTotalPrice')) {
+if (!function_exists('calculateTotalPrice')) {
     function calculateTotalPrice($price, $quantity, $merchantId, $userLocationId, $shipmentId, $discountPercentage): int
     {
         $merchant = Merchant::find($merchantId);
@@ -63,13 +63,26 @@ if(!function_exists('calculateTotalPrice')) {
     }
 }
 
-if(!function_exists("getMaximumDiscount")) {
-    function getMaximumDiscount($productId) {
+
+if (!function_exists("getPriceAfterPromo")) {
+    function getPriceAfterPromo($productId): int
+    {
+        $product = Product::find($productId);
+        $price = $product->price;
+        $discount = getMaximumDiscount($productId);
+
+        return $price - ($price * $discount / 100);
+    }
+}
+
+if (!function_exists("getMaximumDiscount")) {
+    function getMaximumDiscount($productId)
+    {
         $promo = ProductPromo::where('product_id', $productId)->first();
         $flashSale = FlashSaleProduct::where('product_id', $productId)->first();
 
         $discount = 0;
-        if($promo && $flashSale) {
+        if ($promo && $flashSale) {
             if ($promo->discount > $flashSale->discount) {
                 $discount = $promo->discount;
             } else if ($flashSale->discount > $promo->discount) {
@@ -82,6 +95,28 @@ if(!function_exists("getMaximumDiscount")) {
         }
 
         return $discount;
+    }
+}
+
+if (!function_exists("getMaximumPromoName")) {
+    function getMaximumPromoName($productId)
+    {
+        $promo = ProductPromo::where('product_id', $productId)->first();
+        $flashSale = FlashSaleProduct::where('product_id', $productId)->first();
+
+        $name = "";
+        if ($promo && $flashSale) {
+            if ($promo->discount > $flashSale->discount) {
+                $name = $promo->name;
+            } else if ($flashSale->discount > $promo->discount) {
+                $name = $flashSale->name;
+            }
+        } else if ($promo) {
+            $name = $promo->name;
+        } else if ($flashSale) {
+            $name = $flashSale->name;
+        }
+        return $name;
     }
 }
 

@@ -102,6 +102,12 @@ class MerchantController extends Controller
         return view('pages.merchant.merchant-manage-product');
     }
 
+    public function profile()
+    {
+        $merchant = Auth::user()->Merchant;
+        return view('pages.merchant.merchant-profile', ['merchant' => $merchant]);
+    }
+
     public function homepage(string $id)
     {
         $merchant = Merchant::find($id);

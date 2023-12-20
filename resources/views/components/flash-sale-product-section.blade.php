@@ -37,10 +37,7 @@
             </div>
             <div class="md:my-8 flex flex-row flex-wrap gap-3 relative place-items-center">
 
-                @foreach($flashSaleProduct as $index => $product)
-                    @if($index == 5)
-                        @break
-                    @endif
+                @foreach($flashSaleProduct as $product)
                     <x-product-card :productId="$product->id"/>
                 @endforeach
             </div>

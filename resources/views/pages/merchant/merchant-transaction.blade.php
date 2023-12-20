@@ -1,6 +1,6 @@
 @extends('pages.merchant.merchant')
 
-@section('title', 'Merchant Home')
+@section('title', 'Merchant Transaction')
 
 @section('content')
     <div class="w-full h-full" id="merchant-home-screen">
