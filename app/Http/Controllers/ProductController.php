@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\ProductPromo;
 use App\Models\ProductVariant;
 use App\Services\StorageService;
 use App\View\Components\RecommendedProduct;
@@ -121,5 +122,11 @@ class ProductController extends Controller
         $requestCount = $request->requestCount;
         $recommendedProducts = app(RecommendedProduct::class)->getRecommendedProducts($requestCount);
         return view('components.product-card-loop-load', ['products' => $recommendedProducts])->render();
+    }
+
+    public function deals($promoId)
+    {
+        $productPromos = ProductPromo::where('promo_id', 'like', $promoId)->get();
+        return view('pages.home.deals', ['productPromos' => $productPromos]);
     }
 }
