@@ -8,22 +8,12 @@
             <h1 class="text-black font-bold text-2xl">
                 Edit Profile
             </h1>
-            <div class="flex flex-col flex-wrap gap-8">
+            <form action="/merchant/profile" method="POST" class="flex flex-col flex-wrap gap-8">
+                @csrf
                 {{--                    Profile --}}
                 <div class="flex flex-row gap-12">
-                    <div class="w-48 h-48 relative">
-                        <img src="{{ $merchant->image ?? asset('assets/logo/logo.png') }}" alt="{{ $merchant->name }}"
-                             class="rounded-full object-cover border border-gray-300 w-full h-full">
-                        <div class=" absolute bottom-0 right-0 p-2 bg-gray-300 rounded-full">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                 stroke="currentColor" data-slot="icon" class="w-8 h-8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z"/>
-                            </svg>
-                        </div>
-                    </div>
+
+                    @livewire('upload-merchant-profile-image', ['merchant' => $merchant])
                     <div class="flex flex-col justify-between flex-grow">
                         <div class="flex flex-col justify-center gap-4">
                             <div class="flex flex-col gap-2">
@@ -74,9 +64,46 @@
                     Banner Image
                     @livewire('upload-profile-banner-image', ['merchant' => $merchant])
                 </div>
-
-
-                {{ $merchant }}
+                <div class="flex flex-row gap-2 w-full">
+                    <div class="flex w-full flex-col gap-1">
+                        <label for="desc">Description</label>
+                        <input type="text" name="desc" id="desc" placeholder="Description"
+                               value="{{ $merchant->description }}"
+                               class="border border-gray-300 rounded-md p-2 w-full"/>
+                    </div>
+                    <div class="flex w-1/3 flex-col gap-1">
+                        <label for="desc">Catchphrase</label>
+                        <input type="text" name="desc" id="desc" placeholder="ex. Thrive for the better"
+                               value="{{ $merchant->catch_phrase }}"
+                               class="border border-gray-300 rounded-md p-2 w-full"/>
+                    </div>
+                </div>
+                <div class="flex w-full flex-col gap-1">
+                    <label for="desc">About store</label>
+                    <textarea type="text" name="desc" id="desc"
+                              placeholder="Tell your customer all about your store here"
+                              value="{{ $merchant->description }}"
+                              class="border border-gray-300 rounded-md p-2 w-full h-52"></textarea>
+                </div>
+            </form>
+            <div class="flex flex-row gap-2 justify-end">
+                <a href="/merchant/" class="bg-red-500 px-6 py-4 text-white font-semibold rounded-md flex flex-row gap-2 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor" data-slot="icon" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
+                    </svg>
+                    Discard Changes
+                </a>
+                <button type="submit" form="edit-profile-form"
+                    class="!bg-green-500 px-6 py-4 text-white font-semibold rounded-md flex flex-row gap-2 place-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                         stroke="currentColor" data-slot="icon" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"/>
+                    </svg>
+                    Edit Profile
+                </button>
             </div>
         </div>
     </div>
