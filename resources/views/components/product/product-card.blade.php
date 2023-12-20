@@ -16,8 +16,22 @@
                 {{ $product->name }}
 {{--                {{ substr($product->name, 0, 19) . (strlen($product->name) > 19 ? '...' : '') }}--}}
             </div>
-            <div class="text-md font-bold">
-                Rp{{ formatPrice($product->price) }}
+            <div class="text-md">
+                @if ($productPromo != null)
+                    <div class="font-bold">
+                        Rp{{ formatPrice(getPriceAfterPromo($product->id, $product->ProductVariants[0]->id, $productPromo->promo_id)) }}
+                    </div>
+                    <div class="flex gap-1">
+                        <span class="line-through text-gray-400 text-xs">
+                            Rp{{ formatPrice($product->price) }}
+                        </span>
+                        <span class="text-xs text-lime-600 font-bold">{{ $productPromo->discount  }}%</span>
+                    </div>
+                @else
+                    <div class="font-bold">
+                        Rp{{ formatPrice($product->price) }}
+                    </div>
+                @endif
                 {{-- Rp{{$product->price}} --}}
             </div>
             <div class="text-xs text-gray-500">

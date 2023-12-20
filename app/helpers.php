@@ -5,6 +5,7 @@ use App\Models\Location;
 use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\ProductPromo;
+use App\Models\ProductVariant;
 use App\Models\Review;
 use App\Models\Shipment;
 use Illuminate\Support\Facades\Http;
@@ -65,11 +66,11 @@ if (!function_exists('calculateTotalPrice')) {
 
 
 if (!function_exists("getPriceAfterPromo")) {
-    function getPriceAfterPromo($productId, $promoId): int
+    function getPriceAfterPromo($productId, $productVariantId, $promoId): int
     {
-        $product = Product::find($productId);
+        $product = ProductVariant::find($productVariantId);
         $price = $product->price;
-        $promo = ProductPromo::find($promoId);
+        $promo = ProductPromo::where('promo_id', 'like', $promoId)->where('product_id', 'like', $productId)->first();
         $discount = $promo->discount;
 
         return $price - ($price * $discount / 100);

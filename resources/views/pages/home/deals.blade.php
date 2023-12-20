@@ -21,7 +21,7 @@
             </div>
             <div class="md:my-8 flex flex-row flex-wrap gap-3 relative place-items-start">
                 @foreach($productPromos as $productPromo)
-                    <x-product-card :productId="$productPromo->Product->id" :productPromo="$productPromo" />
+                    <x-product-card :productId="$productPromo->Product->id" :productPromoId="$productPromo->id" />
                 @endforeach
             </div>
         </div>
