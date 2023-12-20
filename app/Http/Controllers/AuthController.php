@@ -55,13 +55,14 @@ class AuthController extends Controller
         $validate = Validator::make($request->all(), [
             'email' => ['required', 'unique:users,email', 'ends_with:.com', 'doesnt_start_with:.com'],
             'password' => ['required',
-            'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
+            'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]/',
             'min:5',
             'max:20'
             ]
         ], $messages);
 
         if($validate->fails()){
+//            toastr()->error($validate->messages()->first());
             return redirect()->back()->withErrors($validate)->withInput();
         }
         $user = new User();
