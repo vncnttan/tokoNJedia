@@ -36,18 +36,13 @@
         <div id="product-result">
             @if(count($products) > 0)
                 <div class="flex flex-col gap-3">
-                    <div class="text-sm text-gray-700">
-                        Showing {{count($products)}} results for
-                        <b>
-                            "{{ $keyword }}"
-                        </b>
-                    </div>
                     @if(count($stores) > 0)
                         <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row p-4 mb-10">
                             <a href="/merchant/{{ $stores[0]->id }}" class="h-fit flex-grow">
                                 <div
                                     class="h-80 md:h-80 w-full flex flex-col p-2 justify-center place-items-center gap-5">
-                                    <img src="{{$stores[0]->image ?? asset('/assets/logo/logo.png')}}" alt="{{ $stores[0]->name }}"
+                                    <img src="{{$stores[0]->image ?? asset('/assets/logo/logo.png')}}"
+                                         alt="{{ $stores[0]->name }}"
                                          class="rounded-full w-20 h-20 border-[1px] border-gray-300"/>
 
                                     <div class="flex flex-col gap-0.5 w-full place-items-center">
@@ -63,7 +58,8 @@
                                     <div class="font-bold text-lg px-12 text-center leading-5">
                                         Cheapest price only on {{ $stores[0]->name }}!
                                     </div>
-                                    <button class="py-1 px-4 text-sm font-bold text-green-600 border-green-600 border-[1px] rounded-md">
+                                    <button
+                                        class="py-1 px-4 text-sm font-bold text-green-600 border-green-600 border-[1px] rounded-md">
                                         Check now
                                     </button>
                                 </div>
@@ -91,11 +87,23 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="text-sm text-gray-700">
+                        Showing {{count($products)}} from {{$productCount}} results for
+                        <b>
+                            "{{ $keyword }}"
+                        </b>
+                    </div>
+                    <div class="justify-start w-fit place-items-start">
+                        {{ $products->links() }}
+                    </div>
                     <div class="flex flex-row flex-wrap gap-3">
                         @foreach($products as $product)
                             <x-product-card :productId="$product->id"/>
                         @endforeach
                     </div>
+
+
                 </div>
             @else
                 <div class="text-sm text-gray-700">
@@ -105,9 +113,11 @@
                     </b>
                 </div>
                 @include('components.product.search-not-found-card')
-                <x-recommended-product :request-count="12"/>
 
             @endif
+            <div class="mt-48">
+                <x-recommended-product :request-count="12"/>
+            </div>
         </div>
         <div id="store-result">
             @if(count($stores) > 0)
@@ -134,6 +144,9 @@
                 @include('components.product.search-not-found-card')
                 <x-recommended-product :request-count="12"/>
             @endif
+            <div class="mt-48">
+                <x-recommended-product :request-count="12"/>
+            </div>
         </div>
 
     </div>
