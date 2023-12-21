@@ -43,7 +43,7 @@ class Navbar extends Component
             $merchant = Merchant::where('user_id', $merchantId)->first();
         }
 
-        $merchantRouteList = ['merchant', 'merchant/chat', 'merchant/add-product', 'merchant/manage-product'];
+        $merchantRouteList = ['merchant', 'merchant/chat', 'merchant/add-product', 'merchant/manage-product', 'merchant/transactions', 'merchant/profile'];
 
         if (Auth::check() && in_array(request()->path(), $merchantRouteList)) {
             $merchantPage = true;

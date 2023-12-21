@@ -11,18 +11,18 @@ class UploadMerchantProfileImage extends Component
 
     public $merchant;
     public $profileImage;
-    public $temporaryProfileImageUrl;
+//    public $temporaryProfileImageUrl;
 
     public function render()
     {
-        if ($this->merchant->image) {
-            $this->profileImage = $this->merchant->image;
-        }
+//        if ($this->merchant->image) {
+//            $this->profileImage = $this->merchant->image;
+//        }
         return view('livewire.upload-merchant-profile-image');
     }
 
-    public function updatedProfileImage()
-    {
-        $this->temporaryProfileImageUrl = $this->profileImage->temporaryUrl();
-    }
+//    public function updatedProfileImage()
+//    {
+//        $this->temporaryProfileImageUrl = $this->profileImage->temporaryUrl();
+//    }
 }

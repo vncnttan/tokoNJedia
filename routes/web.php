@@ -86,6 +86,7 @@ Route::GET('/merchant/add-product', [MerchantController::class, 'addProduct'])->
 Route::GET('/merchant/manage-product', [MerchantController::class, 'manageProduct'])->middleware('auth', 'auth.merchant')->name('merchant-manage-product');
 Route::GET('/merchant/transactions', [MerchantController::class, 'merchantTransactions'])->middleware('auth', 'auth.merchant')->name('merchant-transaction');
 Route::GET('/merchant/profile', [MerchantController::class, 'profile'])->middleware('auth', 'auth.merchant')->name('merchant-profile');
+Route::PATCH('/merchant/profile', [MerchantController::class, 'updateProfile'])->middleware('auth', 'auth.merchant');
 Route::GET('/merchant/{id}', [MerchantController::class, 'homepage'])->middleware('auth', 'auth.merchantExists')->name('merchant-homepage');
 
 // Product Variant

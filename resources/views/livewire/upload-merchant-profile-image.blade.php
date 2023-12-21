@@ -1,9 +1,9 @@
 <div class="w-48 h-48 relative">
-    <img src="{{ $temporaryProfileImageUrl ?? $merchant->image ?? asset('assets/logo/logo.png') }}" alt="Update Merchant Profile Image"
+    <img src="{{ $profileImage ? $profileImage->temporaryUrl() : $merchant->image ?? asset('assets/logo/logo.png') }}" alt="Update Merchant Profile Image"
          class="rounded-full object-cover border border-gray-300 w-full h-full">
 
     <label>
-        <input wire:model="profileImage" name="profileImage" type="file" accept="image/*" class="hidden">
+        <input wire:file="profileImage" wire:model="profileImage" name="profileImage" type="file" accept="image/*" class="hidden">
         <button type="button" id="uploadButton" class="absolute bottom-0 right-0 p-2 !bg-gray-300 rounded-full hover:!bg-gray-400">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" data-slot="icon" class="w-8 h-8">

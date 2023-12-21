@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class MerchantController extends Controller
 {
@@ -85,6 +86,71 @@ class MerchantController extends Controller
 
         toastr()->success("Success To Open A Merchant", '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
         return redirect('/merchant');
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $messages = [
+            'required' => "All Fields Must Be Filled",
+            'name.min' => "Merchant Name Must Be At Least 3 Characters",
+            'name.max' => "Merchant Name Must Not More Than 25 Characters",
+            'process_time.min' => "Process Time Must Be At Least 5 Characters",
+            'process_time.max' => "Process Time Must Not More Than 10 Characters",
+            'operationalTime.min' => "Operational Time Must Be At Least 5 Characters",
+            'operationalTime.max' => "Operational Time Must Not More Than 30 Characters",
+            'status.in' => "Status Must Be Online, Offline, Or Closed",
+            'description.max' => "Description Must Not More Than 200 Characters",
+            'profileImage.image' => "Image Must Be An Image",
+            'profileImage.mimes' => "Image Must Be A File Of Type: jpeg, png, jpg, gif, svg",
+            'profileImage.max' => "Image Must Not More Than 2MB",
+            'bannerImage.image' => "Image Must Be An Image",
+            'bannerImage.mimes' => "Image Must Be A File Of Type: jpeg, png, jpg, gif, svg",
+            'bannerImage.max' => "Image Must Not More Than 2MB",
+            'catchphrase.max' => "Catch Phrase Must Not More Than 50 Characters",
+            'desc.max' => "Full Description Must Not More Than 250 Characters",
+            'fullDescription.max' => "Full Description Must Not More Than 250 Characters",
+        ];
+        $validate = Validator::make($request->all(), [
+            'name' => ['required', 'min:3', 'max:25'],
+            'processTime' => ['required', 'min:5', 'max:10'],
+            'operationalTime' => ['required', 'min:5', 'max:30'],
+            'status' => ['required', Rule::in(['Online', 'Offline', 'Closed'])],
+            'description' => ['max:200'],
+            'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'bannerImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'catchphrase' => ['max:50'],
+            'desc' => ['max:250'],
+            'fullDescription' => ['max:250'],
+        ], $messages);
+
+        if ($validate->fails()) {
+            toastr()->error($validate->errors()->first(), '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+            return redirect()->back()->withErrors($validate)->withInput($request->input);
+        }
+
+//        dd($request->all());
+
+        $merchant = Auth::user()->Merchant;
+        $merchant->name = $request->name;
+        $merchant->process_time = $request->processTime;
+        $merchant->operational_time = $request->operationalTime;
+        $merchant->status = $request->status;
+        $merchant->description = $request->desc ?? "";
+        $merchant->catch_phrase = $request->catchphrase ?? "";
+        $merchant->full_description = $request->fullDescription ?? "";
+
+
+        if ($request->hasFile('profileImage')) {
+            $profileImage = $request->file('profileImage');
+            $profileImageName = time() . '-' . $profileImage->getClientOriginalName();
+            $profileImage->move(public_path('storage/merchant/profile'), $profileImageName);
+            $merchant->image = $profileImageName;
+        }
+
+        $merchant->save();
+
+        toastr()->success("Success To Update Profile", '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
+        return redirect('/merchant/'.$merchant->id);
     }
 
     public function chat()
