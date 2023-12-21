@@ -48,10 +48,10 @@
                 </div>
 
                 <div class="flex flex-row flex-wrap gap-1">
-                    @foreach($product->productVariants as $variant)
+                    @foreach($product->productVariants as $index => $variant)
                         <button
                             id="variant_{{ $variant->id }}"
-                            class="variant-button py-2 px-4 rounded-2xl border-[1px] text-gray-500 hover:text-green-600 hover:border-green-600"
+                            class="variant-button {{ $index === 0 ? 'active' : '' }} py-2 px-4 rounded-2xl border-[1px] text-gray-500 hover:text-green-600 hover:border-green-600"
                             onclick="updateVariantDisplay('{{ $variant->id }}', '{{ $variant->name }}', '{{ $variant->price }}', this, '{{ $variant->stock }}')">
                             {{ $variant->name }}
                         </button>
@@ -261,6 +261,11 @@
             if (quantity === stock - 1) {
                 document.getElementById("add_btn").disabled = false;
             }
+
+            let defaultButton = document.querySelector('.variant-button.active');
+            if (defaultButton) {
+                defaultButton.click();
+            }
         }
     }
 
@@ -274,6 +279,11 @@
             }
             if (quantity === 2) {
                 document.getElementById("subtract_btn").disabled = false;
+            }
+
+            let defaultButton = document.querySelector('.variant-button.active');
+            if (defaultButton) {
+                defaultButton.click();
             }
         }
     }
@@ -330,6 +340,7 @@
             button.classList.toggle('bg-green-100', button === clickedBtn);
             button.classList.toggle('border-gray-500', button !== clickedBtn);
             button.classList.toggle('text-gray-500', button !== clickedBtn);
+            button.classList.toggle('active', button === clickedBtn);
         });
 
         let isStockAvailable = stock > 0;
