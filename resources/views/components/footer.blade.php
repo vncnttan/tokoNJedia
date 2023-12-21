@@ -102,7 +102,7 @@
                         CX23-1
                     </button>
                 </a>
-                <a href="https://www.instagram.com/jer.myst/" class="hover:text-green-600 text-sm" target="_blank">
+                <a href="https://www.instagram.com/jermyst/" class="hover:text-green-600 text-sm" target="_blank">
                     <button class="text-left">
                         MY23-1
                     </button>
