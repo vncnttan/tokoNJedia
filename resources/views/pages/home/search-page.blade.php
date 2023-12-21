@@ -37,7 +37,7 @@
             @if(count($products) > 0)
                 <div class="flex flex-col gap-3">
                     @if(count($stores) > 0)
-                        <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row p-4 mb-10">
+                        <div class="w-full h-full rounded-lg shadow-card gap-10 flex flex-row p-4">
                             <a href="/merchant/{{ $stores[0]->id }}" class="h-fit flex-grow">
                                 <div
                                     class="h-80 md:h-80 w-full flex flex-col p-2 justify-center place-items-center gap-5">
