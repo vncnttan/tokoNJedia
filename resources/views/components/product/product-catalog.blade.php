@@ -293,8 +293,6 @@
         variant_id = variantID;
         stock = parseInt(variantStock);
 
-        {{ dd(getProductAfterPromo($product->productVariants[0])) }}
-
         let stockDisplay = document.getElementById("stockDisplay");
         let variantTextDisplay = document.getElementById("variantTextDisplay");
         let priceTextDisplay = document.getElementById("priceTextDisplay");
