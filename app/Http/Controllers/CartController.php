@@ -57,7 +57,10 @@ class CartController extends Controller
         Cart::where('user_id', $user_id)->where('product_id', $product_id)
             ->update(['quantity' => $quantity]);
 
-        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get());
+        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get()->map(function ($cart) {
+            $cart->promoInformation = getProductAfterPromo($cart->variant_id);
+            return $cart;
+        }));
     }
 
     public function deleteCart(Request $request): JsonResponse
@@ -67,7 +70,10 @@ class CartController extends Controller
 
         Cart::where('user_id', $user_id)->where('product_id', $product_id)->delete();
         toastr()->success('Item deleted from cart', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
-        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get());
+        return response()->json(Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'productVariant'])->get()->map(function ($cart) {
+            $cart->promoInformation = getProductAfterPromo($cart->variant_id);
+            return $cart;
+        }));
     }
 
     public function shipment() {

@@ -34,15 +34,21 @@
                                         {{ $cart->product->name }}
                                     </div>
 
-                                    <div class="font-bold">
-                                        Rp {{ formatPrice($cart->promoInformation->discountedPrice) }}
-                                    </div>
-                                    <div class="flex gap-1">
+                                    @if ($cart->promoInformation->promoName != null)
+                                        <div class="font-bold">
+                                            Rp{{ formatPrice($cart->promoInformation->discountedPrice) }}
+                                        </div>
+                                        <div class="flex gap-1">
                                         <span class="line-through text-gray-400 text-xs">
-                                            Rp {{ formatPrice($cart->productVariant->price) }}
+                                            Rp{{ formatPrice($cart->productVariant->price) }}
                                         </span>
-                                        <span class="text-xs text-red-500 font-bold">{{ $cart->promoInformation->discount }}%</span>
-                                    </div>
+                                            <span class="text-xs text-red-500 font-bold">{{ $cart->promoInformation->discount }}%</span>
+                                        </div>
+                                    @else
+                                        <div class="font-bold">
+                                            Rp{{ formatPrice($cart->productVariant->price) }}
+                                        </div>
+                                    @endif
 
                                     {{--                                    {{ $cart->promoInformation }}--}}
                                 </div>
@@ -149,15 +155,17 @@
         }
 
         function updateSummary() {
-            let totalPrice = 0;
+            if (carts.length > 0) {
+                let totalPrice = 0;
 
-            carts.forEach(cart => {
-                totalPrice += cart.promoInformation.discountedPrice * cart.quantity;
-            });
+                carts.forEach(cart => {
+                    totalPrice += cart.promoInformation.discountedPrice * cart.quantity;
+                });
 
-            totalPrice = Math.ceil(totalPrice);
-            document.getElementById('totalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());
-            document.getElementById('grandTotalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());
+                totalPrice = Math.ceil(totalPrice);
+                document.getElementById('totalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());
+                document.getElementById('grandTotalPriceDisplay').innerText = 'Rp' + formatPriceJS(totalPrice.toString());
+            }
         }
 
         function deleteItem(productId) {

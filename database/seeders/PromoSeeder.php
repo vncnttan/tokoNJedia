@@ -31,7 +31,7 @@ class PromoSeeder extends Seeder
         Promo::factory()->state(
             [
                 'promo_name' => "Driver's Night",
-                'promo_image' => "https://m.media-amazon.com/images/M/MV5BMTU4MjUyOTczOF5BMl5BanBnXkFtZTcwNTE0MjQyNg@@._V1_QL75_UX500_CR0,46,500,281_.jpg",
+                'promo_image' => "https://img.mensxp.com/media/content/2014/Oct/reasonswhyalatenightdriveismostawesomethingeverh_1412682663.jpg",
                 'promo_description' => "Sale on driving products."
             ])->create();
 
