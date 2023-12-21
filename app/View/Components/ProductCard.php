@@ -30,6 +30,16 @@ class ProductCard extends Component
         $this->productPromo = ProductPromo::find($productPromoId);
         $this->flashSalePromo = FlashSaleProduct::find($flashSalePromoId);
 
+        if ($this->flashSalePromo != null) {
+            $startDate = \DateTime::createFromFormat("Y-m-d H:i:s", $this->flashSalePromo->start_date);
+            $endDate = \DateTime::createFromFormat("Y-m-d H:i:s", $this->flashSalePromo->end_date);
+            $now = new \DateTime();
+
+            if ($now < $startDate || $now > $endDate) {
+                $this->flashSalePromo = null;
+            }
+        }
+
         $this->product->image = $this->product->productImages->first()->image ?? 'https://via.placeholder.com/150';
         $this->product->price = $this->product->productVariants->first()->price ?? 0;
     }

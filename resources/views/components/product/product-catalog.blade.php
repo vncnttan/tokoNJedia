@@ -293,6 +293,8 @@
         variant_id = variantID;
         stock = parseInt(variantStock);
 
+        {{ dd(getProductAfterPromo($product->productVariants[0])) }}
+
         let stockDisplay = document.getElementById("stockDisplay");
         let variantTextDisplay = document.getElementById("variantTextDisplay");
         let priceTextDisplay = document.getElementById("priceTextDisplay");
@@ -312,14 +314,17 @@
         stockDisplay.classList.toggle('text-orange-500', stock <= 10);
         stockDisplay.classList.toggle('text-black-500', stock > 10);
 
-        const discountedPrice = `${Math.ceil(variantPrice - (variantPrice * (discount / 100)))}`;
-
         variantTextDisplay.textContent = variantName;
         priceTextDisplay.textContent = formatPriceJS(variantPrice);
-        checkoutPriceDisplay.textContent = formatPriceJS(discountedPrice);
-        checkoutOriginalPriceDisplay.textContent = formatPriceJS(variantPrice);
-        priceAfterDiscountTextDisplay.textContent = formatPriceJS(discountedPrice);
-        discountTextDisplay.textContent = discount + '%';
+        checkoutPriceDisplay.textContent = formatPriceJS(`${variantPrice * quantity}`);
+
+        if (discount > 0) {
+            const discountedPriceValue = Math.ceil(variantPrice - (variantPrice * (discount / 100)));
+            checkoutPriceDisplay.textContent = formatPriceJS(`${discountedPriceValue * quantity}`);
+            checkoutOriginalPriceDisplay.textContent = formatPriceJS(variantPrice);
+            priceAfterDiscountTextDisplay.textContent = formatPriceJS(`${discountedPriceValue}`);
+            discountTextDisplay.textContent = discount + '%';
+        }
 
         document.querySelectorAll('.variant-button').forEach(button => {
             button.classList.toggle('border-green-600', button === clickedBtn);
