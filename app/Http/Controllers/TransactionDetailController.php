@@ -42,6 +42,7 @@ class TransactionDetailController extends Controller
             return redirect()->back()->withErrors($validate->errors())->withInput();
         }
 
+
         foreach ($details as $detail) {
             if (!Shipment::find($detail['shipmentId'])) {
                 toastr()->error('Shipment not found');
@@ -67,16 +68,21 @@ class TransactionDetailController extends Controller
 
             $variant = ProductVariant::where('id', $detail["variantId"])->first();
 
+            $promoInformation = getProductAfterPromo($detail["variantId"]);
+
             $transactionDetail = new TransactionDetail();
             $transactionDetail->transaction_id = $transactionId;
             $transactionDetail->product_id = $detail["productId"];
             $transactionDetail->variant_id = $detail["variantId"];
             $transactionDetail->shipment_id = $shipmentId;
             $transactionDetail->status = 'Pending';
-            $transactionDetail->price = $variant->price;
-            $transactionDetail->total_paid = calculateTotalPrice($cart->price,
-                                            $cart->quantity, $detail["merchantId"],
-                                            $request->location_id, $shipmentId, getMaximumDiscount($detail["productId"]));
+            $transactionDetail->price = $promoInformation->discountedPrice;
+            $transactionDetail->total_paid = calculateTotalPrice(
+                                                $promoInformation->discountedPrice,
+                                                $cart->quantity, $detail["merchantId"],
+                                                $request->location_id, $shipmentId,
+                                                getMaximumDiscount($detail["productId"])
+                                            );
             $transactionDetail->discount = getMaximumDiscount($detail["productId"]);
             $transactionDetail->quantity = $cart->quantity;
             $transactionDetail->save();

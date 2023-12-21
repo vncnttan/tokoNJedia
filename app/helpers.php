@@ -97,7 +97,7 @@ if (!function_exists("getPriceAfterMaxPromo")) {
 if (!function_exists("getMaximumDiscount")) {
     function getMaximumDiscount($productId)
     {
-        $promo = ProductPromo::where('product_id', $productId)->orderBy('dicount', 'desc')->first();
+        $promo = ProductPromo::where('product_id', $productId)->orderBy('discount', 'desc')->first();
         $flashSale = FlashSaleProduct::where('product_id', $productId)->orderBy('discount', 'desc')->first();
 
         $discount = 0;

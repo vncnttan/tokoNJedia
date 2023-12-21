@@ -84,7 +84,13 @@
                                             </div>
                                         </div>
                                         <div class="text-gray-500">
-                                            {{ $t->quantity }} pcs x Rp{{ formatPrice($t->productVariant->price) }}
+                                            {{ $t->quantity }} pcs x Rp{{ formatPrice($t->price) }}
+                                        </div>
+                                        <div class="flex flex-row gap-1 place-items-center">
+                                            <span class="line-through text-gray-400 text-xs">
+                                                Rp {{ formatPrice($t->price) }}
+                                            </span>
+                                            <span class="text-xs text-gray-500 bg-gray-100 p-0.5 rounded-md font-bold">{{ $t->discount }}%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -94,13 +100,7 @@
                                         Total Price
                                     </div>
                                     <div class="font-bold">
-                                        Rp. {{ formatPrice($t->productVariant->price * $t->quantity + shipmentPriceCalculate(
-                                                                                                $t->transactionHeader->location['latitude'],
-                                                                                                $t->transactionHeader->location['longitude'],
-                                                                                                $t->product->merchant->location->first()->latitude,
-                                                                                                $t->product->merchant->location->first()->longitude,
-                                                                                                $t->shipment->base_price,
-                                                                                                $t->shipment->variable_price) )}}
+                                        Rp. {{ formatPrice($t->total_paid )}}
                                     </div>
                                 </div>
                             </a>

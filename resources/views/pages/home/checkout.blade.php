@@ -25,8 +25,8 @@
             </div>
             <div>
                 <button
-                        class="font-semibold text-gray-600 border-[1px] border-gray-500 border-opacity-30 p-2 px-4 rounded-lg"
-                        onclick="chooseOtherLocation()">
+                    class="font-semibold text-gray-600 border-[1px] border-gray-500 border-opacity-30 p-2 px-4 rounded-lg"
+                    onclick="chooseOtherLocation()">
                     Choose other address
                 </button>
             </div>
@@ -39,7 +39,7 @@
                             <div class="flex flex-col">
                                 <div class="font-bold text-base"> {{ $cart->product->merchant->name }}</div>
                                 <div
-                                        class="text-sm text-gray-600"> {{ $cart->product->merchant->location[0]->city }}</div>
+                                    class="text-sm text-gray-600"> {{ $cart->product->merchant->location[0]->city }}</div>
                             </div>
                             <div class="flex flex-row gap-4">
                                 <img src="{{ $cart->product->productImages[0]->image }}"
@@ -48,8 +48,15 @@
                                 <div class="flex flex-col">
                                     <div class="text-base">{{ $cart->product->name }}</div>
                                     <div class="text-sm text-gray-600"> {{ $cart->quantity }} item</div>
-                                    <div class="text-lg font-bold">
-                                        Rp{{ formatPrice($cart->productVariant->price) }}</div>
+                                    <div class="font-bold text-lg">
+                                        Rp {{ formatPrice($cart->promoInformation->discountedPrice) }}
+                                    </div>
+                                    <div class="flex gap-1">
+                                        <span class="line-through text-gray-400 text-xs">
+                                            Rp {{ formatPrice($cart->productVariant->price) }}
+                                        </span>
+                                        <span class="text-xs text-red-500 font-bold">{{ $cart->promoInformation->discount }}%</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +116,7 @@
                     <span id="totalShipmentProduct">a</span>
                 </div>
                 <div
-                        class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
+                    class="border-t-[1px] border-gray-500 border-opacity-20 py-3 flex flex-row justify-between font-bold text-lg">
                     <span>Shopping Total</span>
                     <span id="totalDisplay"></span>
                 </div>
@@ -127,8 +134,8 @@
     </div>
     <div class="w-full flex border-t-[1px] border-gray-400">
         <div
-                class="text-gray-800 p-4 w-full mx-auto relative flex flex-row gap-2 justify-start place-items-center text-opacity-50 font-bold"
-                style="max-width: 1080px;">
+            class="text-gray-800 p-4 w-full mx-auto relative flex flex-row gap-2 justify-start place-items-center text-opacity-50 font-bold"
+            style="max-width: 1080px;">
             <img src="{{ asset('assets/logo/ic-toped.jpg') }}" alt="Checkout Footer" class="h-12 w-12"/>
             © 2009 - 2023
         </div>
@@ -175,8 +182,8 @@
             let subtotal = 0;
             let count = 0;
             @foreach($carts as $cart)
-                subtotal += {{ $cart->productVariant->price }} * {{ $cart->quantity }};
-            count += 1;
+                subtotal += {{ ceil($cart->promoInformation->discountedPrice) }} * {{ $cart->quantity }};
+                count += 1;
             @endforeach
 
             document.getElementById('subtotalDisplay').innerHTML = 'Rp' + formatPriceJS(subtotal.toString());
