@@ -2,7 +2,9 @@
 
 namespace App\View\Components;
 
+use App\Models\FlashSaleProduct;
 use App\Models\Product;
+use App\Models\ProductPromo;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,8 +20,11 @@ class ProductCatalog extends Component
      */
     public $product;
     public $following;
+    public $productPromo;
+    public $flashSalePromo;
+    public $discount;
 
-    public function __construct($productId)
+    public function __construct($productId, $productPromoId = null, $flashSalePromoId = null)
     {
         $this->product = Product::with(['productVariants', 'reviews', 'merchant'])
             ->where('id', $productId)
@@ -27,6 +32,22 @@ class ProductCatalog extends Component
                 $query->select(DB::raw("SUM(quantity)"));
             }])
             ->first();
+
+        $this->productPromo = ProductPromo::find($productPromoId);
+        $this->flashSalePromo = FlashSaleProduct::find($flashSalePromoId);
+
+        if ($this->productPromo && $this->flashSalePromo) {
+            if ($this->productPromo->discount > $this->flashSalePromo->discount) {
+                $this->discount = $this->productPromo->discount;
+            } else if ($this->flashSalePromo->discount > $this->productPromo->discount) {
+                $this->discount = $this->flashSalePromo->discount;
+            }
+        } else if ($this->productPromo) {
+            $this->discount = $this->productPromo->discount;
+        } else if ($this->flashSalePromo) {
+            $this->discount = $this->flashSalePromo->discount;
+        }
+
         $this->following = auth()->check() ? auth()->user()->following->contains($this->product->merchant_id) : false;
         $this->product->average_review = round($this->product->reviews->avg('review') ?? 0, 2);
         $this->product->review_count = $this->product->reviews->count() ?? 0;

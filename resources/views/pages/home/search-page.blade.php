@@ -71,7 +71,11 @@
                             <div class="sm:flex hidden flex-row flex-wrap gap-3">
                                 <div class="2xl:flex flex-row flex-wrap gap-3 hidden">
                                     @foreach($stores[0]->products->slice(0, 2) as $product)
-                                        <x-product-card :productId="$product->id"/>
+                                        <x-product-card
+                                            :productId="$product->id"
+                                            :productPromoId="getMaximumPromo($product->id)"
+                                            :flashSalePromoId="getMaximumPromo($product->id)"
+                                        />
                                     @endforeach
                                 </div>
                                 <a href="/merchant/{{ $stores[0]->id }}/products">

@@ -23,10 +23,24 @@
 {{--                    </div>--}}
                 </div>
             </div>
-            <div>
-                <div class="text-4xl font-bold">
-                    Rp <span id="priceTextDisplay"></span>
-                </div>
+            <div class="flex flex-col gap-2">
+                @if ($productPromo != null || $flashSalePromo != null)
+                    <div class="text-4xl font-bold">
+                        Rp<span id="priceAfterDiscountTextDisplay"></span>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <div class="text-xs flex items-center bg-red-200 p-1 text-red-600 font-bold rounded">
+                            <span id="discountTextDisplay"></span>
+                        </div>
+                        <div class="text-promo font-medium text-md line-through text-gray-400 flex items-center">
+                            Rp<span id="priceTextDisplay"></span>
+                        </div>
+                    </div>
+                @else
+                    <div class="text-4xl font-bold">
+                        Rp<span id="priceTextDisplay"></span>
+                    </div>
+                @endif
             </div>
             <div class="border-y-2 py-4 border-gray-50 flex flex-col gap-4 mt-4">
                 <div class="font-bold text-lg">
@@ -94,6 +108,15 @@
         </div>
         <div class="h-50vh relative">
             <div class="sticky h-fit right-0 w-80 top-[140px] flex flex-col gap-5 float-left">
+                @if ($productPromo != null)
+                    <div class="rounded-xl py-3 px-4 text-white font-bold" style="background: linear-gradient(90deg,#007248 0%,#09ab67 100%)">
+                        {{ $productPromo->Promo->promo_name }}
+                    </div>
+                @elseif ($flashSalePromo != null)
+                    <div class="rounded-xl py-3 px-4 text-white font-bold" style="background: linear-gradient(90deg,#007248 0%,#09ab67 100%)">
+                        Flash Sale
+                    </div>
+                @endif
                 <div class="rounded-xl border-gray-300 border-[1px] p-4 flex flex-col gap-4">
                     <h1 class="font-bold text-lg">Atur Jumlah dan Catatan</h1>
                     <div class="flex flex-row gap-4 place-items-center">
@@ -125,11 +148,13 @@
                     <div class="text-gray-500 text-lg place-items-end flex flex-row justify-between">
                         Subtotal
                         <div class="flex flex-col place-items-end">
-                            <div class="text-promo font-medium text-sm line-through text-gray-400">
-                                Rp. 100.000
-                            </div>
+                            @if ($productPromo != null || $flashSalePromo != null)
+                                <div class="text-promo font-medium text-sm line-through text-gray-400">
+                                    Rp<span id="checkoutOriginalPriceTextDisplay"></span>
+                                </div>
+                            @endif
                             <div class="text-xl font-bold text-black">
-                                Rp. <span id="checkoutPriceDisplay"></span>
+                                Rp<span id="checkoutPriceDisplay"></span>
                             </div>
                         </div>
                     </div>
@@ -258,6 +283,7 @@
     let variant_id;
     let product_id = '{{ $product->id }}';
     let loggedIn = {!! json_encode((bool) $isLoggedIn) !!};
+    let discount = {{ $discount ?? 0 }};
 
     function formatPriceJS(price) {
         return price.replace(/\d(?=(\d{3})+$)/g, '$&.');
@@ -272,13 +298,28 @@
         let priceTextDisplay = document.getElementById("priceTextDisplay");
         let checkoutPriceDisplay = document.getElementById("checkoutPriceDisplay");
 
+        let checkoutOriginalPriceDisplay = null;
+        let priceAfterDiscountTextDisplay = null;
+        let discountTextDisplay = null;
+
+        if (discount > 0) {
+            checkoutOriginalPriceDisplay = document.getElementById("checkoutOriginalPriceTextDisplay");
+            priceAfterDiscountTextDisplay = document.getElementById("priceAfterDiscountTextDisplay");
+            discountTextDisplay = document.getElementById("discountTextDisplay");
+        }
+
         stockDisplay.textContent = stock <= 0 ? "Out stock" : stock < 10 ? "Sisa " + stock : stock;
         stockDisplay.classList.toggle('text-orange-500', stock <= 10);
         stockDisplay.classList.toggle('text-black-500', stock > 10);
 
+        const discountedPrice = `${Math.ceil(variantPrice - (variantPrice * (discount / 100)))}`;
+
         variantTextDisplay.textContent = variantName;
         priceTextDisplay.textContent = formatPriceJS(variantPrice);
-        checkoutPriceDisplay.textContent = formatPriceJS(variantPrice);
+        checkoutPriceDisplay.textContent = formatPriceJS(discountedPrice);
+        checkoutOriginalPriceDisplay.textContent = formatPriceJS(variantPrice);
+        priceAfterDiscountTextDisplay.textContent = formatPriceJS(discountedPrice);
+        discountTextDisplay.textContent = discount + '%';
 
         document.querySelectorAll('.variant-button').forEach(button => {
             button.classList.toggle('border-green-600', button === clickedBtn);
