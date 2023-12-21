@@ -31,11 +31,10 @@ class ProductCard extends Component
         $this->flashSalePromo = FlashSaleProduct::find($flashSalePromoId);
 
         if ($this->flashSalePromo != null) {
-            $startDate = \DateTime::createFromFormat("Y-m-d H:i:s", $this->flashSalePromo->start_date);
-            $endDate = \DateTime::createFromFormat("Y-m-d H:i:s", $this->flashSalePromo->end_date);
-            $now = new \DateTime();
+            date_default_timezone_set('Asia/Jakarta');
+            $currentHour = date('G');
 
-            if ($now < $startDate || $now > $endDate) {
+            if ($currentHour < 22 || $currentHour > 24) {
                 $this->flashSalePromo = null;
             }
         }
