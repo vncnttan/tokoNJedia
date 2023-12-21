@@ -16,8 +16,11 @@ class CartController extends Controller
 {
     public function index(): Factory|View|Application
     {
-
-        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.productImages', 'ProductVariant'])->get();
+        $carts = Cart::where('user_id', auth()->user()->id)->with(['product', 'product.merchant', 'product.productImages', 'ProductVariant'])->get()
+        ->map(function ($cart) {
+            $cart->promoInformation = getProductAfterPromo($cart->variant_id);
+            return $cart;
+        });
         return view('pages.home.cart', ['carts' => $carts]);
     }
 

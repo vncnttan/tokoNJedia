@@ -152,7 +152,7 @@ if (!function_exists('getProductAfterPromo')) {
     function getProductAfterPromo($productVariantId)
     {
         $productVariant = ProductVariant::find($productVariantId);
-        $product = Product::find($productVariant[0]->product_id);
+        $product = Product::find($productVariant->product_id);
         $maxPromoId = getMaximumPromo($product->id);
 
         $productPromo = ProductPromo::find($maxPromoId);
@@ -160,15 +160,15 @@ if (!function_exists('getProductAfterPromo')) {
 
         if ($productPromo) {
             $product->discount = $productPromo->discount;
-            $product->discountedPrice = $productVariant[0]->price - ($productVariant[0]->price * $productPromo->discount / 100);
+            $product->discountedPrice = $productVariant->price - ($productVariant->price * $productPromo->discount / 100);
             $product->promoName = $productPromo->Promo->promo_name;
         } else if ($flashSaleProduct) {
             $product->discount = $flashSaleProduct->discount;
-            $product->discountedPrice = $productVariant[0]->price - ($productVariant[0]->price * $flashSaleProduct->discount / 100);
+            $product->discountedPrice = $productVariant->price - ($productVariant->price * $flashSaleProduct->discount / 100);
             $product->promoName = 'Flash Sale';
         } else {
             $product->discount = 0;
-            $product->discountedPrice = $productVariant[0]->price;
+            $product->discountedPrice = $productVariant->price;
             $product->promoName = null;
         }
 

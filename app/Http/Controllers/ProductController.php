@@ -11,9 +11,7 @@ use App\Services\StorageService;
 use App\View\Components\RecommendedProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
