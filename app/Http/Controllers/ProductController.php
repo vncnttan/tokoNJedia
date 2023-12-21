@@ -112,9 +112,10 @@ class ProductController extends Controller
 
     public function search($keyword)
     {
-        $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
+        $products = Product::where('name', 'like', '%' . $keyword . '%')->simplePaginate(12);
+        $productCount = Product::where('name', 'like', '%' . $keyword . '%')->count();
         $stores = Merchant::with(['products'])->where('name', 'like', '%' . $keyword . '%')->get();
-        return view('pages.home.search-page', compact('products', 'keyword', 'stores'));
+        return view('pages.home.search-page', compact('products', 'keyword', 'stores', 'productCount'));
     }
 
     public function lazyLoad(Request $request)

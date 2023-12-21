@@ -1,5 +1,5 @@
 <a href="/product-detail/{{ $product->id }}" class="z-10 bg-white rounded-md">
-    <div class="w-36 min-h-80 md:w-48 md:min-h-80 rounded-md shadow-md flex flex-col">
+    <div class="w-36 min-h-[320px] md:w-48 md:min-h-[320px] rounded-md shadow-md flex flex-col">
         <img src="{{ $product->image }}" alt="{{ $product->name }}"
             class="h-36 md:h-48 rounded-t-md w-full object-cover" />
         @if ($productPromo != null)

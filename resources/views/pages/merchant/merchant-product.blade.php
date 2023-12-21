@@ -1,6 +1,6 @@
 @extends('templates.template')
 
-@section('title', 'Cart')
+@section('title', 'Merchant Product')
 
 @section('content')
     <div class="2xl:px-80 xl:px-48 w-full pt-6 gap-8 pb-10 px-2 flex flex-col">
@@ -28,6 +28,15 @@
                     @foreach($products as $product)
                         <x-product-card :productId="$product->id"/>
                     @endforeach
+                    @if($products->count() < 1)
+                        <div class="flex flex-row gap-12 p-12 place-items-center">
+                            <img alt="" src="{{ asset('assets/general/no-item-product.png') }}" class="p-42 h-42">
+                            <div class="flex flex-col gap-2">
+                                <h1 class="font-bold text-2xl"> This store has no product yet </h1>
+                                <p class="text-md"> Please be patient, the store is getting ready to create a wonderful experience for you </p>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

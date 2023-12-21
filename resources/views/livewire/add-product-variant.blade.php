@@ -4,12 +4,11 @@
             <h1 class="w-full text-2xl font-bold text-black">Product Variant</h1>
             <p>Add variant so that customer can choose the right product. Enter max. 5 types of variants</p>
         </div>
-
     </div>
 
     <div class="relative w-full flex flex-col flex-wrap justify-center items-start gap-4">
         @foreach ($variants as $index => $variant)
-            <hr class="w-full bg-gray-300">
+            <hr class="w-full !bg-gray-100 bg-opacity-20" style="color: #d1d5db">
             <h1 class="text-lg font-bold text-black">Product Variant {{ $index + 1 }}</h1>
             <div class="w-full flex justify-between items-center gap-4 flex-col sm:flex-row">
                 <div class="w-full sm:w-96 flex flex-col justify-start text-start items-center gap-2 flex-wrap">
