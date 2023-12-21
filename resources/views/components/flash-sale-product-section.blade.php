@@ -6,7 +6,7 @@
             <h1 class="text-4xl font-bold">Chasing Old Date Discount</h1>
         </div>
         <div class="flex flex-row gap-2 place-items-end">
-            <div class="text-gray-500">
+            <div class="text-gray-500" id="timer-text">
                 Ends in
             </div>
             <div class="flex flex-row gap-1 place-items-center">
@@ -62,8 +62,10 @@
             document.getElementById('hour-count-down').classList.remove('bg-gray-400');
             document.getElementById('minute-count-down').classList.remove('bg-gray-400');
             document.getElementById('second-count-down').classList.remove('bg-gray-400');
+            document.getElementById('timer-text').innerHTML = "Ends in"
         } else {
             timeDifference = startTime - currentTime;
+            document.getElementById('timer-text').innerHTML = "Starts in"
             document.getElementById('hour-count-down').classList.add('bg-gray-400');
             document.getElementById('minute-count-down').classList.add('bg-gray-400');
             document.getElementById('second-count-down').classList.add('bg-gray-400');

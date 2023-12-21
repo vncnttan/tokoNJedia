@@ -26,7 +26,7 @@
             </div>
         @endif
     </div>
-    <div class="flex flex-col py-2">
+    <div class="flex flex-col">
         <div class="font-bold text-sm">
             REVIEWS
         </div>
@@ -159,7 +159,7 @@
         </div>
         @if($reviews->count() == 0)
             <div
-                class="flex flex-col xl:flex-row w-full mt-2 gap-4 rounded-md place-items-center justify-center py-8 border-gray-500 border p-2">
+                class="flex flex-col xl:flex-row w-full mt-2 gap-4 rounded-md place-items-center justify-center py-8 border-gray-500 border-opacity-30 border p-2">
                 <img src="{{ asset('/assets/general/no-review.png') }}" alt="No Review Yet" class="w-24"/>
                 <div class="flex flex-col">
                     <div class="font-bold text-3xl">

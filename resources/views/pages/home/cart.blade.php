@@ -24,18 +24,21 @@
                             </div>
                         </a>
 
-                        <div class="flex flex-row text-lg gap-3">
-                            <img src="{{$cart->product->productImages[0]->image}}" alt="Product Image"
-                                 class="w-20 h-20 object-cover rounded-md">
-                            <div class="flex flex-col text-base gap-1">
-                                <div>
-                                    {{ $cart->product->name }}
-                                </div>
-                                <div class="font-bold">
-                                    Rp {{ formatPrice($cart->productVariant->price) }}
+
+                        <a href="/product-detail/{{ $cart->product_id }}">
+                            <div class="flex flex-row text-lg gap-3">
+                                <img src="{{$cart->product->productImages[0]->image}}" alt="Product Image"
+                                     class="w-20 h-20 object-cover rounded-md">
+                                <div class="flex flex-col text-base gap-1">
+                                    <div>
+                                        {{ $cart->product->name }}
+                                    </div>
+                                    <div class="font-bold">
+                                        Rp {{ formatPrice($cart->productVariant->price) }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         <div class="flex flex-row justify-end gap-16 text-gray-500">
                             <button onclick="deleteItem('{{ $cart->product->id}}')">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
