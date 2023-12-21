@@ -35,10 +35,10 @@
             <div class="w-52 z-10 h-full place-items-start hidden md:flex flex-col pl-12">
                 <img src="{{ asset('assets/general/flash-sale.webp') }}" alt="flash-sale" class="w-full h-auto"/>
             </div>
-            <div class="md:my-8 flex flex-row flex-wrap gap-3 relative place-items-center">
+            <div class="md:my-8 flex flex-row flex-wrap gap-3 relative place-items-start">
 
                 @foreach($flashSaleProduct as $product)
-                    <x-product-card :productId="$product->id"/>
+                    <x-product-card :productId="$product->id" :flashSalePromoId="getFlashSaleProductId($product->id)" />
                 @endforeach
             </div>
             <div class="hidden md:block absolute bg-green-200 left-0 rounded-xl w-80 h-full"></div>

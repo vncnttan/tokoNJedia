@@ -27,7 +27,7 @@ class ProductCatalog extends Component
                 $query->select(DB::raw("SUM(quantity)"));
             }])
             ->first();
-        $this->following = auth()->user()->Following()->where('merchant_id', $this->product->merchant->id)->first();
+        $this->following = auth()->check() ? auth()->user()->following->contains($this->product->merchant_id) : false;
         $this->product->average_review = round($this->product->reviews->avg('review') ?? 0, 2);
         $this->product->review_count = $this->product->reviews->count() ?? 0;
     }

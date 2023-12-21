@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\FlashSaleProduct;
 use App\Models\Product;
 use App\Models\ProductPromo;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,18 +14,21 @@ class ProductCard extends Component
 {
     public $product;
     public $productPromo;
+    public $flashSalePromo;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($productId, $productPromoId = null)
+    public function __construct($productId, $productPromoId = null, $flashSalePromoId = null)
     {
         $this->product = Product::with(['productImages', 'productVariants', 'Merchant', 'Merchant.Location'])
             ->where('id', $productId)
             ->first();
+
         $this->productPromo = ProductPromo::find($productPromoId);
+        $this->flashSalePromo = FlashSaleProduct::find($flashSalePromoId);
 
         $this->product->image = $this->product->productImages->first()->image ?? 'https://via.placeholder.com/150';
         $this->product->price = $this->product->productVariants->first()->price ?? 0;

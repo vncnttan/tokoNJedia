@@ -10,6 +10,14 @@
                     <p class="text-white text-xs font-bold">{{ $productPromo->Promo->promo_name  }}</p>
                 </div>
             </div>
+        @elseif ($flashSalePromo != null)
+            <div class="relative">
+                <img class="w-full h-6"
+                     src="{{ asset('assets/deals/deals-product-image-accent.png') }}">
+                <div class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-start ps-2">
+                    <p class="text-white text-xs font-bold">Flash Sale</p>
+                </div>
+            </div>
         @endif
         <div class="m-2 flex flex-col gap-0.5">
             <div class="text-md">
@@ -19,13 +27,23 @@
             <div class="text-md">
                 @if ($productPromo != null)
                     <div class="font-bold">
-                        Rp{{ formatPrice(getPriceAfterPromo($product->id, $product->ProductVariants[0]->id, $productPromo->promo_id)) }}
+                        Rp{{ formatPrice(getPriceAfterPromo($product->id, $product->ProductVariants[0]->id, $productPromo->promo_id, 'promo')) }}
                     </div>
                     <div class="flex gap-1">
                         <span class="line-through text-gray-400 text-xs">
                             Rp{{ formatPrice($product->price) }}
                         </span>
-                        <span class="text-xs text-lime-600 font-bold">{{ $productPromo->discount  }}%</span>
+                        <span class="text-xs text-red-500 font-bold">{{ $productPromo->discount  }}%</span>
+                    </div>
+                @elseif ($flashSalePromo != null)
+                    <div class="font-bold">
+                        Rp{{ formatPrice(getPriceAfterPromo($product->id, $product->ProductVariants[0]->id, $flashSalePromo->id, 'flash-sale')) }}
+                    </div>
+                    <div class="flex gap-1">
+                            <span class="line-through text-gray-400 text-xs">
+                                Rp{{ formatPrice($product->price) }}
+                            </span>
+                        <span class="text-xs text-red-500 font-bold">{{ $flashSalePromo->discount }}%</span>
                     </div>
                 @else
                     <div class="font-bold">

@@ -2,7 +2,11 @@
     <h1 class="text-4xl font-bold">Recommended for you</h1>
     <div id="product-container" class="flex flex-wrap gap-3">
         @foreach($recommendedProducts as $product)
-            <x-product-card :productId="$product->id"/>
+            <x-product-card
+                :productId="$product->id"
+                :productPromoId="getMaximumPromo($product->id)"
+                :flashSalePromoId="getMaximumPromo($product->id)"
+            />
         @endforeach
     </div>
     <div class="flex flex-row flex-wrap gap-3">

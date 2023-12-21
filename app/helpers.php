@@ -66,11 +66,17 @@ if (!function_exists('calculateTotalPrice')) {
 
 
 if (!function_exists("getPriceAfterPromo")) {
-    function getPriceAfterPromo($productId, $productVariantId, $promoId): int
+    function getPriceAfterPromo($productId, $productVariantId, $promoId, $source): int
     {
         $product = ProductVariant::find($productVariantId);
         $price = $product->price;
-        $promo = ProductPromo::where('promo_id', 'like', $promoId)->where('product_id', 'like', $productId)->first();
+
+        if ($source == 'promo') {
+            $promo = ProductPromo::where('promo_id', 'like', $promoId)->where('product_id', 'like', $productId)->first();
+        } else if ($source == 'flash-sale') {
+            $promo = FlashSaleProduct::find($promoId);
+        }
+
         $discount = $promo->discount;
 
         return $price - ($price * $discount / 100);
@@ -92,8 +98,8 @@ if (!function_exists("getPriceAfterMaxPromo")) {
 if (!function_exists("getMaximumDiscount")) {
     function getMaximumDiscount($productId)
     {
-        $promo = ProductPromo::where('product_id', $productId)->first();
-        $flashSale = FlashSaleProduct::where('product_id', $productId)->first();
+        $promo = ProductPromo::where('product_id', $productId)->orderBy('dicount', 'desc')->first();
+        $flashSale = FlashSaleProduct::where('product_id', $productId)->orderBy('discount', 'desc')->first();
 
         $discount = 0;
         if ($promo && $flashSale) {
@@ -112,27 +118,34 @@ if (!function_exists("getMaximumDiscount")) {
     }
 }
 
-
-
-if (!function_exists("getMaximumPromoName")) {
-    function getMaximumPromoName($productId)
+if (!function_exists("getFlashSaleProductId")) {
+    function getFlashSaleProductId($productId)
     {
-        $promo = ProductPromo::where('product_id', $productId)->first();
-        $flashSale = FlashSaleProduct::where('product_id', $productId)->first();
+        $flashSale = FlashSaleProduct::where('product_id', $productId)->orderBy('discount', 'desc')->first();
+        return $flashSale->id;
+    }
+}
 
-        $name = "";
+if (!function_exists("getMaximumPromo")) {
+    function getMaximumPromo($productId)
+    {
+        $promo = ProductPromo::where('product_id', $productId)->orderBy('discount', 'desc')->first();
+        $flashSale = FlashSaleProduct::where('product_id', $productId)->orderBy('discount', 'desc')->first();
+
+        $id = null;
         if ($promo && $flashSale) {
             if ($promo->discount > $flashSale->discount) {
-                $name = $promo->name;
+                $id = $promo->id;
             } else if ($flashSale->discount > $promo->discount) {
-                $name = $flashSale->name;
+                $id = $flashSale->id;
             }
         } else if ($promo) {
-            $name = $promo->name;
+            $id = $promo->id;
         } else if ($flashSale) {
-            $name = $flashSale->name;
+            $id = $flashSale->id;
         }
-        return $name;
+
+        return $id;
     }
 }
 
