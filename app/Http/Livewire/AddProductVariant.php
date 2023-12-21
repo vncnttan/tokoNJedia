@@ -9,7 +9,7 @@ class AddProductVariant extends ModalComponent
 {
     public $variants = [];
     public $slot;
-    public function mount($slot = 2)
+    public function mount($slot = 1)
     {
         $this->slot = $slot;
         $this->variants = array_fill(0, $slot, null);

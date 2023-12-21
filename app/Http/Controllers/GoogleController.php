@@ -21,6 +21,7 @@ class GoogleController extends Controller
 //            TODO: Get rid of stateless tapi perlu config
             $user = Socialite::driver('google')->stateless()->user();
             $findUser = User::where('google_id', $user->getId())->first();
+//            dd($findUser);
             if($findUser) {
                 Auth::login($findUser);
             } else {
@@ -31,9 +32,11 @@ class GoogleController extends Controller
                     'google_id' => $user->getId(),
                 ]);
 
-                Auth::login($newUser);
+                $findUser = User::where('google_id', $user->getId())->first();
+
+                Auth::login($findUser);
             }
-            return redirect()->intended('/');
+            return redirect('/');
 
 
         } catch (Exception $e) {
