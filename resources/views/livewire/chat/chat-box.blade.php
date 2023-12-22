@@ -67,22 +67,9 @@
     </div>
 @endif
 <script type="module">
-    document.addEventListener('room-updated', event => {
-        initializeEcho(event.detail.roomId);
-    });
-
-    function initializeEcho(roomId) {
-        if (window.currentEchoChannel) {
-            console.log('leave')
-            window.Echo.leave(`chat.${window.currentEchoChannel}`);
-        }
-        window.currentEchoChannel = roomId;
-        var channel = window.Echo.private(`chat.${roomId}`)
-        channel.listen('.NewChat', function(data) {
-            console.log("testing")
-            window.Livewire.emit('NewChat', data)
-        })
-    }
+    setInterval(function(){
+        window.livewire.emit('hydrate');
+    }, 1000);
     window.addEventListener('rowChatToBottom', event => {
         const container = document.querySelector("#chat-container")
         container.scrollTop = container.scrollHeight;

@@ -8,6 +8,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
@@ -22,6 +23,7 @@ class ChatBox extends Component
     {
         return [
             "NewChat" => "newChat",
+            "hydrate" => "hydrate",
             "roomChanged" => 'onRoomChanged'
         ];
     }
@@ -45,18 +47,23 @@ class ChatBox extends Component
             $this->resetMessage();
             $message->save();
             $this->pushMessage($message);
-            broadcast(new NewChatMessage($message, $this->room, Auth::user()));
         }
     }
-    public function resetMessage(){
-        if(auth()->user()->Merchant != null){
+
+    public function resetMessage()
+    {
+        if (auth()->user()->Merchant != null) {
             if (auth()->user()->Merchant->id != $this->merchant->id) {
                 $this->message = "";
             }
-        }
-        else{
+        } else {
             $this->message = "";
         }
+    }
+
+    public function hydrate()
+    {
+        $this->refreshMessage();
     }
 
     public function newChat($event)
@@ -87,10 +94,13 @@ class ChatBox extends Component
     private function refreshMessage()
     {
         if ($this->room) {
-            $this->messages = $this->room->Messages()->orderBy('created_at', 'asc')->get();
+            $this->messages = $this->room->Messages()->with('Messageable')->orderBy('created_at', 'asc')->get();
+
+
             $this->dispatchBrowserEvent('rowChatToBottom');
         }
     }
+
     public function render()
     {
         return view('livewire.chat.chat-box');

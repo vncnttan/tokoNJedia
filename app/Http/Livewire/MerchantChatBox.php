@@ -9,6 +9,7 @@ use App\Models\Message;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,7 @@ class MerchantChatBox extends Component
     {
         return [
             "NewChat" => "newChat",
+            "hydrate" => "hydrate",
             "roomChanged" => 'onRoomChanged'
         ];
     }
@@ -37,7 +39,7 @@ class MerchantChatBox extends Component
 
     public function send()
     {
-        if($this->message!=null){
+        if ($this->message != null) {
             $message = new Message();
             $message->id = Str::uuid();
             $message->message = $this->message;
@@ -47,17 +49,21 @@ class MerchantChatBox extends Component
             $this->resetMessage();
             $message->save();
             $this->pushMessage($message);
-            broadcast(new NewChatMessage($message, $this->room, Auth::user()));
         }
     }
 
-    public function resetMessage(){
-        if(auth()->user() != null){
+    public function hydrate()
+    {
+        $this->refreshMessage();
+    }
+
+    public function resetMessage()
+    {
+        if (auth()->user() != null) {
             if (auth()->user()->id != $this->user->id) {
                 $this->message = "";
             }
-        }
-        else{
+        } else {
             $this->message = "";
         }
     }
@@ -69,8 +75,7 @@ class MerchantChatBox extends Component
         $user = User::find($event["user"]["id"]);
         if (auth()->user()->id != $user->id) {
             $this->pushMessage($message);
-        }
-        else{
+        } else {
         }
 
     }
@@ -83,18 +88,23 @@ class MerchantChatBox extends Component
         $this->refreshMessage();
     }
 
-    private function pushMessage($message){
+    private function pushMessage($message)
+    {
         $this->messages->push($message);
         $this->dispatchBrowserEvent('rowChatToBottom');
     }
 
-    private function refreshMessage(){
-        if($this->room){
+    private function refreshMessage()
+    {
+        if ($this->room) {
             $this->messages = $this->room->Messages()->with('Messageable')->orderBy('created_at', 'asc')->get();
+
             $this->dispatchBrowserEvent('rowChatToBottom');
         }
     }
-    public function render()
+
+    public
+    function render()
     {
         return view('livewire.merchant.merchant-chat-box');
     }

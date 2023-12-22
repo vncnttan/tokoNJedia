@@ -65,21 +65,10 @@
     </div>
 @endif
 <script type="module">
-    document.addEventListener('room-updated', event => {
-        initializeEcho(event.detail.roomId);
-    });
+    setInterval(function(){
+        window.livewire.emit('hydrate');
+    }, 1000);
 
-    function initializeEcho(roomId) {
-        if (window.currentEchoChannel) {
-            console.log('leave')
-            window.Echo.leave(`chat.${window.currentEchoChannel}`);
-        }
-        window.currentEchoChannel = roomId;
-        var channel = window.Echo.private(`chat.${roomId}`)
-        channel.listen('.NewChat', function(data) {
-            window.Livewire.emit('NewChat', data)
-        })
-    }
     window.addEventListener('rowChatToBottom', event => {
         const container = document.querySelector("#chat-container")
         container.scrollTop = container.scrollHeight;

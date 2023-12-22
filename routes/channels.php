@@ -17,13 +17,3 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('chat', function(){
     return true;
 });
-// Broadcast::channel('chat.{room}', function($rooms, $roomId){
-//     $roomIds = array_column($rooms, 'id');
-//     return in_array($roomId, $roomIds);
-//     // return true;
-// });
-
-Broadcast::channel('chat.{roomId}', function($user, $roomId){
-    $room = Room::find($roomId);
-    return true;
-});
