@@ -47,7 +47,7 @@
 </div>
 <script>
     const currentDate = new Date()
-    const startTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 20, 0, 0).getTime();
+    const startTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 22, 0, 0).getTime();
     const endTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 24, 0, 0).getTime();
 
     function updateCountdown() {

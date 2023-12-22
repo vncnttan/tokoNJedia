@@ -17,6 +17,7 @@ class MerchantFollowerController extends Controller
     }
 
     public function follow (Request $request) {
+        if(!auth()->check()) return redirect()->route('login');
         $user = auth()->user();
         $newFollow = MerchantFollower::where('user_id', $user->id)->where('merchant_id', $request->merchant_id)->first();
         if ($newFollow) {

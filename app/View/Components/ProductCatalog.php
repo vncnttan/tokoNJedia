@@ -48,7 +48,16 @@ class ProductCatalog extends Component
             $this->discount = $this->flashSalePromo->discount;
         }
 
-        $this->following = auth()->check() ? auth()->user()->following->contains($this->product->merchant_id) : false;
+        $this->following = false;
+
+        $followings = auth()->user()->following;
+
+        foreach ($followings as $following) {
+            if ($following->merchant_id == $this->product->merchant_id) {
+                $this->following = true;
+                break;
+            }
+        }
         $this->product->average_review = round($this->product->reviews->avg('review') ?? 0, 2);
         $this->product->review_count = $this->product->reviews->count() ?? 0;
     }
