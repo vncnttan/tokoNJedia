@@ -13,7 +13,7 @@
             />
         </div>
         <div class="w-[75vw] pb-16">
-            <x-recommended-product :request-count="12"/>
+            <x-recommended-product :request-count="14"/>
         </div>
     </div>
 @endsection
