@@ -87,10 +87,13 @@
                                             {{ $t->quantity }} pcs x Rp{{ formatPrice($t->price) }}
                                         </div>
                                         <div class="flex flex-row gap-1 place-items-center">
-                                            <span class="line-through text-gray-400 text-xs">
+                                            @if($t->discount > 1)
+                                                <span class="line-through text-gray-400 text-xs">
                                                 Rp {{ formatPrice($t->price) }}
                                             </span>
-                                            <span class="text-xs text-gray-500 bg-gray-100 p-0.5 rounded-md font-bold">{{ $t->discount }}%</span>
+                                                <span
+                                                    class="text-xs text-gray-500 bg-gray-100 p-0.5 rounded-md font-bold">{{ $t->discount }}%</span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

@@ -20,7 +20,8 @@ class OthersIdMiddleware
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
         if ($request->route('id') == Merchant::where('user_id', auth()->user()->id)->first()?->id) {
-            return redirect('404');
+            toastr()->error('You cannot chat your own store!');
+            return redirect()->back();
         }
         return $next($request);
     }

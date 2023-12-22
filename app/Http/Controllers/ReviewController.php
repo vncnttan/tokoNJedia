@@ -64,6 +64,8 @@ class ReviewController extends Controller
 
         $reviewId = Str::uuid();
 
+//        dd($request->images);
+
         $newReview = new Review();
         $newReview->id = $reviewId;
         $newReview->user_id = auth()->user()->id;
@@ -75,10 +77,12 @@ class ReviewController extends Controller
         $newReview->save();
 
         if ($request->images) {
+            $count = 0;
             foreach ($request->images as $i) {
                 if ($i != null) {
                     $file = $i;
-                    $image_path = "images/review/" . $request->transaction_id . '/' . auth()->user()->id . '/' . $request->product_id;
+                    $image_path = "images/review/" . $request->transaction_id . '/' . auth()->user()->id . '/' . $request->product_id . $count;
+                    $count++;
                     $res = StorageService::uploadFile($image_path, $file);
                     if ($res === null) {
                         toastr()->error('Upload Product Variant Image Failed', '', ['positionClass' => 'toast-bottom-right', 'timeOut' => 3000,]);
