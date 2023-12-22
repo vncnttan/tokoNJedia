@@ -3,6 +3,14 @@
 @tailwind utilities;
 /* @import "flowbite"; */
 
+@layer base {
+    @font-face {
+        font-family: Proxima Nova;
+        font-weight: 400;
+        src: url("../../public/assets/fonts/Mandala/Mandala Regular.otf") format("opentype");
+    }
+}
+
 @layer components {
     .input-style {
         @apply p-2 border border-gray-300 rounded-md focus:outline-none focus:border-green-500 text-sm bg-white text-black placeholder-gray-500

@@ -50,6 +50,10 @@ class ProductCatalog extends Component
 
         $this->following = false;
 
+
+        if(!auth()->user()) {
+            return redirect()->route('login');
+        }
         $followings = auth()->user()->following;
 
         foreach ($followings as $following) {

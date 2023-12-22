@@ -114,7 +114,7 @@ class MerchantController extends Controller
             'name' => ['required', 'min:3', 'max:25'],
             'processTime' => ['required', 'min:5', 'max:10'],
             'operationalTime' => ['required', 'min:5', 'max:30'],
-            'status' => ['required', Rule::in(['Online', 'Offline', 'Closed'])],
+            'status' => ['required', Rule::in(['Online', 'Offline', 'Close'])],
             'description' => ['max:200'],
             'profileImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'bannerImage' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
