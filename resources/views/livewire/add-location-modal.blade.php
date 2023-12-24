@@ -260,7 +260,7 @@
                 console.log("Script Not Found")
                 let script = document.createElement('script');
                 script.id = scriptId;
-                script.src = "https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_KEY') }}&libraries=places&callback=initMap";
+                script.src = "https://maps.googleapis.com/maps/api/js?key={{ config('services.google_map.key', '') }}&libraries=places&callback=initMap";
                 script.async = false;
                 script.defer = false;
                 document.getElementById("scriptContainer").insertBefore(script, document.getElementById("scriptContainer").firstChild);
