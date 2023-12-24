@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: ./
+    restart: unless-stopped
+    ports:
+      - 80:80
+    depends_on:
+      - mysql_db
+    networks:
+      - app-network
+    entrypoint: sh -c "apache2-foreground"
+
+  mysql_db:
+    image: mariadb
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database/schema/wpbp.sql:/docker-entrypoint-initdb.d/wpbp.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: wpbp
+      MYSQL_DATABASE: wpbp
+      MYSQL_USER: wpbp
+      MYSQL_PASSWORD: wpbp
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
