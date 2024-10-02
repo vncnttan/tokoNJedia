@@ -20,8 +20,21 @@ if (!function_exists('formatPrice')) {
 if (!function_exists('getRandomImageURL')) {
     function getRandomImageURL(): string
     {
-        $response = Http::get('https://source.unsplash.com/random');
-        return $response->effectiveUri();
+        $categories = [
+            'Shoes',
+            'Watch',
+            'Jeans',
+            'Clothes',
+            'Bag',
+            'Hat',
+            'Glasses',
+            'Shirt',
+            'Pants',
+            'Jacket'
+        ];
+//         $response = Http::get('https://source.unsplash.com/random/?Product&'.rand(1, 10));
+//        return 'https://source.unsplash.com/random/?'.$categories[rand(0, 9)].'&'.rand(1, 10);
+        return 'https://placehold.co/600x400';
     }
 }
 
